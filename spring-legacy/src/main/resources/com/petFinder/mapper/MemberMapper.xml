@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.petFinder.mapper.MemberMapper">
+
+	<select id = "selectMemberById" resultType = "MemberVO">
+		<![CDATA[
+			SELECT  *
+			FROM	MEMBER
+			WHERE	MEMBER_ID = #{memberId}
+		]]>
+	</select>
+
+	<insert id="insertMember">
+		<![CDATA[
+			INSERT INTO MEMBER (
+				MEMBER_ID, 
+				MEMBER_PASSWORD, 
+				MEMBER_NICKNAME,
+				MEMBER_NAME,
+				MEMBER_GENDER,
+				MEMBER_BIRTHDAY,
+				MEMBER_PHONENUMBER,
+				MEMBER_EMAIL
+				MEMBER_WARING,
+				MEMBER_PET_YN
+			)
+			VALUES(
+				#{memberId},
+				#{memberPassword},
+				#{memberNickName},
+				#{memberName},
+				#{memberGender},
+				#{memberBirthday},
+				#{memberPhoneNumber},
+				#{memberEmail},
+				#{memberWaring},
+				#{memberPetYN}
+			)
+		]]>
+	</insert>
+	
+	<update id="updateMemberById">
+		<![CDATA[
+			UPDATE MEMBER 
+			SET 
+				MEMBER_PASSWORD		= #{memberPassword},
+				MEMBER_NICKNAME		= #{memberNickName},
+				MEMBER_NAME			= #{memberName},
+				MEMBER_GENDER		= #{memberGender},
+				MEMBER_BIRTHDAY		= #{memberBirthday},
+				MEMBER_PHONENUMBER	= #{memberPhoneNumber}
+				MEMBER_EMAIL		= #{memberEmail},
+				MEMBER_PET_YN		= #{memberPetYN},
+				MEMBER_WARING		= #{memberWaring}
+				
+			WHERE MEMBER_ID = #{memberId};
+		]]>
+	</update>
+	
+	
+	<delete id="deleteMemberById">
+		<![CDATA[
+			DELETE FROM MEMBER MEMBER_ID = #{memberId};
+		]]>
+	</delete>
+	
+</mapper>
