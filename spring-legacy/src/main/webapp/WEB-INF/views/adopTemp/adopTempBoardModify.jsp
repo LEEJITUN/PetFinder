@@ -58,7 +58,7 @@
         <div class="border border-primary p-4 rounded">
           <div class="row">
             <div class="col-sm-6 ">
-              <h3 style="font-family: 'Noto Sans KR', sans-serif;">입양 | 임보 글쓰기 </h3>
+              <h3 style="font-family: 'Noto Sans KR', sans-serif;">입양 | 임보 수정하기 </h3>
             </div>
           </div>
           <hr class="featurette-divider">
@@ -66,19 +66,19 @@
           <div class="clearfix"></div>
           <form action="/adopTemp/adopTempBoardWrite" method="POST">
           
-          <input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
-          <input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
+          <input type="hidden" value="cini" name="memberId"/>
+          <input type="hidden" value="시니" name="memberNickName">
           
             <div class="form-group">
-              <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required="required">
+              <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
             </div>
             <!-- 내용-->
-            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요."></textarea>
+            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요." required></textarea>
 
             <div class="my-4 text-center">
               <button type="submit" class="btn btn-warning" onclick="location.href = '/adopTemp/adopTempBoardContent';">
                 <i class="material-icons align-middle">create</i>
-                <span class="align-middle">글 등록하기</span>
+                <span class="align-middle">수정하기</span>
               </button>
               <button type="reset" class="btn btn-success ml-3">
                 <i class="material-icons align-middle">clear</i>

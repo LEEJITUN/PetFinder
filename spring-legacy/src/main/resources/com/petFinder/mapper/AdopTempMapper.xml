@@ -5,9 +5,58 @@
 
 
 <mapper namespace="com.petFinder.mapper.AdopTempMapper">
+	
+	
+	<insert id="insertBoard">
+		<![CDATA[
+			INSERT  INTO board_com
+			(
+				BOARD_ID,
+				BOARD_NUM,
+				BOARD_TYPE_ID,
+				MEMBER_ID,
+				MEMBER_NICKNAME,
+				BOARD_TITLE,
+				BOARD_CONTENT,
+				BOARD_REPORT_COUNT,
+				BOARD_READ_COUNT,
+				BOARD_GOOD,
+				BOARD_NOT_GOOD,
+				BOARD_REG_DATE
+			)VALUES (
+				#{boardId},
+				#{boardNum},
+				#{boardTypeId},
+				#{memberId},
+				#{memberNickName},
+				#{boardTitle},
+				#{boardContent},
+				#{boardReportCount},
+				#{boardReadCount},
+				#{boardgood},
+				#{boardNotgood},
+				#{boardRegDate}
+				)
 
-
+		]]>
 	
+	</insert>
 	
+	<select id="selectNextNumber" resultType="int">
+		<![CDATA[
+			SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
+			FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
+		]]>
 	
+	</select>
+	
+		<select id="selectBoard" resultType="ComBoardVO">
+		<![CDATA[
+			SELECT *
+			FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
+			ORDER BY BOARD_NUM DESC
+		]]>
+	</select>
 </mapper>

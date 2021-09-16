@@ -121,7 +121,7 @@
         <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList.jsp';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">±Û¸ñ·Ï</span>
             </button>

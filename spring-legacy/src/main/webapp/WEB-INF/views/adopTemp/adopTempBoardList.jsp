@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,7 +50,7 @@
                 </div>
                 <div class = "col-sm-6">
                     <!-- 새글쓰기 버튼 -->
-                    <button type="button" class="btn btn-primary btn-sm float-right my-3 " style="background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" onclick="location.href = '/board/boardWrite.html';">
+                    <button type="button" class="btn btn-primary btn-sm float-right my-3 " style="background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" onclick="location.href = '/adopTemp/adopTempBoardWrite';">
                     <i class="material-icons align-middle">create</i>
                     <span class="align-middle Board-font">글쓰기</span>
                     </button>
@@ -68,99 +71,16 @@
                 </tr>
               </thead>
               <tbody>
-                
-                      <tr>
-                        <td class="text-center">13</td>
-                        <td>Vivamus viverra porttitor commodo.</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">15</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center">12</td>
-                        <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">15</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center">11</td>
-                        <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">150</td>
-                      </tr>
-                  <td class="text-center">10</td>
-                  <td>
-                    <a href="/board/boardContent.html">부산[동래구] - 강아지[포메라니안] 찾습니다.</a>
-                  </td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">9</td>
-                  <td>Vivamus viverra porttitor commodo.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
-                <tr>
-                  <td class="text-center">8</td>
-                  <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">7</td>
-                  <td>Sed diam velit, dictum a iaculis sed, tempor sed mi.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
-                <tr>
-                  <td class="text-center">6</td>
-                  <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">5</td>
-                  <td>eget vehicula metus. In euismod sollicitudin lorem eu.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">4</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">1500</td>
-                </tr>
-                <tr>
-                  <td class="text-center">3</td>
-                  <td>Vivamus viverra porttitor commodo.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">2</td>
-                  <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">1</td>
-                  <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
+              		<c:forEach var="board" items="${ adopTempList }" >
+              		<tr>
+              			<td class="text-center">${ board.boardNum }</td>
+              			<td> <a class="align-middle" href="/adopTemp/adopTempBoardContent?boardId=${ board.boardId }">${ board.boardTitle }</a></td>
+              			<td class="text-center">${ board.memberNickName }</td>
+                        <td class="text-center"><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
+                        <td class="text-center">${ board.boardReadCount }</td>
+              		</tr>
+              	</c:forEach>
+              
               </tbody>
             </table>
 
