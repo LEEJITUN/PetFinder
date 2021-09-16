@@ -1,3 +1,6 @@
+/* 하이
+ * 
+ */
 package com.petFinder.controller;
 /**
  * @title   : 커뮤니티 게시판 Controller
