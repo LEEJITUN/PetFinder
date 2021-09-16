@@ -110,8 +110,9 @@ public class MemberController {
 	   // 로그인이 실패했을 경우 보낼 메세지 
 	   String message = "";
 	   
+	   MemberVO memberVO = memberService.selectMemberById(memberId);
 	   // 사용자가 입력한 id,pw가 회원정보에 있는지 조회 
-	   boolean isMemebrIdPwSame =  checkIdPw(memberService.selectMemberById(memberId),memberPassword);
+	   boolean isMemebrIdPwSame =  checkIdPw(memberVO,memberPassword);
 	   
 	   // 로그인 실패 (회원정보에 존재하지 않을경우)
 	   if(!isMemebrIdPwSame) {
@@ -126,6 +127,7 @@ public class MemberController {
 	   
 	   // 로그인 성공 
 	   session.setAttribute("memberId", memberId);
+	   session.setAttribute("memberNic",memberVO.getMemberNickName());
 	   
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Location", "/"); // redirect 경로 "/"로 지정
