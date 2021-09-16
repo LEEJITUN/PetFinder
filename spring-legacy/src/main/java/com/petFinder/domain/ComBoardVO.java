@@ -37,10 +37,10 @@ public class ComBoardVO {
 	// 게시물 내용
 	private String boardContent;
 	
-	// 게시물 조회수
-	private int boardReadCount;
 	// 게시물 신고수
 	private int boardReportCount;
+	// 게시물 조회수
+	private int boardReadCount;
 	// 게시물 추천수 
 	private int boardgood;
 	// 게시물 비추천수 
