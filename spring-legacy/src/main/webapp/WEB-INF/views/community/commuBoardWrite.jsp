@@ -78,8 +78,8 @@
           <div class="clearfix"></div>
           <form action="/community/commuBoardWrite" method="POST">
           
-          <input type="hidden" value="cini" name="memberId"/>
-          <input type="hidden" value="시니" name="memberNickName">
+          <input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
+          <input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           
             <div class="form-group">
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
