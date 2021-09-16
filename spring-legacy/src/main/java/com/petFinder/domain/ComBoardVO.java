@@ -24,6 +24,8 @@ public class ComBoardVO {
 	
 	// 게시물 ID (예) boardTypeId + 인덱스값 => COMMU_A_1
 	private String boardId;
+	// 게시물 Num
+	private int boardNum;
 	// 게시판 타입 ID 
 	private String boardTypeId;
 	// 게시물 글쓴이 아이디
