@@ -37,10 +37,10 @@ public class AdopTempController {
 		return "adopTemp/adopTempBoardContent";
 	}
 	
-	@GetMapping("/adopTempuBoardWrite")
-	public String adopTempuBoardWrite() {
+	@GetMapping("/adopTempBoardWrite")
+	public String adopTempBoardWrite() {
 		
-		return "adopTemp/adopTempuBoardWrite";
+		return "adopTemp/adopTempBoardWrite";
 	}
    
 
