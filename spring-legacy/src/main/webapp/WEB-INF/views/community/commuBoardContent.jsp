@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <%--  include head.jsp --%>
-   <jsp:include page="/WEB-INF/views/include/head.jsp" />
+	<%--  include head.jsp --%>
+   	<jsp:include page="/WEB-INF/views/include/head.jsp" />
    
     <style>
         /* *{
@@ -20,79 +21,13 @@
     </style>
 </head>
 <body>
-       <!-- Navbar -->
-       <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <div class="container Board-font">
-            <div class="col-sm-2">
-                <!-- Just an image -->
-                <a class="navbar-brand" href="/index.html">
-                    <img src="/resources/images/main_Title.png" width=100%" height="80%">
-                </a>
-             </div>
-        
-          <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto mx-5">
-                <div class="mx-3">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="/findPets/">반려동물 찾기</a>
-                        </li>
-                </div>
 
-                <div class="mx-3">
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="/lostReportPets/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    반려동물 신고
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/lostReportPets/">반려동물 분실 신고</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/findReportPets/">유기동물 발견 신고</a>
-                    </div>
-                </li>
-                </div>
-                <div class="mx-3">              
-                    <li class="nav-item active">
-                    <a class="nav-link" href="/adoptionPets/">입양 | 임보</a>
-                </li>
-                </div>
-                <div class="mx-3"> 
-                  <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle " href="/community/commuBoardList.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        커뮤니티
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/community">커뮤니티</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">갤러리</a>
-                    </div>
-                </li>
-                </div>
-            </ul>
-  
-        
-            <div class=" my-2 my-lg-0" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown active">
-                  <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">person</i>
-                  </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">비밀번호 변경</a>
-                      <a class="dropdown-item" href="#">내정보 수정</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">회원탈퇴</a>
-                    </div>
-                  </li>
-                </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-     <!-- end of Navbar -->
+   <!--  include topNavbar.jsp  -->
+   <jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 
-    <!-- middle container -->
+   	<!-- middle container -->
     <div class="container mt-4">
-      <div class="row">
+    	<div class="row">
 
         <!-- Left Menu -->
         <div class="col-sm-3 Board-font">
@@ -111,47 +46,31 @@
       <!-- Right area -->
       <div class="col-sm-9">
           
-        <!-- Contents area -->
-          <div id="comment" class="border border-secondary p-4 rounded">
+	<!-- Contents area -->
+          <div id="comment" class="border border-primary p-3">
           <br>
-          <h3 class="text-center"> 제목 </h3>
-
+		  	<h3 class="text-center"> 제목 </h3>
           <!-- 글 상세보기 영역 -->
           <table class="table">
+          <thead>
 
+			<tr>
               <th scope="row" class="text-center">작성자</th>
-              <td>user1</td>
+              <td>닉네임</td>
               <th scope="row" class="text-center">작성일</th>
-              <td>2021.08.20</td>
+              <td>2021.0.0</td>
               <th scope="row" class="text-center"></th>
               <td></td>
             </tr>
-     
+         
+          </thead>
+     	
+          <tbody>
             <tr style="height: 300px" >
               <th scope="row" class="text-center" >내용</th>
-              <td colspan="5">
-
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                
-              </td>
+              <td colspan="5"></td>
             </tr>
+
             <tr>
               <th scope="row" class="text-center">첨부파일</th>
               <td colspan="5">
@@ -161,10 +80,12 @@
                 </ul>
               </td>
             </tr>
+            
             <tr>
               <th scope="row" class="text-center"></th>
               <td colspan="5"></td>
             </tr>
+          </tbody>
           </table>
 
           <br>
@@ -189,13 +110,13 @@
         <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/board/boardList.html';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/community/commuBoardList';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">글목록</span>
             </button>
           </div>
           <div class = "col-sm-10 text-right">
-            <button type="button" class="btn btn-primary text-white btn-sm">
+            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>
@@ -360,28 +281,9 @@
     <!-- end of a link container -->
     <!-- a link container -->
 
-     <!-- FOOTER -->
-     <footer >
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-1 " style="margin-bottom: 1%; margin-left: 5%; margin-top: 1%; margin-right: 3%;">
-              <!-- Just an image -->
-              <a class="navbar-brand" href="/index.html">
-                  <img src="/resources/images/main_Title.png" width="100%" height="80%">
-              </a>
-           </div>
-  
-  
-            <div style="margin-top: 1%;" class ="text-center">
-              <p style="font-size: 16px; color: black; font-family: sans-serif; ">(47291) 부산광역시 부산진구 중앙대로 708  |  전화번호 051-xxxx-xxxx</p>
-              <p style="font-size: 16px; color: black; font-family: sans-serif; margin-top: -2%;">copyright. 2021 by JI YUN LEE. all rights reserved.</p>
-            </div>
-      
-        </div>
-      </footer>
-      <!-- end of FOOTER -->
 
-
+   <%--  include footer.jsp --%>
+   <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>

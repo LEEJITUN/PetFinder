@@ -6,8 +6,11 @@ package com.petFinder.controller;
  * @version : 1.0 
  **/
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +28,12 @@ public class CommunityController {
 
 	/* community - 게시판 */
 	@GetMapping("/commuBoardList")
-	public String commuBoardList() {
+	public String commuBoardList(Model model) {
 		System.out.println("commuBoardList 호출...");
+		
+		List<ComBoardVO> boardList = communityService.selectBoardList();
+		model.addAttribute("commuList",boardList);
+		
 		return "community/commuBoardList";
 	}
 	
@@ -34,6 +41,7 @@ public class CommunityController {
 	/* community - 글쓰기 */
 	@GetMapping("/commuBoardWrite")
 	public String commuBoardWrite() {
+		System.out.println("commuBoardWrite 호출...");
 		
 		return "community/commuBoardWrite";
 	}
@@ -50,7 +58,8 @@ public class CommunityController {
 	/* community - 게시글 */
 	@GetMapping("/commuBoardContent")
 	public String commuBoardContent() {
-		
+		System.out.println("commuBoardContent 호출...");
+
 		return "community/commuBoardContent";
 	}
 	
@@ -58,20 +67,22 @@ public class CommunityController {
 	/* community - 글수정 */
 	@GetMapping("/commuBoardModify")
 	public String commuBoardModify() {
+		System.out.println("commuBoardModify 호출...");
 		
 		return "community/commuBoardModify";
 	}
 	
 	@PostMapping("/commuBoardModify")
 	public String commuBoardModify(ComBoardVO comBoardVO) {
-		
+				
 		return "community/commuBoardContent";
 	}
 	
 	
-	// community - 답글
+	/* community - 답글 */
 	@GetMapping("/commuBoardReplyWrite")
 	public String commuBoardReplyWrite() {
+		System.out.println("commuBoardReplyWrite 호출...");
 		
 		return "community/commuBoardList";
 	}

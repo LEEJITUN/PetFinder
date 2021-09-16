@@ -5,6 +5,25 @@
 
 
 <mapper namespace="com.petFinder.mapper.CommunityMapper">
+
+	<select id="selectBoardNumber" resultType="int">
+		<![CDATA[
+		SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
+		FROM BOARD_COM
+		WHERE BOARD_TYPE_ID = "COMM"
+		]]>	
+	</select>
+	
+	<select id="selectBoardList" resultType="ComBoardVO">
+		<![CDATA[
+		SELECT *
+		FROM BOARD_COM
+		WHERE BOARD_TYPE_ID = "COMM"
+		ORDER BY BOARD_NUM DESC
+		]]>	
+	</select>
+	
+	
 	<insert id="insertBoard">
 		<![CDATA[
 			INSERT INTO BOARD_COM (
@@ -38,12 +57,5 @@
 		]]>
 	</insert>
 
-	<select id="selectBoardNumber" resultType="int">
-		<![CDATA[
-		SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
-		FROM BOARD_COM
-		WHERE BOARD_TYPE_ID = "COMMU";
-		]]>	
-	</select>
 
 </mapper>

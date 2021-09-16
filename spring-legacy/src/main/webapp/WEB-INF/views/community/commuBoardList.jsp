@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <%--  include head.jsp --%>
-   <jsp:include page="/WEB-INF/views/include/head.jsp" />
+	<%--  include head.jsp --%>
+   	<jsp:include page="/WEB-INF/views/include/head.jsp" />
 
-
-    <style>
+   	<style>
         /* *{
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 22px;
@@ -17,13 +17,13 @@
         .Board-font{
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 22px;
-        }
-    </style>
+    	}
+   	</style>
 </head>
 <body>
+
     <!--  include topNavbar.jsp  -->
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
-    
     
     <!-- middle container -->
     <div class="container mt-4">
@@ -54,7 +54,7 @@
                 </div>
                 <div class = "col-sm-6">
                     <!-- 새글쓰기 버튼 -->
-                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite.html';">
+                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite';">
                     <i class="material-icons align-middle">create</i>
                     <span class="align-middle Board-font">글쓰기</span>
                     </button>
@@ -75,100 +75,19 @@
                 </tr>
               </thead>
               <tbody>
-                
-                    
-                      <tr>
-                        <td class="text-center">13</td>
-                        <td>Vivamus viverra porttitor commodo.</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">15</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center">12</td>
-                        <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">15</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center">11</td>
-                        <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                        <td class="text-center">user1</td>
-                        <td class="text-center">2021.08.20</td>
-                        <td class="text-center">150</td>
-                      </tr>
-                  <td class="text-center">10</td>
-                  <td>
-                    <a href="/board/boardContent.html">부산[동래구] - 강아지[포메라니안] 찾습니다.</a>
-                  </td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">9</td>
-                  <td>Vivamus viverra porttitor commodo.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
-                <tr>
-                  <td class="text-center">8</td>
-                  <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">7</td>
-                  <td>Sed diam velit, dictum a iaculis sed, tempor sed mi.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
-                <tr>
-                  <td class="text-center">6</td>
-                  <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">5</td>
-                  <td>eget vehicula metus. In euismod sollicitudin lorem eu.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15000</td>
-                </tr>
-                <tr>
-                  <td class="text-center">4</td>
-                  <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">1500</td>
-                </tr>
-                <tr>
-                  <td class="text-center">3</td>
-                  <td>Vivamus viverra porttitor commodo.</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">2</td>
-                  <td>In pulvinar fermentum erat a tincidunt. Nulla id magna sit ...</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">15</td>
-                </tr>
-                <tr>
-                  <td class="text-center">1</td>
-                  <td>Nullam ac dignissim diam. Mauris vitae magna ipsum,</td>
-                  <td class="text-center">user1</td>
-                  <td class="text-center">2021.08.20</td>
-                  <td class="text-center">150</td>
-                </tr>
+              	
+              			<c:forEach var="board" items="${ commuList }">
+              				<tr>
+              					<td class="text-center">${ board.boardNum }</td>
+              					<td>
+              						 <a class="align-middle" href="/community/commuBoardContent?boardId=${ board.boardId }">${ board.boardTitle }</a>
+              					</td>
+              					<td class="text-center">${ board.memberNickName }</td>
+                        		<td class="text-center"><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
+                        		<td class="text-center">${ board.boardReadCount }</td>
+              				</tr>
+              			</c:forEach>
+
               </tbody>
             </table>
 
@@ -235,28 +154,9 @@
     <!-- end of a link container -->
     <!-- a link container -->
 
-     <!-- FOOTER -->
-     <footer >
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-1 " style="margin-bottom: 1%; margin-left: 5%; margin-top: 1%; margin-right: 3%;">
-              <!-- Just an image -->
-              <a class="navbar-brand" href="/index.html">
-                  <img src="/resources/images/main_Title.png" width="100%" height="80%">
-              </a>
-           </div>
-  
-  
-            <div style="margin-top: 1%;" class ="text-center">
-              <p style="font-size: 16px; color: black; font-family: sans-serif; ">(47291) 부산광역시 부산진구 중앙대로 708  |  전화번호 051-xxxx-xxxx</p>
-              <p style="font-size: 16px; color: black; font-family: sans-serif; margin-top: -2%;">copyright. 2021 by JI YUN LEE. all rights reserved.</p>
-            </div>
-      
-        </div>
-      </footer>
-      <!-- end of FOOTER -->
 
-
+   <%--  include footer.jsp --%>
+   <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>

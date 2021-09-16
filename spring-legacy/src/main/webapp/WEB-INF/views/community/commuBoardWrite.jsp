@@ -4,20 +4,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Google Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-
+	<%--  include head.jsp --%>
+   	<jsp:include page="/WEB-INF/views/include/head.jsp" />
 
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -28,7 +16,6 @@
     <!-- include summernote css/js -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
-
 
     <style>
         /* *{
@@ -43,6 +30,7 @@
     </style>
 </head>
 <body>
+
    <!--  include topNavbar.jsp  -->
    <jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
    
@@ -78,12 +66,14 @@
           <div class="clearfix"></div>
           <form action="/community/commuBoardWrite" method="POST">
           
-          <input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
-          <input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
+          	<input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
+          	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           
+          	<!-- 제목 -->
             <div class="form-group">
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
             </div>
+            
             <!-- 내용-->
             <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요." required></textarea>
 

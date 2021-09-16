@@ -4,20 +4,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Google Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-
+	<%--  include head.jsp --%>
+   	<jsp:include page="/WEB-INF/views/include/head.jsp" />
 
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -68,39 +56,36 @@
 
         <!-- Right area -->
         <div class="col-sm-9" >
-              <form  action="/write_action" method="POST">
-                <!-- 제목 -->
-                <div class="form-group">
-                  <div class="input-group-prepend">
-                    <select id="country" required>
-                      <option value="">말머리</option>
-                      <option>추천1</option>
-                      <option>추천2</option>
-                      <option>추천3</option>
-                    </select>
-                    <input type="text" class="form-control" id="title" name="title" value="제목을 입력하세요." onclick="inputSubject()">
-                  </div>
-                </div>
-                <!-- 내용 -->
-                <div id="summernote"  class="click2edit" ><p> 111 </p></div>
-        
-                <div class="my-4 text-center">
-                  <button type="submit" class="btn btn-warning">
-                    <i class="material-icons align-middle">create</i>
-                    <span class="align-middle">글 등록하기</span>
-                  </button>
-                  <button type="reset" class="btn btn-success ml-3">
-                    <i class="material-icons align-middle">clear</i>
-                    <span class="align-middle">초기화</span>
-                  </button>
-                  <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/community/commuBoardList.html';">
-                    <i class="material-icons align-middle">list</i>
-                    <span class="align-middle">글목록</span>
-                  </button>
-                </div>
-              </form>
-        </div>
-        <!-- end of Right area -->
+              <form  action="/community/commuBoardReplyWrite" method="POST">
+              
+              	<input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
+          		<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
+          		
+	          	<!-- 제목 -->
+	            <div class="form-group">
+	              <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
+	            </div>
+	            
+	            <!-- 내용-->
+	            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요." required></textarea>
+	
+	            <div class="my-4 text-center">
+	              <button type="submit" class="btn btn-warning" onclick="location.href = '/community/commuBoardContent';">
+	                <i class="material-icons align-middle">create</i>
+	                <span class="align-middle">글 등록하기</span>
+	              </button>
+	              <button type="reset" class="btn btn-success ml-3">
+	                <i class="material-icons align-middle">clear</i>
+	                <span class="align-middle">초기화</span>
+	              </button>
+	              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/community/commuBoardList';">
+	                <i class="material-icons align-middle">list</i>
+	                <span class="align-middle">글목록</span>
+	              </button>
+	            </div>
+	          </form>
+	        </div>
+	        <!-- end of Right area -->
       </div>
     </div>
     <!-- end of middle container -->

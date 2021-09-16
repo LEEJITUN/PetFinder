@@ -2,11 +2,12 @@ package com.petFinder.service;
 /**
  * @title   : 커뮤니티 게시판 Service
  * @author  : HYEPIN
- * @date    : 2021.09.15 
+ * @date    : 2021.09.16 
  * @version : 1.0 
  **/
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +24,14 @@ public class CommunityService {
 
 	@Autowired
 	private CommunityMapper communityMapper;
-
+	
+	/* SELECT - 게시글 전체 가져오기 */
+	public List<ComBoardVO> selectBoardList() {
+		return communityMapper.selectBoardList();
+		
+	}
+	
+	/* INSERT - 커뮤니티 게시글 작성 */
 	public void insertBoard(ComBoardVO comBoardVO) {
 		
 		int num = communityMapper.selectBoardNumber();
@@ -43,6 +51,12 @@ public class CommunityService {
 		// INSERT시 데이터 처리
 		communityMapper.insertBoard(comBoardVO);
 	}
+	
+	/* SELECT - 게시글 하나 가져오기 */
+
+
+	
+
 
 
 }
