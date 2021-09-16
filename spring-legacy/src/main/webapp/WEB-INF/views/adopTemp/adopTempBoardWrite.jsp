@@ -83,7 +83,7 @@
                 <i class="material-icons align-middle">clear</i>
                 <span class="align-middle">초기화</span>
               </button>
-              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList.jsp';">
+              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList';">
                 <i class="material-icons align-middle">list</i>
                 <span class="align-middle">글목록</span>
               </button>
