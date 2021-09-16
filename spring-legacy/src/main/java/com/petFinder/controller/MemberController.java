@@ -1,4 +1,7 @@
 package com.petFinder.controller;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * @title   : 회원정보 Controller
  * @author  : JIYUN
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +23,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.petFinder.domain.MemberProfileVO;
 import com.petFinder.domain.MemberVO;
 import com.petFinder.domain.PetVO;
+import com.petFinder.service.AttachFile;
 import com.petFinder.service.MemberService;
+import com.petFinder.service.ProfilePicService;
 import com.petFinder.util.Script;
 
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
 	
+	@Autowired
 	private MemberService memberService;
-
-	public MemberController(MemberService memberService) {
-		this.memberService = memberService;
-	}
 	
+	@Autowired
+	private ProfilePicService profilePicService;
+
+
    /* GET - 회원가입 */
    @GetMapping("/join") // /member/join
    public String join() {
@@ -45,7 +54,7 @@ public class MemberController {
    
    /* POST - 회원가입 */
    @PostMapping("/join")
-   public ResponseEntity<String> join(MemberVO memberVo, PetVO petVo) {
+   public ResponseEntity<String> join(MemberVO memberVo, PetVO petVo, MultipartFile file) throws IllegalStateException, IOException {
 	   
 	   ////////////데이터 확인/////////////
 	   System.out.println("memberVo.getNotice" + memberVo.getMemberNotice());
@@ -66,9 +75,15 @@ public class MemberController {
 	   
 	   memberVo.setPetVO(petVo);
 	   
-	   /****************** INSERT_회원가입 *******************/
+	   /****************** INSERT_회원가입 (member,pet) *******************/
 	   memberService.registerMember(memberVo);
 	   
+	   // 실물 파일 처리 
+	   
+	   /****************** INSERT_프로필 *******************/
+	   if(file != null) {		   
+		   profilePicService.insertProfilePic(file,memberVo.getMemberId());
+	   }
 	   
 	   /****************** headers 설정 *******************/
 	   HttpHeaders headers = new HttpHeaders();
@@ -172,5 +187,5 @@ public class MemberController {
 	   // 홈 화면으로 리다이렉트 이동
 	   return "redirect:/";
    }
-   
 }
+   

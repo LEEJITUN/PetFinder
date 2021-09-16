@@ -54,7 +54,20 @@
 
             <hr class="featurette-divider">
 
-            <form action="/member/join" method="POST">
+            <form action="/member/join" method="POST" enctype="multipart/form-data">
+            
+           	  <div class="form-group">              
+                <div class="col-md-5 col-lg-5 " align="center"> 
+                <c:set var="fileCallPath" value="${ profilePicVO.uploadpath }/${profilePicVO.mid}/s_${ profilePicVO.uuid }_${ profilePicVO.filename }" />
+                <img src="/display?fileName=${fileCallPath}" id="preview-image"  class="img-thumbnail">
+                </div>
+              </div>
+	          <div class="form-group">
+            	<div id="fileBox">
+			  	  <input type="file" name="file" id="input-image" accept="image/*">
+		  		</div>
+	          </div>
+            
               <div class="form-group">
                 <label for="memberId">
                   <i class="material-icons align-middle">account_box</i>
@@ -270,18 +283,17 @@
                </div>
 			</div>
 			
-			
-            <div class="text-center">
-              <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="memberNotice" name="memberNotice" value="Y" class="custom-control-input" checked>
-                <label class="custom-control-label" for="customRadioInline1">동의함</label>
+             <div class="text-center">
+                <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline1" name="memberNotice" class="custom-control-input" value="Y" checked>
+                  <label class="custom-control-label" for="customRadioInline1">동의함</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline2" name="memberNotice" class="custom-control-input" value="N">
+                  <label class="custom-control-label" for="customRadioInline2">동의 안함</label>
+                </div>
               </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="memberNotice" name="memberNotice" value="N" class="custom-control-input">
-                <label class="custom-control-label" for="customRadioInline2">동의 안함</label>
-              </div>
-            </div>
             
             <div class="my-3 text-center">
                 
@@ -328,6 +340,35 @@
 
 	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript">
+	
+	function readImage(input) {
+	    // 인풋 태그에 파일이 있는 경우
+	    if(input.files && input.files[0]) {
+	        // 이미지 파일인지 검사 (생략)
+	        pathpoint = input.value.lastIndexOf('.');
+			filepoint = input.value.substring(pathpoint+1,input.length);
+			filetype = filepoint.toLowerCase();
+			
+
+		    // FileReader 인스턴스 생성
+	        const reader = new FileReader();
+	        // 이미지가 로드가 된 경우
+	        reader.onload = e => {
+	            const previewImage = document.getElementById("preview-image");
+	            previewImage.src = e.target.result;
+	        }
+	        // reader가 이미지 읽도록 하기
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	// input file에 change 이벤트 부여
+	const inputImage = document.getElementById("input-image")
+	inputImage.addEventListener("change", e => {
+	    readImage(e.target)
+	})
+	
+	
 	    function clickPetKind() {
 	        $('#petKind').change(function() {
 	
@@ -354,7 +395,7 @@
 		                $('#petDetailKind').append(option);
 		            }
 	            }else{
-	            	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' placeholder='직접입력'>");
+	            	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' name='petDetailKind' placeholder='직접입력'>");
 	            }
 	        });
 	    };
@@ -372,6 +413,9 @@
 				$('#petDetailKind').attr("disabled",false);
 				$('#petBirthday').attr("disabled",false);
 				$('#petGender').attr("disabled",false);
+				$('#petSize').attr("disabled",false);
+				$('#petColor').attr("disabled",false);
+				$('#petCoatLength').attr("disabled",false);
         	}else if(obj_value == "N" ){
 				$('#petRegisterNumber').attr("disabled",true);
 				$('#petName').attr("disabled",true);
@@ -379,8 +423,13 @@
 				$('#petDetailKind').attr("disabled",true);
 				$('#petBirthday').attr("disabled",true);
 				$('#petGender').attr("disabled",true);
+				$('#petSize').attr("disabled",true);
+				$('#petColor').attr("disabled",true);
+				$('#petCoatLength').attr("disabled",true);
         	}
 	    }
+	    
+	    
 	    
 	</script>
 

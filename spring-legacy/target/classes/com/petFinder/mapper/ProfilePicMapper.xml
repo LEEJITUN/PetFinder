@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.petFinder.mapper.ProfilePicMapper">
+
+	<!-- INSERT - MEMBER -->
+	<insert id="insertProfilePic">
+		<![CDATA[
+			INSERT INTO PROPIC (
+				PROPIC_UUID,
+				MEMBER_ID,
+				PROPIC_UPLOAD_PATH,
+				PROPIC_FILENAME
+			)
+			VALUES(
+				#{uuid},
+				#{memberId},
+				#{uploadpath},
+				#{filename}			
+			)
+		]]>
+	</insert>
+	
+	
+	
+</mapper>

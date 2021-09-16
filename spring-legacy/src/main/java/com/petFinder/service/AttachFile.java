@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,9 @@ import com.petFinder.domain.MemberProfileVO;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Service
+@Transactional
 public class AttachFile {	
+	
 	
 	/************************************ 角拱 颇老 贸府 *************************************/
 	
@@ -221,7 +224,7 @@ public class AttachFile {
 				//===== insert且 林臂 AttachVO 按眉 单捞磐 积己 ======
 				AttachVO attachVO = new AttachVO();
 				attachVO.setUuid(uuid.toString());
-				attachVO.setUploadpath("profilePic/" + id);
+				attachVO.setUploadpath("com/" + getFolder());
 				attachVO.setFilename(originalFilename);
 				attachVO.setBoardOrReportId(id);
 				ob = attachVO;
@@ -239,5 +242,7 @@ public class AttachFile {
 		
 		return ob;
 	}
+
+
 
 }

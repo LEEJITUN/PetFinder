@@ -26,6 +26,7 @@ public class MemberService {
 	@Autowired 
 	private PetMapper petMapper;
 	
+	
 
 	/* INSERT - 회원가입(회원,펫) */
 	@Transactional

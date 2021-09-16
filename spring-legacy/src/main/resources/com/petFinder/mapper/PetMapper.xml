@@ -16,7 +16,10 @@
 				PET_KIND,
 				PET_DETAIL_KIND,
 				PET_BIRTHDAY,
-				PET_GENDER
+				PET_GENDER,
+				PET_SIZE,
+				PET_COLOR,
+				PET_COATlENGTH
 			)
 			VALUES(
 				#{petRegisterNumber},
@@ -25,7 +28,10 @@
 				#{petKind},
 				#{petDetailKind},
 				#{petBirthday},
-				#{petGender}
+				#{petGender},
+				#{petSize},
+				#{petColor},
+				#{petCoatLength}				
 			)
 		]]>
 	</insert>
