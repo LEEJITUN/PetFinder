@@ -195,7 +195,7 @@
                             <span class="align-middle">애완동물 품종</span>
                         </label>
                         <select class="form-control" id="petDetailKind" name="petDetailKind" required>
-  						 <option value = "">애완동물 품종</option>
+
                         </select>
                    	</div>
                </div>
@@ -227,23 +227,27 @@
 			 <div class="form-group">
 				<div class = "row">
                    	<div class="col-sm-6">
-                   	    <label for="petDetailKind">
+                   	    <label for="petColor">
                             <i class="material-icons align-middle">pets</i>
                             <span class="align-middle">애완동물 털색</span>
                         </label>
-                        <select class="form-control" id="petDetailKind" name="petDetailKind" required>
-                         <option value="" disabled selected>애완동물 털색을 선택하세요.</option>
-  						 <!-- <option value = "">애완동물 품종</option> -->
+                        <select class="form-control" id="petColor" name="petColor" required>
+	                        <option value="" disabled selected>애완동물 털색을 선택하세요.</option>
+			             	<option value="A">화이트</option>
+	                      	<option value="B">블랙</option>
+	                      	<option value="C">브라운</option>
                         </select>
                    	</div>
                    	  <div class="col-sm-6">
-                   	    <label for="petDetailKind">
+                   	    <label for="petCoatLength">
                             <i class="material-icons align-middle">pets</i>
                             <span class="align-middle">애완동물 털길이</span>
                         </label>
-                        <select class="form-control" id="petDetailKind" name="petDetailKind" required>
-                         <option value="" disabled selected>애완동물 털길이를 선택하세요.</option>
-  						 <!-- <option value = "">애완동물 품종</option> -->
+                        <select class="form-control" id="petCoatLength" name="petCoatLength" required>
+                        <option value="" disabled selected>애완동물 털길이를 선택하세요.</option>
+	  						<option value="S">단모</option>
+	                      	<option value="L">장모</option>
+	                      	<option value="C">곱슬</option>
                         </select>
                    	</div>
                </div>
@@ -252,15 +256,15 @@
 			<div class="form-group">
 				<div class = "row">
         			<div class="col-sm-12">
-                        <label for="petKind">
+                        <label for="petSize">
                             <i class="material-icons align-middle">pets</i>
                             <span class="align-middle">애완동물 사이즈</span>
                         </label>
-                        <select class="form-control" id="petKind" name="petKind" onclick="clickPetKind()" required>
+                        <select class="form-control" id="petSize" name="petSize" required>
                             <option value="" disabled selected>애완동물 사이즈를 선택하세요.</option>
-                         <!--    <option value="D">강아지</option>
-                            <option value="C">고양이</option>
-                            <option value="O">기타</option> -->
+	  						<option value="S">소형</option>
+	                      	<option value="M">중형</option>
+	                      	<option value="L">대형</option>
                         </select>
                     </div>
                </div>
@@ -270,11 +274,11 @@
             <div class="text-center">
               <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline1" name="customRadioInline" class="custom-control-input" checked>
+                <input type="radio" id="memberNotice" name="memberNotice" value="Y" class="custom-control-input" checked>
                 <label class="custom-control-label" for="customRadioInline1">동의함</label>
               </div>
               <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="customRadioInline2" name="customRadioInline" class="custom-control-input">
+                <input type="radio" id="memberNotice" name="memberNotice" value="N" class="custom-control-input">
                 <label class="custom-control-label" for="customRadioInline2">동의 안함</label>
               </div>
             </div>
@@ -332,7 +336,7 @@
 	                      "스피츠","진돗개","치와와","파피용","퍼그","페키니즈","포메라니안","푸들","풍산개","프렌치 불독","믹스견"];
 	            var cat = ["노르웨이숲", "랙돌", "러시안블루","먼치킨","뱅갈","브리티시쇼트헤어","샴","스코티시폴드","스핑크스","아메리카숏헤어","아바시니안","코리안숏헤어","터키시앙고라","페르시안"];
 	            var changeItem;
-	            
+	      
 	            if (this.value == "D") {
 	            	changeItem = dog;
 	            } else if (this.value == "C") {
@@ -342,10 +346,12 @@
 	            }
 	            
 	            $('#petDetailKind').empty();
-	            
+				/* 고칠 부분  */
 	            if(changeItem != "other"){
+	            	$('#petDetailKind').append("<option value = '' disabled selected>애완동물 품종</option>");
 		            for (var count = 0; count < changeItem.length; count++) {
 		                var option = $("<option>" + changeItem[count] + "</option>");
+		                $('#petDetailKind').append(option);
 		            }
 	            }else{
 	            	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' placeholder='직접입력'>");

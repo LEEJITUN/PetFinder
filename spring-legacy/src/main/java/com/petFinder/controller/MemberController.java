@@ -47,6 +47,9 @@ public class MemberController {
    @PostMapping("/join")
    public ResponseEntity<String> join(MemberVO memberVo, PetVO petVo) {
 	   
+	   ////////////데이터 확인/////////////
+	   System.out.println("memberVo.getNotice" + memberVo.getMemberNotice());
+	   
 	   
 	   /****************** 데이터 설정 *******************/
 	   // 비밀번호 암호화 하기
@@ -58,6 +61,8 @@ public class MemberController {
 	   String birthday = memberVo.getMemberBirthday();
 	   birthday = birthday.replace("-", "");
 	   memberVo.setMemberBirthday(birthday);
+	   
+	   memberVo.setMemberWaring(0);
 	   
 	   memberVo.setPetVO(petVo);
 	   
@@ -115,8 +120,8 @@ public class MemberController {
 		   Cookie cookie = new Cookie("memberId", memberId);
 		   // 쿠키가 주어질 경로
 		   cookie.setPath("/");
-		   // 쿠키의 제한 시간 (60초*30 -> 30분)
-		   cookie.setMaxAge(60*30);
+		   // 쿠키의 제한 시간 (60초*20 -> 20분)
+		   cookie.setMaxAge(60*20);
 		   // 응답 객체에 쿠키 추가 -> 최종 응답 시 쿠키를 클라이언트에 전송
 		   response.addCookie(cookie);
 	   }
