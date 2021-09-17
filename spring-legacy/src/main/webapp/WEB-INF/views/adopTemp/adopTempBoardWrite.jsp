@@ -8,13 +8,13 @@
 
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     <link href="styles.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
     <!-- include summernote css/js -->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 
     <style>
@@ -73,7 +73,7 @@
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required="required">
             </div>
             <!-- 내용-->
-            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요."></textarea>
+             <div id="summernote"  class="click2edit" ></div>
 
             <div class="my-4 text-center">
               <button type="submit" class="btn btn-warning" onclick="location.href = '/adopTemp/adopTempBoardContent';">
@@ -115,13 +115,6 @@
 
 
     <!-- JavaScript -->
-    <script src="/resources/js/jquery-3.6.0.js"></script>
-    <script src="/resources/js/bootstrap.js"></script>
-
-
-    <!-- JavaScript -->
-
-
     <script>
       $(document).ready(function () {
         $('#summernote').summernote({

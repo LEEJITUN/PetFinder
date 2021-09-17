@@ -51,8 +51,7 @@
 	
 	</select>
 	
-		<!-- 추가하기 전 글번호 생성 -->
-	<select id="selectBoard" resultType="ComBoardVO">
+	<select id="selectBoards" resultType="ComBoardVO">
 		<![CDATA[
 			SELECT *
 			FROM BOARD_COM
@@ -71,6 +70,7 @@
 		<![CDATA[
 			SELECT COUNT(*)
 			FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
 		]]>
 	</select>
 	
@@ -84,13 +84,22 @@
 		]]>	
 	</select>
 	
-	<select id="selectBoardNum" resultType="ComBoardVO">
+	<select id="selectBoard" resultType="ComBoardVO">
 		<![CDATA[
 			SELECT *
 			FROM BOARD_COM
 			WHERE BOARD_TYPE_ID = "ADOP"
-			AND BOARD_NUM = #{boardNum}
+			And BOARD_ID= #{boardId}
 		]]>	
 	</select>
+	
+	<update id="updateBoardReadCount" >
+		<![CDATA[
+			UPDATE BOARD_COM
+			SET BOARD_READ_COUNT = BOARD_READ_COUNT + 1
+			WHERE BOARD_TYPE_ID = "ADOP"
+			And BOARD_ID= #{boardId}
+		]]>	
+	</update>
 	
 </mapper>

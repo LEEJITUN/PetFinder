@@ -36,7 +36,7 @@ public class AdopTempController {
 		
 		System.out.println("adopTempBoardList 호출...");
 				
-		List<ComBoardVO> boardlist = adopTempService.selectBoard(cri);
+		List<ComBoardVO> boardlist = adopTempService.selectBoards(cri);
 		
 		int totalCount = adopTempService.selectTotalCount(); // 전체 글개수
 		
@@ -49,12 +49,22 @@ public class AdopTempController {
 		return "adopTemp/adopTempBoardList";
 	}
 	
+	// 상세보기
 	@GetMapping("/adopTempBoardContent")
-	public String adopTempBoardContent(int num) {
+	public String adopTempBoardContent(String boardId, Model model) {
 		
 		System.out.println("adopTempBoardContent 호출...");
 		
-		return "adopTemp/adopTempBoardContent";
+		// 조회수 1 증가시키기 
+		adopTempService.updateBoardReadCount(boardId);
+		
+		// 글 한개 가져오기
+		ComBoardVO comBoardVO = adopTempService.selectBoard(boardId);
+		
+		model.addAttribute("board", comBoardVO);
+		
+		
+	      return "adopTemp/adopTempBoardContent";
 	}
 	
 	@GetMapping("/adopTempBoardWrite")
@@ -71,7 +81,5 @@ public class AdopTempController {
 		
 		return "adopTemp/adopTempBoardList";
 	}
-	
-	
-   
+
 }

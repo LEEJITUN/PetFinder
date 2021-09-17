@@ -25,7 +25,7 @@ public interface AdopTempMapper {
 	int selectNextNumber();
 
 	/* SELECT - 전체 게시글 내용 가져오기 */
-	List<ComBoardVO> selectBoard();
+	List<ComBoardVO> selectBoards();
 	
 	/* SELECT - 페이징으로 게시글 내용 가져오기 */
 	List<ComBoardVO> selectBoardsWithPaging(Criteria cri);
@@ -37,8 +37,8 @@ public interface AdopTempMapper {
 	int selectTotalCount();
 	
 	/* SELECT - 글 번호에 해당하는 글 한개 가져오기*/
-	ComBoardVO selectBoardNum(int num);
+	ComBoardVO selectBoard(String boardId);
 	
-	/* UPDATE - */
-	void updateBoardReadCount(int num);
+	/* UPDATE - 글번호에 해당하는 글의 조회수 1 증가시키 */
+	void updateBoardReadCount(String boardId);
 }

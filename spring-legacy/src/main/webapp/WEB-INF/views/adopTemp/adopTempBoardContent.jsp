@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,42 +48,26 @@
         <!-- Contents area -->
           <div id="comment" class="border border-primary p-3">
           <br>
-          <h3 class="text-center"> 제목 </h3>
+          <h3 class="text-center"> 제목 : ${ board.boardTitle } </h3>
 
           <!-- 글 상세보기 영역 -->
           <table class="table">
-
+			<tr>
               <th scope="row" class="text-center">작성자</th>
-              <td>user1</td>
+              <td>${ board.memberNickName }</td>
               <th scope="row" class="text-center">작성일</th>
-              <td>2021.08.20</td>
+              <td><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
               <th scope="row" class="text-center"></th>
+              <th scope="row" class="text-center">조회수</th>
+              <td>${ board.boardReadCount }</td>
               <td></td>
             </tr>
      
             <tr style="height: 300px" >
               <th scope="row" class="text-center" >내용</th>
               <td colspan="5">
+              	<pre>${ board.boardContent}</pre>
 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                
               </td>
             </tr>
             <tr>

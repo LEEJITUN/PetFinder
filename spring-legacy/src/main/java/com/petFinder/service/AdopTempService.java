@@ -57,12 +57,12 @@ public class AdopTempService {
 	}
 	
 	// 전체 게시글 내용 가져오기
-	public List<ComBoardVO> selectBoard() {
-		return adopTempMapper.selectBoard();
+	public List<ComBoardVO> selectBoards() {
+		return adopTempMapper.selectBoards();
 	}
 	
 	// 페이징으로 글 가져오기
-	public List<ComBoardVO> selectBoard(Criteria cri) {
+	public List<ComBoardVO> selectBoards(Criteria cri) {
 		// 시작 행번호 (MySQL의 LIMIT절의 시작행번호) 구하기
 		
 		// 한 페이지당 글개수(amount)가 10개씩일때
@@ -85,7 +85,11 @@ public class AdopTempService {
 		return adopTempMapper.selectTotalCount();
 	}
 	
-	public ComBoardVO selectBoardNum(int num) {
-		return adopTempMapper.selectBoardNum(num);
+	public ComBoardVO selectBoard(String boardId) {
+		return adopTempMapper.selectBoard(boardId);
+	}
+	
+	public void updateBoardReadCount(String boardId) {
+		adopTempMapper.updateBoardReadCount(boardId);
 	}
 }
