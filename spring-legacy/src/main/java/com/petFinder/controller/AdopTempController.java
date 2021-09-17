@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.petFinder.domain.ComBoardVO;
+import com.petFinder.domain.Criteria;
+import com.petFinder.domain.PageDTO;
 import com.petFinder.service.AdopTempService;
 import com.petFinder.service.AttachFile;
 
@@ -30,30 +32,34 @@ public class AdopTempController {
 	private AdopTempService adopTempService;
 	
 	@GetMapping("/adopTempBoardList")
-	public String adopTempBoardList(Model model) {
+	public String adopTempBoardList(Criteria cri, Model model) {
+		
 		System.out.println("adopTempBoardList 호출...");
 				
-		List<ComBoardVO> boardlist = adopTempService.selectBoard();
+		List<ComBoardVO> boardlist = adopTempService.selectBoard(cri);
 		
+		int totalCount = adopTempService.selectTotalCount(); // 전체 글개수
+		
+		PageDTO pageDTO = new PageDTO(totalCount, cri); // 페이지블록(Pagination) 화면만들 떄 필요한 정보
+		
+		// 뷰에서 사용할 데이터를 Model 객체에 저장 -> requestScope로 옮겨줌
 		model.addAttribute("adopTempList", boardlist);
+		model.addAttribute("pageMaker", pageDTO); // pageMaker : 페이지 화면 만들 때 사용
 		
 		return "adopTemp/adopTempBoardList";
 	}
 	
-	@PostMapping("/adopTempBoardList") 
-	public String adopTempBoardList(ComBoardVO comBoardVO) {
-
-		return null;
-	}
-	
 	@GetMapping("/adopTempBoardContent")
-	public String adopTempBoardContent() {
+	public String adopTempBoardContent(int num) {
+		
+		System.out.println("adopTempBoardContent 호출...");
 		
 		return "adopTemp/adopTempBoardContent";
 	}
 	
 	@GetMapping("/adopTempBoardWrite")
 	public String adopTempBoardWrite() {
+		System.out.println("adopTempBoardWrite 호출...");
 		
 		return "adopTemp/adopTempBoardWrite";
 	}

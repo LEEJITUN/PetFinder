@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petFinder.domain.ComBoardVO;
+import com.petFinder.domain.Criteria;
 import com.petFinder.mapper.AdopTempMapper;
 
 @Service
@@ -34,6 +35,7 @@ public class AdopTempService {
 	
 	public void insertBoard(ComBoardVO comBoardVO) {
 		
+		// INSERT할 새글번호 가져오기
 		int num = adopTempMapper.selectNextNumber();
 		
 		// 게시물 타입 ID 만들기
@@ -51,17 +53,39 @@ public class AdopTempService {
 //		adopTempMapper.selectBoardNumber();
 
 		// INSERT 시 데이터 처리	
-		
 		adopTempMapper.insertBoard(comBoardVO);
 	}
 	
-	public int deleteBoard() {
-		return adopTempMapper.deleteBoard();
-	}
-
+	// 전체 게시글 내용 가져오기
 	public List<ComBoardVO> selectBoard() {
-		
 		return adopTempMapper.selectBoard();
 	}
+	
+	// 페이징으로 글 가져오기
+	public List<ComBoardVO> selectBoard(Criteria cri) {
+		// 시작 행번호 (MySQL의 LIMIT절의 시작행번호) 구하기
+		
+		// 한 페이지당 글개수(amount)가 10개씩일때
+		// 1 페이지 -> 0
+		// 2 페이지 -> 10
+		// 3 페이지 -> 20
+		// 4 페이지 -> 30
+		// ...
+		int startRow = (cri.getPageNum()-1) * cri.getAmount();
+		cri.setStartRow(startRow); // 시작행번호 설정
+		
+		return adopTempMapper.selectBoardsWithPaging(cri);
+	}
+		
+	public int deleteAll() {
+		return adopTempMapper.deleteAll();
+	}
 
+	public int selectTotalCount() {
+		return adopTempMapper.selectTotalCount();
+	}
+	
+	public ComBoardVO selectBoard(int num) {
+		return adopTempMapper.selectBoard(num);
+	}
 }

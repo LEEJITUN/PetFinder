@@ -51,7 +51,8 @@
 	
 	</select>
 	
-		<select id="selectBoard" resultType="ComBoardVO">
+		<!-- 추가하기 전 글번호 생성 -->
+	<select id="selectBoard" resultType="ComBoardVO">
 		<![CDATA[
 			SELECT *
 			FROM BOARD_COM
@@ -59,4 +60,37 @@
 			ORDER BY BOARD_NUM DESC
 		]]>
 	</select>
+	
+	<delete id="deleteAll">
+		<![CDATA[
+			DELETE FROM BOARD_COM
+		]]>
+	</delete>
+	
+	<select id="selectTotalCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM BOARD_COM
+		]]>
+	</select>
+	
+	<select id="selectBoardsWithPaging" resultType="ComBoardVO">
+		<![CDATA[
+			SELECT *
+			FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
+			ORDER BY BOARD_NUM DESC
+			LIMIT #{startRow}, #{amount}
+		]]>	
+	</select>
+	
+	<select id="selectBoard" resultType="ComBoardVO">
+		<![CDATA[
+			SELECT *
+			FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
+			AND BOARD_NUM = #{boardNum}
+		]]>	
+	</select>
+	
 </mapper>
