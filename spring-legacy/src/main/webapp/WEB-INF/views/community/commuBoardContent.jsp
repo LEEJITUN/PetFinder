@@ -116,7 +116,7 @@
             </button>
           </div>
           <div class = "col-sm-10 text-right">
-            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify';">
+            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify?boardId=${ commuContent.boardId }';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>

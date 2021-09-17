@@ -67,7 +67,16 @@
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
 		]]>	
-	</select>	
+	</select>
+	
+	<!-- 게시글 수정하기 -->
+	<update id="updateBoardModify">
+		UPDATE BOARD_COM
+		SET BOARD_TITLE = #{boardTitle}, 
+			BOARD_CONTENT = #{boardContent}	
+		WHERE BOARD_TYPE_ID = "COMM"
+			AND BOARD_ID = #{boardId}
+	</update>	
 
 
 </mapper>

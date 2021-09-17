@@ -3,7 +3,7 @@ package com.petFinder.service;
  * @title   : 커뮤니티 게시판 Service
  * @author  : HYEPIN
  * @date    : 2021.09.17
- * @version : 1.1 
+ * @version : 1.2
  **/
 
 import java.util.Date;
@@ -54,6 +54,11 @@ public class CommunityService {
 	/* SELECT - 게시글 하나 가져오기 */
 	public ComBoardVO selectBoardContent(String boardId) {	
 		return communityMapper.selectBoardContent(boardId);
+	}
+
+	/* UPDATE - 게시글 수정하기 */
+	public void updateBoardModify(ComBoardVO comBoardVO) {		
+		communityMapper.updateBoardModify(comBoardVO);
 	}
 
 

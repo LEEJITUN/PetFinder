@@ -54,10 +54,12 @@
                 </div>
                 <div class = "col-sm-6">
                     <!-- 새글쓰기 버튼 -->
-                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite';">
-                    <i class="material-icons align-middle">create</i>
-                    <span class="align-middle Board-font">글쓰기</span>
-                    </button>
+                    <c:if test="${ not empty sessionScope.memberId }">
+	                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite';">
+	                    <i class="material-icons align-middle">create</i>
+	                    <span class="align-middle Board-font">글쓰기</span>
+	                    </button>
+                    </c:if>
                 </div>
             </div>
 

@@ -65,20 +65,21 @@
 
           <div class="clearfix"></div>
           <form action="/community/commuBoardModify" method="POST">
-          
-          	<input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
+          	
+          	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
           	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           
           	<!-- 제목 -->
             <div class="form-group">
-              <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
+            	
+              <input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${ commuContent.boardTitle }">
             </div>
             
             <!-- 내용-->
-            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요." required></textarea>
+			<textarea id="summernote" class="summernote" name="boardContent">${ commuContent.boardContent }</textarea>            
 
             <div class="my-4 text-center">
-              <button type="submit" class="btn btn-warning" onclick="location.href = '/community/commuBoardContent';">
+              <button type="submit" class="btn btn-warning">
                 <i class="material-icons align-middle">create</i>
                 <span class="align-middle">글 등록하기</span>
               </button>
@@ -117,13 +118,6 @@
 
 
     <!-- JavaScript -->
-    <script src="/resources/js/jquery-3.6.0.js"></script>
-    <script src="/resources/js/bootstrap.js"></script>
-
-
-    <!-- JavaScript -->
-
-
     <script>
       $(document).ready(function () {
         $('#summernote').summernote({
