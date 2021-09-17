@@ -63,7 +63,7 @@
  		
             <table class="table table-bordered" style="text-align: center;">
               <div class="form-group">
-                <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"placeholder="제목을 입력해주세요"/>
+                <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"placeholder="제목을 입력해주세요" required />
               </div>
 
               <thead class="thead-light">

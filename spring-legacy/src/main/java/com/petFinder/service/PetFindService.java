@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.petFinder.domain.AttachVO;
 import com.petFinder.domain.PetVO;
 import com.petFinder.domain.ReportBoardVO;
+import com.petFinder.mapper.AttachMapper;
 import com.petFinder.mapper.PetFindMapper;
 import com.petFinder.mapper.ReportAttachMapper;
 
@@ -61,8 +62,8 @@ public class PetFindService {
 			List<AttachVO> attachList = attachFile.uploadFilesAndGetAttachList(files,reportBoardVO.getReportId(),filePorder);
 		
 			// 유기동물 발견,분실 신고 파일 저장
-			reportAttachMapper.insertReportAttach(attachList);			
 			attachList = setFileType(attachList,fileType);
+			reportAttachMapper.insertReportAttach(attachList);			
 		}
 		
 	}
@@ -78,13 +79,22 @@ public class PetFindService {
 	}
 	
 	// 유기동물 신고 조회 목록
-	public List<ReportBoardVO> selectAllFindReport() {
+	public List<ReportBoardVO> selectAllFindReport() {		
 		return petFindMapper.selectAllFindReport();
 	}
 	
 	// 글번호 
 	public int selectBoardNumber (String boardReportType) {
 		return petFindMapper.selectBoardNumber(boardReportType);
+	}
+
+	public ReportBoardVO selectFindReport(String reportId) {
+		List<AttachVO> attachList =  reportAttachMapper.selectByIdReportAttach(reportId);
+		ReportBoardVO reportBoardVO = petFindMapper.selectFindReport(reportId);
+		
+		// 파일 데이터 셋팅
+		reportBoardVO.getPetVO().setAttachVO(attachList);
+		return reportBoardVO;
 	}
 	
 

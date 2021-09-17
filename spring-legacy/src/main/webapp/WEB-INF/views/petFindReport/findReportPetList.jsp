@@ -108,9 +108,6 @@
                     </div>
                     </div>
                 </form>
-       
-      
-      
 
       <!-- end of Select Box -->
 
@@ -118,30 +115,44 @@
       <div class="album py-5 bg-white">
         <div class="container">
           <div class="row">
-          
-<script type="text/javascript">
-
-    			console.log(${ reportBoardList });
-</script>             
+                 
     	<c:choose>
     		<c:when test="${fn:length(reportBoardList) >  0}">
     			<c:forEach var="reportBoard" items="${ reportBoardList }">
     			
 	    		 <div class="col-md-3">
 	              <div class="card mb-4 shadow-sm">
-	                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-	                <title>Placeholder</title>
-	                <rect width="100%" height="100%" fill="#55595c"/>
-	                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	              <c:choose>
+	              <c:when test="${reportBoard.petVO.attachVO[0].uuid != null}">
+	              		<c:set var="fileCallPath" value="${ reportBoard.petVO.attachVO[0].uploadpath }/s_${ reportBoard.petVO.attachVO[0].uuid }_${ reportBoard.petVO.attachVO[0].filename }" />
+               			<c:set var="originPath" value="${ reportBoard.petVO.attachVO[0].uploadpath }/${ reportBoard.petVO.attachVO[0].uuid }_${ reportBoard.petVO.attachVO[0].filename }" />
+           					<a href="/display?fileName=${ originPath }">
+           						<img class="bd-placeholder-img card-img-top W-100"  src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 225px;">
+           					</a>
+	              </c:when>
+	              <c:otherwise>
+	                 <svg class="bd-placeholder-img card-img-top" width="100%" height=225px xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">    
+	                 <rect width="100%" height="100%" fill="#55595c"/>
+	                 <text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+	              </c:otherwise>
+	              </c:choose>
 	                <div class="card-body">
-	                  <p class="card-text">${reportBoard.boardTitle}</p>
+	                <h5 class="card-title">${reportBoard.boardTitle}</h5>
 	                  <p class="card-text">
-	                  ${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.lostPetDate}
+	                  <c:choose>
+	                   <c:when test="${reportBoard.petVO.sido != ''}">
+	                  	${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.findPetDate}
+	                   </c:when>
+	                   <c:otherwise>
+	                 	 ${reportBoard.petVO.address}_${reportBoard.petVO.findPetDate}
+	                   </c:otherwise>
+	                  </c:choose>
 	                  </p>
-	                  <p class="card-text">품종 : ${reportBoard.petVO.petDetailKind}</p>
+	                  <p class="card-text">품종 : ${reportBoard.petVO.petKind} 
+	                  <c:if test = "${not empty reportBoard.petVO.petDetailKind}">_${reportBoard.petVO.petDetailKind}</c:if></p>
 	                  <div class="d-flex justify-content-between align-items-center">
 	                    <div class="btn-group">
-	                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+	                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick = "location.href = '/petFindReport/findReportPetContent?reportId=${ reportBoard.reportId }'">자세히 보기</button>
 	                    </div>
 	                  </div>
 	                </div>
@@ -155,16 +166,6 @@
     			게시판 글이 없습니다.
     		</c:otherwise>
     	</c:choose>
-
-              
-              
-            </div>
-
-    
-
- 
-
-          </div>
         </div>
 
         <!-- pagination area -->

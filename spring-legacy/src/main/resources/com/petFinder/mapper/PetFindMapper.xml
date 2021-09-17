@@ -6,11 +6,19 @@
 
 <mapper namespace="com.petFinder.mapper.PetFindMapper">
 
+	<resultMap type="AttachVO" id="attachVO">
+		<result column="ATTACH_UUID"			property="uuid"/>
+		<result column="ATTACH_UPLOAD_PATH" 	property="uploadpath"/>
+		<result column="ATTACH_NAME" 			property="filename"/>
+		<result column="ATTACH_TYPE" 			property="filetype"/>
+		<result column="REPORT_ID" 				property="boardOrReportId"/>
+	</resultMap>
+
 	<resultMap type="PetVO" id="petVO">
 		<result column="REPORT_ID"				property="reportId"/>
 		<result column="MEMBER_ID" 				property="memberId"/>
 		<result column="SIDO" 					property="sido"/>
-		<result column="DIGUNGU" 				property="sigungu"/>
+		<result column="SIGUNGU" 				property="sigungu"/>
 		<result column="ADDRESS" 				property="address"/>
 		<result column="PET_KIND" 				property="petKind"/>
 		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
@@ -19,6 +27,10 @@
 		<result column="PET_COLOR" 				property="petColor"/>
 		<result column="PET_COATlENGTH" 		property="petCoatLength"/>
 		<result column="PET_CHARACTER" 			property="petCharacter"/>
+		<result column="PET_FIND_DATE" 			property="findPetDate"/>
+		<result column="PET_LOST_DATE" 			property="lostPetDate"/>
+		
+		<collection property="attachVO" resultMap="attachVO"/>
 	</resultMap>
 	
 	<resultMap type="ReportBoardVO" id="ReportBoardVO">
@@ -52,7 +64,8 @@
 				PET_SIZE,
 				PET_COLOR,
 				PET_COATlENGTH,
-				PET_CHARACTER
+				PET_CHARACTER,
+				PET_FIND_DATE
 			)
 			VALUES(
 				#{reportId},
@@ -66,7 +79,8 @@
 				#{petSize},
 				#{petColor},
 				#{petCoatLength},
-				#{petCharacter}				
+				#{petCharacter},
+				#{findPetDate}
 			)
 		]]>
 	</insert>
@@ -113,16 +127,85 @@
 
 	<select id="selectAllFindReport" resultMap="ReportBoardVO">
 		<![CDATA[
-   			SELECT *
+			SELECT 
+				TP.REPORT_ID, 
+				TP.MEMBER_ID, 
+				TP.SIDO,
+				TP.SIGUNGU,
+				TP.ADDRESS,
+                (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
+				TP.PET_DETAIL_KIND,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'GENDER' AND TYPE_D = TP.PET_GENDER) AS PET_GENDER,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'SIZE' AND TYPE_D = TP.PET_SIZE) AS PET_SIZE,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COLOR' AND TYPE_D = TP.PET_COLOR) AS PET_COLOR,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COATlENGTH' AND TYPE_D = TP.PET_COATlENGTH) AS PET_COATlENGTH,
+				TP.PET_CHARACTER, 
+				DATE_FORMAT(TP.PET_FIND_DATE, '%y-%m-%d') AS PET_FIND_DATE,
+				TB.BOARD_NUM, 
+				TB.BOARD_REPORT_TYPE,
+				TB.MEMBER_NICKNAME,
+				TB.BOARD_REPORT_TITLE,
+				TB.BOARD_REPORT_READ_COUNT,
+				TB.BOARD_REPORT_REPT_COUNT,
+				TB.BOARD_REPORT_GOOD,
+				TB.BOARD_REPORT_NOT_GOOD,
+				TB.BOARD_REPORT_REG_DATE,
+				TA.ATTACH_UUID, 
+				TA.ATTACH_UPLOAD_PATH, 
+				TA.ATTACH_NAME, 
+				TA.ATTACH_TYPE
 			FROM 
 				BOARD_REPORT TB
 			LEFT OUTER JOIN 
 				PET_FIND_REPORT TP
 			ON TB.REPORT_ID = TP.REPORT_ID
+            LEFT OUTER JOIN 
+				ATTACH_REPORT TA
+			ON TB.REPORT_ID = TA.REPORT_ID
 			WHERE BOARD_REPORT_TYPE = 'A'
 		]]>	
 	</select>
 	
-	
+	<select id="selectFindReport" resultMap="ReportBoardVO">
+		<![CDATA[
+			SELECT 
+				TP.REPORT_ID, 
+				TP.MEMBER_ID, 
+				TP.SIDO,
+				TP.SIGUNGU,
+				TP.ADDRESS,
+                (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
+				TP.PET_DETAIL_KIND,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'GENDER' AND TYPE_D = TP.PET_GENDER) AS PET_GENDER,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'SIZE' AND TYPE_D = TP.PET_SIZE) AS PET_SIZE,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COLOR' AND TYPE_D = TP.PET_COLOR) AS PET_COLOR,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COATlENGTH' AND TYPE_D = TP.PET_COATlENGTH) AS PET_COATlENGTH,
+				TP.PET_CHARACTER, 
+				DATE_FORMAT(TP.PET_FIND_DATE, '%y-%m-%d') AS PET_FIND_DATE,
+				TB.BOARD_NUM, 
+				TB.BOARD_REPORT_TYPE,
+				TB.MEMBER_NICKNAME,
+				TB.BOARD_REPORT_TITLE,
+				TB.BOARD_REPORT_READ_COUNT,
+				TB.BOARD_REPORT_REPT_COUNT,
+				TB.BOARD_REPORT_GOOD,
+				TB.BOARD_REPORT_NOT_GOOD,
+				TB.BOARD_REPORT_REG_DATE,
+				TA.ATTACH_UUID, 
+				TA.ATTACH_UPLOAD_PATH, 
+				TA.ATTACH_NAME, 
+				TA.ATTACH_TYPE
+			FROM 
+				BOARD_REPORT TB
+			LEFT OUTER JOIN 
+				PET_FIND_REPORT TP
+			ON TB.REPORT_ID = TP.REPORT_ID
+            LEFT OUTER JOIN 
+				ATTACH_REPORT TA
+			ON TB.REPORT_ID = TA.REPORT_ID
+			WHERE BOARD_REPORT_TYPE = 'A'
+			AND TP.REPORT_ID = #{reportId}
+		]]>	
+	</select>
 	
 </mapper>

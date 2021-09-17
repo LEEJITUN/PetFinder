@@ -28,6 +28,20 @@
 		</foreach>
 	</insert>
 	
+	<select id="selectAllReportAttach" resultType="AttachVO">
+		<![CDATA[
+   			SELECT *
+			FROM ATTACH_REPORT 
+		]]>	
+	</select>
 	
+		<select id="selectByIdReportAttach" resultType="AttachVO">
+		<![CDATA[
+   			SELECT *
+			FROM ATTACH_REPORT 
+			WHERE REPORT_ID = #{boardOrReportId}
+		]]>	
+	</select>
+		
 	
 </mapper>

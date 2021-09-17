@@ -28,6 +28,9 @@ public interface PetFindMapper {
 	/* SELECT - 게시물 번호 생성*/
 	int selectBoardNumber(String boardReportType);
 
+	/* SELECT - 해당 게시물 조회 */
+	ReportBoardVO selectFindReport(String reportId);
+
 
 	
 

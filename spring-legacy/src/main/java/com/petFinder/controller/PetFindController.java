@@ -37,9 +37,6 @@ public class PetFindController {
 		List<ReportBoardVO> reportBoardList =  petFindService.selectAllFindReport();
 		model.addAttribute("reportBoardList", reportBoardList);
 		
-		System.out.println("reportBoardList : " + reportBoardList.get(0).getReportId());
-		System.out.println("reportBoardList : " + reportBoardList.get(0).getPetVO());
-		
 		return "petFindReport/findReportPetList";
 	}
 	
@@ -82,13 +79,18 @@ public class PetFindController {
 		
 		petFindService.insertFindReport(petVO,reportBoardVO,files,"FindeReport","F");
 		
-		return "petFindReport/findReportPetList";
+		return "redirect:/petFindReport/findReportPetList";
 	}
 	
 	@GetMapping("/findReportPetContent")
-	public String findReportPetContent() {
+	public String findReportPetContent(String reportId,Model model) {
 		
-		return "redirect:petFindReport/findReportPetContent";
+		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId);
+		
+		model.addAttribute("reportBoardVO", reportBoardVO);
+		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachVO());
+		
+		return "petFindReport/findReportPetContent";
 	}
    
    

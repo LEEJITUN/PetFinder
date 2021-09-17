@@ -7,6 +7,7 @@ package com.petFinder.domain;
  **/
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -63,6 +64,8 @@ public class PetVO {
 	// 발견 날짜
 	private String lostPetDate;
 	
+	// 분실,발견 이미지 파일
+	private List<AttachVO> attachVO;
 	
 	
 }
