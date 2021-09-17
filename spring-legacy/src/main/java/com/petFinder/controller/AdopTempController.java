@@ -71,7 +71,7 @@ public class AdopTempController {
 	
 	// 새로운 주글쓰기 폼 화면 요청
 	@GetMapping("/adopTempBoardWrite")
-	public String adopTempBoardWrite() {
+	public String adopTempBoardWrite(@ModelAttribute("pageNum") String pageNum) {
 		System.out.println("adopTempBoardWrite 호출...");
 		
 		return "adopTemp/adopTempBoardWrite";
@@ -79,6 +79,7 @@ public class AdopTempController {
 	
 	@PostMapping("/adopTempBoardWrite")
 	public String adopTempBoardWrite(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr, String pageNum) {
+		
 		
 		adopTempService.insertBoard(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
