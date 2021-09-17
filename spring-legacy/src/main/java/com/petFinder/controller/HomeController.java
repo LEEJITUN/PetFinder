@@ -37,7 +37,7 @@ public class HomeController {
    @ResponseBody
 	public ResponseEntity<byte[]> getInageFile(String fileName) throws IOException{
 		System.out.println("fileName: " + fileName);
-		File file = new File("D:/upload",fileName);
+		File file = new File("C:/upload",fileName);
 		System.out.println("실제 파일 경로 : " + file.getPath());
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -58,7 +58,7 @@ public class HomeController {
 	@ResponseBody
 	public ResponseEntity<Resource>  downloadFile(String fileName) throws UnsupportedEncodingException {
 		
-		File file = new File("D:/upload",fileName);
+		File file = new File("C:/upload",fileName);
 
 		
 		Resource resource = new FileSystemResource(file);

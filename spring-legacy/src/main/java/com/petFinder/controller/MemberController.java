@@ -57,7 +57,8 @@ public class MemberController {
    public ResponseEntity<String> join(MemberVO memberVo, PetVO petVo, MultipartFile file) throws IllegalStateException, IOException {
 	   
 	   ////////////데이터 확인/////////////
-	   System.out.println("memberVo.getNotice" + memberVo.getMemberNotice());
+
+	   System.out.println("file" + file);
 	   
 	   
 	   /****************** 데이터 설정 *******************/
@@ -81,7 +82,7 @@ public class MemberController {
 	   // 실물 파일 처리 
 	   
 	   /****************** INSERT_프로필 *******************/
-	   if(file != null) {		   
+	   if(file.getSize() != 0) {		   
 		   profilePicService.insertProfilePic(file,memberVo.getMemberId());
 	   }
 	   

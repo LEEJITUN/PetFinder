@@ -6,6 +6,8 @@ package com.petFinder.domain;
  * @version : 1.0 
  **/
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,12 +48,20 @@ public class PetVO {
 	private String reportId;
 	// 반려동물 사진
 	private String petAttachUuid;
-	// 반려동물 잃어버린 지역
-	private String petLocationM;
-	// 반려동물 잃어버린 동네
-	private String petLocationD;
+	// 반려동물 분실, 발견 시도
+	private String sido;
+	// 반려동물 분실, 발견 시군구
+	private String sigungu;
+	// 반려동물 분실, 기본 발견 주소
+	private String address;
+	
 	// 반려동물 특징
 	private String petCharacter;
+	
+	// 잃어버린 날짜
+	private String findPetDate;
+	// 발견 날짜
+	private String lostPetDate;
 	
 	
 	

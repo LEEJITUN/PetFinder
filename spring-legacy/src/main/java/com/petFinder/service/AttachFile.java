@@ -82,13 +82,13 @@ public class AttachFile {
 		}
 		
 		// 폴더 만들기
-		File uploadPath = makeForder(fileForder);
+		File uploadPath = makeForder(fileForder,"C");
 		
 		
 		for (MultipartFile multipartFile : files) {
 			
 			// 파일 업로드
-			AttachVO attachVO =  (AttachVO) fileUpload(multipartFile,uploadPath,id,"A");
+			AttachVO attachVO =  (AttachVO) fileUpload(multipartFile,uploadPath,id,"A",fileForder);
 			
 			attachList.add(attachVO); // 리스트에 추가
 		} // for
@@ -111,7 +111,7 @@ public class AttachFile {
 			return;
 		}
 		
-		String basePath = "D:/upload";
+		String basePath = "C:/upload";
 		
 		for (AttachVO attachVO : attachList) {
 			String uploadpath = basePath + "/" + attachVO.getUploadpath();
@@ -154,10 +154,10 @@ public class AttachFile {
 		}
 		
 		// 폴더 만들기
-		File uploadPath = makeForder("profilePic/" + id);
+		File uploadPath = makeForder("profilePic/" + id,"P");
 		
 		// 파일 업로드
-		profilePicVO = (MemberProfileVO) fileUpload(file,uploadPath,id,"P");
+		profilePicVO = (MemberProfileVO) fileUpload(file,uploadPath,id,"P","profilePic");
 		
 		return profilePicVO;
 	} // uploadProfilePic
@@ -170,14 +170,21 @@ public class AttachFile {
 	 *  @author 	: JIYUN
 	 *  @date 		: 2021.09.15
 	 *  @param		: forderName 
+	 *  @param		: fileType 
 	 *  @return		: File
 	 **/
-	public File makeForder (String forderName) {
+	public File makeForder (String forderName,String fileType) {
 		
-		String uploadFolder = "D:/upload/" + forderName;  // 업로드 기준경로 (D:/upload/Adoptemp/)
+		String uploadFolder = "C:/upload/" + forderName;  // 업로드 기준경로 (D:/upload/Adoptemp/)
 		
-		File uploadPath = new File(uploadFolder, getFolder()); // D:/upload/Adoptemp/2021/08/31
-		System.out.println("uploadPath : " + uploadPath.getPath());
+		File uploadPath;
+		
+		// 프로필 사진일 경우
+		if(fileType.equals("P")) {
+			uploadPath = new File(uploadFolder, getFolder()); // C:/upload/Adoptemp
+		}else {
+			uploadPath = new File(uploadFolder, getFolder()); // C:/upload/Adoptemp/2021/08/31
+		}
 		
 		if (uploadPath.exists() == false) {  // !uploadPath.exists()
 			uploadPath.mkdirs();
@@ -199,7 +206,7 @@ public class AttachFile {
 	 *  @param		: fileType(attach파일인지 , profile 사진인지) 
 	 *  @return		: Object
 	 **/
-	private Object fileUpload (MultipartFile file, File uploadPath, String id,String fileType) throws IllegalStateException, IOException {
+	private Object fileUpload (MultipartFile file, File uploadPath, String id,String fileType,String fileForder) throws IllegalStateException, IOException {
 	
 		Object ob = new Object();
 		
@@ -224,7 +231,7 @@ public class AttachFile {
 				//===== insert할 주글 AttachVO 객체 데이터 생성 ======
 				AttachVO attachVO = new AttachVO();
 				attachVO.setUuid(uuid.toString());
-				attachVO.setUploadpath("com/" + getFolder());
+				attachVO.setUploadpath(fileForder+ "/" + getFolder());
 				attachVO.setFilename(originalFilename);
 				attachVO.setBoardOrReportId(id);
 				ob = attachVO;
@@ -238,6 +245,8 @@ public class AttachFile {
 				
 				ob = memberProfileVO;
 			}
+		}else {
+			return null;
 		}
 		
 		return ob;

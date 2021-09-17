@@ -6,6 +6,122 @@
 
 <mapper namespace="com.petFinder.mapper.PetFindMapper">
 
+	<resultMap type="PetVO" id="petVO">
+		<result column="REPORT_ID"				property="reportId"/>
+		<result column="MEMBER_ID" 				property="memberId"/>
+		<result column="SIDO" 					property="sido"/>
+		<result column="DIGUNGU" 				property="sigungu"/>
+		<result column="ADDRESS" 				property="address"/>
+		<result column="PET_KIND" 				property="petKind"/>
+		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
+		<result column="PET_GENDER" 			property="petGender"/>
+		<result column="PET_SIZE" 				property="petSize"/>
+		<result column="PET_COLOR" 				property="petColor"/>
+		<result column="PET_COATlENGTH" 		property="petCoatLength"/>
+		<result column="PET_CHARACTER" 			property="petCharacter"/>
+	</resultMap>
+	
+	<resultMap type="ReportBoardVO" id="ReportBoardVO">
+		<result column="REPORT_ID"					property="reportId"/>
+		<result column="BOARD_NUM" 					property="boardNum"/>
+		<result column="BOARD_REPORT_TYPE" 			property="boardReportType"/>
+		<result column="MEMBER_ID" 					property="memberId"/>
+		<result column="MEMBER_NICKNAME" 			property="memberNickName"/>
+		<result column="BOARD_REPORT_TITLE" 		property="boardTitle"/>
+		<result column="BOARD_REPORT_READCOUNT" 	property="boardReadCount"/>
+		<result column="BOARD_REPORT_READ_COUNT" 	property="boardReportCount"/>
+		<result column="BOARD_REPORT_GOOD" 			property="boardgood"/>
+		<result column="BOARD_REPORT_NOT_GOOD" 		property="boardNotgood"/>
+		<result column="BOARD_REPORT_REG_DATE" 		property="boardRegDate"/>
+		
+		<collection property="petVO" resultMap="petVO"/>
+	</resultMap>
+
+
+	<insert id="insertFindReort">
+		<![CDATA[
+			INSERT INTO PET_FIND_REPORT (
+				REPORT_ID, 
+				MEMBER_ID, 
+				SIDO,
+				SIGUNGU,
+				ADDRESS,
+				PET_KIND,
+				PET_DETAIL_KIND,
+				PET_GENDER,
+				PET_SIZE,
+				PET_COLOR,
+				PET_COATlENGTH,
+				PET_CHARACTER
+			)
+			VALUES(
+				#{reportId},
+				#{memberId},
+				#{sido},
+				#{sigungu},
+				#{address},
+				#{petKind},
+				#{petDetailKind},
+				#{petGender},
+				#{petSize},
+				#{petColor},
+				#{petCoatLength},
+				#{petCharacter}				
+			)
+		]]>
+	</insert>
+	
+	<insert id="insertFindReortBoard">
+		<![CDATA[
+			INSERT INTO BOARD_REPORT (
+				REPORT_ID, 
+				BOARD_NUM, 
+				BOARD_REPORT_TYPE,
+				MEMBER_ID,
+				MEMBER_NICKNAME,
+				BOARD_REPORT_TITLE,
+				BOARD_REPORT_READ_COUNT,
+				BOARD_REPORT_REPT_COUNT,
+				BOARD_REPORT_GOOD,
+				BOARD_REPORT_NOT_GOOD,
+				BOARD_REPORT_REG_DATE
+			)
+			VALUES(
+				#{reportId},
+				#{boardNum},
+				#{boardReportType},
+				#{memberId},
+				#{memberNickName},
+				#{boardTitle},
+				#{boardReadCount},
+				#{boardReportCount},
+				#{boardgood},
+				#{boardNotgood},
+				#{boardRegDate}
+			
+			)
+		]]>
+	</insert>
+	
+	<select id="selectBoardNumber" resultType="int">
+		<![CDATA[
+   			SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
+			FROM BOARD_REPORT 
+			WHERE BOARD_REPORT_TYPE = #{boardReportType};
+		]]>	
+	</select>
+
+	<select id="selectAllFindReport" resultMap="ReportBoardVO">
+		<![CDATA[
+   			SELECT *
+			FROM 
+				BOARD_REPORT TB
+			LEFT OUTER JOIN 
+				PET_FIND_REPORT TP
+			ON TB.REPORT_ID = TP.REPORT_ID
+			WHERE BOARD_REPORT_TYPE = 'A'
+		]]>	
+	</select>
 	
 	
 	

@@ -28,9 +28,12 @@ public class ProfilePicService {
 		// 실물 파일 등록
 		MemberProfileVO memberProfileVO = attachFileService.uploadProfilePic(file,memberId);
 		
-		System.out.println("upload" + memberProfileVO.getUploadpath());
-		// DB 등록
-		profilePicMapper.insertProfilePic(memberProfileVO);
+		System.out.println("memberProfileVO : " + memberProfileVO.getFilename());
+		
+		if(memberProfileVO != null){			
+			// DB 등록
+			profilePicMapper.insertProfilePic(memberProfileVO);
+		}
 		
 	}
 	
