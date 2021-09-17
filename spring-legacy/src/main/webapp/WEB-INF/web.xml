@@ -25,7 +25,7 @@
       <load-on-startup>1</load-on-startup>
 
       <multipart-config>
-         <location>D:/upload/temp</location><!-- 업로드된 파일이 위치할 임시경로 -->
+         <location>C:/upload/temp</location><!-- 업로드된 파일이 위치할 임시경로 -->
          <file-size-threshold>10485760</file-size-threshold><!-- 임시파일 사용 기준크기(바이트단위). 1024*1024*10=10MB -->
          <max-file-size>20971520</max-file-size><!-- 한개 파일당 최대 업로드 크기(바이트단위). 1024*1024*20=20MB -->
          <max-request-size>104857600</max-request-size><!-- 모든파일 합쳐서 총 업로드 허용 크기(바이드단위). 1024*1024*100=100MB -->
