@@ -1,102 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Google Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-
-    <style>
-        /* *{
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 22px;
-        } */
-
-        .Board-font{
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 22px;
-        }
-    </style>
+   <jsp:include page="/WEB-INF/views/include/head.jsp" />
 </head>
 <body>
-       <!-- Navbar -->
-       <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <div class="container Board-font">
-            <div class="col-sm-2">
-                <!-- Just an image -->
-                <a class="navbar-brand" href="/index.html">
-                    <img src="/resources/images/main_Title.png" width=100%" height="80%">
-                </a>
-             </div>
-        
-          <div class="collapse navbar-collapse " id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto mx-5">
-                <div class="mx-3">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="/findPets/">반려동물 찾기</a>
-                        </li>
-                </div>
+	
 
-                <div class="mx-3">
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="/lostReportPets/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    반려동물 신고
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/lostReportPets/">반려동물 분실 신고</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/findReportPets/">유기동물 발견 신고</a>
-                    </div>
-                </li>
-                </div>
-                <div class="mx-3">              
-                    <li class="nav-item active">
-                    <a class="nav-link" href="/adoptionPets/">입양 | 임보</a>
-                </li>
-                </div>
-                <div class="mx-3"> 
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        커뮤니티
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/board/boardList.html">??</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">갤러리</a>
-                    </div>
-                </li>
-                </div>
-            </ul>
-  
-        
-            <div class=" my-2 my-lg-0" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown active">
-                  <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">person</i>
-                  </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">비밀번호 변경</a>
-                      <a class="dropdown-item" href="#">내정보 수정</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">회원탈퇴</a>
-                    </div>
-                  </li>
-                </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-     <!-- end of Navbar -->
+	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 
     <!-- middle container -->
     <div class="container mt-4">
@@ -125,61 +39,134 @@
       <!-- Right area -->
       <div class="col-sm-9">
           
-        <!-- Contents area -->
-          <div id="comment" class="border border-warning mt-5 p-3">
-          <br>
-          <h3 class="text-center"> 제목 </h3>
+       <input type = "hidden" value="${ sessionScope.memberId }" name = "memberId" />
+ 		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+ 		
+            <table class="table table-bordered" style="text-align: center;">
+              <div class="form-group">
+                <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"placeholder="제목을 입력해주세요" required />
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col" class="text-center pb-4">지역</th>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-6 ">
+                        <div>
+                        <input class="d-block w-100" type = "text" id ="address" name = "address" required/>
+                        <input type = "hidden" name = "sido" id ="sido" />
+                        <input type = "hidden" name = "sigungu" id ="sigungu"/>
+                        </div>
+                      </div>
+                    <div class="col-md-6 ">
+                        <div>
+                        <button type = "button" onclick = "daumPostcode()" > 주소 찾기 </button>
 
-          <!-- 글 상세보기 영역 -->
-          <table class="table">
+                        </div>
+                   </div>
+                  </td>
+                </tr>
+                <tr>
+                <th scope="col" class="text-center pb-4">날짜</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                     	<input class = "custom-select d-block w-100" type = "date" name = "findPetDate"  id = "findPetDate" required/>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">종류</th>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-6 ">
+                        <div>
 
-              <th scope="row" class="text-center">작성자</th>
-              <td>user1</td>
-              <th scope="row" class="text-center">작성일</th>
-              <td>2021.08.20</td>
-              <th scope="row" class="text-center"></th>
-              <td></td>
-            </tr>
-     
-            <tr style="height: 300px" >
-              <th scope="row" class="text-center" >내용</th>
-              <td colspan="5">
+                          <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+         					<option value="" disabled selected>애완동물 종류을 선택하세요.</option>
+                            <option value="D">강아지</option>
+                            <option value="C">고양이</option>
+                            <option value="O">기타</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6 ">
+                        <div>
+	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >
+	
+	                        </select>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">성별</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                        <select class="custom-select" id="petGender" name = "petGender" required>
+                          <option selected disabled value="">선택</option>
+                          <option value="M">남자</option>
+                          <option value="F">여자</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">사이즈</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                        <select class="custom-select" id="petSize" name = "petSize">
+                         <option selected disabled value="">선택</option>
+                         <option value="S">소형</option>
+	                     <option value="M">중형</option>
+	                     <option value="L">대형</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">색상</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                        <select class="custom-select" id="petColor" name = "petColor" >
+                          <option selected disabled value="">선택</option>
+    			          <option value="A">화이트</option>
+	                      <option value="B">블랙</option>
+	                      <option value="C">브라운</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">털 길이</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                        <select class="custom-select" id="petCoatLength" namem = "petCoatLength">
+                          <option selected disabled value="">선택</option>
+                          <option value="S">단모</option>
+	                      <option value="L">장모</option>
+	                      <option value="C">곱슬</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-5">특징</th>
+                  <td>
+                    <textarea class="form-control" id="petCharacter" name = "petCharacter" rows="3"></textarea>
+                  </td>
+                </tr>
 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-                
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center">첨부파일</th>
-              <td colspan="5">
-                <ul>
-                  <li>첨부파일1</li>
-                  <li>첨부파일2</li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" class="text-center"></th>
-              <td colspan="5"></td>
-            </tr>
-          </table>
+            </table>
+
 
           <br>
           <div class="text-center">
