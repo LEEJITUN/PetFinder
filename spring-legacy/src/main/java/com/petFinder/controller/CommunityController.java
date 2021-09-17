@@ -2,8 +2,8 @@ package com.petFinder.controller;
 /**
  * @title   : 커뮤니티 게시판 Controller
  * @author  : HYEPIN
- * @date    : 2021.09.16
- * @version : 1.0 
+ * @date    : 2021.09.17
+ * @version : 1.1 
  **/
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class CommunityController {
 		model.addAttribute("commuList",boardList);
 		
 		return "community/commuBoardList";
-	}
+	} 
 	
 	
 	/* community - 글쓰기 */
@@ -52,14 +52,18 @@ public class CommunityController {
 		communityService.insertBoard(comBoardVO);
 		
 		return "community/commuBoardContent";
-	}
+	} 
 	
 	
 	/* community - 게시글 */
 	@GetMapping("/commuBoardContent")
-	public String commuBoardContent() {
+	public String commuBoardContent(String boardId, Model model) {
 		System.out.println("commuBoardContent 호출...");
-
+		
+		ComBoardVO boardContent = communityService.selectBoardContent(boardId);
+		System.out.println("commuBoardContent 호출..." + boardContent.getBoardTitle());
+		model.addAttribute("commuContent",boardContent);
+		
 		return "community/commuBoardContent";
 	}
 	

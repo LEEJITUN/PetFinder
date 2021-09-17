@@ -49,29 +49,29 @@
 	<!-- Contents area -->
           <div id="comment" class="border border-primary p-3">
           <br>
-		  	<h3 class="text-center"> 제목 </h3>
+		  	<h3 class="text-center"> ${ commuContent.boardTitle } </h3>
           <!-- 글 상세보기 영역 -->
           <table class="table">
           <thead>
-
 			<tr>
               <th scope="row" class="text-center">작성자</th>
-              <td>닉네임</td>
+              <td>${ commuContent.memberNickName }</td>
               <th scope="row" class="text-center">작성일</th>
-              <td>2021.0.0</td>
+              <td><fmt:formatDate value="${ commuContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
               <th scope="row" class="text-center"></th>
               <td></td>
             </tr>
-         
+            
+         	
           </thead>
      	
           <tbody>
+          	
             <tr style="height: 300px" >
               <th scope="row" class="text-center" >내용</th>
-              <td colspan="5"></td>
+              <td colspan="5">${ commuContent.boardTitle }</td>
             </tr>
-
-            <tr>
+			
               <th scope="row" class="text-center">첨부파일</th>
               <td colspan="5">
                 <ul>

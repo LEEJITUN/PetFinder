@@ -2,8 +2,8 @@ package com.petFinder.mapper;
 /**
  * @title   : 커뮤니티 게시판 Mapper
  * @author  : HYEPIN
- * @date    : 2021.09.16 
- * @version : 1.0 
+ * @date    : 2021.09.17
+ * @version : 1.1 
  **/
 
 import java.util.List;
@@ -24,6 +24,6 @@ public interface CommunityMapper {
 	/* INSERT - 커뮤니티 게시글 작성 */
 	void insertBoard(ComBoardVO comBoardVO);
 
-	/* SELECT - 게시글 한개 가져오기 */
-
+	/* SELECT - 글번호에 해당하는 글 한개 가져오기 */
+	ComBoardVO selectBoardContent(String boardId);
 }

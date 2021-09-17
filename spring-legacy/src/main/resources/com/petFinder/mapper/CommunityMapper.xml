@@ -6,6 +6,7 @@
 
 <mapper namespace="com.petFinder.mapper.CommunityMapper">
 
+	<!-- 게시글 번호 생성 -->
 	<select id="selectBoardNumber" resultType="int">
 		<![CDATA[
 		SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
@@ -14,6 +15,7 @@
 		]]>	
 	</select>
 	
+	<!-- 게시글 전체 리스트 -->
 	<select id="selectBoardList" resultType="ComBoardVO">
 		<![CDATA[
 		SELECT *
@@ -23,7 +25,7 @@
 		]]>	
 	</select>
 	
-	
+	<!-- 글쓰기 -->
 	<insert id="insertBoard">
 		<![CDATA[
 			INSERT INTO BOARD_COM (
@@ -56,6 +58,16 @@
 			)
 		]]>
 	</insert>
+	
+	<!-- 게시글 한개 가져오기 -->
+	<select id="selectBoardContent" resultType="ComBoardVO">
+		<![CDATA[
+		SELECT *
+		FROM BOARD_COM
+		WHERE BOARD_TYPE_ID = "COMM"
+			AND BOARD_ID = #{boardId}
+		]]>	
+	</select>	
 
 
 </mapper>
