@@ -37,5 +37,8 @@ public interface AdopTempMapper {
 	int selectTotalCount();
 	
 	/* SELECT - 글 번호에 해당하는 글 한개 가져오기*/
-	ComBoardVO selectBoard(int num);
+	ComBoardVO selectBoardNum(int num);
+	
+	/* UPDATE - */
+	void updateBoardReadCount(int num);
 }

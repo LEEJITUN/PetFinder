@@ -85,7 +85,7 @@ public class AdopTempService {
 		return adopTempMapper.selectTotalCount();
 	}
 	
-	public ComBoardVO selectBoard(int num) {
-		return adopTempMapper.selectBoard(num);
+	public ComBoardVO selectBoardNum(int num) {
+		return adopTempMapper.selectBoardNum(num);
 	}
 }

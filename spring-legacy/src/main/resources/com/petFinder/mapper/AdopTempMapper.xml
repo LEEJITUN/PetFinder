@@ -84,7 +84,7 @@
 		]]>	
 	</select>
 	
-	<select id="selectBoard" resultType="ComBoardVO">
+	<select id="selectBoardNum" resultType="ComBoardVO">
 		<![CDATA[
 			SELECT *
 			FROM BOARD_COM
