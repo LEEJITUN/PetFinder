@@ -54,7 +54,7 @@
 				<!-- 아이디가 있을 경우 새글쓰기 버튼 존재 -->
                 <c:if test="${not empty sessionScope.memberId }">                
                     <!-- 새글쓰기 버튼 -->
-                    <button type="button" class="btn btn-primary btn-sm float-right my-3 " style="background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" onclick="location.href = '/adopTemp/adopTempBoardWrite';">
+                    <button type="button" class="btn btn-primary btn-sm float-right my-3 " style="background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" onclick="location.href = '/adopTemp/adopTempBoardWrite?pageNum=${ pageMaker.cri.pageNum }';">
                     <i class="material-icons align-middle">create</i>
                     <span class="align-middle Board-font">새글쓰기</span>
                     </button>   
@@ -82,7 +82,7 @@
               		<c:forEach var="board" items="${ adopTempList }" >
               		<tr>
               			<td class="text-center">${ board.boardNum }</td>
-              			<td> <a class="align-middle" href="/adopTemp/adopTempBoardContent?boardId=${ board.boardId }">${ board.boardTitle }</a></td>
+              			<td> <a class="align-middle" href="/adopTemp/adopTempBoardContent?boardId=${ board.boardId }&pageNum=${ pageMaker.cri.pageNum }">${ board.boardTitle }</a></td>
               			<td class="text-center">${ board.memberNickName }</td>
                         <td class="text-center"><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
                         <td class="text-center">${ board.boardReadCount }</td>

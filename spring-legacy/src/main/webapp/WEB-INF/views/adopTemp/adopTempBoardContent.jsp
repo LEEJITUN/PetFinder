@@ -107,21 +107,33 @@
         <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageNum }';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">글목록</span>
             </button>
           </div>
+          
           <div class = "col-sm-10 text-right">
-            <button type="button" class="btn btn-primary text-white btn-sm">
-              <i class="material-icons align-middle">edit</i>
-              <span class="align-middle">글수정</span>
-            </button>
-            <button type="button" class="btn btn-danger btn-sm ml-3">
-              <i class="material-icons align-middle">delete</i>
-              <span class="align-middle">글삭제</span>
-            </button>
-          </div>
+          <%-- 로그인 사용자일때 --%>
+            <c:if test="${not empty sessionScope.memberId }">
+            	<%-- 로그인 사용자 닉네임과 글작성자 닉네임이  같을때 --%>
+            	<c:if test="${ sessionScope.memberNic eq board.memberNickName }">
+  	          
+	            <button type="button" class="btn btn-primary text-white btn-sm">
+	              <i class="material-icons align-middle">edit</i>
+	              <span class="align-middle">글수정</span>
+	            </button>
+	            <button type="button" class="btn btn-danger btn-sm ml-3" onclick="remove(event);">
+	              <i class="material-icons align-middle">delete</i>
+	              <span class="align-middle">글삭제</span>
+	            </button>         		
+            	</c:if>
+	            <button type="button" class="btn btn-danger btn-sm ml-3">
+	              <i class="material-icons align-middle">reply</i>
+	              <span class="align-middle">답글쓰기</span>
+	            </button>
+	         </c:if>
+	      </div>
         </div>
 
 
@@ -287,6 +299,20 @@
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+    
+	<script>
+	// 글삭제 버튼을 클릭했을 때 호출되는 함수
+	function remove(event) {
+		// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+		// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+		event.preventDefault();
+		
+		let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+		if (isRemove == true) {
+			location.href = '/adopTemp/adopTempBoardRemove?boardId=${ board.boardId }&pageNum=${ pageNum }';
+		}
+	}
+	</script>
 
 
 </body>

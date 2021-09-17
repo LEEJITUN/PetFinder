@@ -10,8 +10,8 @@ import com.petFinder.domain.Criteria;
 /**
  * @title   : 반려동물 입양|임보 Mapper
  * @author  : SUMIN
- * @date    : 2021.09.15 
- * @version : 1.0 
+ * @date    : 2021.09.17 
+ * @version : 1.2
  **/
 
 
@@ -30,8 +30,6 @@ public interface AdopTempMapper {
 	/* SELECT - 페이징으로 게시글 내용 가져오기 */
 	List<ComBoardVO> selectBoardsWithPaging(Criteria cri);
 	
-	/* DELETE - 전체 행 삭제*/
-	int deleteAll();
 	
 	/* SELECT - 전체 글개수 가져오기 */
 	int selectTotalCount();
@@ -41,4 +39,10 @@ public interface AdopTempMapper {
 	
 	/* UPDATE - 글번호에 해당하는 글의 조회수 1 증가시키 */
 	void updateBoardReadCount(String boardId);
+	
+	/* DELETE - 전체 행 삭제*/
+	int deleteAll();
+	
+	/* DELETE - 글 번호에 해당하는 글 한개 삭제하기*/
+	void deleteBoard(String boardId);
 }

@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petFinder.domain.ComBoardVO;
 import com.petFinder.domain.Criteria;
@@ -31,6 +33,7 @@ public class AdopTempController {
 	@Autowired
 	private AdopTempService adopTempService;
 	
+	// 리스트로 보여주기
 	@GetMapping("/adopTempBoardList")
 	public String adopTempBoardList(Criteria cri, Model model) {
 		
@@ -49,9 +52,9 @@ public class AdopTempController {
 		return "adopTemp/adopTempBoardList";
 	}
 	
-	// 상세보기
+	// 내용 상세보기
 	@GetMapping("/adopTempBoardContent")
-	public String adopTempBoardContent(String boardId, Model model) {
+	public String adopTempBoardContent(String boardId, @ModelAttribute("pageNum") String pageNum, Model model) {
 		
 		System.out.println("adopTempBoardContent 호출...");
 		
@@ -62,11 +65,11 @@ public class AdopTempController {
 		ComBoardVO comBoardVO = adopTempService.selectBoard(boardId);
 		
 		model.addAttribute("board", comBoardVO);
-		
-		
+	
 	      return "adopTemp/adopTempBoardContent";
 	}
 	
+	// 새로운 주글쓰기 폼 화면 요청
 	@GetMapping("/adopTempBoardWrite")
 	public String adopTempBoardWrite() {
 		System.out.println("adopTempBoardWrite 호출...");
@@ -75,11 +78,23 @@ public class AdopTempController {
 	}
 	
 	@PostMapping("/adopTempBoardWrite")
-	public String adopTempBoardWrite(ComBoardVO comBoardVO) {
+	public String adopTempBoardWrite(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr, String pageNum) {
 		
 		adopTempService.insertBoard(comBoardVO);
+		rttr.addAttribute("boardId", comBoardVO.getBoardId());
+		rttr.addAttribute("pageNum", pageNum);
 		
-		return "adopTemp/adopTempBoardList";
+		 return "redirect:/adopTemp/adopTempBoardContent";
 	}
-
+	
+	@GetMapping("/adopTempBoardRemove")
+	public String adopTempBoardRemove(String boardId, String pageNum) {
+		System.out.println("adopTempBoardRemove 호출...");
+		// adopTemp 테이블 내용 삭제
+		adopTempService.deleteBoard(boardId);
+		
+		// 글목록으로 리다이렉트 이동
+		return "redirect:/adopTemp/adopTempBoardList?pageNum=" + pageNum;
+		
+	}
 }

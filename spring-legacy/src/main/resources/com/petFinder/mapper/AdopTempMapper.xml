@@ -37,9 +37,7 @@
 				#{boardNotgood},
 				#{boardRegDate}
 				)
-
 		]]>
-	
 	</insert>
 	
 	<select id="selectNextNumber" resultType="int">
@@ -66,6 +64,14 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteBoard">
+		<![CDATA[
+			DELETE FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "ADOP"
+			And BOARD_ID = #{boardId}
+		]]>
+	</delete>
+	
 	<select id="selectTotalCount" resultType="int">
 		<![CDATA[
 			SELECT COUNT(*)
@@ -89,7 +95,7 @@
 			SELECT *
 			FROM BOARD_COM
 			WHERE BOARD_TYPE_ID = "ADOP"
-			And BOARD_ID= #{boardId}
+			And BOARD_ID = #{boardId}
 		]]>	
 	</select>
 	
@@ -98,7 +104,7 @@
 			UPDATE BOARD_COM
 			SET BOARD_READ_COUNT = BOARD_READ_COUNT + 1
 			WHERE BOARD_TYPE_ID = "ADOP"
-			And BOARD_ID= #{boardId}
+			And BOARD_ID = #{boardId}
 		]]>	
 	</update>
 	

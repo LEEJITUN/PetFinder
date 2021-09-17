@@ -80,6 +80,10 @@ public class AdopTempService {
 	public int deleteAll() {
 		return adopTempMapper.deleteAll();
 	}
+	
+	public void deleteBoard(String boardId) {
+		adopTempMapper.deleteBoard(boardId);
+	}
 
 	public int selectTotalCount() {
 		return adopTempMapper.selectTotalCount();

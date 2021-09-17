@@ -68,15 +68,15 @@
           
           <input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
           <input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
-          
+          <input type="hidden" value="${ pageNum }" name="pageNum">
             <div class="form-group">
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required="required">
             </div>
             <!-- 내용-->
-             <div id="summernote"  class="click2edit" ></div>
+             <textarea id="summernote" class="summernote" name="boardContent"></textarea>
 
             <div class="my-4 text-center">
-              <button type="submit" class="btn btn-warning" onclick="location.href = '/adopTemp/adopTempBoardContent';">
+              <button type="submit" class="btn btn-warning" >
                 <i class="material-icons align-middle">create</i>
                 <span class="align-middle">글 등록하기</span>
               </button>
@@ -84,7 +84,7 @@
                 <i class="material-icons align-middle">clear</i>
                 <span class="align-middle">초기화</span>
               </button>
-              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList';">
+              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageNum }';">
                 <i class="material-icons align-middle">list</i>
                 <span class="align-middle">글목록</span>
               </button>
