@@ -66,7 +66,9 @@
 	
 	<delete id="deleteMemberById">
 		<![CDATA[
-			DELETE FROM MEMBER MEMBER_ID = #{memberId};
+			DELETE 
+			FROM MEMBER 
+			WHERE MEMBER_ID = #{memberId};
 		]]>
 	</delete>
 	

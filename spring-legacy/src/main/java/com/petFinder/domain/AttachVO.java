@@ -16,7 +16,7 @@ public class AttachVO {
    private String filetype;
 
    /*** 게시판 or 신고 ***/ 
-   private String boardOrReportId; // 게시물 id(외래키) or 신고 id(외래키)
+   private String reportId; // 게시물 id(외래키) or 신고 id(외래키)
   
 
 }  

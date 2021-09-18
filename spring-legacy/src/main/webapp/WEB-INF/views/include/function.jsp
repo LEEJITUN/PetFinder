@@ -53,7 +53,7 @@
 	            $('#petDetailKind').empty();
 				/* 고칠 부분  */
 	            if(changeItem != "other"){
-	            	$('#petDetailKind').append("<option value = '' disabled selected>애완동물 품종</option>");
+	            	$('#petDetailKind').append("<option value = '' disabled selected>품종</option>");
 		            for (var count = 0; count < changeItem.length; count++) {
 		                var option = $("<option>" + changeItem[count] + "</option>");
 		                $('#petDetailKind').append(option);

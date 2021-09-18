@@ -11,7 +11,7 @@
 		<result column="ATTACH_UPLOAD_PATH" 	property="uploadpath"/>
 		<result column="ATTACH_NAME" 			property="filename"/>
 		<result column="ATTACH_TYPE" 			property="filetype"/>
-		<result column="REPORT_ID" 				property="boardOrReportId"/>
+		<result column="REPORT_ID" 				property="reportId"/>
 	</resultMap>
 
 	<resultMap type="PetVO" id="petVO">
@@ -19,6 +19,7 @@
 		<result column="MEMBER_ID" 				property="memberId"/>
 		<result column="SIDO" 					property="sido"/>
 		<result column="SIGUNGU" 				property="sigungu"/>
+		<result column="BNAME" 					property="bname"/>
 		<result column="ADDRESS" 				property="address"/>
 		<result column="PET_KIND" 				property="petKind"/>
 		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
@@ -30,7 +31,7 @@
 		<result column="PET_FIND_DATE" 			property="findPetDate"/>
 		<result column="PET_LOST_DATE" 			property="lostPetDate"/>
 		
-		<collection property="attachVO" resultMap="attachVO"/>
+		<collection property="attachList" resultMap="attachVO"/>
 	</resultMap>
 	
 	<resultMap type="ReportBoardVO" id="ReportBoardVO">
@@ -49,74 +50,6 @@
 		<collection property="petVO" resultMap="petVO"/>
 	</resultMap>
 
-
-	<insert id="insertFindReort">
-		<![CDATA[
-			INSERT INTO PET_FIND_REPORT (
-				REPORT_ID, 
-				MEMBER_ID, 
-				SIDO,
-				SIGUNGU,
-				ADDRESS,
-				PET_KIND,
-				PET_DETAIL_KIND,
-				PET_GENDER,
-				PET_SIZE,
-				PET_COLOR,
-				PET_COATlENGTH,
-				PET_CHARACTER,
-				PET_FIND_DATE
-			)
-			VALUES(
-				#{reportId},
-				#{memberId},
-				#{sido},
-				#{sigungu},
-				#{address},
-				#{petKind},
-				#{petDetailKind},
-				#{petGender},
-				#{petSize},
-				#{petColor},
-				#{petCoatLength},
-				#{petCharacter},
-				#{findPetDate}
-			)
-		]]>
-	</insert>
-	
-	<insert id="insertFindReortBoard">
-		<![CDATA[
-			INSERT INTO BOARD_REPORT (
-				REPORT_ID, 
-				BOARD_NUM, 
-				BOARD_REPORT_TYPE,
-				MEMBER_ID,
-				MEMBER_NICKNAME,
-				BOARD_REPORT_TITLE,
-				BOARD_REPORT_READ_COUNT,
-				BOARD_REPORT_REPT_COUNT,
-				BOARD_REPORT_GOOD,
-				BOARD_REPORT_NOT_GOOD,
-				BOARD_REPORT_REG_DATE
-			)
-			VALUES(
-				#{reportId},
-				#{boardNum},
-				#{boardReportType},
-				#{memberId},
-				#{memberNickName},
-				#{boardTitle},
-				#{boardReadCount},
-				#{boardReportCount},
-				#{boardgood},
-				#{boardNotgood},
-				#{boardRegDate}
-			
-			)
-		]]>
-	</insert>
-	
 	<select id="selectBoardNumber" resultType="int">
 		<![CDATA[
    			SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
@@ -132,6 +65,7 @@
 				TP.MEMBER_ID, 
 				TP.SIDO,
 				TP.SIGUNGU,
+				TP.BNAME,
 				TP.ADDRESS,
                 (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
 				TP.PET_DETAIL_KIND,
@@ -173,6 +107,7 @@
 				TP.MEMBER_ID, 
 				TP.SIDO,
 				TP.SIGUNGU,
+				TP.BNAME,
 				TP.ADDRESS,
                 (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
 				TP.PET_DETAIL_KIND,
@@ -181,7 +116,7 @@
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COLOR' AND TYPE_D = TP.PET_COLOR) AS PET_COLOR,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COATlENGTH' AND TYPE_D = TP.PET_COATlENGTH) AS PET_COATlENGTH,
 				TP.PET_CHARACTER, 
-				DATE_FORMAT(TP.PET_FIND_DATE, '%y-%m-%d') AS PET_FIND_DATE,
+				DATE_FORMAT(TP.PET_FIND_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
 				TB.BOARD_NUM, 
 				TB.BOARD_REPORT_TYPE,
 				TB.MEMBER_NICKNAME,
@@ -190,22 +125,130 @@
 				TB.BOARD_REPORT_REPT_COUNT,
 				TB.BOARD_REPORT_GOOD,
 				TB.BOARD_REPORT_NOT_GOOD,
-				TB.BOARD_REPORT_REG_DATE,
-				TA.ATTACH_UUID, 
-				TA.ATTACH_UPLOAD_PATH, 
-				TA.ATTACH_NAME, 
-				TA.ATTACH_TYPE
+				TB.BOARD_REPORT_REG_DATE
 			FROM 
 				BOARD_REPORT TB
 			LEFT OUTER JOIN 
 				PET_FIND_REPORT TP
 			ON TB.REPORT_ID = TP.REPORT_ID
-            LEFT OUTER JOIN 
-				ATTACH_REPORT TA
-			ON TB.REPORT_ID = TA.REPORT_ID
 			WHERE BOARD_REPORT_TYPE = 'A'
 			AND TP.REPORT_ID = #{reportId}
 		]]>	
 	</select>
+	
+	<insert id="insertFindReportBoard">
+		<![CDATA[
+			INSERT INTO BOARD_REPORT (
+				REPORT_ID, 
+				BOARD_NUM, 
+				BOARD_REPORT_TYPE,
+				MEMBER_ID,
+				MEMBER_NICKNAME,
+				BOARD_REPORT_TITLE,
+				BOARD_REPORT_READ_COUNT,
+				BOARD_REPORT_REPT_COUNT,
+				BOARD_REPORT_GOOD,
+				BOARD_REPORT_NOT_GOOD,
+				BOARD_REPORT_REG_DATE
+			)
+			VALUES(
+				#{reportId},
+				#{boardNum},
+				#{boardReportType},
+				#{memberId},
+				#{memberNickName},
+				#{boardTitle},
+				#{boardReadCount},
+				#{boardReportCount},
+				#{boardgood},
+				#{boardNotgood},
+				#{boardRegDate}
+			
+			)
+		]]>
+	</insert>
+	
+	<insert id="insertFindReport">
+		<![CDATA[
+			INSERT INTO PET_FIND_REPORT (
+				REPORT_ID, 
+				MEMBER_ID, 
+				SIDO,
+				SIGUNGU,
+				BNAME,
+				ADDRESS,
+				PET_KIND,
+				PET_DETAIL_KIND,
+				PET_GENDER,
+				PET_SIZE,
+				PET_COLOR,
+				PET_COATlENGTH,
+				PET_CHARACTER,
+				PET_FIND_DATE
+			)
+			VALUES(
+				#{reportId},
+				#{memberId},
+				#{sido},
+				#{sigungu},
+				#{bname},
+				#{address},
+				#{petKind},
+				#{petDetailKind},
+				#{petGender},
+				#{petSize},
+				#{petColor},
+				#{petCoatLength},
+				#{petCharacter},
+				#{findPetDate}
+			)
+		]]>
+	</insert>
+	
+	<update id="updateFindReportBoard">
+		<![CDATA[
+			UPDATE BOARD_REPORT 
+			SET BOARD_REPORT_TITLE = #{boardTitle}
+			WHERE REPORT_ID = #{reportId}
+		]]>
+	</update>
+	
+	<update id="updateFindReport">
+		<![CDATA[
+			UPDATE PET_FIND_REPORT 
+			SET 
+				SIDO				= #{sido},
+				SIGUNGU				= #{sigungu},
+				BNAME				= #{bname},
+				ADDRESS				= #{address},
+				PET_KIND			= #{petKind},
+				PET_DETAIL_KIND		= #{petDetailKind},
+				PET_GENDER			= #{petGender},
+				PET_SIZE			= #{petSize},
+				PET_COLOR			= #{petColor},
+				PET_COATlENGTH		= #{petCoatLength},
+				PET_CHARACTER		= #{petCharacter},
+				PET_FIND_DATE		= #{findPetDate}
+				
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</update>
+	
+	<delete id="deleteFindReportBoard">
+		<![CDATA[
+			DELETE 
+			FROM BOARD_REPORT 
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</delete>
+	
+	<delete id="deleteFindReport">
+		<![CDATA[
+			DELETE 
+			FROM PET_FIND_REPORT 
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</delete>
+	
 	
 </mapper>

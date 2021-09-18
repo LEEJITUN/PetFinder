@@ -4,11 +4,14 @@
     function daumPostcode() {
        new daum.Postcode({
             oncomplete: function (data) {
+            	
+          
                 console.log(data);
-   
+                
                 $('#address').val(data.address);
                 $('#sido').val(data.sido);
                 $('#sigungu').val(data.sigungu);
+                $('#bname').val(data.bname);
             }
         }).open();
     }

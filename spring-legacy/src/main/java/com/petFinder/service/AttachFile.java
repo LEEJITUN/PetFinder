@@ -123,14 +123,12 @@ public class AttachFile {
 				file.delete(); // 첨부파일 삭제하기
 			}
 			
-			// 첨부파일이 이미지 파일이면 썸네일 이미지파일도 삭제하기
-			if (attachVO.getFiletype().equals("I")) { // "Image" 타입이면
-				// 섬네일 이미지 존재여부 확인 후 삭제하기
-				File thumbnailFile = new File(uploadpath, "s_" + filename);
-				if (thumbnailFile.exists() == true) {
-					thumbnailFile.delete();
-				}
+			// 섬네일 이미지 삭제하기
+			File thumbnailFile = new File(uploadpath, "s_" + filename);
+			if (thumbnailFile.exists() == true) {
+				thumbnailFile.delete();
 			}
+			
 		} // for
 	} // deleteAttachFiles
 	
@@ -224,7 +222,7 @@ public class AttachFile {
 			// 현재 업로드한 파일이 이미지 파일이면 썸네일 이미지를 추가로 생성하기
 			File outFile = new File(uploadPath, "s_" + uploadFilename);
 			
-			Thumbnailator.createThumbnail(proFile, outFile, 300, 250);  // 썸네일 이미지 파일 생성하기
+			Thumbnailator.createThumbnail(proFile, outFile, 300, 300);  // 썸네일 이미지 파일 생성하기
 			
 			// 저장 할 객체
 			if(fileType.equals("A")) {				
@@ -233,7 +231,7 @@ public class AttachFile {
 				attachVO.setUuid(uuid.toString());
 				attachVO.setUploadpath(fileForder+ "/" + getFolder());
 				attachVO.setFilename(originalFilename);
-				attachVO.setBoardOrReportId(id);
+				attachVO.setReportId(id);
 				ob = attachVO;
 			}else {
 				//===== insert할 주글 AttachVO 객체 데이터 생성 ======

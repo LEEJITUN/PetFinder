@@ -7,7 +7,76 @@
 <mapper namespace="com.petFinder.mapper.PetLostMapper">
 
 
+	<insert id="insertLostReport">
+		<![CDATA[
+			INSERT INTO PET_LOST_REPORT (
+				REPORT_ID, 
+				PET_REGISTER_NUMBER,
+				MEMBER_ID, 
+				SIDO,
+				SIGUNGU,
+				BNAME,
+				ADDRESS,
+				PET_NAME,
+				PET_KIND,
+				PET_DETAIL_KIND,
+				PET_GENDER,
+				PET_SIZE,
+				PET_COLOR,
+				PET_COATlENGTH,
+				PET_CHARACTER,
+				PET_LOST_DATE
+			)
+			VALUES(
+				#{reportId},
+				#{petRegisterNumber},
+				#{memberId},
+				#{sido},
+				#{sigungu},
+				#{bname},
+				#{address},
+				#{petName},
+				#{petKind},
+				#{petDetailKind},
+				#{petGender},
+				#{petSize},
+				#{petColor},
+				#{petCoatLength},
+				#{petCharacter},
+				#{lostPetDate}
+			)
+		]]>
+	</insert>
 	
+	<update id="updateLostReport">
+		<![CDATA[
+			UPDATE PET_LOST_REPORT 
+			SET 
+				PET_REGISTER_NUMBER	= #{petRegisterNumber},
+				SIDO				= #{sido},
+				SIGUNGU				= #{sigungu},
+				BNAME				= #{bname},
+				ADDRESS				= #{address},
+				PET_NAME			= #{petName},
+				PET_KIND			= #{petKind},
+				PET_DETAIL_KIND		= #{petDetailKind},
+				PET_GENDER			= #{petGender},
+				PET_SIZE			= #{petSize},
+				PET_COLOR			= #{petColor},
+				PET_COATlENGTH		= #{petCoatLength},
+				PET_CHARACTER		= #{petCharacter},
+				PET_LOST_DATE		= #{findPetDate}
+				
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</update>
 	
+	<delete id="deleteLostReport">
+		<![CDATA[
+			DELETE 
+			FROM PET_LOST_REPORT 
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</delete>
 	
 </mapper>

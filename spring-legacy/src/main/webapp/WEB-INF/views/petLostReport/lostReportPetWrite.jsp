@@ -6,18 +6,6 @@
 <head>
    <%--  include head.jsp --%>
    <jsp:include page="/WEB-INF/views/include/head.jsp" />
-
-  <style>
-    /* *{
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 22px;
-        } */
-
-    .Board-font {
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 22px;
-    }
-  </style>
 </head>
 
 <body>
@@ -67,7 +55,7 @@
           <form>
             <table class="table table-bordered" style="text-align: center;">
               <div class="form-group">
-                <input class="form-control form-control-lg" type="text" placeholder="제목을 입력해주세요">
+                <input class="form-control form-control-lg" type="text" placeholder="제목을 입력해주세요" required>
               </div>
 
               <thead class="thead-light">
@@ -75,51 +63,60 @@
                   <th scope="col" class="text-center pb-3">이름</th>
                   <td><input class="form-control" type="text" id="name" placeholder="이름을 입력해주세요." required></td>
                 </tr>
-                <tr>
-
+                 <tr>
                   <th scope="col" class="text-center pb-4">지역</th>
-                  <td><div class="row">
+                  <td>
+                    <div class="row">
+                      <div class="col-md-6 ">
+                        <div>
+                        <input class="d-block w-100" type = "text" id ="address" name = "address" required/>
+                        <input type = "hidden" name = "sido" id ="sido" />
+                        <input type = "hidden" name = "sigungu" id ="sigungu"/>
+                        <input type = "hidden" name = "bname" id ="bname"/>
+                        </div>
+                      </div>
                     <div class="col-md-6 ">
-                    <div>
-                        <select class="custom-select d-block w-100" id="country" required>
-                            <option value="">(구) 선택</option>
-                            <option>United States</option>
-                        </select>
-                    </div>
-                    </div>
-                    <div class="col-md-6 ">
-                      <div>
-                          <select class="custom-select d-block w-100" id="country" required>
-                              <option value="">(동) 선택</option>
-                              <option>United States</option>
-                          </select>
+                        <div>
+                        <button type = "button" onclick = "daumPostcode()" > 주소 찾기 </button>
+
+                        </div>
+                   </div>
+                  </td>
+                </tr>
+                <tr>
+                <th scope="col" class="text-center pb-4">날짜</th>
+                  <td>
+                    <div class="form-row form-control-sm mb-3">
+                      <div class="col">
+                     	<input class = "custom-select d-block w-100" type = "date" name = "lostPetDate"  id = "lostPetDate" required/>
                       </div>
                     </div>
                   </td>
                 </tr>
-                <tr>
+               <tr>
                   <th scope="col" class="text-center pb-4">종류</th>
                   <td>
                     <div class="row">
                       <div class="col-md-6 ">
                         <div>
-                          <select class="custom-select d-block w-100" id="kinds" required>
-                            <option value="">선택</option>
-                            <option>United States</option>
+                          <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+         					<option value="" disabled selected>종류 선택</option>
+                            <option value="D">강아지</option>
+                            <option value="C">고양이</option>
+                            <option value="O">기타</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-md-6 ">
                         <div>
-                          <select class="custom-select d-block w-100" id="required" required>
-                            <option value="">(품종) 선택</option>
-                            <option>United States</option>
-                          </select>
+	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >
+	
+	                        </select>
                         </div>
                       </div>
                   </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th scope="col" class="text-center pb-4">나이</th>
                   <td>
                     <div class="form-row form-control-sm mb-3">
@@ -131,15 +128,16 @@
                       </div>
                     </div>
                   </td>
-                </tr>
-                <tr>
+                </tr> -->
+               <tr>
                   <th scope="col" class="text-center pb-4">성별</th>
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                        <select class="custom-select" id="gender" required>
+                        <select class="custom-select" id="petGender" name = "petGender" required>
                           <option selected disabled value="">선택</option>
-                          <option>...</option>
+                          <option value="M">남자</option>
+                          <option value="F">여자</option>
                         </select>
                       </div>
                     </div>
@@ -150,9 +148,11 @@
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                        <select class="custom-select" id="size" >
-                          <option selected disabled value="">선택</option>
-                          <option>...</option>
+                        <select class="custom-select" id="petSize" name = "petSize">
+                         <option selected disabled value="">선택</option>
+                         <option value="S">소형</option>
+	                     <option value="M">중형</option>
+	                     <option value="L">대형</option>
                         </select>
                       </div>
                     </div>
@@ -163,9 +163,11 @@
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                        <select class="custom-select" id="color" >
+                        <select class="custom-select" id="petColor" name = "petColor" >
                           <option selected disabled value="">선택</option>
-                          <option>...</option>
+    			          <option value="A">화이트</option>
+	                      <option value="B">블랙</option>
+	                      <option value="C">브라운</option>
                         </select>
                       </div>
                     </div>
@@ -176,9 +178,11 @@
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                        <select class="custom-select" id="length" required>
+                        <select class="custom-select" id="petCoatLength" name = "petCoatLength">
                           <option selected disabled value="">선택</option>
-                          <option>...</option>
+                          <option value="S">단모</option>
+	                      <option value="L">장모</option>
+	                      <option value="C">곱슬</option>
                         </select>
                       </div>
                     </div>
@@ -187,7 +191,7 @@
                 <tr>
                   <th scope="col" class="text-center pb-5">특징</th>
                   <td>
-                    <textarea class="form-control" id="feature" rows="3"></textarea>
+                    <textarea class="form-control" id="petCharacter" name = "petCharacter" rows="3"></textarea>
                   </td>
                 </tr>
 
@@ -251,12 +255,13 @@
   <!-- end of a link container -->
   <!-- a link container -->
 
-   <%--  include footer.jsp --%>
-   <jsp:include page="/WEB-INF/views/include/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/include/function.jsp" ></jsp:include>
+	<jsp:include page="/WEB-INF/views/include/locationAPI.jsp" ></jsp:include>
 
-  <!-- JavaScript -->
-  <script src="/resources/js/jquery-3.6.0.js"></script>
-  <script src="/resources/js/bootstrap.js"></script>
+  	<!-- JavaScript -->
+	<script src="/resources/js/jquery-3.6.0.js"></script>
+	<script src="/resources/js/bootstrap.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </body>
 

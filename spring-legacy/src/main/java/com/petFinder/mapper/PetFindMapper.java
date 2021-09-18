@@ -16,20 +16,32 @@ import com.petFinder.domain.ReportBoardVO;
 @Mapper
 public interface PetFindMapper {
 
-	/* INSERT - 유기동물 신고 데이터 등록*/
-	void insertFindReort(PetVO petVO);
+	/* INSERT - 유기동물 신고 데이터 등록 */
+	void insertFindReport(PetVO petVO);
 
 	/* INSERT - 유기동물 신고 게시물 등록 */
-	void insertFindReortBoard(ReportBoardVO reportBoardVO);
+	void insertFindReportBoard(ReportBoardVO reportBoardVO);
 
-	/* SELECT - 유기동물 신고 전체 조회*/
+	/* SELECT - 유기동물 신고 전체 조회 */
 	List<ReportBoardVO> selectAllFindReport();
 
-	/* SELECT - 게시물 번호 생성*/
+	/* SELECT - 게시물 번호 생성 조회 */
 	int selectBoardNumber(String boardReportType);
 
 	/* SELECT - 해당 게시물 조회 */
 	ReportBoardVO selectFindReport(String reportId);
+
+	/* DELETE - 해당 게시물 삭제 */
+	void deleteFindReportBoard(String reportId);
+	
+	/* DELETE - 해당 신고 삭제 */
+	void deleteFindReport(String reportId);
+
+	/* UPDATE - 해당 신고 게시물 수정 */
+	void updateFindReportBoard(ReportBoardVO reportBoardVO);
+
+	/* UPDATE - 해당 신고 데이터 수정 */
+	void updateFindReport(PetVO petVO);
 
 
 	

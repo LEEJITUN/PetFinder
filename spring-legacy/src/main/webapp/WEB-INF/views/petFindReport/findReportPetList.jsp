@@ -123,9 +123,9 @@
 	    		 <div class="col-md-3">
 	              <div class="card mb-4 shadow-sm">
 	              <c:choose>
-	              <c:when test="${reportBoard.petVO.attachVO[0].uuid != null}">
-	              		<c:set var="fileCallPath" value="${ reportBoard.petVO.attachVO[0].uploadpath }/s_${ reportBoard.petVO.attachVO[0].uuid }_${ reportBoard.petVO.attachVO[0].filename }" />
-               			<c:set var="originPath" value="${ reportBoard.petVO.attachVO[0].uploadpath }/${ reportBoard.petVO.attachVO[0].uuid }_${ reportBoard.petVO.attachVO[0].filename }" />
+	              <c:when test="${reportBoard.petVO.attachList[0].uuid != null}">
+	              		<c:set var="fileCallPath" value="${ reportBoard.petVO.attachList[0].uploadpath }/s_${ reportBoard.petVO.attachList[0].uuid }_${ reportBoard.petVO.attachList[0].filename }" />
+               			<c:set var="originPath" value="${ reportBoard.petVO.attachList[0].uploadpath }/${ reportBoard.petVO.attachList[0].uuid }_${ reportBoard.petVO.attachList[0].filename }" />
            					<a href="/display?fileName=${ originPath }">
            						<img class="bd-placeholder-img card-img-top W-100"  src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 225px;">
            					</a>

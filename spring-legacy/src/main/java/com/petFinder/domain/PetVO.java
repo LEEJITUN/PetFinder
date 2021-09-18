@@ -53,19 +53,22 @@ public class PetVO {
 	private String sido;
 	// 반려동물 분실, 발견 시군구
 	private String sigungu;
+	// 반려동물 분실,  법정동
+	private String  bname;
 	// 반려동물 분실, 기본 발견 주소
 	private String address;
 	
 	// 반려동물 특징
 	private String petCharacter;
 	
-	// 잃어버린 날짜
-	private String findPetDate;
 	// 발견 날짜
+	private String findPetDate;
+	
+	// 잃어버린 날짜 
 	private String lostPetDate;
 	
 	// 분실,발견 이미지 파일
-	private List<AttachVO> attachVO;
+	private List<AttachVO> attachList;
 	
 	
 }

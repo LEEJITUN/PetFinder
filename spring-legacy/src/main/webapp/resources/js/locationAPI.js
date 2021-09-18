@@ -1,5 +1,5 @@
 
-    function sample3_execDaumPostcode() {
+    function daumPostcode() {
        new daum.Postcode({
             oncomplete: function (data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
@@ -16,7 +16,7 @@
     //     element_wrap.style.display = 'none';
     // }
 
-    // function sample3_execDaumPostcode() {
+    // function daumPostcode() {
     //     // 현재 scroll 위치를 저장해놓는다.
     //     var currentScroll = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
     //     new daum.Postcode({

@@ -5,7 +5,6 @@
 <head>
 
 
-   
    <%--  include head.jsp --%>
    <jsp:include page="/WEB-INF/views/include/head.jsp" />
 

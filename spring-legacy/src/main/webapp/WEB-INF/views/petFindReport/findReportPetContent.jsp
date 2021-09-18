@@ -42,27 +42,51 @@
        <input type = "hidden" value="${ sessionScope.memberId }" name = "memberId" />
  		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
  		
-            <table class="table table-bordered" style="text-align: center;">
-              <div class="form-group">
-                <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"placeholder="제목을 입력해주세요" required />
+              <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"
+				value="${reportBoardVO.boardTitle}" disabled />
+              <div class="form-group"></div>
+              
+              <div class = "row">              
+              	<h5>작성자&nbsp;${reportBoardVO.memberId}</h5>
+              </div>
+              <!-- carouselExampleFade  -->
+
+			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+	  			<div class="carousel-inner" style="background: gray;">
+				  <c:choose>
+	              	<c:when test="${fn:length(attachList) >  0}" >
+	              		<c:forEach var="attach" items="${ attachList }"  varStatus="status">
+	              		    <c:set var="fileCallPath" value="${ attach.uploadpath }/s_${ attach.uuid }_${ attach.filename }" />
+	               			<c:set var="originPath" value="${ attach.uploadpath }/${ attach.uuid }_${ attach.filename }" />
+						    
+						    <div class="carousel-item <c:if test = "${status.index eq 0}" >active </c:if> text-center">
+	           					<a href="/display?fileName=${ originPath }">
+	           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 500px;" >
+	           					</a>
+						    </div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+				</c:choose>
+			 </div>
+			  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+			</div>
+            <!-- end of carouselExampleFade  -->
+            <table class="table table-bordered Board-font" style="text-align: center;">
               <thead class="thead-light">
                 <tr>
                   <th scope="col" class="text-center pb-4">지역</th>
                   <td>
-                    <div class="row">
-                      <div class="col-md-6 ">
-                        <div>
-                        <input class="d-block w-100" type = "text" id ="address" name = "address" required/>
-                        <input type = "hidden" name = "sido" id ="sido" />
-                        <input type = "hidden" name = "sigungu" id ="sigungu"/>
-                        </div>
-                      </div>
-                    <div class="col-md-6 ">
-                        <div>
-                        <button type = "button" onclick = "daumPostcode()" > 주소 찾기 </button>
-
-                        </div>
-                   </div>
+					${reportBoardVO.petVO.address}
                   </td>
                 </tr>
                 <tr>
@@ -70,7 +94,7 @@
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                     	<input class = "custom-select d-block w-100" type = "date" name = "findPetDate"  id = "findPetDate" required/>
+                      ${reportBoardVO.petVO.findPetDate}
                       </div>
                     </div>
                   </td>
@@ -78,90 +102,43 @@
                 <tr>
                   <th scope="col" class="text-center pb-4">종류</th>
                   <td>
-                    <div class="row">
-                      <div class="col-md-6 ">
-                        <div>
-
-                          <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
-         					<option value="" disabled selected>애완동물 종류을 선택하세요.</option>
-                            <option value="D">강아지</option>
-                            <option value="C">고양이</option>
-                            <option value="O">기타</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-6 ">
-                        <div>
-	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >
-	
-	                        </select>
-                        </div>
-                      </div>
+					 ${reportBoardVO.petVO.petKind}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-4">품종</th>
+                  <td>
+					 ${reportBoardVO.petVO.petDetailKind}
                   </td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-4">성별</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
-                        <select class="custom-select" id="petGender" name = "petGender" required>
-                          <option selected disabled value="">선택</option>
-                          <option value="M">남자</option>
-                          <option value="F">여자</option>
-                        </select>
-                      </div>
-                    </div>
+						${reportBoardVO.petVO.petGender}
                   </td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-4">사이즈</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
-                        <select class="custom-select" id="petSize" name = "petSize">
-                         <option selected disabled value="">선택</option>
-                         <option value="S">소형</option>
-	                     <option value="M">중형</option>
-	                     <option value="L">대형</option>
-                        </select>
-                      </div>
-                    </div>
+                    	${reportBoardVO.petVO.petSize}
                   </td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-4">색상</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
-                        <select class="custom-select" id="petColor" name = "petColor" >
-                          <option selected disabled value="">선택</option>
-    			          <option value="A">화이트</option>
-	                      <option value="B">블랙</option>
-	                      <option value="C">브라운</option>
-                        </select>
-                      </div>
-                    </div>
+                    ${reportBoardVO.petVO.petColor}
                   </td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-4">털 길이</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
-                        <select class="custom-select" id="petCoatLength" namem = "petCoatLength">
-                          <option selected disabled value="">선택</option>
-                          <option value="S">단모</option>
-	                      <option value="L">장모</option>
-	                      <option value="C">곱슬</option>
-                        </select>
-                      </div>
-                    </div>
+                     ${reportBoardVO.petVO.petCoatLength}
                   </td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-5">특징</th>
                   <td>
-                    <textarea class="form-control" id="petCharacter" name = "petCharacter" rows="3"></textarea>
+                    	${reportBoardVO.petVO.petCharacter}
                   </td>
                 </tr>
 
@@ -186,26 +163,32 @@
             
           </div>
           <br><br><br>
-        </div>
-        <br><br><br>
+
+        <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/board/boardList.html';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/petFindReport/findReportPetList';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">글목록</span>
             </button>
           </div>
+       	<%-- 로그인 사용자일때 --%>
+       	<c:if test="${ not empty sessionScope.memberId }">
+         	<%-- 로그인 아이디와 글작성자 아이디가 같을때 --%>
+         	<c:if test="${ sessionScope.memberId eq reportBoardVO.memberId }">
           <div class = "col-sm-10 text-right">
-            <button type="button" class="btn btn-primary text-white btn-sm">
+            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/petFindReport/findReportPetModify?reportId=${reportBoardVO.reportId}';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>
-            <button type="button" class="btn btn-danger btn-sm ml-3">
+            <button type="button" class="btn btn-danger btn-sm ml-3"  onclick="remove(event);">
               <i class="material-icons align-middle">delete</i>
               <span class="align-middle">글삭제</span>
             </button>
           </div>
-        </div>
+          </c:if>
+        </c:if>
+      </div>
 
 
           <!-- Comment -->
@@ -369,6 +352,20 @@
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+    
+   <script>
+		// 글삭제 버튼을 클릭했을 때 호출되는 함수
+		function remove(event) {
+			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+			event.preventDefault();
+			
+			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+			if (isRemove == true) {
+				location.href = '/petFindReport/findReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
+			}
+		}
+  </script>
 
 </body>
 </html>

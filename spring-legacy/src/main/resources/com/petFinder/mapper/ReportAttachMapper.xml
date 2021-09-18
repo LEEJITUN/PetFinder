@@ -5,7 +5,38 @@
 
 
 <mapper namespace="com.petFinder.mapper.ReportAttachMapper">
-
+	<resultMap type="AttachVO" id="AttachVO">
+		<result column="ATTACH_UUID"			property="uuid"/>
+		<result column="ATTACH_UPLOAD_PATH" 	property="uploadpath"/>
+		<result column="ATTACH_NAME" 			property="filename"/>
+		<result column="ATTACH_TYPE" 			property="filetype"/>
+		<result column="REPORT_ID" 				property="reportId"/>
+	</resultMap>
+	
+	<select id="selectAllReportAttach" resultType="AttachVO">
+		<![CDATA[
+   			SELECT *
+			FROM ATTACH_REPORT 
+		]]>	
+	</select>
+	
+	<select id="selectByIdReportAttach" resultMap="AttachVO">
+		<![CDATA[
+   			SELECT *
+			FROM ATTACH_REPORT 
+			WHERE REPORT_ID = #{reportId}
+		]]>	
+	</select>
+	
+	<select id="getAttachesByUuids" resultMap="AttachVO">
+		SELECT * 
+		FROM ATTACH_REPORT
+		WHERE ATTACH_UUID IN 
+		<foreach collection="list" item="uuid" open="(" separator="," close=")">
+			#{uuid}
+		</foreach>
+	</select>
+	
 	<insert id="insertReportAttach">
 		<![CDATA[
 			INSERT INTO ATTACH_REPORT (
@@ -23,25 +54,34 @@
 				 #{attach.uploadpath},
 				 #{attach.filename},
 				 #{attach.filetype}, 
-				 #{attach.boardOrReportId}
+				 #{attach.reportId}
 			  )
 		</foreach>
 	</insert>
 	
-	<select id="selectAllReportAttach" resultType="AttachVO">
+	<update id="updateFindReport">
 		<![CDATA[
-   			SELECT *
-			FROM ATTACH_REPORT 
-		]]>	
-	</select>
+			UPDATE ATTACH_REPORT 
+			SET 
+		]]>
+			<foreach collection="list" item="attach" separator=",">
+				ATTACH_UUID			= #{attach.uuid},
+				ATTACH_UPLOAD_PATH 	= #{attach.uploadpath},
+				ATTACH_NAME			= #{attach.filename},
+				ATTACH_TYPE			= #{attach.filetype},
+				REPORT_ID			= #{attach.reportId}
+			</foreach>	
+		<![CDATA[
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</update>
 	
-		<select id="selectByIdReportAttach" resultType="AttachVO">
+	<delete id="deleteFindReport">
 		<![CDATA[
-   			SELECT *
+			DELETE 
 			FROM ATTACH_REPORT 
-			WHERE REPORT_ID = #{boardOrReportId}
-		]]>	
-	</select>
-		
+			WHERE REPORT_ID = #{reportId};
+		]]>
+	</delete>
 	
 </mapper>
