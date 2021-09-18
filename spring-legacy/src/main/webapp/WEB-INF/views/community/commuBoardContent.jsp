@@ -55,11 +55,11 @@
           <thead>
 			<tr>
               <th scope="row" class="text-center">작성자</th>
-              <td>${ commuContent.memberNickName }</td>
+              	<td>${ commuContent.memberNickName }</td>
               <th scope="row" class="text-center">작성일</th>
-              <td><fmt:formatDate value="${ commuContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
-              <th scope="row" class="text-center"></th>
-              <td></td>
+              	<td><fmt:formatDate value="${ commuContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
+              <th scope="row" class="text-center">조회수</th>
+              	<td></td>
             </tr>
             
          	
@@ -69,7 +69,7 @@
           	
             <tr style="height: 300px" >
               <th scope="row" class="text-center" >내용</th>
-              <td colspan="5">${ commuContent.boardTitle }</td>
+              <td colspan="5">${ commuContent.boardContent }</td>
             </tr>
 			
               <th scope="row" class="text-center">첨부파일</th>
@@ -115,12 +115,12 @@
               <span class="align-middle">글목록</span>
             </button>
           </div>
-          <div class = "col-sm-10 text-right">
+          <div class = "col-sm-10 text-right">								            
             <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify?boardId=${ commuContent.boardId }';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>
-            <button type="button" class="btn btn-danger btn-sm ml-3">
+            <button type="button" class="btn btn-danger btn-sm ml-3" onclick="remove(event);">
               <i class="material-icons align-middle">delete</i>
               <span class="align-middle">글삭제</span>
             </button>
@@ -288,6 +288,20 @@
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+    
+    <script>
+	// 글삭제 버튼을 클릭했을 때 호출되는 함수
+	function remove(event) {
+		// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+		// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+		event.preventDefault();
+		
+		let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+		if (isRemove == true) {
+			location.href = '/community/commuBoardRemove?boardId=${ commuContent.boardId }';
+		}
+	}
+	</script>
 
 </body>
 </html>

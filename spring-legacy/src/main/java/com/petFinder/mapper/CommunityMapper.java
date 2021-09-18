@@ -22,11 +22,14 @@ public interface CommunityMapper {
 	List<ComBoardVO> selectBoardList();
 	
 	/* INSERT - 커뮤니티 게시글 작성 */
-	void insertBoard(ComBoardVO comBoardVO);
+	void insertBoardWrite(ComBoardVO comBoardVO);
 
 	/* SELECT - 글번호에 해당하는 글 한개 가져오기 */
 	ComBoardVO selectBoardContent(String boardId);
 
 	/* UPDATE - 글번호에 해당하는 글 수정하기 */
 	void updateBoardModify(ComBoardVO comBoardVO);
+
+	/* DELETE - 글번호에 해당하는 글 삭제하기 */
+	void deleteBoardContent(String boardId);
 }

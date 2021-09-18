@@ -80,8 +80,8 @@
 
             <div class="my-4 text-center">
               <button type="submit" class="btn btn-warning">
-                <i class="material-icons align-middle">create</i>
-                <span class="align-middle">글 등록하기</span>
+                <i class="material-icons align-middle">edit</i>
+                <span class="align-middle">글수정</span>
               </button>
               <button type="reset" class="btn btn-success ml-3">
                 <i class="material-icons align-middle">clear</i>

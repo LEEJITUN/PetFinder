@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 글쓰기 -->
-	<insert id="insertBoard">
+	<insert id="insertBoardWrite">
 		<![CDATA[
 			INSERT INTO BOARD_COM (
 				BOARD_ID,
@@ -71,12 +71,22 @@
 	
 	<!-- 게시글 수정하기 -->
 	<update id="updateBoardModify">
+		<![CDATA[
 		UPDATE BOARD_COM
 		SET BOARD_TITLE = #{boardTitle}, 
 			BOARD_CONTENT = #{boardContent}	
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
+		]]>				
 	</update>	
 
-
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteBoardContent">
+		<![CDATA[
+			DELETE FROM BOARD_COM
+			WHERE BOARD_TYPE_ID = "COMM"
+				AND BOARD_ID = #{boardId}
+		]]>	
+	</delete>
+	
 </mapper>

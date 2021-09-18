@@ -31,7 +31,7 @@ public class CommunityService {
 	}
 
 	/* INSERT - 커뮤니티 게시글 작성 */
-	public void insertBoard(ComBoardVO comBoardVO) {
+	public void insertBoardWrite(ComBoardVO comBoardVO) {
 		
 		int num = communityMapper.selectBoardNumber();
 		
@@ -48,7 +48,7 @@ public class CommunityService {
 		comBoardVO.setBoardRegDate(new Date());
 		
 		// INSERT시 데이터 처리
-		communityMapper.insertBoard(comBoardVO);
+		communityMapper.insertBoardWrite(comBoardVO);
 	}
 
 	/* SELECT - 게시글 하나 가져오기 */
@@ -59,6 +59,12 @@ public class CommunityService {
 	/* UPDATE - 게시글 수정하기 */
 	public void updateBoardModify(ComBoardVO comBoardVO) {		
 		communityMapper.updateBoardModify(comBoardVO);
+	}
+
+	/* DELETE - 게시글 삭제하기 */
+	public void deleteBoardContent(String boardId) {
+		communityMapper.deleteBoardContent(boardId);
+		
 	}
 
 

@@ -50,7 +50,7 @@ public class CommunityController {
 	@PostMapping("/commuBoardWrite")
 	public String commuBoardWrite(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr) {
 		
-		communityService.insertBoard(comBoardVO);
+		communityService.insertBoardWrite(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
 		
 		return "redirect:/community/commuBoardContent";
@@ -84,7 +84,6 @@ public class CommunityController {
 	@PostMapping("/commuBoardModify")
 	public String commuBoardModify(ComBoardVO comBoardVO, RedirectAttributes rttr) {
 		
-		
 		communityService.updateBoardModify(comBoardVO);
 		
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
@@ -92,6 +91,17 @@ public class CommunityController {
 		return "redirect:/community/commuBoardContent";
 	}
 	
+	
+	/* community - 삭제 */
+	@GetMapping("/commuBoardRemove")
+	public String commuBoardRemove(String boardId) {
+		System.out.println("commuBoardRemove 호출...");
+		
+		communityService.deleteBoardContent(boardId);
+		
+		return "redirect:/community/commuBoardList";
+	}
+
 	
 	/* community - 답글 */
 	@GetMapping("/commuBoardReplyWrite")
