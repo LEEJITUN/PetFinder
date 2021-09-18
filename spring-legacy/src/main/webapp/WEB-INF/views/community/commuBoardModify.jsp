@@ -68,6 +68,7 @@
           	
           	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
           	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
+          	<input type="hidden" value="${ commuContent.boardId }" name="boardId">
           
           	<!-- 제목 -->
             <div class="form-group">
