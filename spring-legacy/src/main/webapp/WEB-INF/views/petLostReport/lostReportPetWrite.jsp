@@ -52,16 +52,23 @@
           <hr class="featurette-divider">
           <div class="clearfix"></div>
 
-          <form>
+         <form action="/petLostReport/lostReportPetWrite" method="POST" enctype="multipart/form-data">
+ 		 	<input type = "hidden" value="${ sessionScope.memberId }" name = "memberId" />
+ 		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+            
             <table class="table table-bordered" style="text-align: center;">
-              <div class="form-group">
-                <input class="form-control form-control-lg" type="text" placeholder="제목을 입력해주세요" required>
-              </div>
-
+       		<div class="form-group">
+                <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"placeholder="제목을 입력해주세요" required />
+            </div>
+              
               <thead class="thead-light">
                 <tr>
+                  <th scope="col" class="text-center pb-3">동물등록번호</th>
+                  <td><input class="form-control" type="text" id="petRegisterNumber"  name = "petRegisterNumber" placeholder="동물등록번호를 입력해주세요." ></td>
+                </tr>
+                <tr>
                   <th scope="col" class="text-center pb-3">이름</th>
-                  <td><input class="form-control" type="text" id="name" placeholder="이름을 입력해주세요." required></td>
+                  <td><input class="form-control" type="text" id="petName" name = "petName" placeholder="이름을 입력해주세요." required></td>
                 </tr>
                  <tr>
                   <th scope="col" class="text-center pb-4">지역</th>

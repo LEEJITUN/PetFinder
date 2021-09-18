@@ -24,18 +24,19 @@
                         	<a class="nav-link" href="/petFindReport/findReportPetList">반려동물 찾기</a>
                         </li>
                 
-              
-	                <li class="nav-item dropdown active">
-	                    <a class="nav-link dropdown-toggle" href="/petFindReport/findReportPetList" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                    반려동물 신고
-	                    </a>
-	                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <a class="dropdown-item" href="/petLostReport/lostReportPetWrite">반려동물 분실 신고</a>
-	                        <div class="dropdown-divider"></div>
-	                        <a class="dropdown-item" href="/petFindReport/findReportPetWrite">반려동물 발견 신고</a>
-	                    </div>
-	                </li>
-               
+                     <%-- 로그인 사용자일때 --%>
+       				<c:if test="${ not empty sessionScope.memberId }">
+		                <li class="nav-item dropdown active">
+		                    <a class="nav-link dropdown-toggle" href="/petFindReport/findReportPetList" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                    반려동물 신고
+		                    </a>
+		                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		                        <a class="dropdown-item" href="/petLostReport/lostReportPetWrite">반려동물 분실 신고</a>
+		                        <div class="dropdown-divider"></div>
+		                        <a class="dropdown-item" href="/petFindReport/findReportPetWrite">반려동물 발견 신고</a>
+		                    </div>
+		                </li>
+               		</c:if>
                           
                     <li class="nav-item active">
                    		<a class="nav-link" href="/adopTemp/adopTempBoardList">입양 | 임보</a>
@@ -70,7 +71,7 @@
 	                      <a class="dropdown-item" href="#">비밀번호 변경</a>
 	                      <a class="dropdown-item" onclick="location.href = '/member/join';">내정보 수정</a>
 	                      <div class="dropdown-divider"></div>
-	                	  <a class="dropdown-item" href="#">로그아웃</a>
+	                	  <a class="dropdown-item" onclick="location.href = '/member/logout';">로그아웃</a>
 	                    </div> 
 			          </c:when>  
 			          <%--  로그인 안했을 때 --%>

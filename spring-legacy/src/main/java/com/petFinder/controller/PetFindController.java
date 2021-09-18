@@ -86,7 +86,7 @@ public class PetFindController {
 	@GetMapping("/findReportPetContent")
 	public String findReportPetContent(String reportId,Model model) {
 		
-		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId);
+		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"F");
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
@@ -95,9 +95,9 @@ public class PetFindController {
 	}
 	
 	@GetMapping("/findReportPetDelete")
-	public String findReportPetDelete(String reportId,String boardReportType) {
+	public String findReportPetDelete(String reportId) {
 		
-		petFindService.deleteFindReport(reportId,boardReportType);
+		petFindService.deleteFindReport(reportId,"F");
 		
 		return "redirect:/petFindReport/findReportPetList";
 	}
@@ -105,7 +105,7 @@ public class PetFindController {
 	@GetMapping("/findReportPetModify")
 	public String findReportPetModify(String reportId,Model model) {
 		
-		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId);
+		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"F");
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());

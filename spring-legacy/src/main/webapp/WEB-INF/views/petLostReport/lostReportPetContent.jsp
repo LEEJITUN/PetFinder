@@ -85,6 +85,18 @@
             <table class="table table-bordered Board-font" style="text-align: center;">
               <thead class="thead-light">
                 <tr>
+                  <th scope="col" class="text-center pb-3">동물등록번호</th>
+                  <td>
+                  	${reportBoardVO.petVO.petRegisterNumber}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="col" class="text-center pb-3">이름</th>
+                  <td>
+                 	${reportBoardVO.petVO.petName}
+                  </td>
+                </tr>
+                <tr>
                   <th scope="col" class="text-center pb-4">지역</th>
                   <td>
 					${reportBoardVO.petVO.address}
@@ -95,7 +107,7 @@
                   <td>
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
-                      ${reportBoardVO.petVO.findPetDate}
+                      ${reportBoardVO.petVO.lostPetDate}
                       </div>
                     </div>
                   </td>
@@ -178,11 +190,13 @@
          	<%-- 로그인 아이디와 글작성자 아이디가 같을때 --%>
          	<c:if test="${ sessionScope.memberId eq reportBoardVO.memberId }">
           <div class = "col-sm-10 text-right">
-            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/petFindReport/findReportPetModify?reportId=${reportBoardVO.reportId}';">
+            <button type="button" class="btn btn-primary text-white btn-sm" 
+            onclick="location.href = '/petLostReport/lostReportPetModify?reportId=${reportBoardVO.reportId}';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>
-            <button type="button" class="btn btn-danger btn-sm ml-3"  onclick="remove(event);">
+            <button type="button" class="btn btn-danger btn-sm ml-3"  
+            onclick="remove(event);">
               <i class="material-icons align-middle">delete</i>
               <span class="align-middle">글삭제</span>
             </button>

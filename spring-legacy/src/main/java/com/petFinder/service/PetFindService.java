@@ -7,6 +7,7 @@ package com.petFinder.service;
  **/
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,8 +89,12 @@ public class PetFindService {
 	}
 	
 	// 유기동물 신고 조회 목록
-	public List<ReportBoardVO> selectAllFindReport() {		
-		return petFindMapper.selectAllFindReport();
+	public List<ReportBoardVO> selectAllFindReport() {
+		List<ReportBoardVO> List = new ArrayList<ReportBoardVO>();
+		List.addAll(petLostMapper.selectAllLostReport());
+		List.addAll(petFindMapper.selectAllFindReport());
+		
+		return List;
 	}
 	
 	// 글번호 
@@ -98,9 +103,15 @@ public class PetFindService {
 	}
 
 	// 해당 신고 게시물 조회
-	public ReportBoardVO selectFindReport(String reportId) {
+	public ReportBoardVO selectFindReport(String reportId,String boardReportType) {
 		List<AttachVO> attachList =  reportAttachMapper.selectByIdReportAttach(reportId);
-		ReportBoardVO reportBoardVO = petFindMapper.selectFindReport(reportId);
+		ReportBoardVO reportBoardVO = new ReportBoardVO();
+		
+		if(boardReportType.equals("F")) {			
+			 reportBoardVO = petFindMapper.selectFindReport(reportId);
+		}else {
+			 reportBoardVO = petLostMapper.selectLostReport(reportId);
+		}
 		
 		// 파일 데이터 셋팅
 		reportBoardVO.getPetVO().setAttachList(attachList);
@@ -132,9 +143,14 @@ public class PetFindService {
 		
 		// 신고 게시물 수정
 		petFindMapper.updateFindReportBoard(reportBoardVO);
-		// 신고 데이터 수정
-		petFindMapper.updateFindReport(petVO);
 		
+		if(fileType.equals("F")) {
+			// 신고 데이터 수정
+			petFindMapper.updateFindReport(petVO);
+		}else{
+			// 신고 데이터 수정
+			petLostMapper.updateLostReport(petVO);
+		}
 		
 		/************************** 해당 파일들 삭제 ****************************/
 		

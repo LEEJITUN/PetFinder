@@ -16,11 +16,13 @@
 
 	<resultMap type="PetVO" id="petVO">
 		<result column="REPORT_ID"				property="reportId"/>
+		<result column="PET_REGISTER_NUMBER" 	property="petRegisterNumber"/>
 		<result column="MEMBER_ID" 				property="memberId"/>
 		<result column="SIDO" 					property="sido"/>
 		<result column="SIGUNGU" 				property="sigungu"/>
 		<result column="BNAME" 					property="bname"/>
 		<result column="ADDRESS" 				property="address"/>
+		<result column="PET_NAME" 				property="petName"/>
 		<result column="PET_KIND" 				property="petKind"/>
 		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
 		<result column="PET_GENDER" 			property="petGender"/>
@@ -30,6 +32,8 @@
 		<result column="PET_CHARACTER" 			property="petCharacter"/>
 		<result column="PET_FIND_DATE" 			property="findPetDate"/>
 		<result column="PET_LOST_DATE" 			property="lostPetDate"/>
+		
+		
 		
 		<collection property="attachList" resultMap="attachVO"/>
 	</resultMap>
@@ -96,7 +100,7 @@
             LEFT OUTER JOIN 
 				ATTACH_REPORT TA
 			ON TB.REPORT_ID = TA.REPORT_ID
-			WHERE BOARD_REPORT_TYPE = 'A'
+			WHERE TB.BOARD_REPORT_TYPE = 'F'
 		]]>	
 	</select>
 	
@@ -131,8 +135,7 @@
 			LEFT OUTER JOIN 
 				PET_FIND_REPORT TP
 			ON TB.REPORT_ID = TP.REPORT_ID
-			WHERE BOARD_REPORT_TYPE = 'A'
-			AND TP.REPORT_ID = #{reportId}
+			WHERE TP.REPORT_ID = #{reportId}
 		]]>	
 	</select>
 	

@@ -113,6 +113,7 @@
 
    
    <script>
+
       $(document).ready(function() {
           $('#summernote').summernote({
               tabsize: 3,

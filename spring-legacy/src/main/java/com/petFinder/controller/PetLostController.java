@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.petFinder.domain.PetVO;
@@ -65,7 +66,7 @@ public class PetLostController {
 		reportBoardVO.setBoardRegDate(new Date());
 		
 		// 연월일 구분문자("-") 제거하기
-		String findDate = petVO.getFindPetDate();
+		String findDate = petVO.getLostPetDate();
 		findDate = findDate.replace("-", "");
 		petVO.setFindPetDate(findDate);
 		
@@ -75,13 +76,11 @@ public class PetLostController {
 		
 		return "redirect:/petFindReport/findReportPetList";
 	}
-
-   
 	
 	@GetMapping("/lostReportPetContent")
-	public String lostReportPetContent(String reportId,Model model) {
+	public String lostReportPetContent(String reportId, Model model) {
 		
-		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId);
+		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"L");
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
@@ -90,11 +89,31 @@ public class PetLostController {
 	}
    
 	@GetMapping("/lostReportPetDelete")
-	public String lostReportPetDelete(String reportId,String boardReportType) {
+	public String lostReportPetDelete(String reportId) {
 		
-		petFindService.deleteFindReport(reportId,boardReportType);
+		petFindService.deleteFindReport(reportId,"L");
 		
 		return "redirect:/petFindReport/findReportPetList";
 	}
    
+	@GetMapping("/lostReportPetModify")
+	public String lostReportPetModify(String reportId,Model model) {
+		
+		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"L");
+		
+		model.addAttribute("reportBoardVO", reportBoardVO);
+		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
+		
+		return "petLostReport/lostReportPetModify";
+	}
+	
+	@PostMapping("/lostReportPetModify")
+	public String lostReportPetModify(PetVO petVO , ReportBoardVO reportBoardVO, List<MultipartFile> files,
+			@RequestParam(name = "delfile", required = false) List<String> delUuidList) throws IllegalStateException, IOException {
+		
+		petFindService.updateFindReport(petVO,reportBoardVO,files,"FindeReport","L",delUuidList);
+		
+		return "redirect:/petLostReport/lostReportPetContent?reportId=" +reportBoardVO.getReportId();
+	}
+	
 }

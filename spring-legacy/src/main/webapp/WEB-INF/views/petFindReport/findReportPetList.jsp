@@ -141,7 +141,12 @@
 	                  <p class="card-text">
 	                  <c:choose>
 	                   <c:when test="${reportBoard.petVO.sido != ''}">
-	                  	${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.findPetDate}
+	                   	<c:if test = "${reportBoard.petVO.findPetDate == null}">
+	                   		${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.lostPetDate}
+	                   	</c:if>
+	                   	<c:if test = "${reportBoard.petVO.lostPetDate == null}">
+	                  		${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.findPetDate}
+	                  	</c:if>
 	                   </c:when>
 	                   <c:otherwise>
 	                 	 ${reportBoard.petVO.address}_${reportBoard.petVO.findPetDate}
@@ -152,7 +157,16 @@
 	                  <c:if test = "${not empty reportBoard.petVO.petDetailKind}">_${reportBoard.petVO.petDetailKind}</c:if></p>
 	                  <div class="d-flex justify-content-between align-items-center">
 	                    <div class="btn-group">
-	                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick = "location.href = '/petFindReport/findReportPetContent?reportId=${ reportBoard.reportId }'">자세히 보기</button>
+	                      <button type="button" class="btn btn-sm btn-outline-secondary" 
+	                      onclick =
+	                      <c:if test = "${reportBoard.boardReportType == 'F'}">
+	                       "location.href = '/petFindReport/findReportPetContent?reportId=${ reportBoard.reportId }'"
+	                      </c:if>
+	                      <c:if test = "${reportBoard.boardReportType == 'L'}">
+	                      "location.href = '/petLostReport/lostReportPetContent?reportId=${ reportBoard.reportId }'"
+	                      </c:if>
+	                      
+	                      >자세히 보기</button>
 	                    </div>
 	                  </div>
 	                </div>
