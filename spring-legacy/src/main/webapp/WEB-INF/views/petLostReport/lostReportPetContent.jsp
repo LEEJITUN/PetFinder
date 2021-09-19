@@ -377,7 +377,7 @@
 			
 			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
 			if (isRemove == true) {
-				location.href = '/petFindReport/findReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
+				location.href = '/petLostReport/lostReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
 			}
 		}
   </script>

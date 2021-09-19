@@ -9,6 +9,7 @@ import java.util.List;
  **/
 import org.apache.ibatis.annotations.Mapper;
 
+import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PetVO;
 import com.petFinder.domain.ReportBoardVO;
 
@@ -23,7 +24,7 @@ public interface PetFindMapper {
 	void insertFindReportBoard(ReportBoardVO reportBoardVO);
 
 	/* SELECT - 유기동물 신고 전체 조회 */
-	List<ReportBoardVO> selectAllFindReport();
+	List<ReportBoardVO> selectAllFindReport(Criteria cri);
 
 	/* SELECT - 게시물 번호 생성 조회 */
 	int selectBoardNumber(String boardReportType);
@@ -42,9 +43,9 @@ public interface PetFindMapper {
 
 	/* UPDATE - 해당 신고 데이터 수정 */
 	void updateFindReport(PetVO petVO);
-
-
 	
+	/* UPDATE - 해당 신고 게시물 조회수 증가 */
+	void updateReportReadCunt(String reportId);
 
 
 }

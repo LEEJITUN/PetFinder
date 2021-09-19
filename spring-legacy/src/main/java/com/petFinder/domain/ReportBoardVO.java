@@ -22,11 +22,11 @@ import lombok.ToString;
 @ToString
 public class ReportBoardVO {
 	
-	// 신고 게시물 ID (예)REPORT_A_1 
+	// 신고 게시물 ID (예)REPORT_F_1 
 	private String reportId;
 	// 신고 게시물 넘버
 	private int    boardNum;
-	// 신고 게시판 타입 ID (예)REPORT_A_1 => A / 분실 : A, 발견:B
+	// 신고 게시판 타입 ID (예)REPORT_F_1 => F / 분실 : L, 발견:F
 	private String boardReportType;
 	// 신고 게시물 글쓴이 아이디
 	private String memberId;

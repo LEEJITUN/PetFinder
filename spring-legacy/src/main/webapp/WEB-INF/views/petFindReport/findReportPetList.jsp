@@ -141,10 +141,10 @@
 	                  <p class="card-text">
 	                  <c:choose>
 	                   <c:when test="${reportBoard.petVO.sido != ''}">
-	                   	<c:if test = "${reportBoard.petVO.findPetDate == null}">
+	                   	<c:if test = "${reportBoard.boardReportType == 'L'}">
 	                   		${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.lostPetDate}
 	                   	</c:if>
-	                   	<c:if test = "${reportBoard.petVO.lostPetDate == null}">
+	                   	<c:if test = "${reportBoard.boardReportType == 'F'}">
 	                  		${reportBoard.petVO.sido}_${reportBoard.petVO.sigungu}_${reportBoard.petVO.findPetDate}
 	                  	</c:if>
 	                   </c:when>
@@ -185,14 +185,21 @@
         <!-- pagination area -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+				<!-- 이전 -->
+                <li class="page-item ${(pageMaker.prev) ? '': 'disabled'}">
+                <a class="page-link" href="${(pageMaker.prev) ? 'petFindReport/findReportPetList?pageNum=' += (pageMaker.startPage - 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Previous</a>
+                </li> 
+            	
+            	<!-- 시작페이지 번호 ~ 끝 페이지 번호 -->
+            	<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
+            		<li class="page-item ${ (pageMaker.cri.pageNum eq i) ? 'active': '' }">
+            			<a class="page-link" href="/petFindReport/findReportPetList?pageNum=${ i }#board">${ i }</a>
+            		</li>	
+            	</c:forEach>
+            	
+            	<!-- 다음 -->
+                 <li class="page-item ${(pageMaker.next) ? '': 'disabled'}">
+                <a class="page-link" href="${(pageMaker.next) ? 'petFindReport/findReportPetList?pageNum=' += (pageMaker.endPage + 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
             </ul>
         </nav>

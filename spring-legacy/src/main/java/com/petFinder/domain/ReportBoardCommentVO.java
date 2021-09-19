@@ -6,6 +6,8 @@ package com.petFinder.domain;
  * @version : 1.0 
  **/
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +21,14 @@ import lombok.ToString;
 @ToString
 public class ReportBoardCommentVO {
 
-	// ´ñ±Û index
-	private String commentIndex; 
+	// ´ñ±Û index (reportId_commentNum)
+	private String commentId; 
 	// °Ô½Ã¹° Id
 	private String reportId; 
+	// ´ñ±Û num
+	private int commentNum; 
+	// °Ô½Ã¹° type
+	private String boardReportType;
 	// È¸¿ø Id
 	private String memberId; 
 	// È¸¿ø ´Ð³×ÀÓ
@@ -31,7 +37,7 @@ public class ReportBoardCommentVO {
 	private String commentContent; 
 	
 	// ´ñ±Û µî·ÏÀÏ
-	private String commentRegDate;
+	private Date commentRegDate;
 	// ´ñ±Û ¼öÁ¤ÀÏ
 	private String commentUpDate;
 	

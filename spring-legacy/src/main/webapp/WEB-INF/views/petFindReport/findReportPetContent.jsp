@@ -199,25 +199,7 @@
             <hr class="featurette-divider">
 
             <ul class="list-unstyled mt-4">
-              <li class="media mb-2">
-                <img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">
-                <div class="media-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>홍길동 (user1)</h6>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="text-right text-secondary">
-                        <time class="comment-date">2021-07-23 15:07:24</time>
-                        | <a href="#!">삭제</a>
-                        | <a href="#!">수정</a>
-                        | <a href="#!">답글</a>
-                      </div>
-                    </div>
-                  </div>
-                  <p>All my girls vintage Chanel baby. So you can have your cake. Tonight, tonight, tonight, I'm walking on air. Slowly swallowing down my fear, yeah yeah. Growing fast into a bolt of lightning. So hot and heavy, 'Til dawn. That fairy tale ending with a knight in shining armor. Heavy is the head that wears the crown.</p>
-                </div>
-              </li>
+              
               
               <li class="media mb-2">
                 <img src="/resources/images/kirby2.jpg" width="50" height="50" class="mr-3 rounded-circle">
@@ -229,9 +211,9 @@
                     <div class="col-md-8">
                       <div class="text-right text-secondary">
                         <time class="comment-date">2021-07-23 15:07:24</time>
-                        | <a href="#!">삭제</a>
-                        | <a href="#!">수정</a>
-                        | <a href="#!">답글</a>
+                        | <a onclick="removeComment(event);">삭제</a>
+                        | <a onclick="modifyComment(event);">수정</a>
+                        | <a onclick="replyComment(event);">답글</a>
                       </div>
                     </div>
                   </div>
@@ -307,20 +289,26 @@
             <hr class="featurette-divider">
 
 
-            <!-- write new comment -->
-            <form action="" method="post">
-              <div class="row my-4">
-                <div class="col-10">
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">새댓글 작성</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                </div>
-                <div class="col-2 align-self-center">
-                  <button type="submit" class="btn btn-info btn-sm">작성</button>
-                </div>
-              </div>
-            </form>
+			<c:if test = "${sessionScope.memberId != null}">
+	            <!-- write new comment -->
+	            <form id="frm">
+	            	<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />
+	 		    	<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+	 		    	<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />
+	 				<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
+	              <div class="row my-4">
+	                <div class="col-10">
+	                  <div class="form-group">
+	                    <label for="exampleFormControlTextarea1">새댓글 작성</label>
+	                    <textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>
+	                  </div>
+	                </div>
+	                <div class="col-2 align-self-center">
+	                  <button type="submit" id="newCreatBtn" class="btn btn-info btn-sm">작성</button>
+	                </div>
+	              </div>
+	            </form>
+            </c:if>
             <!-- end of write new comment -->
           </div>
           <!-- end of Comment -->
@@ -353,8 +341,79 @@
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+    <script src="/resources/js/jquery.serializeObject.min.js"></script>
     
    <script>
+		//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
+		function removeComment(event) {
+			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+			event.preventDefault();
+			
+			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+			if (isRemove == true) {
+				// 삭제 후 -> 다시 리로드 showData();
+				location.href = '/petFindReport/findReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
+			}
+		}
+		
+		$('.number').click(function(){
+		    var id_check = $(this).attr("id");
+		});
+		
+		// 댓글수정 버튼을 클릭했을 때 호출되는 함수
+		function modifyComment(event) {
+			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+		
+			
+			// 수정폼 나오게
+			
+				var htmls = "";
+
+				htmls += `
+				 <!-- modify comment -->
+
+	              <li class="media mb-2" style="margin-left: 40px;">
+	                <i class="material-icons">subdirectory_arrow_right</i>
+	                <div class="media-body">
+	                  <form action="" method="post">
+	                    <div class="row">
+	                      <div class="col-10">
+	                        <div class="form-group">
+	                          <label>댓글 수정</label>
+	                          <textarea class="form-control" rows="3"></textarea>
+	                        </div>
+	                      </div>
+	                      <div class="col-2 align-self-center">
+	                        <button type="submit" class="btn btn-info btn-sm">수정</button>
+	                      </div>
+	                    </div>
+	                  </form>
+	                </div>
+	              </li>
+	        
+				`;
+
+				
+
+ 				
+
+
+		}
+		
+		// 댓글답글 버튼을 클릭했을 때 호출되는 함수
+		function replyComment(event) {
+			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+			event.preventDefault();
+			
+			// 댓글 답글 폼 나오게
+			
+		}
+	
+
+   
 		// 글삭제 버튼을 클릭했을 때 호출되는 함수
 		function remove(event) {
 			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
@@ -366,6 +425,77 @@
 				location.href = '/petFindReport/findReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
 			}
 		}
+		
+		$('form#frm').on('submit', function (event) {
+			event.preventDefault();
+			
+			let obj = $(this).serializeObject();
+			console.log(obj);
+			console.log(typeof obj); // object
+		
+			
+			let strJson = JSON.stringify(obj);
+			console.log(typeof strJson); // string
+			console.log(strJson);
+			
+			
+			// ajax 함수 호출
+			$.ajax({
+				url: '/api/findReportCommentWrite.json',
+				method: 'POST',
+				data: strJson,
+				contentType: 'application/json; charset=UTF-8',
+				success: function (data) {
+					console.log(typeof data);  // object
+					console.log(data);  // {}
+					showData(data);
+				},
+				error: function (request, status, error) {
+					alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+				}
+			});
+		});
+
+		function showData(array) {
+			
+			let str = '';
+			
+			if (array != null && array.length > 0) {
+				for (let comment of array) {
+					str += `
+						<ul class="list-unstyled mt-4" id= "'\${comment.commentId}'">
+						<li class="media mb-2">
+		                <img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">
+		                <div class="media-body">
+		                  <div class="row">
+		                    <div class="col-md-4" id = "test">
+		                      <h6>\${comment.memberNickName} (\${comment.memberId})</h6>
+		                    </div>
+		                    <div class="col-md-8">
+		                      <div class="text-right text-secondary">
+		                        <time class="comment-date">\${comment.commentRegDate}</time>
+		                        | <a href="#!">삭제</a>
+		                        | <a onclick="modifyComment(event)">수정</a>
+		                        | <a href="#!">답글</a>
+		                      </div>
+		                    </div>
+		                  </div>
+		                  <p>\${comment.commentContent}</p>
+		                </div>
+		              </li>
+		              </ul>
+					`;
+				} // for
+			} else { // array == null || array.length == 0
+				str = `
+
+				`;
+			}
+			
+			
+			$('div#comment > ul').html(str);
+		} // showData
+		
   </script>
 
 </body>

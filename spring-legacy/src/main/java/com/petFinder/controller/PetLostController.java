@@ -82,6 +82,9 @@ public class PetLostController {
 		
 		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"L");
 		
+		// 조회수 증가
+		petFindService.updateReportReadCunt(reportId);
+		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
 		

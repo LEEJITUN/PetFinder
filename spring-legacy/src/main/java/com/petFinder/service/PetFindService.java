@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.petFinder.domain.AttachVO;
+import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PetVO;
 import com.petFinder.domain.ReportBoardVO;
 import com.petFinder.mapper.AttachMapper;
@@ -89,12 +90,12 @@ public class PetFindService {
 	}
 	
 	// 유기동물 신고 조회 목록
-	public List<ReportBoardVO> selectAllFindReport() {
-		List<ReportBoardVO> List = new ArrayList<ReportBoardVO>();
-		List.addAll(petLostMapper.selectAllLostReport());
-		List.addAll(petFindMapper.selectAllFindReport());
+	public List<ReportBoardVO> selectAllFindReport(Criteria cri) {
+
+		int startRow = (cri.getPageNum()-1) * cri.getAmount();
+		cri.setStartRow(startRow); // 시작행번호 설정
 		
-		return List;
+		return petFindMapper.selectAllFindReport(cri);
 	}
 	
 	// 글번호 
@@ -175,6 +176,11 @@ public class PetFindService {
 			// 신고 파일 데이터 수정
 			reportAttachMapper.insertReportAttach(attachList);
 		}
+	}
+
+	// 조회수 증가
+	public void updateReportReadCunt(String reportId) {
+		petFindMapper.updateReportReadCunt(reportId);
 	}
 
 	
