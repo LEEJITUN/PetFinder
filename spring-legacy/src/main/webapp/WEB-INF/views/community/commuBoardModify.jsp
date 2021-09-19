@@ -58,7 +58,7 @@
         <div class="border border-secondary p-4 rounded">
           <div class="row">
             <div class="col-sm-6 ">
-              <h3 style="font-family: 'Noto Sans KR', sans-serif;">커뮤니티 글쓰기 </h3>
+              <h3 style="font-family: 'Noto Sans KR', sans-serif;">커뮤니티 글수정 </h3>
             </div>
           </div>
           <hr class="featurette-divider">

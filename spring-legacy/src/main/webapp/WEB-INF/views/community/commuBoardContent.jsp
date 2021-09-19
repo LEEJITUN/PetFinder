@@ -298,7 +298,7 @@
 		
 		let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
 		if (isRemove == true) {
-			location.href = '/community/commuBoardRemove?boardId=${ commuContent.boardId }';
+			location.href = '/community/commuBoardRemove?boardId=${ commuContent.boardId }&pageNum=${ pageNum }';
 		}
 	}
 	</script>
