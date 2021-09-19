@@ -50,12 +50,12 @@
           <div class="border border-secondary p-4 rounded">
             <div class = "row">
                 <div class = "col-sm-6 ">
-                    <h3 style="font-family: 'Noto Sans KR', sans-serif;">커뮤니티</h3>
+                    <h3 style="font-family: 'Noto Sans KR', sans-serif;">커뮤니티 <small>(글개수 : ${ pageMaker.totalCount })</small></h3>
                 </div>
                 <div class = "col-sm-6">
                     <!-- 새글쓰기 버튼 -->
                     <c:if test="${ not empty sessionScope.memberId }">
-	                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite';">
+	                    <button type="button" class="btn btn-secondary btn-sm float-right my-3 " onclick="location.href = '/community/commuBoardWrite?pageNum=${ pageMaker.cri.pageNum }';">
 	                    <i class="material-icons align-middle">create</i>
 	                    <span class="align-middle Board-font">글쓰기</span>
 	                    </button>
@@ -77,19 +77,26 @@
                 </tr>
               </thead>
               <tbody>
-              	
+              	<c:choose>
+              	<c:when test="${ pageMaker.totalCount gt 0}">              	
               			<c:forEach var="board" items="${ commuList }">
               				<tr>
               					<td class="text-center">${ board.boardNum }</td>
               					<td>
-              						 <a class="align-middle" href="/community/commuBoardContent?boardId=${ board.boardId }">${ board.boardTitle }</a>
+              						 <a class="align-middle" href="/community/commuBoardContent?boardId=${ board.boardId }&pageNum=${ pageMaker.cri.pageNum }">${ board.boardTitle }</a>
               					</td>
               					<td class="text-center">${ board.memberNickName }</td>
                         		<td class="text-center"><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
                         		<td class="text-center">${ board.boardReadCount }</td>
               				</tr>
               			</c:forEach>
-
+              	</c:when>
+              	<c:otherwise>
+              		<tr>
+              			<td colspan="5" class="text-center">게시판 글이 없습니다.</td>
+              		</tr>
+              	</c:otherwise>
+              </c:choose>
               </tbody>
             </table>
 
@@ -97,15 +104,24 @@
             <!-- pagination area -->
             <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            
+				<!-- 이전 -->
+                 <li class="page-item ${(pageMaker.prev) ? '': 'disabled'}">
+                <a class="page-link" href="${(pageMaker.prev) ? '/community/commuBoardList?pageNum=' += (pageMaker.startPage - 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Previous</a>
+                </li> 
+            	
+            	<!-- 시작페이지 번호 ~ 끝 페이지 번호 -->
+            	<c:forEach var="i" begin="${ pageMaker.startPage }" end="${ pageMaker.endPage }" step="1">
+            		<li class="page-item ${ (pageMaker.cri.pageNum eq i) ? 'active': '' }">
+            			<a class="page-link" href="/community/commuBoardList?pageNum=${ i }#board">${ i }</a>
+            		</li>	
+            	</c:forEach>
+            	
+            	<!-- 다음 -->
+                 <li class="page-item ${(pageMaker.next) ? '': 'disabled'}">
+                <a class="page-link" href="${(pageMaker.next) ? '/adopTemp/adopTempBoardList?pageNum=' += (pageMaker.endPage + 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-                </li>
+                
             </ul>
             </nav>
             <!-- end of pagination area -->

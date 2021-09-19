@@ -2,8 +2,8 @@ package com.petFinder.controller;
 /**
  * @title   : 커뮤니티 게시판 Controller
  * @author  : HYEPIN
- * @date    : 2021.09.18
- * @version : 1.3 
+ * @date    : 2021.09.19
+ * @version : 1.4
  **/
 
 import java.util.List;
@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petFinder.domain.ComBoardVO;
+import com.petFinder.domain.Criteria;
+import com.petFinder.domain.PageDTO;
 import com.petFinder.service.CommunityService;
 
 
@@ -29,11 +32,17 @@ public class CommunityController {
 
 	/* community - 게시판 */
 	@GetMapping("/commuBoardList")
-	public String commuBoardList(Model model) {
+	public String commuBoardList(Criteria cri, Model model) {		
 		System.out.println("commuBoardList 호출...");
 		
-		List<ComBoardVO> boardList = communityService.selectBoardList();
+		List<ComBoardVO> boardList = communityService.selectBoardPaging(cri); // 페이징
+		
+		int totalCount = communityService.selectTotalCount(); // 전체 글개수
+		
+		PageDTO pageDTO = new PageDTO(totalCount, cri); // 페이지블록(Pagination) 화면 만들때 필요한 정보
+		
 		model.addAttribute("commuList",boardList);
+		model.addAttribute("pageMaker", pageDTO);
 		
 		return "community/commuBoardList";
 	} 
@@ -41,17 +50,18 @@ public class CommunityController {
 	
 	/* community - 글쓰기 */
 	@GetMapping("/commuBoardWrite")
-	public String commuBoardWrite() {
+	public String commuBoardWrite(@ModelAttribute("pageNum") String pageNum) {
 		System.out.println("commuBoardWrite 호출...");
 		
 		return "community/commuBoardWrite";
 	}
 	
 	@PostMapping("/commuBoardWrite")
-	public String commuBoardWrite(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr) {
+	public String commuBoardWrite(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr, String pageNum) {
 		
 		communityService.insertBoardWrite(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
+		rttr.addAttribute("pageNum", pageNum);
 				
 		return "redirect:/community/commuBoardContent";
 	} 
@@ -59,7 +69,7 @@ public class CommunityController {
 	
 	/* community - 게시글 */
 	@GetMapping("/commuBoardContent")
-	public String commuBoardContent(String boardId, Model model) {
+	public String commuBoardContent(String boardId, @ModelAttribute("pageNum") String pageNum, Model model) {
 		System.out.println("commuBoardContent 호출...");
 		
 		// 조회수 업
@@ -76,37 +86,37 @@ public class CommunityController {
 	
 	/* community - 글수정 */
 	@GetMapping("/commuBoardModify")
-	public String commuBoardModify(String boardId, ComBoardVO comBoardVO, Model model) {
+	public String commuBoardModify(String boardId, @ModelAttribute("pageNum") String pageNum, Model model) {
 		System.out.println("commuBoardModify 호출...");
 
 		ComBoardVO boardContent = communityService.selectBoardContent(boardId);
 		
 		model.addAttribute("commuContent", boardContent);
-		
+		System.out.println("pageNum..." + pageNum);
 		return "community/commuBoardModify";
 	}
 	
 	@PostMapping("/commuBoardModify")
-	public String commuBoardModify(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr) {
+	public String commuBoardModify(String boardId, ComBoardVO comBoardVO, String pageNum, RedirectAttributes rttr) {
 		
 		communityService.updateBoardModify(comBoardVO);
 		System.out.println("commuBoardModify 수정..." + comBoardVO.getBoardTitle());
 
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
-		System.out.println("boardId..." + comBoardVO.getBoardId());
-
+		rttr.addAttribute("pageNum", pageNum);
+		
 		return "redirect:/community/commuBoardContent";
 	}
-	
+
 	
 	/* community - 삭제 */
 	@GetMapping("/commuBoardRemove")
-	public String commuBoardRemove(String boardId) {
+	public String commuBoardRemove(String boardId, String pageNum) {
 		System.out.println("commuBoardRemove 호출...");
 		
 		communityService.deleteBoardContent(boardId);
 		
-		return "redirect:/community/commuBoardList";
+		return "redirect:/community/commuBoardList?pageNum=" + pageNum;
 	}
 
 	

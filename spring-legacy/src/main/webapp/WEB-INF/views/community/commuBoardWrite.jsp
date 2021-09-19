@@ -65,7 +65,7 @@
 
           <div class="clearfix"></div>
           <form action="/community/commuBoardWrite" method="POST">
-          
+         	<input type="hidden" value="${ pageNum }" name="pageNum" >
           	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
           	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           
@@ -86,7 +86,7 @@
                 <i class="material-icons align-middle">clear</i>
                 <span class="align-middle">초기화</span>
               </button>
-              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/community/commuBoardList';">
+              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/community/commuBoardList?pageNum=${ pageNum }';">
                 <i class="material-icons align-middle">list</i>
                 <span class="align-middle">글목록</span>
               </button>

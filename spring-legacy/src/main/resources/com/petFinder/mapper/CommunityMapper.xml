@@ -15,6 +15,7 @@
 	]]>	
 	</select>
 	
+	
 	<!-- 게시글 전체 리스트 -->
 	<select id="selectBoardList" resultType="ComBoardVO">
 	<![CDATA[
@@ -24,6 +25,25 @@
 		ORDER BY BOARD_NUM DESC
 	]]>	
 	</select>
+	
+	<!-- 페이징 -->
+	<select id="selectBoardsWithPaging" resultType="ComBoardVO">
+	<![CDATA[
+		SELECT *
+		FROM BOARD_COM
+		WHERE BOARD_TYPE_ID = "COMM"
+		ORDER BY BOARD_NUM DESC
+		LIMIT #{startRow}, #{amount}
+	]]>	
+	</select>
+	
+	<select id="selectTotalCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM BOARD_COM
+		WHERE BOARD_TYPE_ID = "COMM"
+	]]>
+	</select>	
 	
 	<!-- 글쓰기 -->
 	<insert id="insertBoardWrite">

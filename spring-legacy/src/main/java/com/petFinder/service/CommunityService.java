@@ -2,8 +2,8 @@ package com.petFinder.service;
 /**
  * @title   : 커뮤니티 게시판 Service
  * @author  : HYEPIN
- * @date    : 2021.09.18
- * @version : 1.3
+ * @date    : 2021.09.19
+ * @version : 1.4
  **/
 
 import java.util.Date;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petFinder.domain.ComBoardVO;
+import com.petFinder.domain.Criteria;
 import com.petFinder.mapper.CommunityMapper;
 
 
@@ -28,6 +29,27 @@ public class CommunityService {
 	/* SELECT - 게시글 전체 가져오기 */
 	public List<ComBoardVO> selectBoardList() {
 		return communityMapper.selectBoardList();		
+	}
+	
+	/* SELECT - 페이징으로 글 가져오기 */
+	public List<ComBoardVO> selectBoardPaging(Criteria cri) {
+		// 시작 행번호 (MySQL의 LIMIT절의 시작행번호) 구하기
+		
+		// 한 페이지당 글개수(amount)가 10개씩일때
+		// 1 페이지 -> 0
+		// 2 페이지 -> 10
+		// 3 페이지 -> 20
+		// 4 페이지 -> 30
+		// ...
+		int startRow = (cri.getPageNum()-1) * cri.getAmount();
+		cri.setStartRow(startRow); // 시작행번호 설정
+		
+		return communityMapper.selectBoardsWithPaging(cri);
+	}
+	
+	/* SELECT - 검색이 적용된 전체 글개수*/
+	public int selectTotalCount() {
+		return communityMapper.selectTotalCount();
 	}
 
 	/* INSERT - 커뮤니티 게시글 작성 */
@@ -68,9 +90,10 @@ public class CommunityService {
 
 	/* DELETE - 게시글 삭제하기 */
 	public void deleteBoardContent(String boardId) {
-		communityMapper.deleteBoardContent(boardId);
-		
+		communityMapper.deleteBoardContent(boardId);	
 	}
+
+
 
 
 

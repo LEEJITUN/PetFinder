@@ -2,8 +2,8 @@ package com.petFinder.mapper;
 /**
  * @title   : 커뮤니티 게시판 Mapper
  * @author  : HYEPIN
- * @date    : 2021.09.18
- * @version : 1.3
+ * @date    : 2021.09.19
+ * @version : 1.4
  **/
 
 import java.util.List;
@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.petFinder.domain.ComBoardVO;
+import com.petFinder.domain.Criteria;
 
 @Mapper
 public interface CommunityMapper {
@@ -20,6 +21,12 @@ public interface CommunityMapper {
 
 	/* SELECT - 게시글 전체 가져오기 */
 	List<ComBoardVO> selectBoardList();
+	
+	/* SELECT - 게시글 페이징 */
+	List<ComBoardVO> selectBoardsWithPaging(Criteria cri);
+	
+	/* SELECT - 전체 글개수 */
+	int selectTotalCount();
 	
 	/* INSERT - 커뮤니티 게시글 작성 */
 	void insertBoardWrite(ComBoardVO comBoardVO);
@@ -35,6 +42,10 @@ public interface CommunityMapper {
 
 	/* DELETE - 글번호에 해당하는 글 삭제하기 */
 	void deleteBoardContent(String boardId);
+
+
+
+
 
 	
 }

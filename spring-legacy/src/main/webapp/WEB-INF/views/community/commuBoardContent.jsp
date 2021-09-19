@@ -110,13 +110,13 @@
         <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/community/commuBoardList';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/community/commuBoardList?pageNum=${ pageNum }';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">글목록</span>
             </button>
           </div>
           <div class = "col-sm-10 text-right">								            
-            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify?boardId=${ commuContent.boardId }';">
+            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/community/commuBoardModify?boardId=${ commuContent.boardId }&pageNum=${ pageNum }';">
               <i class="material-icons align-middle">edit</i>
               <span class="align-middle">글수정</span>
             </button>
