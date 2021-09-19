@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Criteria {
-	private int PageNum;	// 페이지 번호
+	private int pageNum;	// 페이지 번호
 	private int amount;	// 한 페이지당 글개수
 	
 	private int startRow; // 시작행 번호
@@ -21,8 +21,8 @@ public class Criteria {
 		this(1, 10); // 기본값은 1페이지 요천, 한페이지당 글 10개씩 가져옴
 	}
 	
-	public Criteria(int PageNum, int amount) {
-		this.PageNum = PageNum;
+	public Criteria(int pageNum, int amount) {
+		this.pageNum = pageNum;
 		this.amount = amount;
 		
 		// 시작 행번호(mysql의 limit절의 시작행번호) 구하기 
@@ -36,7 +36,7 @@ public class Criteria {
 		
 
 		
-		startRow = (PageNum-1) & amount;
+		startRow = (pageNum-1) & amount;
 	}
 
 }
