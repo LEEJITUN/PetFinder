@@ -83,7 +83,7 @@ public class AdopTempController {
 		
 		adopTempService.insertBoard(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
-		rttr.addAttribute("pageNum", pageNum);
+		rttr.addAttribute("pageNum", 1);
 		
 		 return "redirect:/adopTemp/adopTempBoardContent";
 	}
@@ -101,8 +101,8 @@ public class AdopTempController {
 	}
 	
 	/* adopTemp - 게시글 수정 */
-	@GetMapping("/adopTempBoardModify")
-	public String adopTempBoardModify(String boardId, @ModelAttribute("pageNum")  String pageNum, Model model) {
+	@GetMapping("/adopTempBoardModify") 
+	public String adopTempBoardModify(String boardId, @ModelAttribute("pageNum") String pageNum, Model model) {
 		System.out.println("adopTempBoardModify 호출...");
 		
 		ComBoardVO boardContent = adopTempService.selectBoardContent(boardId);
@@ -117,10 +117,7 @@ public class AdopTempController {
 		
 		adopTempService.updateBoardModify(comBoardVO);
 
-		
-		comBoardVO.setBoardRegDate(new Date());
-		
-		rttr.addAttribute("boardId", boardId);	
+		rttr.addAttribute("boardId", comBoardVO.getBoardId());	
 		rttr.addAttribute("pageNum", pageNum);
 		
 		return "redirect:/adopTemp/adopTempBoardContent";

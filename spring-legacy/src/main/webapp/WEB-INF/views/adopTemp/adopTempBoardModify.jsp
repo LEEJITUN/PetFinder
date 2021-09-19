@@ -71,8 +71,9 @@
           	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
           	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           	<input type="hidden" value="${ adopTempContent.boardId }" name="boardId">
-          
-          	<!-- 제목 -->
+         	<input type="hidden" value="${ pageNum }" name="pageNum">
+         	
+           	<!-- 제목 -->
             <div class="form-group">
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${ adopTempContent.boardTitle }">
             </div>
