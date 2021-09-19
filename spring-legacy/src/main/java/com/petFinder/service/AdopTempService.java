@@ -35,7 +35,7 @@ public class AdopTempService {
 	
 	public void insertBoard(ComBoardVO comBoardVO) {
 		
-		// INSERT할 새글번호 가져오기
+		/* INSERT - 커뮤니티 게시글 작성 */
 		int num = adopTempMapper.selectNextNumber();
 		
 		// 게시물 타입 ID 만들기
@@ -56,7 +56,7 @@ public class AdopTempService {
 		adopTempMapper.insertBoard(comBoardVO);
 	}
 	
-	// 전체 게시글 내용 가져오기
+	/* SELECT - 게시글 전체 가져오기 */
 	public List<ComBoardVO> selectBoards() {
 		return adopTempMapper.selectBoards();
 	}
@@ -76,10 +76,6 @@ public class AdopTempService {
 		
 		return adopTempMapper.selectBoardsWithPaging(cri);
 	}
-		
-	public int deleteAll() {
-		return adopTempMapper.deleteAll();
-	}
 	
 	public void deleteBoard(String boardId) {
 		adopTempMapper.deleteBoard(boardId);
@@ -89,11 +85,17 @@ public class AdopTempService {
 		return adopTempMapper.selectTotalCount();
 	}
 	
-	public ComBoardVO selectBoard(String boardId) {
-		return adopTempMapper.selectBoard(boardId);
+	/* SELECT - 게시글 하나 가져오기 */
+	public ComBoardVO selectBoardContent(String boardId) {
+		return adopTempMapper.selectBoardContent(boardId);
 	}
 	
 	public void updateBoardReadCount(String boardId) {
 		adopTempMapper.updateBoardReadCount(boardId);
+	}
+	
+	/* UPDATE - 게시글 수정하기 */
+	public void updateBoardModify(ComBoardVO comBoardVO) {		
+		adopTempMapper.updateBoardModify(comBoardVO);
 	}
 }

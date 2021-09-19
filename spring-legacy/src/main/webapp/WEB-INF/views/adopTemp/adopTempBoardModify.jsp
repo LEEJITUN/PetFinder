@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -64,19 +66,21 @@
           <hr class="featurette-divider">
 
           <div class="clearfix"></div>
-          <form action="/adopTemp/adopTempBoardWrite" method="POST">
+          <form action="/adopTemp/adopTempBoardModify" method="POST">
           
-          <input type="hidden" value="cini" name="memberId"/>
-          <input type="hidden" value="시니" name="memberNickName">
+          	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
+          	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
+          	<input type="hidden" value="${ adopTempContent.boardId }" name="boardId">
           
+          	<!-- 제목 -->
             <div class="form-group">
-              <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required>
+              <input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${ adopTempContent.boardTitle }">
             </div>
             <!-- 내용-->
-            <textarea id="summernote"  style="width:100%;height:500px;" name="boardContent" placeholder="내용을 입력해주세요." required></textarea>
+            <textarea id="summernote" class="summernote" name="boardContent">${ adopTempContent.boardContent }</textarea>     
 
             <div class="my-4 text-center">
-              <button type="submit" class="btn btn-warning" onclick="location.href = '/adopTemp/adopTempBoardContent';">
+              <button type="submit" class="btn btn-warning">
                 <i class="material-icons align-middle">create</i>
                 <span class="align-middle">수정하기</span>
               </button>
@@ -84,7 +88,7 @@
                 <i class="material-icons align-middle">clear</i>
                 <span class="align-middle">초기화</span>
               </button>
-              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList';">
+              <button type="button" class="btn btn-secondary ml-3" onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageNum }';">
                 <i class="material-icons align-middle">list</i>
                 <span class="align-middle">글목록</span>
               </button>
@@ -93,6 +97,7 @@
         </div>
         <!-- end of Right area -->
       </div>
+    </div>
     </div>
     <!-- end of middle container -->
 
@@ -115,13 +120,6 @@
 
 
     <!-- JavaScript -->
-    <script src="/resources/js/jquery-3.6.0.js"></script>
-    <script src="/resources/js/bootstrap.js"></script>
-
-
-    <!-- JavaScript -->
-
-
     <script>
       $(document).ready(function () {
         $('#summernote').summernote({

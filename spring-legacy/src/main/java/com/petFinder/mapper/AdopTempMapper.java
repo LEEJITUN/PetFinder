@@ -30,18 +30,18 @@ public interface AdopTempMapper {
 	/* SELECT - 페이징으로 게시글 내용 가져오기 */
 	List<ComBoardVO> selectBoardsWithPaging(Criteria cri);
 	
-	
 	/* SELECT - 전체 글개수 가져오기 */
 	int selectTotalCount();
 	
 	/* SELECT - 글 번호에 해당하는 글 한개 가져오기*/
-	ComBoardVO selectBoard(String boardId);
+	ComBoardVO selectBoardContent(String boardId);
 	
 	/* UPDATE - 글번호에 해당하는 글의 조회수 1 증가시키 */
 	void updateBoardReadCount(String boardId);
 	
-	/* DELETE - 전체 행 삭제*/
-	int deleteAll();
+	/* UPDATE - 글번호에 해당하는 글 수정하기 */
+	void updateBoardModify(ComBoardVO comBoardVO);
+
 	
 	/* DELETE - 글 번호에 해당하는 글 한개 삭제하기*/
 	void deleteBoard(String boardId);

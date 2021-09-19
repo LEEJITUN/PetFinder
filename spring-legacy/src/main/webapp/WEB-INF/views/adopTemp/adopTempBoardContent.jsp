@@ -48,25 +48,25 @@
         <!-- Contents area -->
           <div id="comment" class="border border-primary p-3">
           <br>
-          <h3 class="text-center"> 제목 : ${ board.boardTitle } </h3>
+          <h3 class="text-center"> 제목 : ${ adopTempContent.boardTitle } </h3>
 
           <!-- 글 상세보기 영역 -->
           <table class="table">
 			<tr>
               <th scope="row" class="text-center">작성자</th>
-              <td>${ board.memberNickName }</td>
+              <td>${ adopTempContent.memberNickName }</td>
               <th scope="row" class="text-center">작성일</th>
-              <td><fmt:formatDate value="${ board.boardRegDate }" pattern="yyyy.MM.dd" /></td>
+              <td><fmt:formatDate value="${ adopTempContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
               <th scope="row" class="text-center"></th>
               <th scope="row" class="text-center">조회수</th>
-              <td>${ board.boardReadCount }</td>
+              <td>${ adopTempContent.boardReadCount }</td>
               <td></td>
             </tr>
      
             <tr style="height: 300px" >
               <th scope="row" class="text-center" >내용</th>
               <td colspan="5">
-              	<pre>${ board.boardContent}</pre>
+              	<pre>${ adopTempContent.boardContent}</pre>
 
               </td>
             </tr>
@@ -107,7 +107,7 @@
         <br>
         <div class="row">
           <div class = "col-sm-2">
-            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageNum }';">
+            <button type="button" class="btn btn-secondary btn-sm " onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageMaker.pageNum }';">
               <i class="material-icons align-middle">list</i>
               <span class="align-middle">글목록</span>
             </button>
@@ -117,9 +117,9 @@
           <%-- 로그인 사용자일때 --%>
             <c:if test="${not empty sessionScope.memberId }">
             	<%-- 로그인 사용자 닉네임과 글작성자 닉네임이  같을때 --%>
-            	<c:if test="${ sessionScope.memberNic eq board.memberNickName }">
+            	<c:if test="${ sessionScope.memberNic eq adopTempContent.memberNickName }">
   	          
-	            <button type="button" class="btn btn-primary text-white btn-sm">
+	            <button type="button" class="btn btn-primary text-white btn-sm" onclick="location.href = '/adopTemp/adopTempBoardModify?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';">
 	              <i class="material-icons align-middle">edit</i>
 	              <span class="align-middle">글수정</span>
 	            </button>
@@ -252,7 +252,6 @@
             <hr class="featurette-divider">
 
 
-            <!-- write new comment -->
             <form action="" method="post">
               <div class="row my-4">
                 <div class="col-10">
@@ -309,7 +308,7 @@
 		
 		let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
 		if (isRemove == true) {
-			location.href = '/adopTemp/adopTempBoardRemove?boardId=${ board.boardId }&pageNum=${ pageNum }';
+			location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
 		}
 	}
 	</script>
