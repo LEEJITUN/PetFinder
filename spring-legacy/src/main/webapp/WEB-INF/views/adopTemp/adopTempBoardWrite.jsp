@@ -68,7 +68,7 @@
           
           <input type="hidden" value="${ sessionScope.memberId }" name="memberId"/>
           <input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
-          <input type="hidden" value="${ pageNum }" name="pageNum">
+
             <div class="form-group">
               <input type="text" class="form-control" id="boardTitle" name="boardTitle" placeholder="제목을 입력해주세요." onclick="inputSubject()" required="required">
             </div>
