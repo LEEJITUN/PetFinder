@@ -8,70 +8,80 @@
 
 	<!-- 게시글 번호 생성 -->
 	<select id="selectBoardNumber" resultType="int">
-		<![CDATA[
+	<![CDATA[
 		SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
-		]]>	
+	]]>	
 	</select>
 	
 	<!-- 게시글 전체 리스트 -->
 	<select id="selectBoardList" resultType="ComBoardVO">
-		<![CDATA[
+	<![CDATA[
 		SELECT *
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
 		ORDER BY BOARD_NUM DESC
-		]]>	
+	]]>	
 	</select>
 	
 	<!-- 글쓰기 -->
 	<insert id="insertBoardWrite">
-		<![CDATA[
-			INSERT INTO BOARD_COM (
-				BOARD_ID,
-				BOARD_NUM,
-				BOARD_TYPE_ID,
-				MEMBER_ID,
-				MEMBER_NICKNAME,
-				BOARD_TITLE,
-				BOARD_CONTENT,
-				BOARD_REPORT_COUNT,
-				BOARD_READ_COUNT,
-				BOARD_GOOD,
-				BOARD_NOT_GOOD,
-				BOARD_REG_DATE
-			)
-			VALUES(
-				#{boardId},
-				#{boardNum},
-				#{boardTypeId},
-				#{memberId},
-				#{memberNickName},
-				#{boardTitle},
-				#{boardContent},
-				#{boardReadCount},
-				#{boardReportCount},
-				#{boardgood},
-				#{boardNotgood},
-				#{boardRegDate}
-			)
-		]]>
+	<![CDATA[
+		INSERT INTO BOARD_COM (
+			BOARD_ID,
+			BOARD_NUM,
+			BOARD_TYPE_ID,
+			MEMBER_ID,
+			MEMBER_NICKNAME,
+			BOARD_TITLE,
+			BOARD_CONTENT,
+			BOARD_REPORT_COUNT,
+			BOARD_READ_COUNT,
+			BOARD_GOOD,
+			BOARD_NOT_GOOD,
+			BOARD_REG_DATE
+		)
+		VALUES(
+			#{boardId},
+			#{boardNum},
+			#{boardTypeId},
+			#{memberId},
+			#{memberNickName},
+			#{boardTitle},
+			#{boardContent},
+			#{boardReadCount},
+			#{boardReportCount},
+			#{boardgood},
+			#{boardNotgood},
+			#{boardRegDate}
+		)
+	]]>
 	</insert>
 	
 	<!-- 게시글 한개 가져오기 -->
 	<select id="selectBoardContent" resultType="ComBoardVO">
-		<![CDATA[
+	<![CDATA[
 		SELECT *
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
-		]]>	
+	]]>	
 	</select>
+	
+	<!-- 게시글 조회수 업 -->
+	<update id="updateBoardReadCount">
+	<![CDATA[
+		UPDATE BOARD_COM
+		SET BOARD_READ_COUNT = BOARD_READ_COUNT + 1
+		WHERE BOARD_TYPE_ID = "COMM"
+			AND BOARD_ID = #{boardId}
+	]]>				
+	</update>		
 	
 	<!-- 게시글 수정하기 -->
 	<update id="updateBoardModify">
-		<![CDATA[
+	<![CDATA[
 		UPDATE BOARD_COM
 		SET BOARD_TITLE = #{boardTitle}, 
 			BOARD_CONTENT = #{boardContent}	
@@ -82,11 +92,11 @@
 
 	<!-- 게시글 삭제하기 -->
 	<delete id="deleteBoardContent">
-		<![CDATA[
+	<![CDATA[
 			DELETE FROM BOARD_COM
 			WHERE BOARD_TYPE_ID = "COMM"
 				AND BOARD_ID = #{boardId}
-		]]>	
+	]]>	
 	</delete>
 	
 </mapper>

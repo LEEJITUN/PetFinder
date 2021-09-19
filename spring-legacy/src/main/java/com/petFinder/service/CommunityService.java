@@ -2,8 +2,8 @@ package com.petFinder.service;
 /**
  * @title   : 커뮤니티 게시판 Service
  * @author  : HYEPIN
- * @date    : 2021.09.17
- * @version : 1.2
+ * @date    : 2021.09.18
+ * @version : 1.3
  **/
 
 import java.util.Date;
@@ -55,6 +55,11 @@ public class CommunityService {
 	public ComBoardVO selectBoardContent(String boardId) {	
 		return communityMapper.selectBoardContent(boardId);
 	}
+	
+	/* UPDATE - 게시글 조회수 업 */
+	public void updateBoardReadCount(String boardId) {
+		communityMapper.updateBoardReadCount(boardId);
+	}	
 
 	/* UPDATE - 게시글 수정하기 */
 	public void updateBoardModify(ComBoardVO comBoardVO) {		
@@ -66,6 +71,8 @@ public class CommunityService {
 		communityMapper.deleteBoardContent(boardId);
 		
 	}
+
+
 
 
 	

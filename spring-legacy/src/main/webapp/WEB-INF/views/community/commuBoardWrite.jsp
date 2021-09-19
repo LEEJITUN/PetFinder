@@ -96,6 +96,7 @@
         <!-- end of Right area -->
       </div>
     </div>
+    </div>
     <!-- end of middle container -->
 
 

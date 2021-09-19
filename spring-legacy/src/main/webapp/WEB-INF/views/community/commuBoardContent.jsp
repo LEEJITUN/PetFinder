@@ -59,7 +59,7 @@
               <th scope="row" class="text-center">작성일</th>
               	<td><fmt:formatDate value="${ commuContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
               <th scope="row" class="text-center">조회수</th>
-              	<td></td>
+              	<td>${ commuContent.boardReadCount }</td>
             </tr>
             
          	

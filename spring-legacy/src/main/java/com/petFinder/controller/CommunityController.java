@@ -2,8 +2,8 @@ package com.petFinder.controller;
 /**
  * @title   : 커뮤니티 게시판 Controller
  * @author  : HYEPIN
- * @date    : 2021.09.17
- * @version : 1.2 
+ * @date    : 2021.09.18
+ * @version : 1.3 
  **/
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class CommunityController {
 		
 		communityService.insertBoardWrite(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
-		
+				
 		return "redirect:/community/commuBoardContent";
 	} 
 	
@@ -62,7 +62,12 @@ public class CommunityController {
 	public String commuBoardContent(String boardId, Model model) {
 		System.out.println("commuBoardContent 호출...");
 		
+		// 조회수 업
+		communityService.updateBoardReadCount(boardId);
+		
+		// 게시글 1개 가져오기
 		ComBoardVO boardContent = communityService.selectBoardContent(boardId);
+		
 		model.addAttribute("commuContent",boardContent);
 
 		return "community/commuBoardContent";
@@ -82,12 +87,14 @@ public class CommunityController {
 	}
 	
 	@PostMapping("/commuBoardModify")
-	public String commuBoardModify(ComBoardVO comBoardVO, RedirectAttributes rttr) {
+	public String commuBoardModify(String boardId, ComBoardVO comBoardVO, RedirectAttributes rttr) {
 		
 		communityService.updateBoardModify(comBoardVO);
-		
+		System.out.println("commuBoardModify 수정..." + comBoardVO.getBoardTitle());
+
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
-		
+		System.out.println("boardId..." + comBoardVO.getBoardId());
+
 		return "redirect:/community/commuBoardContent";
 	}
 	
