@@ -39,7 +39,7 @@ public class ReportBoardCommentVO {
 	// 댓글 등록일
 	private Date commentRegDate;
 	// 댓글 수정일
-	private String commentUpDate;
+	private Date commentUpDate;
 	
 	// 순서
 	private String commentRef;

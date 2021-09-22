@@ -18,4 +18,7 @@ public interface ReportCommentMapper {
 	/* INSERT - ´ñ±Û ÀÛ¼º*/
 	void insertComment(ReportBoardCommentVO reportBoardCommentVO);
 
+	/*UPDATE - ´ñ±Û ¼öÁ¤ */
+	void updateComment(ReportBoardCommentVO reportBoardCommentVO);
+
 }

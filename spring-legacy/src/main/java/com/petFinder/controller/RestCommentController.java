@@ -44,7 +44,7 @@ public class RestCommentController {
 	@Autowired
 	private ReportCommentService reportCommentService;
 
-	// ´ñ±Û ¾²±â -> ´ñ±Û ÀüÃ¼ Á¶È¸
+	// ´ñ±Û ¾²±â -> ´ñ±Û ÀÛ¼º
 	@PostMapping(value = "/findReportCommentWrite",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -67,6 +67,24 @@ public class RestCommentController {
 		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
 	} 
 
+	
+	// ´ñ±Û ¾²±â -> ´ñ±Û ÀÛ¼º
+	@PostMapping(value = "/findReportCommentModify",
+	consumes = "application/json",
+	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentModify(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
+			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
+
+		// ===== µ¥ÀÌÅÍ ¼³Á¤ ======
+		reportBoardCommentVO.setCommentUpDate(new Date());
+
+		reportCommentService.updateComment(reportBoardCommentVO);
+		
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportBoardCommentVO.getReportId());
+		
+		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
+	} 
+	
 	// ´ñ±Û ¾²±â -> ´ñ±Û ÀüÃ¼ Á¶È¸
 	@GetMapping(value = "/findReportCommentList",
 	consumes = "application/json",

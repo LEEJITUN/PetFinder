@@ -107,12 +107,14 @@ public class PetFindController {
 	public String findReportPetContent(String reportId,Model model) {
 		
 		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"F");
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportId);
 		
 		// 조회수 증가
 		petFindService.updateReportReadCunt(reportId);
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
+		model.addAttribute("commentList", ReportBoardCommentList);
 		
 		return "petFindReport/findReportPetContent";
 	}
