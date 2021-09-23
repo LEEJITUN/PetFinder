@@ -59,13 +59,8 @@
 			ORDER BY BOARD_NUM DESC
 		]]>
 	</select>
-	
-	<delete id="deleteAll">
-		<![CDATA[
-			DELETE FROM BOARD_COM
-		]]>
-	</delete>
-	
+
+	<!-- 게시글 삭제하기 -->
 	<delete id="deleteBoard">
 		<![CDATA[
 			DELETE FROM BOARD_COM
@@ -74,6 +69,7 @@
 		]]>
 	</delete>
 	
+	<!-- 게시글 전체 count -->
 	<select id="selectTotalCount" resultType="int">
 		<![CDATA[
 			SELECT COUNT(*)
@@ -82,11 +78,52 @@
 		]]>
 	</select>
 	
+		<!--검색을 적용하여 해당 전체 글개수 가져오기 -->
+	<select id="selectTotalCountBySearch" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM BOARD_COM
+		]]>
+			<where>
+				BOARD_TYPE_ID = "ADOP" 
+				<if test="type == 'T'.toString()">
+					AND
+					BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="type == 'C'.toString()">
+					AND
+					BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="type == 'W'.toString()">
+					AND
+					MEMBER_NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+				</if>								
+			</where>		
+	</select>
+
+	
+	<!-- 페이징, 검색조건 -->
 	<select id="selectBoardsWithPaging" resultType="ComBoardVO">
 		<![CDATA[
 			SELECT *
 			FROM BOARD_COM
-			WHERE BOARD_TYPE_ID = "ADOP"
+		]]>	
+			<where>
+				BOARD_TYPE_ID = "ADOP" 
+				<if test="type == 'T'.toString()">
+					AND
+					BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="type == 'C'.toString()">
+					AND
+					BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="type == 'W'.toString()">
+					AND
+					MEMBER_NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+				</if>								
+			</where>	
+		<![CDATA[
 			ORDER BY BOARD_NUM DESC
 			LIMIT #{startRow}, #{amount}
 		]]>	
@@ -102,6 +139,7 @@
 		]]>	
 	</select>
 	
+	<!-- 게시글 조회수 업 -->
 	<update id="updateBoardReadCount" >
 		<![CDATA[
 			UPDATE BOARD_COM
