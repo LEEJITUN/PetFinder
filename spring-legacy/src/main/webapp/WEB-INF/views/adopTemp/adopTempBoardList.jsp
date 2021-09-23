@@ -125,7 +125,7 @@
 								<li
 									class="page-item ${ (pageMaker.cri.pageNum eq i) ? 'active': '' }">
 									<a class="page-link"
-									href="/adopTemp/adopTempBoardList?pageNum=${ i }#board">${ i }</a>
+									href="/adopTemp/adopTempBoardList?pageNum=${ i }&type=${ pageMaker.cri.type }&keyword=${ pageMaker.cri.keyword }#board">${ i }</a>
 								</li>
 							</c:forEach>
 
@@ -133,7 +133,7 @@
 							<li class="page-item ${(pageMaker.next) ? '': 'disabled'}">
 								<a class="page-link"
 								href="${(pageMaker.next) ? '/adopTemp/adopTempBoardList?pageNum=' += (pageMaker.endPage + 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board"
-								tabindex="-1" aria-disabled="true">Previous</a>
+								tabindex="-1" aria-disabled="true">Next</a>
 							</li>
 
 						</ul>
@@ -149,15 +149,15 @@
 							<label for="searchType">검색 조건</label> <select
 								class="form-control mx-2" id="searchType" name="type">
 								<option value="" disabled selected>--</option>
-								<option value="T">제목</option>
-								<option value="C">내용</option>
-								<option value="W">작성자</option>
+								<option value="T" ${ (pageMaker.cri.type eq 'T') ? 'selected': '' }>제목</option>
+								<option value="C" ${ (pageMaker.cri.type eq 'C') ? 'selected': '' }>내용</option>
+								<option value="W" ${ (pageMaker.cri.type eq 'W') ? 'selected': '' }>작성자</option>
 							</select>
 						</div>
 
 						<label for="searchKeyword">검색어</label> <input type="text"
 							class="form-control mb-2 mr-sm-2 mx-2" id="searchKeyword"
-							placeholder="검색어" name="keyword">
+							placeholder="검색어" name="keyword" value="${ pageMaker.cri.keyword }">
 
 						<button type="submit" class="btn btn-primary mb-2 text-white">
 							<i class="material-icons align-middle">search</i> <span
@@ -184,7 +184,6 @@
 		<hr style="border: solid 2px lightgray">
 	</div>
 	<!-- end of a link container -->
-	<!-- a link container -->
 
 	<%--  include footer.jsp --%>
 	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
