@@ -19,8 +19,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
 
-   
-
 
     <style>
         /* *{
@@ -38,8 +36,7 @@
     <!--  include topNavbar.jsp  -->
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
-	<h3>프로필,내정보수정 선택 페이지</h3>
-
+	<h3>프로필 변경 페이지 </h3>
 
     <!-- a link container -->
     <div class="container-fluid" >
