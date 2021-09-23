@@ -194,20 +194,20 @@ public class MemberController {
    
    
    /* GET - 내정보 수정 */
-   @GetMapping("/memberInfo") // /member/memberInfo
-   public String memberInfo(String memberId, Model model) {
-      System.out.println("memberInfo 호출됨...");
+   @GetMapping("/changeUserInfo") // /member/memberInfo
+   public String changeUserInfo(String memberId, Model model) {
+      System.out.println("changeUserInfo 호출됨...");
       
       // 해당 아이디의 정보값 불러오기
       MemberVO memberVo = memberService.selectMemberById(memberId);
       
       model.addAttribute("memberVO", memberVo);
       
-      return "member/memberInfo";
+      return "member/changeUserInfo";
    }
    
    /* POST - 내정보 수정 */
-   @PostMapping("/memberInfo")
+   @PostMapping("/changeUserInfo")
    public ResponseEntity<String> memberInfo(MemberVO memberVo, PetVO petVo) throws IllegalStateException, IOException {
 	     
 	   

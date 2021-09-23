@@ -69,7 +69,7 @@
 	                  	</a>
 	                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	                      <a class="dropdown-item" href="#">비밀번호 변경</a>
-	                      <a class="dropdown-item" onclick="location.href = '/member/memberInfo?memberId=${ sessionScope.memberId }';">내정보 수정</a>
+	                      <a class="dropdown-item" onclick="location.href = '/member/changeUserInfo?memberId=${ sessionScope.memberId }';">내정보 수정</a>
 	                      <div class="dropdown-divider"></div>
 	                	  <a class="dropdown-item" onclick="location.href = '/member/logout';">로그아웃</a>
 	                    </div> 
