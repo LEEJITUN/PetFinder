@@ -45,6 +45,4 @@ public class MemberVO {
 	// 한마리일 경우
 	private PetVO petVO;
 
-	// 여러 마리일 경우 
-	
 }

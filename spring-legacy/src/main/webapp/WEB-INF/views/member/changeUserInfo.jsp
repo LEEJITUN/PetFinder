@@ -66,21 +66,6 @@
                 <input type="text" class="form-control" aria-describedby="idHelp" value="${ memberVO.memberId }" disabled="disabled">
               </div>
 
-              <div class="form-group">
-                <label for="memberPassword">
-                  <i class="material-icons align-middle">lock</i>
-                  <span class="align-middle">비밀번호</span>
-                </label>
-                <input type="password" class="form-control" id="memberPassword" name="memberPassword" aria-describedby="pwdHelp">
-                <small id="pwdHelp" class="form-text text-muted">비밀번호는 필수 입력 요소입니다.</small>
-              </div>
-              <div class="form-group">
-                <label for="password2">
-                  <i class="material-icons align-middle">check</i>
-                  <span class="align-middle">비밀번호 재확인</span>
-                </label>
-                <input type="password" class="form-control" id="password2" required>
-              </div>
 
               <div class="form-group">
 
@@ -88,7 +73,7 @@
 		                  <i class="material-icons align-middle">person</i>
 		                  <span class="align-middle">이름</span>
 		                </label>
-		                <input type="text" class="form-control" id="memberName" name="memberName" value="${ memberVO.memberName }"/>
+		                <input type="text" class="form-control" id="memberName" name="memberName" value="${ memberVO.memberName }" required/>
 
               </div>
 
@@ -101,7 +86,7 @@
                           </label>
                           <fmt:parseDate value='${ memberVO.memberBirthday }' var='birthday' pattern='yyyymmdd'/>
                           <input type="date" class="form-control" id="memberBirthday" name="memberBirthday" 
-                          			value="<fmt:formatDate value="${ memberBirthday }" pattern="yyyy-mm-dd"/>" >
+                          			value="<fmt:formatDate value="${ memberBirthday }" pattern="yyyy-mm-dd"/>" required>
                     </div>
                     <div class="col-sm-6">
                         <label for="memberGender">

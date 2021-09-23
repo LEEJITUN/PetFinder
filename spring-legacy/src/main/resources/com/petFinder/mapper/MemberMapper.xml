@@ -5,11 +5,66 @@
 
 <mapper namespace="com.petFinder.mapper.MemberMapper">
 
-	<select id = "selectMemberById" resultType = "MemberVO">
+	<resultMap type="PetVO" id="petVO">
+		<result column="PET_REGISTER_NUMBER" 	property="petRegisterNumber"/>
+		<result column="MEMBER_ID" 				property="memberId"/>
+		<result column="PET_NAME" 				property="petName"/>
+		<result column="PET_KIND" 				property="petKind"/>
+		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
+		<result column="PET_GENDER" 			property="petGender"/>
+		<result column="PET_SIZE" 				property="petSize"/>
+		<result column="PET_COLOR" 				property="petColor"/>
+		<result column="PET_COATlENGTH" 		property="petCoatLength"/>
+		
+	</resultMap>
+	
+	<resultMap type="MemberVO" id="MemberVO">
+		<result column="MEMBER_ID"				property="memberId"/>
+		<result column="MEMBER_PASSWORD" 		property="memberPassword"/>
+		<result column="MEMBER_NICKNAME" 		property="memberNickName"/>
+		<result column="MEMBER_NAME" 			property="memberName"/>
+		<result column="MEMBER_GENDER" 			property="memberGender"/>
+		<result column="MEMBER_BIRTHDAY" 		property="memberBirthday"/>
+		<result column="MEMBER_PHONENUMBER" 	property="memberPhoneNumber"/>
+		<result column="MEMBER_EMAIL" 			property="memberEmail"/>
+		<result column="MEMBER_WARING" 			property="memberWaring"/>
+		<result column="MEMBER_NOTIC" 			property="memberNotice"/>
+		<result column="MEMBER_PET_YN" 			property="memberPetYN"/>
+		
+		<collection property="petVO" resultMap="petVO"/>
+	</resultMap>
+
+
+	<select id = "selectMemberById" resultMap = "MemberVO">
 		<![CDATA[
-			SELECT  *
-			FROM	MEMBER
-			WHERE	MEMBER_ID = #{memberId}
+			SELECT 
+				TP.PET_REGISTER_NUMBER,
+				TP.MEMBER_ID,
+				TP.PET_NAME,
+			    TP.PET_KIND,
+				TP.PET_DETAIL_KIND,
+				TP.PET_GENDER,
+				TP.PET_SIZE,
+				TP.PET_COLOR,
+				TP.PET_COATlENGTH,
+				TM.MEMBER_ID, 
+				TM.MEMBER_PASSWORD, 
+				TM.MEMBER_NICKNAME,
+				TM.MEMBER_NAME,
+				TM.MEMBER_GENDER,
+				TM.MEMBER_BIRTHDAY,
+				TM.MEMBER_PHONENUMBER,
+				TM.MEMBER_EMAIL,
+				TM.MEMBER_WARING,
+				TM.MEMBER_NOTIC,
+				TM.MEMBER_PET_YN
+			FROM 
+				MEMBER TM
+			LEFT OUTER JOIN 
+				PET TP
+			ON TM.MEMBER_ID = TP.MEMBER_ID
+			WHERE	
+				TM.MEMBER_ID = #{memberId}
 		]]>
 	</select>
 

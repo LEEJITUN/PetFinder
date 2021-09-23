@@ -209,6 +209,7 @@ public class MemberController {
       MemberVO memberVo = memberService.selectMemberById(memberId);
       
       model.addAttribute("memberVO", memberVo);
+      model.addAttribute("petVO", memberVo.getPetVO());
       
       return "member/changeUserInfo";
    }
