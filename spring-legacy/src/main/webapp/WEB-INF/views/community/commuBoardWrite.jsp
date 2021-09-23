@@ -65,7 +65,6 @@
 
           <div class="clearfix"></div>
           <form action="/community/commuBoardWrite" method="POST">
-         	<input type="hidden" value="${ pageNum }" name="pageNum" >
           	<input type="hidden" value="${ sessionScope.memberId }" name="memberId">
           	<input type="hidden" value="${ sessionScope.memberNic }" name="memberNickName">
           

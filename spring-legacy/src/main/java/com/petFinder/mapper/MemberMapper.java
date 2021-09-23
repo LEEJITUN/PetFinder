@@ -17,7 +17,7 @@ public interface MemberMapper {
 	void deleteMemberById(String memberId);
 	
 	/* UPDATE - 해당 ID의 회원정보 업데이트 */
-	void updateMemberById(String memberId);
+	void updateMemberById(MemberVO memberVo);
 	
 	/* SELECT - 해당 ID의 회원 조회 */
 	MemberVO selectMemberById(String memberId);

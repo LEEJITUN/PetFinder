@@ -52,9 +52,9 @@ public class MemberService {
 	}
 	
 	
-	//UPDATE - 해당 아이디의 회원정보 업데이트 */
-	public void updateMemberById(String id) {
-		memberMapper.updateMemberById(id);
+	/* UPDATE - 해당 아이디의 회원정보 업데이트 */
+	public void updateMemberById(MemberVO memberVo) {
+		memberMapper.updateMemberById(memberVo);
 	}
 	
 	

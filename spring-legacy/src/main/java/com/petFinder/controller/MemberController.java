@@ -20,6 +20,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -190,5 +191,54 @@ public class MemberController {
 	   // 홈 화면으로 리다이렉트 이동
 	   return "redirect:/";
    }
+   
+   
+   /* GET - 내정보 수정 */
+   @GetMapping("/memberInfo") // /member/memberInfo
+   public String memberInfo(String memberId, Model model) {
+      System.out.println("memberInfo 호출됨...");
+      
+      // 해당 아이디의 정보값 불러오기
+      MemberVO memberVo = memberService.selectMemberById(memberId);
+      
+      model.addAttribute("memberVO", memberVo);
+      
+      return "member/memberInfo";
+   }
+   
+   /* POST - 내정보 수정 */
+   @PostMapping("/memberInfo")
+   public ResponseEntity<String> memberInfo(MemberVO memberVo, PetVO petVo) throws IllegalStateException, IOException {
+	     
+	   
+	   /****************** 데이터 설정 *******************/
+	   // 비밀번호 암호화 하기
+	   String passwd =  memberVo.getMemberPassword();
+	   String hasedPw = BCrypt.hashpw(passwd, BCrypt.gensalt());
+	   memberVo.setMemberPassword(hasedPw); // 암호화된 비밀번호로 저장
+	   
+	   // 연월일 구분문자("-") 제거하기
+	   String birthday = memberVo.getMemberBirthday();
+	   birthday = birthday.replace("-", "");
+	   memberVo.setMemberBirthday(birthday);
+	   
+	   memberVo.setMemberWaring(0);
+	   
+	   memberVo.setPetVO(petVo);
+	   
+	   /****************** UPDATE_내정보수정 (member,pet) *******************/
+	   memberService.updateMemberById(memberVo);
+
+	   
+	   /****************** headers 설정 *******************/
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.add("Content-Type","text/html; charset=UTF-8");
+	   
+	   String str = Script.href("내정보 변경완료!","/");
+	  
+	   
+	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
+   }
+   
 }
    
