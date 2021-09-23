@@ -93,6 +93,15 @@
 		]]>
 	</update>
 	
+	<update id="updateReSeqPlusOne">
+		<![CDATA[
+			UPDATE BOARD_REPORT_COMMENTS
+			SET BOARD_COMMENTS_SEQ = BOARD_COMMENTS_SEQ + 1
+			WHERE BOARD_COMMENTS_REF = #{commentRef}
+			AND BOARD_COMMENTS_SEQ > #{commentSeq}
+		]]>
+	</update>
+	
 	<delete id="deleteComment">
 		<![CDATA[
 			DELETE 

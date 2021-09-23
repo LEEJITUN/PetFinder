@@ -204,7 +204,6 @@
            <c:choose>
 	             <c:when test="${fn:length(commentList) >  0}">
 	             <c:forEach var="comment" items="${ commentList }">
-	             
 		             <ul class="list-unstyled mt-4" id="${comment.commentNum}">
 		              <li class="media mb-2">
 		                <img src="/resources/images/kirby2.jpg" width="50" height="50" class="mr-3 rounded-circle">
@@ -216,10 +215,13 @@
 		                    <div class="col-md-8">
 		                      <div class="text-right text-secondary">
 		                        <time class="comment-date">${comment.commentRegDate}</time>
-		                        | <a  id = "remove">삭제</a>
+		                   <c:if test = "${sessionScope.memberId eq comment.memberId}">
+		                        | <a  id = "remove" onclick = "removeComment('${comment.commentId}' , '${comment.reportId}')">삭제</a>
 		                        | <a id = "modify"
 		                        onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.commentNum}', '${ comment.commentId}' , '${ comment.reportId}')">수정</a>
-		                        | <a type="button" id = "reply" onclick="replyComment('${ comment.commentId}' , '${ comment.reportId}', '${ comment.commentNum}')">답글</a>
+		                        | <a type="button" id = "reply" 
+		                        onclick="replyComment('${comment.commentId}' , '${comment.reportId}', '${comment.commentNum}')">답글</a>
+		                  </c:if>
 		                      </div>
 		                    </div>
 		                  </div>
@@ -325,16 +327,34 @@
 		});
 	});
 	
-		//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
-		function removeComment(event) {
+	//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
+	function removeComment(commentId,reportId) {
 			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
 			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-			event.preventDefault();
-			
+
 			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
 			if (isRemove == true) {
 				// 삭제 후 -> 다시 리로드 showData();
-				location.href = '/petFindReport/findReportPetDelete?reportId=${reportBoardVO.reportId}&boardReportType=${reportBoardVO.boardReportType}';
+
+				 // ajax 함수 호출
+				$.ajax({
+					url: '/api/findReportCommentDelete.json',
+					method: 'POST',
+					data: JSON.stringify(reportBoardCommentVO  = {
+							"commentId" : commentId,
+							"reportId"  : reportId,
+					}),
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						console.log(typeof data);  // object
+						console.log('data',data);  // {}
+						showData(data);
+
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
 			}
 		}
 
@@ -357,7 +377,7 @@
 			                    <div class="col-md-8">
 			                      <div class="text-right text-secondary">
 			                        <time class="comment-date">\${date}</time>
-			                        | <a  id = "remove">삭제</a>
+			                        | <a  id = "remove" onclick = "removeComment('\${ commentId}' , '\${reportId}'  )">삭제</a>
 			                        | <a id = "save"
 			                        	 onclick="saveComment('\${commentId}' , '\${reportId}' , '\${index}')">저장</a>
 			                        | <a type="button" id = "reply">답글</a>
@@ -373,6 +393,50 @@
 					$('ul#'+index).html(str); 
 		}
 		
+		// 댓글답글 버튼을 클릭했을 때 호출되는 함수
+		function replyComment(commentId,reportId,index) {
+			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+			
+			console.log('11111111');
+			event.preventDefault();
+			
+			// 댓글 답글 폼 나오게
+			console.log(commentId);
+			
+			var str = "";
+				
+			str += `
+	             <!-- write reply comment -->
+	              <li class="media mb-2" style="margin-left: 80px;">
+	                <i class="material-icons">subdirectory_arrow_right</i>
+	                <div class="media-body">
+	                  <form id="frm'${index}'">
+	                  	<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />
+	  	 		    	<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+	  	 		    	<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />
+	  	 				<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
+	                    <div class="row">
+	                      <div class="col-10">
+	                        <div class="form-group">
+	                          <label>답댓글 작성</label>
+	  	                    <textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>
+	                        </div>
+	                      </div>
+	                      <div class="col-2 align-self-center">
+	                        <button type="submit"   class="btn btn-info btn-sm">작성</button>
+	                      </div>
+	                    </div>
+	                  </form>
+	                </div>
+	              </li>
+				`;
+
+
+				
+				$('ul#'+index).append(str); 
+				
+		}
 		
 		function saveComment(commentId,reportId,index) {
 			event.preventDefault();
@@ -405,47 +469,6 @@
 			});
 		}
 
-		
-		
-		// 댓글답글 버튼을 클릭했을 때 호출되는 함수
-		function replyComment(commentId,reportId,index) {
-			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-			event.preventDefault();
-			
-			// 댓글 답글 폼 나오게
-			console.log(commentId);
-			
-			var str = "";
-				
-			str += `
-	             <!-- write reply comment -->
-	              <li class="media mb-2" style="margin-left: 80px;">
-	                <i class="material-icons">subdirectory_arrow_right</i>
-	                <div class="media-body">
-	                  <form>
-	                  	<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />
-	  	 		    	<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
-	  	 		    	<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />
-	  	 				<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
-	                    <div class="row">
-	                      <div class="col-10">
-	                        <div class="form-group">
-	                          <label>답댓글 작성</label>
-	  	                    <textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>
-	                        </div>
-	                      </div>
-	                      <div class="col-2 align-self-center">
-	                        <button type="submit" class="btn btn-info btn-sm">작성</button>
-	                      </div>
-	                    </div>
-	                  </form>
-	                </div>
-	              </li>
-				`;
-
-				$('ul#'+index).append(str); 
-		}
 	
 		// 글삭제 버튼을 클릭했을 때 호출되는 함수
 		function remove() {
@@ -465,10 +488,13 @@
 		function showData(array) {
 			
 			let str = '';
+
 			
 			if (array != null && array.length > 0) {
 				for (let i = 0; i< array.length; i++) {
-					console.log(array[i].commentRegDate);
+			
+					console.log(array[i].memberId);
+					
 					str += `
 						<ul class="list-unstyled mt-4" id="\${array[i].commentNum}">
 						<li class="media mb-2">
@@ -480,12 +506,16 @@
 		                    </div>
 		                    <div class="col-md-8">
 		                      <div class="text-right text-secondary">
+		                      mem:  ${array[i].memberId}
+		                      se : ${sessionScope.memberId}
 		                        <time class="comment-date">\${array[i].commentRegDate}</time>
-		                        | <a  id = "remove">삭제</a>
+		                        <c:if test = "${sessionScope.memberId eq memberId}">
+		                        | <a  id = "remove" onclick = "removeComment('\${ array[i].commentId}' , '\${ array[i].reportId}' )">삭제</a>
 		                        | <a id = "modify"
 		                        onclick="modifyComment('\${array[i].memberNickName}' , '\${array[i].memberId}' , '\${array[i].commentRegDate}' , '\${array[i].commentContent}' , '\${ array[i].commentNum}', '\${ array[i].commentId}' , '\${ array[i].reportId}')">수정</a>
 		                        | <a type="button" id = "reply" onclick="replyComment('\${ array[i].commentId}' , '\${ array[i].reportId}', '\${ array[i].commentNum}')">답글</a>
-		                      </div>
+		                       </c:if>
+		                        </div>
 		                    </div>
 		                  </div>
 		             	  <input type = "hidden" value = "${ array[i].commentNum }" name = "commentNum" />
@@ -497,6 +527,9 @@
 
 				} // for
 				
+
+
+				
 			} else { // array == null || array.length == 0
 				str = `
 
@@ -507,14 +540,7 @@
 			
 
 		} // showData
-		
-		
-
-
-
-		
-		
-		
+	
   </script>
   
 

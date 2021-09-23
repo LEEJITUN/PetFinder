@@ -55,15 +55,15 @@
 
             <hr class="featurette-divider">
 
-            <form action="/member/memberInfo" method="POST" enctype="multipart/form-data">
+            <form action="/member/changeUserInfo" method="POST" enctype="multipart/form-data">
             
               <div class="form-group">
                 <label for="memberId">
                   <i class="material-icons align-middle">account_box</i>
                   <span class="align-middle">아이디</span>
                 </label>
-                <input type="hidden" id="memberId" name="id" value="${ memberVO.memberId }" >
-                <input type="text" class="form-control" id="memberId" aria-describedby="idHelp" value="${ memberVO.memberId }" disabled="disabled">
+                <input type="hidden" id="memberId" name="memberId" value="${ memberVO.memberId }" >
+                <input type="text" class="form-control"  aria-describedby="idHelp" value="${ memberVO.memberId }" disabled="disabled">
               </div>
 
               <div class="form-group">

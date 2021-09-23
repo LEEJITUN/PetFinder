@@ -59,6 +59,7 @@ public class RestCommentController {
 		reportBoardCommentVO.setCommentNum(index);
 		reportBoardCommentVO.setCommentId(reportBoardCommentVO.getReportId() + "_" + index);
 		reportBoardCommentVO.setCommentRegDate(new Date());
+		reportBoardCommentVO.setCommentRef(reportBoardCommentVO.getCommentNum());
 
 		reportCommentService.insertComment(reportBoardCommentVO);
 		
@@ -66,9 +67,31 @@ public class RestCommentController {
 		
 		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
 	} 
+	
+	// ´ñ±Û ¾²±â -> ´ñ±Û ´ä±Û ÀÛ¼º
+	@PostMapping(value = "/findReportCommentReply",
+	consumes = "application/json",
+	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentReply(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
+			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
+
+		int index = reportCommentService.selectCommentIndex(reportBoardCommentVO);
+		
+		reportBoardCommentVO.setCommentNum(index);
+		reportBoardCommentVO.setCommentId(reportBoardCommentVO.getReportId() + "_" + index);
+		reportBoardCommentVO.setCommentRegDate(new Date());
+
+		
+		reportCommentService.updateReSeqPlusOne(reportBoardCommentVO);
+		
+		
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportBoardCommentVO.getReportId());
+		
+		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
+	} 
 
 	
-	// ´ñ±Û ¾²±â -> ´ñ±Û ÀÛ¼º
+	// ´ñ±Û ¾²±â -> ´ñ±Û ¼öÁ¤
 	@PostMapping(value = "/findReportCommentModify",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
@@ -85,6 +108,25 @@ public class RestCommentController {
 		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
 	} 
 	
+	
+	// ´ñ±Û ¾²±â -> ´ñ±Û »èÁ¦
+	@PostMapping(value = "/findReportCommentDelete",
+	consumes = "application/json",
+	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentDelete(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
+			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
+
+		// ===== µ¥ÀÌÅÍ ¼³Á¤ ======
+		reportBoardCommentVO.setCommentUpDate(new Date());
+
+		reportCommentService.deleteComment(reportBoardCommentVO.getCommentId());
+		
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportBoardCommentVO.getReportId());
+		
+		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
+	} 
+		
+		
 	// ´ñ±Û ¾²±â -> ´ñ±Û ÀüÃ¼ Á¶È¸
 	@GetMapping(value = "/findReportCommentList",
 	consumes = "application/json",

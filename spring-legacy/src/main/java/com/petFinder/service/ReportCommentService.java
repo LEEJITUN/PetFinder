@@ -67,5 +67,26 @@ public class ReportCommentService {
 		reportCommentMapper.updateComment(reportBoardCommentVO);
 	}
 
+	// 댓글 삭제
+	public void deleteComment(String commentId) {
+		reportCommentMapper.deleteComment(commentId);
+		
+	}
+
+	// 답글 +1 업데이트
+	public void updateReSeqPlusOne(ReportBoardCommentVO reportBoardCommentVO) {
+		
+		// 답글을 남길 대상글과 같은 글그룹 안에서
+		//  대상글의 순번보다 큰 글들의 순번을 1씩 증가(UPDATE)
+		reportCommentMapper.updateReSeqPlusOne(reportBoardCommentVO.getCommentRef(), reportBoardCommentVO.getCommentSeq());
+		
+		// insert할 답글 re값으로 수정
+		reportBoardCommentVO.setCommentLev(reportBoardCommentVO.getCommentLev() + 1);
+		reportBoardCommentVO.setCommentSeq(reportBoardCommentVO.getCommentSeq() + 1);
+		
+		// 답글 insert 하기
+		reportCommentMapper.insertComment(reportBoardCommentVO);	
+	}
+
 	
 }

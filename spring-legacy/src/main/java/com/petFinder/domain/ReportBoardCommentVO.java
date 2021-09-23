@@ -42,7 +42,7 @@ public class ReportBoardCommentVO {
 	private Date commentUpDate;
 	
 	// ¼ø¼­
-	private String commentRef;
-	private String commentLev;
-	private String commentSeq;
+	private int commentRef;
+	private int commentLev;
+	private int commentSeq;
 }

@@ -21,4 +21,10 @@ public interface ReportCommentMapper {
 	/*UPDATE - 댓글 수정 */
 	void updateComment(ReportBoardCommentVO reportBoardCommentVO);
 
+	/*DELETE - 댓글 삭제 */
+	void deleteComment(String commentId);
+
+	/* UPDATE - 답글 +1 */
+	void updateReSeqPlusOne(int commentRef, int commentSeq);
+
 }
