@@ -63,7 +63,7 @@
                   <span class="align-middle">아이디</span>
                 </label>
                 <input type="hidden" id="memberId" name="memberId" value="${ memberVO.memberId }" >
-                <input type="text" class="form-control"  aria-describedby="idHelp" value="${ memberVO.memberId }" disabled="disabled">
+                <input type="text" class="form-control" aria-describedby="idHelp" value="${ memberVO.memberId }" disabled="disabled">
               </div>
 
               <div class="form-group">
@@ -83,22 +83,13 @@
               </div>
 
               <div class="form-group">
-               	<div class = "row">
-               	     <div class="col-sm-6">
+
 		                <label for="memberName">
 		                  <i class="material-icons align-middle">person</i>
 		                  <span class="align-middle">이름</span>
 		                </label>
 		                <input type="text" class="form-control" id="memberName" name="memberName" value="${ memberVO.memberName }"/>
-	                </div>
-               	    <div class="col-sm-6">
-		                <label for="memberNickName">
-		                  <i class="material-icons align-middle">person</i>
-		                  <span class="align-middle">닉네임</span>
-		                </label>
-		                <input type="text" class="form-control" id="memberNickName" name="memberNickName" value="${ memberVO.memberNickName }"/>
-	                </div>
-                </div>
+
               </div>
 
               <div class="form-group">
@@ -108,9 +99,9 @@
                             <i class="material-icons align-middle">event</i>
                             <span class="align-middle">생년월일</span>
                           </label>
-                          <fmt:parseDate value='${memberVO.memberBirthday}' var='birthday' pattern='yyyymmdd'/>
+                          <fmt:parseDate value='${ memberVO.memberBirthday }' var='birthday' pattern='yyyymmdd'/>
                           <input type="date" class="form-control" id="memberBirthday" name="memberBirthday" 
-                          			value="<fmt:formatDate value="${memberBirthday}" pattern="yyyy-mm-dd"/>" >
+                          			value="<fmt:formatDate value="${ memberBirthday }" pattern="yyyy-mm-dd"/>" >
                     </div>
                     <div class="col-sm-6">
                         <label for="memberGender">
@@ -151,12 +142,12 @@
                         <div style="padding-top: 15px;"></div>
                         <div class="custom-control custom-radio custom-control-inline">
                          <input type="radio" id="petsYes" name="memberPetYN" class="custom-control-input" value="Y" onclick="clickPetsYesOrNo()" 
-                        	 <c:if test="${memberVO.memberPetYN =='Y'}"> checked </c:if>>
+                        	 <c:if test="${ memberVO.memberPetYN =='Y'}"> checked </c:if>>
                          <label class="custom-control-label" for="petsYes">애완동물 있음</label>
                         </div>
                        <div class="custom-control custom-radio custom-control-inline">
                          <input type="radio" id="petsNo" name="memberPetYN" class="custom-control-input" value="N" onclick="clickPetsYesOrNo()"
-                        	 <c:if test="${memberVO.memberPetYN =='N'}"> checked </c:if>>
+                        	 <c:if test="${ memberVO.memberPetYN =='N'}"> checked </c:if>>
                          <label class="custom-control-label" for="petsNo">애완동물 없음</label>
                        </div>
                     </div>
@@ -190,9 +181,9 @@
                         </label>
                         <select class="form-control" id="petKind" name="petKind" onclick="clickPetKind()" required>
                             <option value="" disabled selected>애완동물 종류을 선택하세요.</option>
-                            <option value="D">강아지</option>
-                            <option value="C">고양이</option>
-                            <option value="O">기타</option>
+                            <option value="D" <c:if test="${ petVO.petKind == 'D'}">selected</c:if> >강아지</option>
+                            <option value="C" <c:if test="${ petVO.petKind == 'C'}">selected</c:if> >고양이</option>
+                            <option value="O" <c:if test="${ petVO.petKind == 'O'}">selected</c:if> >기타</option>
                         </select>
                     </div>
                    	<div class="col-sm-6">
@@ -223,8 +214,8 @@
                         </label>
                      	<select class="form-control" id="petGender" name="petGender" required>
                             <option value="" disabled selected>애완동물의 성별을 선택하세요.</option>
-                            <option value="M">남자</option>
-                            <option value="F">여자</option>
+                            <option value="M" <c:if test="${ petVO.petGender == 'M'}">selected</c:if> >남자</option>
+                            <option value="F" <c:if test="${ petVO.petGender == 'F'}">selected</c:if> >여자</option>
                         </select>
                    	</div>
                </div>
@@ -239,9 +230,9 @@
                         </label>
                         <select class="form-control" id="petColor" name="petColor" required>
 	                        <option value="" disabled selected>애완동물 털색을 선택하세요.</option>
-			             	<option value="A">화이트</option>
-	                      	<option value="B">블랙</option>
-	                      	<option value="C">브라운</option>
+			             	<option value="A" <c:if test="${ petVO.petColor == 'A'}">selected</c:if> >화이트</option>
+	                      	<option value="B" <c:if test="${ petVO.petColor == 'B'}">selected</c:if> >블랙</option>
+	                      	<option value="C" <c:if test="${ petVO.petColor == 'C'}">selected</c:if> >브라운</option>
                         </select>
                    	</div>
                    	  <div class="col-sm-6">
@@ -251,9 +242,9 @@
                         </label>
                         <select class="form-control" id="petCoatLength" name="petCoatLength" required>
                         <option value="" disabled selected>애완동물 털길이를 선택하세요.</option>
-	  						<option value="S">단모</option>
-	                      	<option value="L">장모</option>
-	                      	<option value="C">곱슬</option>
+	  						<option value="S" <c:if test="${ petVO.petCoatLength == 'S'}">selected</c:if> >단모</option>
+	                      	<option value="L" <c:if test="${ petVO.petCoatLength == 'L'}">selected</c:if> >장모</option>
+	                      	<option value="C" <c:if test="${ petVO.petCoatLength == 'C'}">selected</c:if> >곱슬</option>
                         </select>
                    	</div>
                </div>
@@ -268,9 +259,9 @@
                         </label>
                         <select class="form-control" id="petSize" name="petSize" required>
                             <option value="" disabled selected>애완동물 사이즈를 선택하세요.</option>
-	  						<option value="S">소형</option>
-	                      	<option value="M">중형</option>
-	                      	<option value="L">대형</option>
+	  						<option value="S" <c:if test="${ petVO.petSize == 'S'}">selected</c:if> >소형</option>
+	                      	<option value="M" <c:if test="${ petVO.petSize == 'M'}">selected</c:if> >중형</option>
+	                      	<option value="L" <c:if test="${ petVO.petSize == 'L'}">selected</c:if> >대형</option>
                         </select>
                     </div>
                </div>
@@ -280,16 +271,16 @@
                 <label class="mr-3">이벤트 등 알림 메일 수신동의 : </label>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input type="radio" id="customRadioInline1" name="memberNotice" class="custom-control-input" value="Y" 
-                  			<c:if test="${memberVO.memberNotice =='Y'}"> checked </c:if> >
+                  			<c:if test="${ memberVO.memberNotice =='Y'}"> checked </c:if> >
                   <label class="custom-control-label" for="customRadioInline1">동의함</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input type="radio" id="customRadioInline2" name="memberNotice" class="custom-control-input" value="N"
-                  			<c:if test="${memberVO.memberNotice =='N'}"> checked </c:if> >
+                  			<c:if test="${ memberVO.memberNotice =='N'}"> checked </c:if> >
                   <label class="custom-control-label" for="customRadioInline2">동의 안함</label>
                 </div>
               </div>
-            
+           
             <div class="my-3 text-center">
                 
                 <c:choose>

@@ -30,14 +30,52 @@
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 22px;
         }
+        .box {
+            width: 100px;
+            height: 100px; 
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .profile {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
     <!--  include topNavbar.jsp  -->
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
-	<h3>프로필 변경 페이지 </h3>
+	<br><br><br><br><br>
+	<main role="main" class="container">
+  <div class="jumbotron">
+    <h3>프로필 변경</h3>
+    	<div class="form-group">
+    	<div class = "row">
+         	<div class="box" style="background: #BDBDBD;">
+                 <img class="profile" src="/display?fileName=${fileCallPath}"  class="img-thumbnail">
+             </div> 
+    
+    
 
+			<div class="col-sm-6">
+		      <label for="memberNickName">
+		        <i class="material-icons align-middle">person</i>
+		        <span class="align-middle">닉네임</span>
+		      </label>
+		      <input type="text" class="form-control" id="memberNickName" name="memberNickName" value="${ memberVO.memberNickName }"/>
+		     </div>
+		</div>
+	</div>	
+    <a class="btn btn-lg btn-primary" href="/docs/4.6/components/navbar/" role="button">View navbar docs &raquo;</a>
+  </div>
+</main>
+	
+	
+     
+	
+	<br><br><br><br><br>
     <!-- a link container -->
     <div class="container-fluid" >
         <hr style="border: solid 2px lightgray">

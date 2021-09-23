@@ -49,7 +49,6 @@
 			UPDATE MEMBER 
 			SET 
 				MEMBER_PASSWORD		= #{memberPassword},
-				MEMBER_NICKNAME		= #{memberNickName},
 				MEMBER_NAME			= #{memberName},
 				MEMBER_GENDER		= #{memberGender},
 				MEMBER_BIRTHDAY		= #{memberBirthday},

@@ -19,8 +19,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/css/bootstrap.css">
 
-   
-
 
     <style>
         /* *{
@@ -29,18 +27,101 @@
         } */
 
         .Board-font{
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 22px;
+          font-family: 'Noto Sans KR', sans-serif;
+          font-size: 22px;
+        }
+        .box {
+            width: 100px;
+            height: 100px; 
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .profile {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <!--  include topNavbar.jsp  -->
-	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
+
+	<!--  include topNavbar.jsp  -->
+    <jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
+   
+	<br><br><br><br><br>
 	
-	<h3>프로필,내정보수정 선택 페이지</h3>
+    <!-- middle container -->
+     
+    
+    <div class="container mt-4">
+        <div class="row mb-2">
 
+            <!-- 프로필 설정 -->
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-primary">MY 프로필</strong></h3>
+                  <br>
+                  <table>
+                    <tbody>  
+                        <tr>                                            
+                            <th>
+                            	<div class="box" style="background: #BDBDBD;">
+                                    <img class="profile" src="/display?fileName=${fileCallPath}"  class="img-thumbnail">
+                                </div> 
+                            </th>
+                            <th>별명</th>
+                            <td>${ memberVO.memberNickName }</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <button type="button" class="btn btn-light"><a href="/member/changeProfile" class="stretched-link">수정</a></button>
+                </div>
+              </div>
+            </div>
 
+            <!-- 내정보 설정 -->
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-success">내정보 수정</strong></h3>
+                  <br>
+                  <table>
+                  <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
+                    <tbody>   
+                        <tr>
+                            <th>폰번호</th>
+                            <td>${ memberVO.memberPhoneNumber }</td>
+                        </tr>                    
+                        <tr>                
+                            <th>이메일주소</th>
+                            <td>${ memberVO.memberEmail }</td>
+                        </tr>
+                        <tr>
+                            <th>알림수신</th>
+                            <td>${ memberVO.memberNotice }</td>
+                        </tr>    
+                        <tr>
+                            <th>등록번호</th>
+                            <td>${ petVO.petRegisterNumber }</td>
+                        </tr>                                                                    
+                    </tbody>
+                  </table>
+                  <br>
+                  <button type="button" class="btn btn-light"><a href="/member/changeUserInfo?memberId=${ sessionScope.memberId }" class="stretched-link">수정</a></button>
+                </div>
+              </div>
+            </div>
+
+        </div>    
+    </div>
+    
+    </form>
+    <!-- end of middle container -->
+    
+    <br><br><br><br><br>
+    
     <!-- a link container -->
     <div class="container-fluid" >
         <hr style="border: solid 2px lightgray">

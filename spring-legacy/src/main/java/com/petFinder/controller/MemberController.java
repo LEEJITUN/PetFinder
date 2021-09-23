@@ -192,9 +192,16 @@ public class MemberController {
 	   return "redirect:/";
    }
    
+   /* GET - 내정보 */
+   @GetMapping("/memberInfo")
+   public String memberInfo() {
+	   System.out.println("memberInfo 호출됨...");
+	   return "member/memberInfo";
+   }  
+   
    
    /* GET - 내정보 수정 */
-   @GetMapping("/changeUserInfo") // /member/memberInfo
+   @GetMapping("/changeUserInfo") // /member/changeUserInfo
    public String changeUserInfo(String memberId, Model model) {
       System.out.println("changeUserInfo 호출됨...");
       
@@ -234,10 +241,23 @@ public class MemberController {
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Content-Type","text/html; charset=UTF-8");
 	   
-	   String str = Script.href("내정보 변경완료!","/");
+	   String str = Script.href("내정보 변경완료!","/member/memberInfo?memberId=" + memberVo.getMemberId());
 	  
 	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
+   }
+   
+   /* GET - 프로필 수정 */
+   @GetMapping("/changeProfile") // /member/changeUserInfo
+   public String changeProfile(String memberId, Model model) {
+      System.out.println("changeProfile 호출됨...");
+      
+      // 해당 아이디의 정보값 불러오기
+      MemberVO memberVo = memberService.selectMemberById(memberId);
+      
+      model.addAttribute("memberVO", memberVo);
+      
+      return "member/changeProfile";
    }
    
 }
