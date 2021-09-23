@@ -33,6 +33,9 @@ public interface AdopTempMapper {
 	/* SELECT - 전체 글개수 가져오기 */
 	int selectTotalCount();
 	
+	/* SELECT - 검색을 적용하여 해당 전체 글개수 가져오기 */
+	int selectTotalCountBySearch(Criteria cri);	
+	
 	/* SELECT - 글 번호에 해당하는 글 한개 가져오기*/
 	ComBoardVO selectBoardContent(String boardId);
 	
@@ -41,7 +44,6 @@ public interface AdopTempMapper {
 	
 	/* UPDATE - 글번호에 해당하는 글 수정하기 */
 	void updateBoardModify(ComBoardVO comBoardVO);
-
 	
 	/* DELETE - 글 번호에 해당하는 글 한개 삭제하기*/
 	void deleteBoard(String boardId);

@@ -41,7 +41,7 @@ public class AdopTempController {
 				
 		List<ComBoardVO> boardlist = adopTempService.selectBoards(cri);
 		
-		int totalCount = adopTempService.selectTotalCount(); // 전체 글개수
+		int totalCount = adopTempService.selectTotalCountBySearch(cri); // 검색이 적용된 전체 글개수
 		
 		PageDTO pageDTO = new PageDTO(totalCount, cri); // 페이지블록(Pagination) 화면만들 떄 필요한 정보
 		

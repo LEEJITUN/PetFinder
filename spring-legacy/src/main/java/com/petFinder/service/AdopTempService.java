@@ -77,12 +77,14 @@ public class AdopTempService {
 		return adopTempMapper.selectBoardsWithPaging(cri);
 	}
 	
-	public void deleteBoard(String boardId) {
-		adopTempMapper.deleteBoard(boardId);
-	}
-
+	/* SELECT - 전체 글개수 가져오기 */
 	public int selectTotalCount() {
 		return adopTempMapper.selectTotalCount();
+	}
+	
+	/* SELECT - 검색을 적용하여 해당 전체 글개수 가져오기 */
+	public int selectTotalCountBySearch(Criteria cri) {
+		return adopTempMapper.selectTotalCountBySearch(cri);
 	}
 	
 	/* SELECT - 게시글 하나 가져오기 */
@@ -90,6 +92,7 @@ public class AdopTempService {
 		return adopTempMapper.selectBoardContent(boardId);
 	}
 	
+	/* UPDATE - 글번호에 해당하는 글의 조회수 1 증가시키 */
 	public void updateBoardReadCount(String boardId) {
 		adopTempMapper.updateBoardReadCount(boardId);
 	}
@@ -97,5 +100,10 @@ public class AdopTempService {
 	/* UPDATE - 게시글 수정하기 */
 	public void updateBoardModify(ComBoardVO comBoardVO) {		
 		adopTempMapper.updateBoardModify(comBoardVO);
+	}
+	
+	/* DELETE - 글 번호에 해당하는 글 한개 삭제하기*/
+	public void deleteBoard(String boardId) {
+		adopTempMapper.deleteBoard(boardId);
 	}
 }
