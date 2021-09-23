@@ -49,8 +49,18 @@ public class RestAdopCommController {
 	public ResponseEntity<RestAdopCommVO> adopCommBoardCheck(@RequestBody RestAdopCommVO restAdopCommVO, 
 			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
 		
-		// 추천 비추천 업데이트
-		restAdopCommService.updateadopCommBoardCheck(restAdopCommVO);
+		
+		int checkNum = restAdopCommService.selectCheck(restAdopCommVO);
+		
+		// 추천과 비추천 중 하나라도 하지 않았을 경우 업데이트 (해당 유저)
+		if(checkNum == 0) {
+			// 추천 비추천 업데이트
+			restAdopCommService.updateadopCommBoardCheck(restAdopCommVO);
+		}else {
+			restAdopCommService.deleteCommBoard(restAdopCommVO);		
+		}
+		
+		
 		
 		// 추천 비추천 조회(count) -> ???
 		RestAdopCommVO restAdopCommCount = restAdopCommService.selectTotalCount(restAdopCommVO);

@@ -49,15 +49,33 @@
 	<select id="selectTotalCount" resultMap="RestAdopCommVO">
 		<![CDATA[
 			SELECT 
-			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'Y'
-			AND BOARD_ID = #{boardId}) AS GOOD,
-			(SELECT 
-			COUNT(GOOD_OR_NOT)
-			FROM BOARD_COM_CONFIG
-			WHERE GOOD_OR_NOT = 'N'
-			AND BOARD_ID = #{boardId}) AS NOT_GOOD
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'Y' AND BOARD_ID = #{boardId}) AS GOOD,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'N' AND BOARD_ID = #{boardId}) AS NOT_GOOD,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE MEMBER_ID  = #{memberId} AND BOARD_ID = #{boardId}) AS GOOD_OR_NOT
 			FROM DUAL ;
 		]]>
 	</select>
+	
+	<!-- SELECT - 추천 비추천 유무 -->
+	<select id="selectCheck" resultType="int">
+		<![CDATA[
+		   	 SELECT COUNT(*)
+			 FROM BOARD_COM_CONFIG
+			 WHERE 
+			 	BOARD_ID 		= #{boardId} 
+			 	AND MEMBER_ID 	= #{memberId}
+		]]>
+	</select>
+	
+	<delete id="deleteCommBoard">
+		<![CDATA[
+			DELETE 
+			FROM BOARD_COM_CONFIG 
+			WHERE 
+			 	BOARD_ID 		= #{boardId} 
+			 	AND MEMBER_ID 	= #{memberId}
+		]]>
+	</delete>
+	
   
 </mapper>

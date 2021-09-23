@@ -219,9 +219,9 @@
 		                        | <a  id = "remove" onclick = "removeComment('${comment.commentId}' , '${comment.reportId}')">삭제</a>
 		                        | <a id = "modify"
 		                        onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.commentNum}', '${ comment.commentId}' , '${ comment.reportId}')">수정</a>
-		                        | <a type="button" id = "reply" 
-		                        onclick="replyComment('${comment.commentId}' , '${comment.reportId}', '${comment.commentNum}')">답글</a>
 		                  </c:if>
+		                        | <a type="button" id = "reply" 
+		                        onclick="replyComment('${comment.commentId}' , '${comment.reportId}', '${comment.commentNum}' , '${comment.commentRef}')">답글</a>
 		                      </div>
 		                    </div>
 		                  </div>
@@ -229,9 +229,6 @@
 		                </div>
 		              </li>
 		            </ul>
-		              
-
-		              
 	              </c:forEach>
 	             </c:when>
              </c:choose>
@@ -300,13 +297,7 @@
 		event.preventDefault();
 		
 		let obj = $(this).serializeObject();
-		console.log(obj);
-		console.log(typeof obj); // object
-	
-		
 		let strJson = JSON.stringify(obj);
-		console.log(typeof strJson); // string
-		console.log(strJson);
 		
 		
 		// ajax 함수 호출
@@ -316,8 +307,6 @@
 			data: strJson,
 			contentType: 'application/json; charset=UTF-8',
 			success: function (data) {
-				console.log(typeof data);  // object
-				console.log(data);  // {}
 				showData(data);
 
 			},
@@ -327,27 +316,44 @@
 		});
 	});
 	
+	
+	function allSelect(reportId) {		
+		
+		// ajax 함수 호출
+		$.ajax({
+			url: '/api/findReportCommentList/' + reportId + '.json',
+			method: 'GET',
+			data: reportId,
+			contentType: 'application/json; charset=UTF-8',
+			success: function (data) {
+				showData(data);
+
+			},
+			error: function (request, status, error) {
+				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+			}
+		});
+	}
+	
 	//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
 	function removeComment(commentId,reportId) {
-			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-
+			var reportBoardCommentVO  = {
+							"commentId" : commentId,
+							"reportId"  : reportId,
+				};
+			
 			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+			
 			if (isRemove == true) {
 				// 삭제 후 -> 다시 리로드 showData();
 
 				 // ajax 함수 호출
 				$.ajax({
 					url: '/api/findReportCommentDelete.json',
-					method: 'POST',
-					data: JSON.stringify(reportBoardCommentVO  = {
-							"commentId" : commentId,
-							"reportId"  : reportId,
-					}),
+					method: 'DELETE',
+					data: JSON.stringify(reportBoardCommentVO),
 					contentType: 'application/json; charset=UTF-8',
 					success: function (data) {
-						console.log(typeof data);  // object
-						console.log('data',data);  // {}
 						showData(data);
 
 					},
@@ -357,109 +363,124 @@
 				});
 			}
 		}
+	
+	
 
 		
 		// 댓글수정 버튼을 클릭했을 때 호출되는 함수
 		function modifyComment(nick,id,date,commentContent,index,commentId,reportId) {
-			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-
+			
 				var str = "";
-					
-				str += `
-							<li class="media mb-2">
-			                <img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">
-			                <div class="media-body" >
-			                  <div class="row">
-			                    <div class="col-md-4">
-			                      <h6>\${nick} (\${id})</h6>
-			                    </div>
-			                    <div class="col-md-8">
-			                      <div class="text-right text-secondary">
-			                        <time class="comment-date">\${date}</time>
-			                        | <a  id = "remove" onclick = "removeComment('\${ commentId}' , '\${reportId}'  )">삭제</a>
-			                        | <a id = "save"
-			                        	 onclick="saveComment('\${commentId}' , '\${reportId}' , '\${index}')">저장</a>
-			                        | <a type="button" id = "reply">답글</a>
-			                      </div>
-			                    </div>
-			                  </div>
-			             		 <textarea class="form-control"  id="textarea\${index}" name = "\${index}" rows="3">\${commentContent}</textarea>
-			                </div>
-			              </li>
-					`;
+				let memebrId = '${sessionScope.memberId}';
+				
 
-					
-					$('ul#'+index).html(str); 
+				str += '<li class="media mb-2">';
+				str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+				str += '<div class="media-body" >';
+				str += '<div class="row">';
+				str += '<div class="col-md-4">';
+				str += '<h6>' + nick + '(' + id + ') </h6>';
+				str += '</div>';
+				str += '<div class="col-md-8">';
+				str += '<div class="text-right text-secondary">';
+				str += '<time class="comment-date">' + date +'</time>';
+				
+				if(id == memebrId){
+					str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  reportId + '\'' + ',\'' + index + '\')">저장</a>';
+					str += ' | <a  id = "cancle" onclick = "allSelect(\'' + reportId + '\')">취소</a>';
+				}
+				str += '</div>';
+				str += '</div>';
+				str += '</div>';
+				str += ' <textarea class="form-control"  id="textarea' + index + '" name = "' + index + '" rows="3">' + commentContent + '</textarea>';
+				str += '</div>';
+				str += '</li>';
+
+				$('ul#'+index).html(str); 
 		}
 		
+		
+		
 		// 댓글답글 버튼을 클릭했을 때 호출되는 함수
-		function replyComment(commentId,reportId,index) {
-			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-			
-			console.log('11111111');
+		function replyComment(commentId,reportId,index,commentRef) {
+		
 			event.preventDefault();
 			
 			// 댓글 답글 폼 나오게
-			console.log(commentId);
 			
 			var str = "";
 				
-			str += `
-	             <!-- write reply comment -->
-	              <li class="media mb-2" style="margin-left: 80px;">
-	                <i class="material-icons">subdirectory_arrow_right</i>
-	                <div class="media-body">
-	                  <form id="frm'${index}'">
-	                  	<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />
-	  	 		    	<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
-	  	 		    	<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />
-	  	 				<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
-	                    <div class="row">
-	                      <div class="col-10">
-	                        <div class="form-group">
-	                          <label>답댓글 작성</label>
-	  	                    <textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>
-	                        </div>
-	                      </div>
-	                      <div class="col-2 align-self-center">
-	                        <button type="submit"   class="btn btn-info btn-sm">작성</button>
-	                      </div>
-	                    </div>
-	                  </form>
-	                </div>
-	              </li>
-				`;
-
+			str += '<li class="media mb-2" style="margin-left: 80px;">';
+			str += '<i class="material-icons">subdirectory_arrow_right</i>';
+			str += '<div class="media-body">';
+			str += '<form id="frm' + index + '">';
+			str += '<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />';
+			
+			str += '<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />';
+			str += '<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />';
+			str += '<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />';
+			str += '<input type = "hidden" value = "' + commentRef + '" name = "commentRef" />';
+			str += '<div class="row">';
+			str += '<div class="col-10">';
+			str += '<div class="form-group">';
+			
+			str += '<label>답댓글 작성</label>';
+			str += '<textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>';
+			str += '</div>';
+			str += '</div>';
+			str += '<div class="col-2 align-self-center">';
+			str += '<button type="submit" onclick = "replySave('+ index + ')" class="btn btn-info btn-sm">작성</button>';
+			str += '</div></div></form></div></li>';
 
 				
-				$('ul#'+index).append(str); 
+			$('ul#'+index).append(str); 
 				
+		}
+
+		function replySave(index){
+			
+		  $('#frm'+index).on('submit', function () {
+				event.preventDefault();
+				
+				let obj = $(this).serializeObject();
+				let strJson = JSON.stringify(obj);
+				console.log('여기',strJson);
+				
+				
+				// ajax 함수 호출
+				$.ajax({
+					url: '/api/findReportCommentReply.json',
+					method: 'POST',
+					data: strJson,
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						showData(data);
+
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
+			});
 		}
 		
 		function saveComment(commentId,reportId,index) {
 			event.preventDefault();
-			console.log('index : ',index);
 			const commentContent = $('#textarea'+index).val();
 
-			
 			var reportBoardCommentVO = {
 					"commentContent" : commentContent,
 					"commentId": commentId,
 					"reportId" : reportId,
 			};
 			
-			console.log('reportBoardCommentVO',reportBoardCommentVO);
 			 // ajax 함수 호출
 			$.ajax({
 				url: '/api/findReportCommentModify.json',
-				method: 'POST',
+				method: 'PUT',
 				data: JSON.stringify(reportBoardCommentVO),
 				contentType: 'application/json; charset=UTF-8',
 				success: function (data) {
-					console.log(typeof data);  // object
-					console.log('data',data);  // {}
 					showData(data);
 
 				},
@@ -488,48 +509,40 @@
 		function showData(array) {
 			
 			let str = '';
-
+			let memebrId = '${sessionScope.memberId}';
 			
 			if (array != null && array.length > 0) {
 				for (let i = 0; i< array.length; i++) {
-			
-					console.log(array[i].memberId);
 					
-					str += `
-						<ul class="list-unstyled mt-4" id="\${array[i].commentNum}">
-						<li class="media mb-2">
-		                <img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">
-		                <div class="media-body" >
-		                  <div class="row">
-		                    <div class="col-md-4">
-		                      <h6>\${array[i].memberNickName} (\${array[i].memberId})</h6>
-		                    </div>
-		                    <div class="col-md-8">
-		                      <div class="text-right text-secondary">
-		                      mem:  ${array[i].memberId}
-		                      se : ${sessionScope.memberId}
-		                        <time class="comment-date">\${array[i].commentRegDate}</time>
-		                        <c:if test = "${sessionScope.memberId eq memberId}">
-		                        | <a  id = "remove" onclick = "removeComment('\${ array[i].commentId}' , '\${ array[i].reportId}' )">삭제</a>
-		                        | <a id = "modify"
-		                        onclick="modifyComment('\${array[i].memberNickName}' , '\${array[i].memberId}' , '\${array[i].commentRegDate}' , '\${array[i].commentContent}' , '\${ array[i].commentNum}', '\${ array[i].commentId}' , '\${ array[i].reportId}')">수정</a>
-		                        | <a type="button" id = "reply" onclick="replyComment('\${ array[i].commentId}' , '\${ array[i].reportId}', '\${ array[i].commentNum}')">답글</a>
-		                       </c:if>
-		                        </div>
-		                    </div>
-		                  </div>
-		             	  <input type = "hidden" value = "${ array[i].commentNum }" name = "commentNum" />
-		                  <p>\${array[i].commentContent}</p>
-		                </div>
-		              </li>
-		              </ul>
-					`;
-
+					str += '<ul class="list-unstyled mt-4"id="' + array[i].commentNum + '">';
+					str += '<li class="media mb-2">';
+					str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+					str += '<div class="media-body" >';
+					str += '<div class="row">';
+					str += '<div class="col-md-4">';
+					str += '<h6>' + array[i].memberNickName + '(' + array[i].memberId + ') </h6>';
+					str += '</div>';
+					str += '<div class="col-md-8">';
+					str += '<div class="text-right text-secondary">';
+					str += '<time class="comment-date">' + array[i].commentRegDate +'</time>';
+					
+					if(array[i].memberId == memebrId){
+						str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].reportId + '\')">삭제</a>';
+						str += ' | <a id = "modify"'; 
+						str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentRegDate +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].commentNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\')">수정</a>';
+					}
+					str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].reportId +  '\'' + ',\''+ array[i].commentNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '<input type = "hidden" value = "' + array[i].commentNum + '" name = "commentNum" />';
+					str += '<p> ' + array[i].commentContent + '</p>';
+					str += '</div>';
+					str += '</li>';
+					str += '</ul>';
+					
 				} // for
-				
 
-
-				
 			} else { // array == null || array.length == 0
 				str = `
 

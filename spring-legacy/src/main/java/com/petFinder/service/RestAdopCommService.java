@@ -27,5 +27,18 @@ public class RestAdopCommService {
 		return restAdopCommMapper.selectTotalCount(restAdopCommVO);
 		
 	}
+	
+	/* SELECT - 해당 게시물에 추천 or 비추천을 했는지 조회 */
+	public int selectCheck(RestAdopCommVO restAdopCommVO) {
+		return restAdopCommMapper.selectCheck(restAdopCommVO);
+		
+	}
+	
+	/* DELETE - 추천 OR 비추천이 있을경우 삭제 (해당 유저) */
+	public int deleteCommBoard(RestAdopCommVO restAdopCommVO) {
+		return restAdopCommMapper.deleteCommBoard(restAdopCommVO);
+		
+	}
+	
 
 }

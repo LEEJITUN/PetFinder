@@ -16,5 +16,11 @@ public interface RestAdopCommMapper {
 	/* SELECT - 추천 비추천 각각 갯수*/
 	RestAdopCommVO selectTotalCount(RestAdopCommVO restAdopCommVO);
 
+	/* SELECT - 추천 비추천 했는지 유무 조회*/
+	int selectCheck(RestAdopCommVO restAdopCommVO);
+
+	/* DELETE - 추천 OR 비추천이 있을경우 삭제 (해당 유저) */
+	int deleteCommBoard(RestAdopCommVO restAdopCommVO);
+
 	
 }

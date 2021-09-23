@@ -90,18 +90,16 @@
 					<div class="text-center">
 						<%-- 로그인 사용자일때 --%>
 						<c:if test="${not empty sessionScope.memberId }">
-							<button type="button" class="btn btn-primary btn-lg"
+							<button type="button" id = "goodBtn" class="btn btn-primary btn-lg"
 								onclick="check('${ adopTempContent.boardId}', '${adopTempContent.memberId }', 'Y')">
-								<i class="material-icons align-middle">thumb_up_off_alt</i>
-								<i class="material-icons align-middle">thumb_up_alt</i>
+								<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>
 								<span class="align-middle">추천</span>
 							</button>
 
-							<button type="button" class="btn btn-secondary btn-lg ml-3"
+							<button type="button" id = "notGoodBtn" class="btn btn-secondary btn-lg ml-3"
 								onclick="check('${ adopTempContent.boardId}', '${adopTempContent.memberId }', 'N')">
-								<i class="material-icons align-middle">thumb_down_off_alt</i>
-								<i class="material-icons align-middle">thumb_down_alt</i> <span
-									class="align-middle">비추천</span>
+								<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>
+								<span class="align-middle">비추천</span>
 							</button>
 							<button type="button" class="btn btn-danger btn-lg ml-3"
 								onclick="waring('${ adopTempContent.boardId}', '${adopTempContent.memberId }')">
@@ -330,11 +328,14 @@
 		// 추천 버튼 클릭 시 호출되는 함수
 		// ajax 함수 호출	
 		function check(boardId, memberId, goodOrNot) {
+
 			var RestAdopCommVO = {
 				"boardId" : boardId,
 				"memberId" : memberId,
 				"goodOrNot" : goodOrNot,
 			};
+			
+			console.log('RestAdopCommVO',RestAdopCommVO);
 			
 			$.ajax({
 				url : '/api/adopCommBoardCheck.json',
@@ -342,9 +343,24 @@
 				data : JSON.stringify(RestAdopCommVO),
 				contentType : 'application/json; charset=UTF-8',
 				success : function(data) {
-					 			console.log(typeof data);  // object
-					 			console.log(data);  // {}
+								
+						// 누른 값 : Y , 데이터에서 나온 값 : 1
+			 			if(RestAdopCommVO.goodOrNot == 'Y' && data.goodOrNot == '1'){	
+							$("#notGoodBtn").attr("disabled", true);
+			 				$(good).replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
 
+			 			}else if(RestAdopCommVO.goodOrNot == 'Y' && data.goodOrNot == '0'){
+							$("#notGoodBtn").attr("disabled", false);
+			 				$(good).replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');	
+			 			}else if(RestAdopCommVO.goodOrNot == 'N' && data.goodOrNot == '1'){
+			 				$("#goodBtn").attr("disabled", true);
+			 				$(notGood).replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');		
+			 			}else{
+			 				$("#goodBtn").attr("disabled", false);
+			 				$(notGood).replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');	
+			 			}
+					 			
+								
 				},
 				error : function(request, status, error) {
 					alert('code: ' + request.status + '\n message: '

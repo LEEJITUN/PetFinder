@@ -15,11 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,7 +96,7 @@ public class RestCommentController {
 
 	
 	// ´ñ±Û ¾²±â -> ´ñ±Û ¼öÁ¤
-	@PostMapping(value = "/findReportCommentModify",
+	@PutMapping(value = "/findReportCommentModify",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentModify(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
@@ -110,7 +114,7 @@ public class RestCommentController {
 	
 	
 	// ´ñ±Û ¾²±â -> ´ñ±Û »èÁ¦
-	@PostMapping(value = "/findReportCommentDelete",
+	@DeleteMapping(value = "/findReportCommentDelete",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentDelete(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
@@ -128,14 +132,11 @@ public class RestCommentController {
 		
 		
 	// ´ñ±Û ¾²±â -> ´ñ±Û ÀüÃ¼ Á¶È¸
-	@GetMapping(value = "/findReportCommentList",
-	consumes = "application/json",
-	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentList(@RequestBody ReportBoardCommentVO reportBoardCommentVO, 
-			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
+	@GetMapping(value = "/findReportCommentList/{reportId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<ReportBoardCommentVO>> findReportCommentList(@PathVariable("reportId") String reportId) {
 
 
-		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportBoardCommentVO.getReportId());
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportId);
 		
 		return new ResponseEntity<List<ReportBoardCommentVO>>(ReportBoardCommentList, HttpStatus.OK);
 	} 

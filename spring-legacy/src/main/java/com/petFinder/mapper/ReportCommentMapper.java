@@ -12,9 +12,6 @@ public interface ReportCommentMapper {
 	/* SELECT -  댓글 번호 조회*/
 	int selectCommentIndex(ReportBoardCommentVO reportBoardCommentVO);
 
-	/**/
-	void updateReSeqPlusOne(String commentRef, String commentSeq);
-
 	/* INSERT - 댓글 작성*/
 	void insertComment(ReportBoardCommentVO reportBoardCommentVO);
 
@@ -25,6 +22,6 @@ public interface ReportCommentMapper {
 	void deleteComment(String commentId);
 
 	/* UPDATE - 답글 +1 */
-	void updateReSeqPlusOne(int commentRef, int commentSeq);
+	void updateReSeqPlusOne(ReportBoardCommentVO reportBoardCommentVO);
 
 }
