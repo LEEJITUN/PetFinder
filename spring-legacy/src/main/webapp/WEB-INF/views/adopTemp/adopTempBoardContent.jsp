@@ -205,8 +205,8 @@
 								name="memberId" /> 
 								<input type="hidden" value="${sessionScope.memberNic}" name="memberNickName" /> <input
 								type="hidden" value="${adopTempContent.boardId}" name="boardId" />
-							<input type="hidden" value="${adopTempContent.boardTypeId}"
-								name="boardReportType" />
+<%-- 							<input type="hidden" value="${adopTempContent.boardTypeId}" --%>
+<!-- 								name="boardTypeId" /> -->
 							<div class="row my-4">
 								<div class="col-10">
 									<div class="form-group">
@@ -265,7 +265,7 @@
 		let obj = $(this).serializeObject();
 		let strJson = JSON.stringify(obj);
 		
-		console.log('data ', strJson);
+// 		console.log('data ', strJson);
 		// ajax 함수 호출
 		$.ajax({
 			url: '/api/adopCommCommentWrite.json',
@@ -282,126 +282,24 @@
 		});
 	});
 	
-	
-		// 글삭제 버튼을 클릭했을 때 호출되는 함수
-		function remove(event) {
-			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-			event.preventDefault();
+	function allSelect(boardId) {		
+		
+		// ajax 함수 호출
+		$.ajax({
+			url: '/api/adopCommCommentList/' + boardId + '.json',
+			method: 'GET',
+			data: boardId,
+			contentType: 'application/json; charset=UTF-8',
+			success: function (data) {
+				showData(data);
 
-			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
-			if (isRemove == true) {
-				location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
+			},
+			error: function (request, status, error) {
+				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
 			}
-		}
-
-		// 추천 버튼 클릭 시 호출되는 함수
-		// ajax 함수 호출	
-		function check(boardId, memberId, goodOrNot) {
-
-			var RestAdopCommVO = {
-				"boardId" : boardId,
-				"memberId" : memberId,
-				"goodOrNot" : goodOrNot,
-			};
-
-			console.log('RestAdopCommVO', RestAdopCommVO);
-
-			$
-					.ajax({
-						url : '/api/adopCommBoardCheck.json',
-						method : 'PUT',
-						data : JSON.stringify(RestAdopCommVO),
-						contentType : 'application/json; charset=UTF-8',
-						success : function(data) {
-
-							// 누른 값 : Y , 데이터에서 나온 값 : 1
-							if (RestAdopCommVO.goodOrNot == 'Y'
-									&& data.goodOrNot == '1') {
-								$("#notGoodBtn").attr("disabled", true);
-								$(good)
-										.replaceWith(
-												'<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
-
-							} else if (RestAdopCommVO.goodOrNot == 'Y'
-									&& data.goodOrNot == '0') {
-								$("#notGoodBtn").attr("disabled", false);
-								$(good)
-										.replaceWith(
-												'<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');
-
-							} else if (RestAdopCommVO.goodOrNot == 'N'
-									&& data.goodOrNot == '1') {
-								$("#goodBtn").attr("disabled", true);
-								$(notGood)
-										.replaceWith(
-												'<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
-
-							} else {
-								$("#goodBtn").attr("disabled", false);
-								$(notGood)
-										.replaceWith(
-												'<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
-
-							}
-
-						},
-						error : function(request, status, error) {
-							alert('code: ' + request.status + '\n message: '
-									+ request.responseText + '\n error: '
-									+ error);
-						}
-					});
-		}
-
-		// 신고 버튼을 클릭했을 때 호출되는 함수
-		function waring(boardId, memberId) {
-			var RestAdopCommVO = {
-				"boardId" : boardId,
-				"memberId" : memberId
-			};
-			$.ajax({
-				url : '/api/adopTempBoardWaring.json',
-				method : 'POST',
-				data : JSON.stringify(RestAdopCommVO),
-				contentType : 'application/json; charset=UTF-8',
-				success : function(data) {
-					// 			console.log(typeof data);  // object
-					// 			console.log(data);  // {}
-					// 			showData(data);
-
-				},
-				error : function(request, status, error) {
-					alert('code: ' + request.status + '\n message: '
-							+ request.responseText + '\n error: ' + error);
-				}
-			});
-		}
+		});
+	}
 		
-		
-		// =============== 댓글 =========================================
-			
-			
-
-		
-		
-		function allSelect(boardId) {		
-			
-			// ajax 함수 호출
-			$.ajax({
-				url: '/api/adopCommCommentList/' + boardId + '.json',
-				method: 'GET',
-				data: boardId,
-				contentType: 'application/json; charset=UTF-8',
-				success: function (data) {
-					showData(data);
-
-				},
-				error: function (request, status, error) {
-					alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
-				}
-			});
-		}
 		
 		//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
 		function removeComment(commentId,boardId) {
@@ -432,12 +330,10 @@
 				}
 			}
 		
-		
-
-			
 			// 댓글수정 버튼을 클릭했을 때 호출되는 함수
 			function modifyComment(nick,id,date,commentContent,index,commentId,boardId) {
-				console.log('id', id);
+// 				console.log('id', id);
+
 					var str = "";
 					let memebrId = '${sessionScope.memberId}';
 					
@@ -454,7 +350,7 @@
 					str += '<time class="comment-date">' + date +'</time>';
 					
 					if(id == memebrId){
-						str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  id + '\'' + ',\'' + index + '\')">저장</a>';
+						str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  boardId + '\'' + ',\'' + index + '\')">저장</a>';
 						str += ' | <a  id = "cancle" onclick = "allSelect(\'' + boardId + '\')">취소</a>';
 					}
 					str += '</div>';
@@ -486,7 +382,6 @@
 				
 				str += '<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />';
 				str += '<input type = "hidden" value = "${restAdopCommCommentVO.boardId}" name = "boardId" />';
-				str += '<input type = "hidden" value = "${restAdopCommCommentVO.boardTypeId}" name = "boardTypeId" />';
 				str += '<input type = "hidden" value = "' + commentRef + '" name = "commentRef" />';
 				str += '<div class="row">';
 				str += '<div class="col-10">';
@@ -534,7 +429,7 @@
 			
 			function saveComment(commentId,boardId,index) {
 				
-				console.log('아무거나 ' , boardId)
+// 				console.log('아무거나 ' , boardId)
 				event.preventDefault();
 				const commentContent = $('#textarea'+index).val();
 
@@ -560,6 +455,19 @@
 				});
 			}
 			
+			//  댓글삭제 버튼을 클릭했을 때 호출되는 함수 
+			function remove(event) {
+				// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+				// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+				event.preventDefault();
+
+				let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+				if (isRemove == true) {
+					location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
+				}
+			}
+
+			
 			function showData(array) {
 		         
 		         let str = '';
@@ -583,7 +491,7 @@
 		               if(array[i].memberId == memebrId){
 		                  str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].boardId + '\')">삭제</a>';
 		                  str += ' | <a id = "modify"'; 
-		                  str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentRegDate +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\')">수정</a>';
+		                  str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentRegDate +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].boardId + '\')">수정</a>';
 		               }
 		               str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].boardId +  '\'' + ',\''+ array[i].boardNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
 		               str += '</div>';
@@ -607,7 +515,93 @@
 		         
 
 		      } // showData
+		      
+
 		   
+		  	// =========== 추천 버튼 클릭 시 호출되는 함수 ========================
+				// ajax 함수 호출	
+				function check(boardId, memberId, goodOrNot) {
+
+					var RestAdopCommVO = {
+						"boardId" : boardId,
+						"memberId" : memberId,
+						"goodOrNot" : goodOrNot,
+					};
+
+					console.log('RestAdopCommVO', RestAdopCommVO);
+
+					$
+							.ajax({
+								url : '/api/adopCommBoardCheck.json',
+								method : 'PUT',
+								data : JSON.stringify(RestAdopCommVO),
+								contentType : 'application/json; charset=UTF-8',
+								success : function(data) {
+
+									// 누른 값 : Y , 데이터에서 나온 값 : 1
+									if (RestAdopCommVO.goodOrNot == 'Y'
+											&& data.goodOrNot == '1') {
+										$("#notGoodBtn").attr("disabled", true);
+										$(good)
+												.replaceWith(
+														'<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
+
+									} else if (RestAdopCommVO.goodOrNot == 'Y'
+											&& data.goodOrNot == '0') {
+										$("#notGoodBtn").attr("disabled", false);
+										$(good)
+												.replaceWith(
+														'<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');
+
+									} else if (RestAdopCommVO.goodOrNot == 'N'
+											&& data.goodOrNot == '1') {
+										$("#goodBtn").attr("disabled", true);
+										$(notGood)
+												.replaceWith(
+														'<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
+
+									} else {
+										$("#goodBtn").attr("disabled", false);
+										$(notGood)
+												.replaceWith(
+														'<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
+
+									}
+
+								},
+								error : function(request, status, error) {
+									alert('code: ' + request.status + '\n message: '
+											+ request.responseText + '\n error: '
+											+ error);
+								}
+							});
+				}
+
+				// 신고 버튼을 클릭했을 때 호출되는 함수
+				function waring(boardId, memberId) {
+					var RestAdopCommVO = {
+						"boardId" : boardId,
+						"memberId" : memberId
+					};
+					$.ajax({
+						url : '/api/adopTempBoardWaring.json',
+						method : 'POST',
+						data : JSON.stringify(RestAdopCommVO),
+						contentType : 'application/json; charset=UTF-8',
+						success : function(data) {
+							// 			console.log(typeof data);  // object
+							// 			console.log(data);  // {}
+							// 			showData(data);
+
+						},
+						error : function(request, status, error) {
+							alert('code: ' + request.status + '\n message: '
+									+ request.responseText + '\n error: ' + error);
+						}
+					});
+				}
+				
+				
 
 		
 	</script>

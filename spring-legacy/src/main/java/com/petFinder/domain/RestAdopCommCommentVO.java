@@ -27,8 +27,6 @@ public class RestAdopCommCommentVO {
 	private String boardId; 
 	// 댓글 num
 	private int boardNum; 
-	// 게시판 타입 ID 
-	private String boardTypeId;
 	// 회원 Id
 	private String memberId; 
 	// 회원 닉네임
