@@ -155,16 +155,16 @@
               <div class="form-group">
 
 	              <i class="material-icons align-middle">pets</i>
-	              <span class="align-middle">애완동물 유무</span>
+	              <span class="align-middle">반려동물 유무</span>
                     <div class="text-center">
                         <div style="padding-top: 15px;"></div>
                         <div class="custom-control custom-radio custom-control-inline">
                          <input type="radio" id="petsYes" name="memberPetYN" class="custom-control-input" value="Y" onclick="clickPetsYesOrNo()" checked >
-                         <label class="custom-control-label" for="petsYes">애완동물 있음</label>
+                         <label class="custom-control-label" for="petsYes">반려동물 있음</label>
                         </div>
                        <div class="custom-control custom-radio custom-control-inline">
                          <input type="radio" id="petsNo" name="memberPetYN" class="custom-control-input" value="N" onclick="clickPetsYesOrNo()">
-                         <label class="custom-control-label" for="petsNo">애완동물 없음</label>
+                         <label class="custom-control-label" for="petsNo">반려동물 없음</label>
                        </div>
                     </div>
               </div>
@@ -173,14 +173,14 @@
 			  		<div class="col-sm-6" >
                         <label for="petName">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 이름</span>
+                            <span class="align-middle">반려동물 이름</span>
                         </label>
-                        <input type="text" class="form-control" id="petName" name="petName" placeholder="애완동물 이름을 입력해주세요." required>
+                        <input type="text" class="form-control" id="petName" name="petName" placeholder="반려동물 이름을 입력해주세요." required>
                     </div>
 			  	    <div class="col-sm-6" >
                         <label for="petRegisterNumber">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 등록번호</span>
+                            <span class="align-middle">반려동물 등록번호</span>
                         </label>
                         <input type="text" class="form-control" id="petRegisterNumber" name="petRegisterNumber" placeholder="'-' 를 빼고 입력해주세요." required>
                     </div>
@@ -193,10 +193,10 @@
         			<div class="col-sm-6">
                         <label for="petKind">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 종류</span>
+                            <span class="align-middle">반려동물 종류</span>
                         </label>
                         <select class="form-control" id="petKind" name="petKind" onclick="clickPetKind()" required>
-                            <option value="" disabled selected>애완동물 종류을 선택하세요.</option>
+                            <option value="" disabled selected>반려동물 종류을 선택하세요.</option>
                             <option value="D">강아지</option>
                             <option value="C">고양이</option>
                             <option value="O">기타</option>
@@ -205,7 +205,7 @@
                    	<div class="col-sm-6">
                    	    <label for="petDetailKind">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 품종</span>
+                            <span class="align-middle">반려동물 품종</span>
                         </label>
                         <select class="form-control" id="petDetailKind" name="petDetailKind" required>
 
@@ -219,17 +219,17 @@
         			<div class="col-sm-6">
                         <label for="petBirthday">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 생일</span>
+                            <span class="align-middle">반려동물 생일</span>
                         </label>
                         <input type="date" class="form-control" id="petBirthday" name="petBirthday" required>
                     </div>
                    	<div class="col-sm-6">
                    	    <label for="petGender">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 성별</span>
+                            <span class="align-middle">반려동물 성별</span>
                         </label>
                      	<select class="form-control" id="petGender" name="petGender" required>
-                            <option value="" disabled selected>애완동물의 성별을 선택하세요.</option>
+                            <option value="" disabled selected>반려동물의 성별을 선택하세요.</option>
                             <option value="M">남자</option>
                             <option value="F">여자</option>
                         </select>
@@ -242,10 +242,10 @@
                    	<div class="col-sm-6">
                    	    <label for="petColor">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 털색</span>
+                            <span class="align-middle">반려동물 털색</span>
                         </label>
                         <select class="form-control" id="petColor" name="petColor" required>
-	                        <option value="" disabled selected>애완동물 털색을 선택하세요.</option>
+	                        <option value="" disabled selected>반려동물 털색을 선택하세요.</option>
 			             	<option value="A">화이트</option>
 	                      	<option value="B">블랙</option>
 	                      	<option value="C">브라운</option>
@@ -254,10 +254,10 @@
                    	  <div class="col-sm-6">
                    	    <label for="petCoatLength">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 털길이</span>
+                            <span class="align-middle">반려동물 털길이</span>
                         </label>
                         <select class="form-control" id="petCoatLength" name="petCoatLength" required>
-                        <option value="" disabled selected>애완동물 털길이를 선택하세요.</option>
+                        <option value="" disabled selected>반려동물 털길이를 선택하세요.</option>
 	  						<option value="S">단모</option>
 	                      	<option value="L">장모</option>
 	                      	<option value="C">곱슬</option>
@@ -271,10 +271,10 @@
         			<div class="col-sm-12">
                         <label for="petSize">
                             <i class="material-icons align-middle">pets</i>
-                            <span class="align-middle">애완동물 사이즈</span>
+                            <span class="align-middle">반려동물 사이즈</span>
                         </label>
                         <select class="form-control" id="petSize" name="petSize" required>
-                            <option value="" disabled selected>애완동물 사이즈를 선택하세요.</option>
+                            <option value="" disabled selected>반려동물 사이즈를 선택하세요.</option>
 	  						<option value="S">소형</option>
 	                      	<option value="M">중형</option>
 	                      	<option value="L">대형</option>

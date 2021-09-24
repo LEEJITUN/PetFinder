@@ -1,5 +1,10 @@
 package com.petFinder.mapper;
-
+/**
+ * @title   : 회원정보 Mapper
+ * @author  : JIYUN, HYEPIN
+ * @date    : 2021.09.24 
+ * @version : 1.1 
+ **/
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

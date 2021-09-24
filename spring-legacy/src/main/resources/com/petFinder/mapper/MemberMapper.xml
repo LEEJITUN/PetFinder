@@ -103,7 +103,6 @@
 		<![CDATA[
 			UPDATE MEMBER 
 			SET 
-				MEMBER_PASSWORD		= #{memberPassword},
 				MEMBER_NAME			= #{memberName},
 				MEMBER_GENDER		= #{memberGender},
 				MEMBER_BIRTHDAY		= #{memberBirthday},

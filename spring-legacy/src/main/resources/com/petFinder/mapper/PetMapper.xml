@@ -36,6 +36,44 @@
 		]]>
 	</insert>
 	
-	
+	<!-- UPDATE - MEMBER -->
+	<update id="updatePet">
+		<![CDATA[
+			INSERT INTO PET(
+						PET_REGISTER_NUMBER, 
+						MEMBER_ID, 
+						PET_NAME,
+						PET_KIND,
+						PET_DETAIL_KIND,
+						PET_BIRTHDAY,
+						PET_GENDER,
+						PET_SIZE,
+						PET_COLOR,
+						PET_COATlENGTH
+					)
+					VALUES(
+						#{petRegisterNumber},
+						#{memberId},
+						#{petName},
+						#{petKind},
+						#{petDetailKind},
+						#{petBirthday},
+						#{petGender},
+						#{petSize},
+						#{petColor},
+						#{petCoatLength}				
+					)
+			ON DUPLICATE KEY UPDATE
+						PET_REGISTER_NUMBER = #{petRegisterNumber},
+						PET_NAME = #{petName},
+						PET_KIND = #{petKind},
+						PET_DETAIL_KIND = #{petDetailKind},
+						PET_BIRTHDAY = #{petBirthday},
+						PET_GENDER = #{petGender},
+						PET_SIZE = #{petSize},
+						PET_COLOR = #{petColor},
+						PET_COATlENGTH = #{petCoatLength}
+		]]>
+	</update>	
 	
 </mapper>

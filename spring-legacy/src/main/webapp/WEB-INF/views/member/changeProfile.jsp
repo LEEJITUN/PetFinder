@@ -30,7 +30,7 @@
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 22px;
         }
-        .box {
+        .profile_photo {
             width: 100px;
             height: 100px; 
             border-radius: 50%;
@@ -40,42 +40,82 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        }        
     </style>
 </head>
 <body>
     <!--  include topNavbar.jsp  -->
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
-	<br><br><br><br><br>
-	<main role="main" class="container">
-  <div class="jumbotron">
-    <h3>프로필 변경</h3>
-    	<div class="form-group">
-    	<div class = "row">
-         	<div class="box" style="background: #BDBDBD;">
-                 <img class="profile" src="/display?fileName=${fileCallPath}"  class="img-thumbnail">
-             </div> 
-    
-    
-
-			<div class="col-sm-6">
-		      <label for="memberNickName">
-		        <i class="material-icons align-middle">person</i>
-		        <span class="align-middle">닉네임</span>
-		      </label>
-		      <input type="text" class="form-control" id="memberNickName" name="memberNickName" value="${ memberVO.memberNickName }"/>
-		     </div>
+	<!-- middle container -->
+	<br><br><br>
+	<div class="container">
+	  <div class="jumbotron">
+	    <div class="p_header">
+		    <h2>프로필 수정</h2>
+		    <p> PET FINDER 대표 프로필과 별명을 수정 하실 수 있습니다.</p>
 		</div>
-	</div>	
-    <a class="btn btn-lg btn-primary" href="/docs/4.6/components/navbar/" role="button">View navbar docs &raquo;</a>
-  </div>
-</main>
+	    <br>
+		<form id="profileForm" method="post" enctype="multipart/form-data">
+	        <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
+	        <fieldset>
+	            <table border="0" class="tbl_model">
+	                <colgroup>
+	                    <col style="width:22%"><col>
+	                </colgroup>
+	                <tbody>
+	                <tr>
+	                    <th scope="row">
+	                        <div class="thcell">프로필 사진</div>
+	                    </th>
+	                    <td>
+	                        <div class="tdcell">
+	                        	<div class="profile_photo">
+                                	<img class="profile" src="/resources/images/default.png" class="img-thumbnail">                   
+	                            </div>                                
+	                        </div>
+	                        <br>
+	                        <div class="btn_area_btm">
+	                                <span class="btn_file">
+	                                	<button type="button" class="btn btn-outline-dark btn-sm">사진변경</button>
+	                                    <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label>
+	                                    <input type="file" id="inputImage" name="profileImage"  accept="image/*" />
+	                                    <button type="button" class="btn btn-outline-dark btn-sm">삭제</button>
+	                                </span>
+	                        </div>
+	                    </td>
+	                	</tr>
+	                	<tr>
+	                    <th scope="row">
+	                        <div class="thcell"><label for="inpNickname">별명</label></div>
+	                    </th>
+	                    <td>
+	                        <div class="tdcell">
+	                            <p class="contxt_webctrl nickname">
+	                                <input type="text" name="memberNickName" id="memberNickName" value="${ memberVO.memberId }" style="width:254px">
+	                                <!-- Enter 입력으로 submit이 되는걸 방지하기 위한 Input -->
+	                                <input type="text" style="display: none;" >
+	                            </p>
+	                        </div>
+	                    </td>
+	                </tr>
+	                </tbody>
+	            </table>
+	            
+	            <br>
+	            <div class="btn_wrap">
+	                <button type="submit" class="btn btn-success">적용</button>
+	                <button type="button" class="btn btn-secondary">취소</button>
+	            </div>
+	        </fieldset>
+	    </form>
+
+	  </div>
+	</div>
+	<br><br><br>
 	
-	
-     
-	
-	<br><br><br><br><br>
+	<!-- end of middle container -->
+
     <!-- a link container -->
     <div class="container-fluid" >
         <hr style="border: solid 2px lightgray">

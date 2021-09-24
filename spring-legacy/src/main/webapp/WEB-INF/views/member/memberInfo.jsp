@@ -48,7 +48,7 @@
 	<!--  include topNavbar.jsp  -->
     <jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
    
-	<br><br><br><br><br>
+	<br><br><br>
 	
     <!-- middle container -->
      
@@ -85,7 +85,7 @@
             <div class="col-md-6">
               <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-success">내정보 수정</strong></h3>
+                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-warning">내정보 수정</strong></h3>
                   <br>
                   <table>
                   <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
@@ -113,6 +113,32 @@
                 </div>
               </div>
             </div>
+            
+			<!-- 패스워드 변경 -->
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-success">비밀번호</strong></h3>
+                  <br>
+                  <p>주기적인 비밀번호 변경을 통해 개인정보를 안전하게 보호하세요.</p>
+                  <br><br><br>
+                  <button type="button" class="btn btn-light"><a href="/member/changeUserInfo?memberId=${ sessionScope.memberId }" class="stretched-link">비밀번호 변경</a></button>
+                </div>
+              </div>
+            </div>
+            
+			<!-- 탈퇴하기 -->
+            <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0"><strong class="d-inline-block mb-2 text-danger">탈퇴하기</strong></h3>
+                  <br>
+                  <p>회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
+                  <br><br><br>
+                  <button type="button" class="btn btn-light"><a href="/member/changeUserInfo?memberId=${ sessionScope.memberId }" class="stretched-link">탈퇴하기</a></button>
+                </div>
+              </div>
+            </div>                        
 
         </div>    
     </div>
@@ -120,7 +146,7 @@
     </form>
     <!-- end of middle container -->
     
-    <br><br><br><br><br>
+    <br><br><br>
     
     <!-- a link container -->
     <div class="container-fluid" >

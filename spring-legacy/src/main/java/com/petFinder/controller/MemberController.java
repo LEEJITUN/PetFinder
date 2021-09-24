@@ -1,18 +1,17 @@
 package com.petFinder.controller;
+/**
+ * @title   : 회원정보 Controller
+ * @author  : JIYUN, HYEPIN
+ * @date    : 2021.09.24 
+ * @version : 1.1 
+ **/
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @title   : 회원정보 Controller
- * @author  : JIYUN
- * @date    : 2021.09.15 
- * @version : 1.0 
- **/
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -237,7 +236,6 @@ public class MemberController {
 	   /****************** UPDATE_내정보수정 (member,pet) *******************/
 	   memberService.updateMemberById(memberVo);
 
-	   
 	   /****************** headers 설정 *******************/
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Content-Type","text/html; charset=UTF-8");
@@ -247,6 +245,7 @@ public class MemberController {
 	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
    }
+   
    
    /* GET - 프로필 수정 */
    @GetMapping("/changeProfile") // /member/changeUserInfo

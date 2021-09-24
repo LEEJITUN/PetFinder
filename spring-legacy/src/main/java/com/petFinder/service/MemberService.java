@@ -1,9 +1,9 @@
 package com.petFinder.service;
 /**
- * @title   : 회원정보  Service 
- * @author  : JIYUN
- * @date    : 2021.09.15 
- * @version : 1.0 
+ * @title   : 회원정보 Service
+ * @author  : JIYUN, HYEPIN
+ * @date    : 2021.09.24 
+ * @version : 1.1 
  **/
 import java.util.List;
 
@@ -54,7 +54,16 @@ public class MemberService {
 	
 	/* UPDATE - 해당 아이디의 회원정보 업데이트 */
 	public void updateMemberById(MemberVO memberVo) {
+		
+		String petYN = memberVo.getMemberPetYN();
+		
+		//======== UPDATE - (Member,Pet) =========
 		memberMapper.updateMemberById(memberVo);
+		
+		// 회원의 펫을 소유할 경우 
+		if(petYN.equals("Y")) {
+			petMapper.updatePet(memberVo.getPetVO());
+		}		
 	}
 	
 	
