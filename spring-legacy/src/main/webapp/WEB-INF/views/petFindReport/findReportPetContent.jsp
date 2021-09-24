@@ -39,7 +39,7 @@
       <!-- Right area -->
       <div class="col-sm-9">
           
-       		<input type = "hidden" value = "${ sessionScope.memberId }" name = "memberId" />
+       		<input type = "hidden" value = "${sessionScope.memberId}" name = "memberId" />
  		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
  		    <input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
  		

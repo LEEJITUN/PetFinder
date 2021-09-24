@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.petFinder.mapper.RestComSelectBoxMapper">
+	<resultMap type="ComCodeVO" id="ComCodeVO">
+      <result column="TYPE_M"		property="codeM"/>
+      <result column="TYPE_D"		property="codeD"/>
+      <result column="STR"			property="str"/>   
+   </resultMap>
+	
+	<select id="selectCoedStrList" resultMap="ComCodeVO">
+		<![CDATA[
+			SELECT 
+				TYPE_D,
+				STR
+			FROM TYPE_STR
+			WHERE TYPE_M = #{codeM}
+		]]>	
+	</select>
+	
+
+	
+
+
+	
+</mapper>

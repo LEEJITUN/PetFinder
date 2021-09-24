@@ -3,7 +3,6 @@
    pageEncoding="UTF-8"%>
 <script>
 	    
-
 		function readImage(input) {
 		    // 인풋 태그에 파일이 있는 경우
 		    if(input.files && input.files[0]) {
@@ -31,38 +30,65 @@
 		    readImage(e.target)
 		})
 
-
-	    
 	    function clickPetKind() {
 	        $('#petKind').change(function() {
 	
-	            var dog = ["골든 리트리버", "닥스훈트", "래브라도 리트리버", "몰티즈", "슈나우저", "푸들", "미니어처 핀셔", "베들링턴 테리어", "보더 콜리", "보스턴 테리어",
-	                      "비글", "비숑 프리제", "사모예드", "셰틀랜드 쉽독", "시바 이누","시베리안 허스키","시츄","코카스파니엘","요크셔 테리어","웰시 코기","이탈리안 그레이하운드",
-	                      "스피츠","진돗개","치와와","파피용","퍼그","페키니즈","포메라니안","푸들","풍산개","프렌치 불독","믹스견"];
-	            var cat = ["노르웨이숲", "랙돌", "러시안블루","먼치킨","뱅갈","브리티시쇼트헤어","샴","스코티시폴드","스핑크스","아메리카숏헤어","아바시니안","코리안숏헤어","터키시앙고라","페르시안"];
-	            var changeItem;
-	      
-	            if (this.value == "D") {
-	            	changeItem = dog;
-	            } else if (this.value == "C") {
-	                changeItem = cat;
-	            }else{
-	            	changeItem = "other";
-	            }
+	        	var codeM = this.value;
+	        	
+	        	selectPetKind(codeM,null);
+	        	
+      		});
 	            
-	            $('#petDetailKind').empty();
-				/* 고칠 부분  */
-	            if(changeItem != "other"){
-	            	$('#petDetailKind').append("<option value = '' disabled selected>품종</option>");
-		            for (var count = 0; count < changeItem.length; count++) {
-		                var option = $("<option>" + changeItem[count] + "</option>");
-		                $('#petDetailKind').append(option);
-		            }
-	            }else{
-	            	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' name='petDetailKind' placeholder='직접입력'>");
-	            }
-	        });
 	    }
+		
+		function selectPetKind(codeM, codeD){
+        	let changeItemArray = [];
+        	
+        	console.log(';codeM : ',codeM);
+        	console.log(';codeD : ',codeD);
+        	
+        	$.ajax({
+				url: '/api/coedStrList/' + codeM + '.json',
+				method : 'GET',
+				contentType : 'application/json; charset=UTF-8',
+				success : function(data) {
+					console.log('data',data);
+					for(let item of data){
+						changeItemArray.push(item);
+					}
+					
+					setDataPetKind(changeItemArray,codeM,codeD);
+				},
+				error : function(request, status, error) {
+					alert('code: ' + request.status + '\n message: '
+							+ request.responseText + '\n error: ' + error);
+				}
+			});
+		}
+		
+		function setDataPetKind(changeItemArray,codeM,codeD){
+			
+			console.log('codeD222222', codeD);
+	          $('#petDetailKind').empty();
+	          
+	         if(codeM != 'O') {
+	          $('#petDetailKind').append("<option value = '' disabled selected>품종</option>");
+	          	 
+	        	  for (var i = 0; i < changeItemArray.length; i++) {
+	        		  if(codeD == changeItemArray[i].codeD){
+	        			  var option = $("<option value = "+ changeItemArray[i].codeD + " selected >" + changeItemArray[i].str + "</option>");
+	        			  $('#petDetailKind').append(option);
+	        		  }else{
+	        			  var option = $("<option value = "+ changeItemArray[i].codeD + ">" + changeItemArray[i].str + "</option>");
+	        			  $('#petDetailKind').append(option);
+	        		  }
+				  }
+
+	          }else{
+
+	          	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' name='petDetailKindInput' placeholder='직접입력'>");
+	          }
+		}
 	    
 	    
 	    function clickPetsYesOrNo(){

@@ -320,5 +320,11 @@
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
 
+	<script>
+		$(document).ready(function(){
+			selectPetKind('${ petVO.petKind }','${ petVO.petDetailKind }');
+		});
+
+	</script>
 </body>
 </html>
