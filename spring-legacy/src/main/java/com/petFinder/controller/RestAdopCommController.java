@@ -30,10 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.petFinder.domain.ComBoardVO;
 import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PageDTO;
-import com.petFinder.domain.RestAdopCommCommentVO;
 import com.petFinder.domain.RestAdopCommCommentVO;
 import com.petFinder.domain.RestAdopCommVO;
 import com.petFinder.service.RestAdopCommService;

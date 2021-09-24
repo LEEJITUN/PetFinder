@@ -201,12 +201,10 @@
 					<c:if test="${sessionScope.memberId != null}">
 						<!-- write new comment -->
 						<form id="frm">
-							<input type="hidden" value="${sessionScope.memberId }"
-								name="memberId" /> 
-								<input type="hidden" value="${sessionScope.memberNic}" name="memberNickName" /> <input
-								type="hidden" value="${adopTempContent.boardId}" name="boardId" />
-<%-- 							<input type="hidden" value="${adopTempContent.boardTypeId}" --%>
-<!-- 								name="boardTypeId" /> -->
+							<input type="hidden" value="${sessionScope.memberId }" name="memberId" /> 
+							<input type="hidden" value="${sessionScope.memberNic}" name="memberNickName" /> 
+							<input type="hidden" value="${adopTempContent.boardId}" name="boardId" />
+
 							<div class="row my-4">
 								<div class="col-10">
 									<div class="form-group">
@@ -332,8 +330,7 @@
 		
 			// 댓글수정 버튼을 클릭했을 때 호출되는 함수
 			function modifyComment(nick,id,date,commentContent,index,commentId,boardId) {
-// 				console.log('id', id);
-
+ 				console.log('id', id);
 					var str = "";
 					let memebrId = '${sessionScope.memberId}';
 					
@@ -367,7 +364,8 @@
 			
 			// 댓글답글 버튼을 클릭했을 때 호출되는 함수
 			function replyComment(commentId,boardId,index,commentRef) {
-			
+				console.log('boardId', boardId);
+ 				console.log('index', index);
 				event.preventDefault();
 				
 				// 댓글 답글 폼 나오게
@@ -381,7 +379,7 @@
 				str += '<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />';
 				
 				str += '<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />';
-				str += '<input type = "hidden" value = "${restAdopCommCommentVO.boardId}" name = "boardId" />';
+				str += '<input type = "hidden" value = "${adopTempContent.boardId}" name = "boardId" />';										  
 				str += '<input type = "hidden" value = "' + commentRef + '" name = "commentRef" />';
 				str += '<div class="row">';
 				str += '<div class="col-10">';
@@ -429,7 +427,6 @@
 			
 			function saveComment(commentId,boardId,index) {
 				
-// 				console.log('아무거나 ' , boardId)
 				event.preventDefault();
 				const commentContent = $('#textarea'+index).val();
 

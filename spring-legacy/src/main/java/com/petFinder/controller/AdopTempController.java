@@ -61,13 +61,12 @@ public class AdopTempController {
 		
 		System.out.println("adopTempBoardContent 호출...");
 		
+		// 글 한개 가져오기
+		ComBoardVO boardContent = adopTempService.selectBoardContent(boardId);	
+		List<RestAdopCommCommentVO> RestAdopCommCommenList = restAdopCommService.selectComments(boardId);
+		
 		// 조회수 1 증가시키기 
 		adopTempService.updateBoardReadCount(boardId);
-		
-		// 글 한개 가져오기
-		ComBoardVO boardContent = adopTempService.selectBoardContent(boardId);
-		
-		List<RestAdopCommCommentVO> RestAdopCommCommenList = restAdopCommService.selectComments(boardId);
 		
 		model.addAttribute("adopTempContent", boardContent);
 		model.addAttribute("commentList", RestAdopCommCommenList);
