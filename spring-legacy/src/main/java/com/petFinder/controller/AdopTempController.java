@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.petFinder.domain.ComBoardVO;
 import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PageDTO;
+import com.petFinder.domain.RestAdopCommCommentVO;
 import com.petFinder.service.AdopTempService;
+import com.petFinder.service.RestAdopCommService;
 
 
 @Controller
@@ -30,6 +32,9 @@ public class AdopTempController {
 	
 	@Autowired
 	private AdopTempService adopTempService;
+	
+	@Autowired
+	private RestAdopCommService restAdopCommService;
 	
 	/* adopTemp -리스트로 보여주기 */
 	@GetMapping("/adopTempBoardList")
@@ -62,7 +67,10 @@ public class AdopTempController {
 		// 글 한개 가져오기
 		ComBoardVO boardContent = adopTempService.selectBoardContent(boardId);
 		
+		List<RestAdopCommCommentVO> RestAdopCommCommenList = restAdopCommService.selectComments(boardId);
+		
 		model.addAttribute("adopTempContent", boardContent);
+		model.addAttribute("commentList", RestAdopCommCommenList);
 	
 	      return "adopTemp/adopTempBoardContent";
 	}

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.petFinder.mapper.RestAdopCommCommentMapper">
+	<resultMap type="RestAdopCommCommentVO" id="RestAdopCommCommentVO">
+		<result column="BOARD_COMMENTS_ID"			property="commentId"/>
+		<result column="BOARD_ID" 					property="boardId"/>
+		<result column="BOARD_NUM" 					property="boardNum"/>
+		<result column="BOARD_TYPE_ID" 				property="boardTypeId"/>
+		<result column="MEMBER_ID" 					property="memberId"/>
+		<result column="MEMBER_NICKNAME" 			property="memberNickName"/>
+		<result column="BOARD_COMMENTS_CONTENT" 	property="commentContent"/>
+		<result column="BOARD_COMMENTS_REG_DATE" 	property="commentRegDate"/>
+		<result column="BOARD_COMMENTS_MDF_DATE" 	property="commentUpDate"/>
+		<result column="BOARD_COMMENTS_REF" 		property="commentRef"/>
+		<result column="BOARD_COMMENTS_LEV" 		property="commentLev"/>
+		<result column="BOARD_COMMENTS_SEQ" 		property="commentSeq"/>
+	</resultMap>
+	
+	<select id="selectComments" resultMap="RestAdopCommCommentVO">
+		<![CDATA[
+   			SELECT
+   			 	BOARD_COMMENTS_ID, 
+				BOARD_ID, 
+				BOARD_NUM,
+				BOARD_TYPE_ID,
+				MEMBER_ID,
+				MEMBER_NICKNAME,
+				BOARD_COMMENTS_CONTENT,
+				IFNULL(BOARD_COMMENTS_MDF_DATE,BOARD_COMMENTS_REG_DATE) AS BOARD_COMMENTS_REG_DATE,
+				BOARD_COMMENTS_REF,
+				BOARD_COMMENTS_LEV,
+				BOARD_COMMENTS_SEQ
+			FROM BOARD_COM_COMMENTS
+			WHERE BOARD_ID = #{boardId}
+			ORDER BY BOARD_COMMENTS_REF,BOARD_COMMENTS_LEV,BOARD_COMMENTS_SEQ
+		]]>	
+	</select>
+	
+	<!-- 게시글 번호 생성 -->
+	<select id="selectCommentIndex" resultType="int">
+		<![CDATA[
+   			SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
+			FROM BOARD_COM_COMMENTS 
+			WHERE BOARD_ID = #{boardId}
+		]]>	
+	</select>
+	
+	<insert id="insertComment">
+		<![CDATA[
+			INSERT INTO BOARD_COM_COMMENTS (
+				BOARD_COMMENTS_ID, 
+				BOARD_ID, 
+				BOARD_NUM,
+				BOARD_TYPE_ID,
+				MEMBER_ID,
+				MEMBER_NICKNAME,
+				BOARD_COMMENTS_CONTENT,
+				BOARD_COMMENTS_REG_DATE,
+				BOARD_COMMENTS_MDF_DATE,
+				BOARD_COMMENTS_REF,
+				BOARD_COMMENTS_LEV,
+				BOARD_COMMENTS_SEQ
+			)
+			VALUES(
+				#{commentId},
+				#{boardId},
+				#{boardNum},
+				#{boardTypeId},
+				#{memberId},
+				#{memberNickName},
+				#{commentContent},
+				#{commentRegDate},
+				#{commentUpDate},
+				#{commentRef},
+				#{commentLev},
+				#{commentSeq}
+			)
+		]]>
+	</insert>
+	
+	<update id="updateComment">
+		<![CDATA[
+			UPDATE BOARD_COM_COMMENTS
+			SET 
+				BOARD_COMMENTS_CONTENT 	= #{commentContent},
+				BOARD_COMMENTS_MDF_DATE = #{commentUpDate}
+			WHERE BOARD_COMMENTS_ID = #{commentId}
+		]]>
+	</update>
+	
+	<update id="updateReSeqPlusOne">
+		<![CDATA[
+			UPDATE BOARD_COM_COMMENTS
+			SET BOARD_COMMENTS_SEQ = BOARD_COMMENTS_SEQ + 1
+			WHERE BOARD_COMMENTS_REF = #{commentRef}
+			AND BOARD_COMMENTS_SEQ > #{commentSeq}
+		]]>
+	</update>
+	
+	<delete id="deleteComment">
+		<![CDATA[
+			DELETE 
+			FROM BOARD_COM_COMMENTS 
+			WHERE BOARD_COMMENTS_ID = #{commentId};
+		]]>
+	</delete>
+	
+</mapper>
