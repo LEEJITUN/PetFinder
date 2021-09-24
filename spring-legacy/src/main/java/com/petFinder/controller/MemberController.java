@@ -3,7 +3,7 @@ package com.petFinder.controller;
  * @title   : 회원정보 Controller
  * @author  : JIYUN, HYEPIN
  * @date    : 2021.09.24 
- * @version : 1.2
+ * @version : 1.3
  **/
 import java.io.IOException;
 import java.util.List;
@@ -286,30 +286,100 @@ public class MemberController {
    
    /* GET - 비밀번호 변경 */
    @GetMapping("/changePasswd") // /member/changePasswd
-   public String changePasswd(String memberId, Model model) {
-      System.out.println("changePasswd 호출됨...");
-      
-      // 해당 아이디의 정보값 불러오기
-      MemberVO memberVo = memberService.selectMemberById(memberId);
-      
-      model.addAttribute("memberVO", memberVo);
-      
+   public String changePasswd() {
+      System.out.println("changePasswd 호출됨...");      
       return "member/changePasswd";
    }
+   
+   /* POST - 비밀번호 변경 */
+   @PostMapping("/changePasswd") // /member/changePasswd
+   public ResponseEntity<String> changePasswd(String memberId, String memberPassword, String memberPassword2) {
+		
+	   // 해당 아이디의 정보값 불러오기
+	   MemberVO memberVO = memberService.selectMemberById(memberId);
+	   // 해당 memberId의 memberPassword값과 사용자가 입력한 passwd값 비교
+	   boolean isPasswdSame = BCrypt.checkpw(memberPassword, memberVO.getMemberPassword());
+	
+	   // 입력한 패스워드가 같으면 비밀번호 업데이트
+	   if(isPasswdSame == true) {
+		   // 새로운 패스워드 암호화
+		   String newPasswd = BCrypt.hashpw(memberPassword2, BCrypt.gensalt()); 
+		
+		   // 업데이트하기위한 세팅
+		   MemberVO memVO = new MemberVO();
+		   memVO.setMemberId(memberId); 
+		   memVO.setMemberPassword(newPasswd); //업데이트할 값
+
+		   memberService.updateMemberByPasswd(memVO);
+		
+		   /****************** headers 설정 *******************/
+		   HttpHeaders headers = new HttpHeaders();
+		   headers.add("Content-Type", "text/html; charset=UTF-8");
+		   
+		   String str = Script.href("비밀번호 변경완료!", "/member/login");
+
+		   return new ResponseEntity<String>(str, headers, HttpStatus.OK);	
+		   
+	   }else {
+		   
+		   /****************** headers 설정 *******************/
+		   HttpHeaders headers = new HttpHeaders();
+		   headers.add("Content-Type", "text/html; charset=UTF-8");  
+		   
+		   String str = Script.href("비밀번호가 틀렸습니다", "/member/changePasswd");
+		
+		   return new ResponseEntity<String>(str, headers, HttpStatus.OK);
+	   }
+   }   
    
    
    /* GET - 회원정보 삭제 */
    @GetMapping("/remove") // /member/remove
-   public String remove(String memberId, Model model) {
-      System.out.println("changeProfile 호출됨...");
-      
-      // 해당 아이디의 정보값 불러오기
-      MemberVO memberVo = memberService.selectMemberById(memberId);
-      
-      model.addAttribute("memberVO", memberVo);
-      
+   public String remove() {
+      System.out.println("remove 호출됨...");
       return "member/remove";
    }
    
+   /* POST - 회원정보 삭제 */
+   @PostMapping("/remove")
+	public ResponseEntity<String> remove(String memberId, String memberPassword,
+							HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+	   
+	   // 해당 아이디의 정보값 불러오기
+	   MemberVO memberVO = memberService.selectMemberById(memberId);
+	   // 해당 memberId의 memberPassword값과 사용자가 입력한 passwd값 비교
+	   boolean isPasswdSame = BCrypt.checkpw(memberPassword, memberVO.getMemberPassword());
+
+		// 입력한 패스워드가 같으면 탈퇴하기
+		if(isPasswdSame == true) {
+			memberService.deleteMemberById(memberId);
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "text/html; charset=UTF-8");  
+			String str = Script.href("탈퇴되었습니다", "/");
+
+			// 세션 비우기
+			session.invalidate();
+			// 로그인 상태유지용 쿠키 있으면 삭제하기
+			Cookie[] cookies = request.getCookies();
+			
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("id")) {
+						cookie.setMaxAge(0); // 브라우저가 삭제할 수 있도록 0초로 설정
+						cookie.setPath("/");
+						response.addCookie(cookie);
+					}
+				} // for
+			}
+			return new ResponseEntity<String>(str, headers, HttpStatus.OK);	
+			
+		} else { // 비밀번호 틀린 경우
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "text/html; charset=UTF-8");    
+			String str = Script.href("비밀번호가 틀렸습니다", "/member/remove");
+			return new ResponseEntity<String>(str, headers, HttpStatus.OK);
+		}
+	}
 }
    

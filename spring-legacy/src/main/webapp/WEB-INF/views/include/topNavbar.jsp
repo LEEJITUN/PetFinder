@@ -74,7 +74,7 @@
                      	 <div>
                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		                         <a class="dropdown-item" onclick="location.href = '/member/memberInfo';">내정보</a>
+		                         <a class="dropdown-item" onclick="location.href = '/member/memberInfo?memberId=${ sessionScope.memberId }';">내정보</a>
 		                         <div class="dropdown-divider"></div>
 		                        <a class="dropdown-item" onclick="location.href = '/member/logout';">로그아웃</a>
                       		 </div> 

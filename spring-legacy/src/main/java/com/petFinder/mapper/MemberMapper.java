@@ -3,7 +3,7 @@ package com.petFinder.mapper;
  * @title   : 회원정보 Mapper
  * @author  : JIYUN, HYEPIN
  * @date    : 2021.09.24 
- * @version : 1.2
+ * @version : 1.3
  **/
 import java.util.List;
 
@@ -28,6 +28,9 @@ public interface MemberMapper {
 	/* UPDATE - 해당 ID의 별명 업데이트 */
 	void updateMemberByNic(MemberVO memberVO);
 	
+	/* UPDATE - 해당 ID의 비밀번호 변경 */
+	void updateMemberByPasswd(MemberVO memVO);
+	
 	/* DELETE - 해당 ID의 회원정보 삭제 */
 	void deleteMemberById(String memberId);
 
@@ -46,6 +49,7 @@ public interface MemberMapper {
 	/* SELECT - 해당 ID의 회원정보 ROW수 */
 	@Select("SELECT COUNT(*) FROM MEMBER WHERE ID = #{id}")
 	List<MemberVO> getCountById(String id);
+
 
 
 	

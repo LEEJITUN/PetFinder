@@ -110,7 +110,7 @@
                   <br>
                   <p>주기적인 비밀번호 변경을 통해 개인정보를 안전하게 보호하세요.</p>
                   <br><br><br>
-                  <button type="button" class="btn btn-light"><a href="/member/changePasswd?memberId=${ sessionScope.memberId }" class="stretched-link">비밀번호 변경</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/changePasswd/" class="stretched-link">비밀번호 변경</a></button>
                 </div>
               </div>
             </div>
@@ -123,7 +123,7 @@
                   <br>
                   <p>회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
                   <br><br><br>
-                  <button type="button" class="btn btn-light"><a href="/member/remove?memberId=${ sessionScope.memberId }" class="stretched-link">탈퇴하기</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/remove/" class="stretched-link">탈퇴하기</a></button>
                 </div>
               </div>
             </div>                        

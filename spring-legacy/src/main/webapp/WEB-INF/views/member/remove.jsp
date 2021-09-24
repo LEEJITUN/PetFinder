@@ -40,30 +40,19 @@
 
             <hr class="featurette-divider">
 
-            <form action="/member/remove" method="POST" enctype="multipart/form-data">
+            <form action="/member/remove" method="POST" enctype="multipart/form-data" id="frm">
             
-
-
+			<input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
               <div class="form-group">
                 <label for="memberPassword">
                   <i class="material-icons align-middle">lock</i>
                   <span class="align-middle">비밀번호</span>
                 </label>
-                <input type="password" class="form-control" id="memberPassword" name="memberPassword" aria-describedby="pwdHelp" required>
-                <small id="pwdHelp" class="form-text text-muted">비밀번호는 필수 입력 요소입니다.</small>
-              </div>
-              <div class="form-group">
-                <label for="password2">
-                  <i class="material-icons align-middle">check</i>
-                  <span class="align-middle">비밀번호 재확인</span>
-                </label>
-                <input type="password" class="form-control" id="password2" required>
+                <input type="password" class="form-control" id="memberPassword" name="memberPassword" aria-describedby="pwdHelp" required>                
               </div>
 
-              
-            
             <div class="my-3 text-center">
-                <button type="submit" class="btn btn-danger">탈퇴하기</button>
+                <button type="submit" class="btn btn-danger" onclick="remove()">탈퇴하기</button>
             </div>
           </form>
 
@@ -90,9 +79,9 @@
     <!-- end of a link container -->
     <!-- a link container -->
 
-    
-   <%--  include footer.jsp --%>
-   <jsp:include page="/WEB-INF/views/include/footer.jsp" />
+	    
+   	<%--  include footer.jsp --%>
+   	<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 
 	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
 	<script type="text/javascript"/></script>
@@ -104,6 +93,19 @@
      <%-- JavaScript --%>
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+
+	<script>
+	// 탈퇴하기 버튼을 클릭했을 때 호출되는 함수
+	function remove() {
+		
+		let isRemove = confirm('정말 탈퇴 하시겠습니까?');
+		if (isRemove == true) {
+			document.frm.submit();
+		}else {
+			return;
+		}
+	}
+	</script>
 
 </body>
 </html>

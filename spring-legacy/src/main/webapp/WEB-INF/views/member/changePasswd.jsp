@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label for="memberPassword">
                   <i class="material-icons align-middle">lock</i>
-                  <span class="align-middle">비밀번호</span>
+                  <span class="align-middle">현재 비밀번호</span>
                 </label>
                 <input type="password" class="form-control" id="memberPassword" name="memberPassword" aria-describedby="pwdHelp" required>
                 <small id="pwdHelp" class="form-text text-muted">비밀번호는 필수 입력 요소입니다.</small>
@@ -62,16 +62,23 @@
               <div class="form-group">
                 <label for="password2">
                   <i class="material-icons align-middle">check</i>
-                  <span class="align-middle">비밀번호 재확인</span>
+                  <span class="align-middle">새 비밀번호</span>
                 </label>
-                <input type="password" class="form-control" id="password2" required>
+                <input type="password" class="form-control" id="memberPassword2" name="memberPassword2" required>
               </div>
-
+          <!-- 
+              <div class="form-group">
+                <label for="password2">
+                  <i class="material-icons align-middle">check</i>
+                  <span class="align-middle">새 비밀번호 확인</span>
+                </label>
+                <input type="password" class="form-control" id="memberPassword2" required>
+              </div> 
+           -->
               
             
             <div class="my-3 text-center">
-                <button type="submit" class="btn text-white ml-3" style="background-color:rgb(46, 204, 113);">변경</button>
-                <button type="reset" class="btn text-white ml-3" style="background-color: rgb(251, 215, 71);">초기화</button>
+                <button type="submit" class="btn btn-success">변경하기</button>
             </div>
           </form>
 

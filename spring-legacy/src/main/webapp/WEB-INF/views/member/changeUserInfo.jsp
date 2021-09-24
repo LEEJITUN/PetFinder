@@ -257,7 +257,7 @@
                 <c:choose>
                 	<%-- 내정보 보기 일 경우 --%>
                 	<c:when test= "${ not empty sessionScope.memberId}"> 
-                		<button type="submit" class="btn text-white ml-3" style="background-color: rgb(251, 215, 71);">저장</button>                		
+                		<button type="submit" class="btn text-white ml-3" style="background-color: rgb(251, 215, 71);">수정</button>                		
                 	</c:when>
                  	<%--  회원가입 일 경우 --%>
 			        <c:otherwise>			        
