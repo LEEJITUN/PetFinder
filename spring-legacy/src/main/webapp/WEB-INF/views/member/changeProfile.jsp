@@ -5,20 +5,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Google Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-
+    <%--  include head.jsp --%>
+	<jsp:include page="/WEB-INF/views/include/head.jsp" />
 
     <style>
         /* *{
@@ -56,10 +44,11 @@
 		    <p> PET FINDER 대표 프로필과 별명을 수정 하실 수 있습니다.</p>
 		</div>
 	    <br>
+	    <div class="border border-light p-4 rounded">
 		<form id="profileForm" method="post" enctype="multipart/form-data">
 	        <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
 	        <fieldset>
-	            <table border="0" class="tbl_model">
+	            <table class="tbl_model">
 	                <colgroup>
 	                    <col style="width:22%"><col>
 	                </colgroup>
@@ -68,35 +57,29 @@
 	                    <th scope="col" class="text-center pb-4">
 	                        <div class="thcell">프로필 사진</div>
 	                    </th>
-	                    <td>
-	                    
-	                        <div class="tdcell">
-	                        	<div class="profile_photo">
-                                	<img class="profile" src="/resources/images/default.png" class="img-thumbnail">                   
-	                            </div>                                
-	                        </div>
-	                        <br>
-	                        <div class="btn_area_btm">
-	                                <span class="btn_file">
-	                                	
-	                                    <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label>
-	                                    <input type="file" id="inputImage" name="profileImage"  accept="image/*" />
-	                                    <button type="button" class="btn btn-outline-dark btn-sm">삭제</button>
-	                                </span>
-	                        </div>
+	                    <td>                  
+	                    	<div class="form-group">              
+                				<div class="col-md-5 col-lg-5 " align="center"> 
+                					<c:set var="fileCallPath" value="${ profilePicVO.uploadpath }/${profilePicVO.mid}/s_${ profilePicVO.uuid }_${ profilePicVO.filename }" />
+				                	<img src="/display?fileName=${fileCallPath}" id="preview-image"  class="img-thumbnail">      
+                				</div>
+              				</div>
+	          				<div class="form-group col-sm-6">
+            					<div id="fileBox">
+			  	  					<input type="file" name="file" id="input-image" accept="image/*">
+		  						</div>
+	          				</div>
 	                    </td>
 	                	</tr>
-	                	
+               	
 	                	<tr>
 	                    <th scope="col" class="text-center pb-4">
 	                        <div class="thcell"><label for="inpNickname">별명</label></div>
 	                    </th>
 	                    <td>
-	                        <div class="tdcell">
+	                        <div class="col-sm-6">
 	                            <p class="contxt_webctrl nickname">
-	                                <input type="text" name="memberNickName" id="memberNickName" value="${ memberVO.memberId }" style="width:254px">
-	                                <!-- Enter 입력으로 submit이 되는걸 방지하기 위한 Input -->
-	                                <input type="text" style="display: none;" >
+	                            <input type="text" class="form-control" id="memberNickName" name="memberNickName" value="${ memberVO.memberNickName }" style="width:254px"/>
 	                            </p>
 	                        </div>
 	                    </td>
@@ -111,7 +94,7 @@
 	            </div>
 	        </fieldset>
 	    </form>
-
+		</div>
 	  </div>
 	</div>
 	<br><br><br>

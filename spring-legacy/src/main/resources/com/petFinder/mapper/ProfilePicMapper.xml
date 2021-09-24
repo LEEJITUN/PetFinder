@@ -10,17 +10,20 @@
 	<insert id="insertProfilePic">
 		<![CDATA[
 			INSERT INTO PROPIC (
-				PROPIC_UUID,
-				MEMBER_ID,
-				PROPIC_UPLOAD_PATH,
-				PROPIC_FILENAME
-			)
-			VALUES(
-				#{uuid},
-				#{memberId},
-				#{uploadpath},
-				#{filename}			
-			)
+						PROPIC_UUID,
+						MEMBER_ID,
+						PROPIC_UPLOAD_PATH,
+						PROPIC_FILENAME
+				)
+				VALUES(
+					#{uuid},
+					#{memberId},
+					#{uploadpath},
+					#{filename}			
+				)
+			ON DUPLICATE KEY UPDATE
+				PROPIC_UPLOAD_PATH = #{uploadpath},
+				PROPIC_FILENAME = #{filename}
 		]]>
 	</insert>
 	

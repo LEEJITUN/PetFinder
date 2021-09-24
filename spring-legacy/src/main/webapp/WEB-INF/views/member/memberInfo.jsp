@@ -5,26 +5,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <!-- Google Font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
-
-    <!-- Google Fonts and Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/css/bootstrap.css">
-
+    <%--  include head.jsp --%>
+	<jsp:include page="/WEB-INF/views/include/head.jsp" />
 
     <style>
         /* *{
             font-family: 'Noto Sans KR', sans-serif;
             font-size: 22px;
-        } */
+        }*/
 
         .Board-font{
           font-family: 'Noto Sans KR', sans-serif;
@@ -76,7 +64,7 @@
                     </tbody>
                   </table>
                   <br>
-                  <button type="button" class="btn btn-light"><a href="/member/changeProfile" class="stretched-link">수정</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/changeProfile?memberId=${ sessionScope.memberId }" " class="stretched-link">수정</a></button>
                 </div>
               </div>
             </div>
@@ -88,7 +76,7 @@
                   <h3 class="mb-0"><strong class="d-inline-block mb-2 text-warning">내정보 수정</strong></h3>
                   <br>
                   <table>
-                  <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
+                  <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" />
                     <tbody>   
                         <tr>
                             <th>폰번호</th>
@@ -122,7 +110,7 @@
                   <br>
                   <p>주기적인 비밀번호 변경을 통해 개인정보를 안전하게 보호하세요.</p>
                   <br><br><br>
-                  <button type="button" class="btn btn-light"><a href="/member/changeUserInfo?memberId=${ sessionScope.memberId }" class="stretched-link">비밀번호 변경</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/changePasswd?memberId=${ sessionScope.memberId }" class="stretched-link">비밀번호 변경</a></button>
                 </div>
               </div>
             </div>
@@ -135,7 +123,7 @@
                   <br>
                   <p>회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
                   <br><br><br>
-                  <button type="button" class="btn btn-light"><a href="/member/changeUserInfo?memberId=${ sessionScope.memberId }" class="stretched-link">탈퇴하기</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/remove?memberId=${ sessionScope.memberId }" class="stretched-link">탈퇴하기</a></button>
                 </div>
               </div>
             </div>                        

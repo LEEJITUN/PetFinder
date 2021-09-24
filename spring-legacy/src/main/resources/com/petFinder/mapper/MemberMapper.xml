@@ -116,6 +116,16 @@
 		]]>
 	</update>
 	
+	<update id="updateMemberByNic">
+		<![CDATA[
+			UPDATE MEMBER 
+			SET 
+				MEMBER_NICKNAME = #{memberNickName}
+				
+			WHERE MEMBER_ID = #{memberId};
+		]]>
+	</update>
+	
 	
 	<delete id="deleteMemberById">
 		<![CDATA[

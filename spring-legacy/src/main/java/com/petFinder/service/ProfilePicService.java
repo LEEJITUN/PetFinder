@@ -20,7 +20,12 @@ public class ProfilePicService {
 	@Autowired
 	private AttachFile attachFileService;
 
-
+	
+	/* 나의 정보 프로필 사진 조회*/
+	public MemberProfileVO getProfilePic(String id) {
+		return profilePicMapper.selectProfilePic(id);
+	}
+	
 	// 프로필 사진 등록
 	@Transactional
 	public void insertProfilePic(MultipartFile file, String memberId) throws IllegalStateException, IOException {
@@ -36,6 +41,8 @@ public class ProfilePicService {
 		}
 		
 	}
+	
+
 	
 	
 	

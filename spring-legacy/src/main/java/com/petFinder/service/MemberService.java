@@ -3,7 +3,7 @@ package com.petFinder.service;
  * @title   : 회원정보 Service
  * @author  : JIYUN, HYEPIN
  * @date    : 2021.09.24 
- * @version : 1.1 
+ * @version : 1.2
  **/
 import java.util.List;
 
@@ -25,8 +25,7 @@ public class MemberService {
 	
 	@Autowired 
 	private PetMapper petMapper;
-	
-	
+
 
 	/* INSERT - 회원가입(회원,펫) */
 	@Transactional
@@ -45,12 +44,11 @@ public class MemberService {
 		}
 	}
 	
-
-	/* DELETE - 해당 아이디의 회원정보 삭제 */
-	public void deleteMemberById(String id) {
-		memberMapper.deleteMemberById(id);
+	/* SELECT - 해당 아이디의 회원정보 조회 */
+	public MemberVO selectMemberById(String memberId) {
+		return memberMapper.selectMemberById(memberId);
 	}
-	
+
 	
 	/* UPDATE - 해당 아이디의 회원정보 업데이트 */
 	public void updateMemberById(MemberVO memberVo) {
@@ -66,12 +64,18 @@ public class MemberService {
 		}		
 	}
 	
-	
-	/* SELECT - 해당 아이디의 회원정보 조회 */
-	public MemberVO selectMemberById(String memberId) {
-		return memberMapper.selectMemberById(memberId);
+	/* UPDATE - 해당 아이디의 별명 업데이트 */
+	public void updateMemberByNic(MemberVO memberVO) {
+		memberMapper.updateMemberByNic(memberVO);
+		
 	}
 
+	
+	/* DELETE - 해당 아이디의 회원정보 삭제 */
+	public void deleteMemberById(String id) {
+		memberMapper.deleteMemberById(id);
+	}
+	
 	
 	/////////////////////안한거////////////////////////
 	
@@ -86,6 +90,9 @@ public class MemberService {
 	public List<MemberVO> getCountById(String id){
 		return memberMapper.getCountById(id);
 	}
+
+
+
 	
 	
 

@@ -3,7 +3,7 @@ package com.petFinder.controller;
  * @title   : 회원정보 Controller
  * @author  : JIYUN, HYEPIN
  * @date    : 2021.09.24 
- * @version : 1.1 
+ * @version : 1.2
  **/
 import java.io.IOException;
 import java.util.List;
@@ -240,9 +240,8 @@ public class MemberController {
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Content-Type","text/html; charset=UTF-8");
 	   
-	   String str = Script.href("내정보 변경완료!","/member/memberInfo?memberId=" + memberVo.getMemberId());
+	   String str = Script.href("프로필 변경완료!","/member/memberInfo?memberId=" + memberVo.getMemberId());
 	  
-	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
    }
    
@@ -255,9 +254,61 @@ public class MemberController {
       // 해당 아이디의 정보값 불러오기
       MemberVO memberVo = memberService.selectMemberById(memberId);
       
+      // 회원정보 프로필 사진 조회 
+      //MemberProfileVO memberProfileVO = profilePicService.getProfilePic(memberId);
+      
       model.addAttribute("memberVO", memberVo);
+      //model.addAttribute("memberProfileVO", memberProfileVO);
       
       return "member/changeProfile";
+   }
+   
+   @PostMapping("changeProfile")
+   public ResponseEntity<String> changeProfile(MultipartFile file,MemberVO memberVO,HttpSession session) throws IllegalStateException, IOException {
+	   
+	   /****************** UPDATE_프로필 *******************/
+	   if(file.getSize() != 0) {		   
+		   profilePicService.insertProfilePic(file,memberVO.getMemberId());
+	   }
+	   
+	   /****************** UPDATE_별명 *******************/
+	   memberService.updateMemberByNic(memberVO);
+	   
+	   /****************** headers 설정 *******************/
+	   HttpHeaders headers = new HttpHeaders();
+	   headers.add("Content-Type","text/html; charset=UTF-8");
+	   
+	   String str = Script.href("내정보 변경완료!","/member/memberInfo?memberId=" + memberVO.getMemberId());
+	   
+	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
+   }
+   
+   
+   /* GET - 비밀번호 변경 */
+   @GetMapping("/changePasswd") // /member/changePasswd
+   public String changePasswd(String memberId, Model model) {
+      System.out.println("changePasswd 호출됨...");
+      
+      // 해당 아이디의 정보값 불러오기
+      MemberVO memberVo = memberService.selectMemberById(memberId);
+      
+      model.addAttribute("memberVO", memberVo);
+      
+      return "member/changePasswd";
+   }
+   
+   
+   /* GET - 회원정보 삭제 */
+   @GetMapping("/remove") // /member/remove
+   public String remove(String memberId, Model model) {
+      System.out.println("changeProfile 호출됨...");
+      
+      // 해당 아이디의 정보값 불러오기
+      MemberVO memberVo = memberService.selectMemberById(memberId);
+      
+      model.addAttribute("memberVO", memberVo);
+      
+      return "member/remove";
    }
    
 }
