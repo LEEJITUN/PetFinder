@@ -175,13 +175,10 @@
 														<div class="text-right text-secondary">
 															<time class="comment-date">${comment.commentRegDate}</time>
 															<c:if test="${sessionScope.memberId eq comment.memberId}">
-		                        | <a id="remove"
-																	onclick="removeComment('${comment.commentId}' , '${comment.boardId}')">삭제</a>
-		                        | <a id="modify"
-																	onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}')">수정</a>
+		                        | <a id="remove" onclick="removeComment('${comment.commentId}' , '${comment.boardId}')">삭제</a>
+		                        | <a id="modify" onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}')">수정</a>
 															</c:if>
-															| <a type="button" id="reply"
-																onclick="replyComment('${comment.commentId}' , '${comment.boardId}', '${comment.boardNum}' , '${comment.commentRef}')">답글</a>
+								| <a type="button" id="reply" onclick="replyComment('${comment.commentId}' , '${comment.boardId}', '${comment.boardNum}' , '${comment.commentRef}')">답글</a>
 														</div>
 													</div>
 												</div>
@@ -452,18 +449,6 @@
 				});
 			}
 			
-			//  댓글삭제 버튼을 클릭했을 때 호출되는 함수 
-			function remove(event) {
-				// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
-				// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
-				event.preventDefault();
-
-				let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
-				if (isRemove == true) {
-					location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
-				}
-			}
-
 			
 			function showData(array) {
 		         
@@ -514,8 +499,20 @@
 		      } // showData
 		      
 
+			// ======================== 글 삭제버튼 클릭시 호출되는 함수 ========================
+				
+				function remove(event) {
+					// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
+					// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
+					event.preventDefault();
+
+					let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+					if (isRemove == true) {
+						location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
+					}
+				}
 		   
-		  	// =========== 추천 버튼 클릭 시 호출되는 함수 ========================
+		  	// ======================== 추천 버튼 클릭 시 호출되는 함수 ========================
 				// ajax 함수 호출	
 				function check(boardId, memberId, goodOrNot) {
 

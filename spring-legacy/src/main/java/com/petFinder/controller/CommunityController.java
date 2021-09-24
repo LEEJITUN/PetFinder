@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.petFinder.domain.ComBoardVO;
 import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PageDTO;
+import com.petFinder.domain.RestAdopCommCommentVO;
 import com.petFinder.service.CommunityService;
+import com.petFinder.service.RestAdopCommService;
 
 
 @Controller
@@ -29,6 +31,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private RestAdopCommService restAdopCommService;
 
 	/* community - 게시판 */
 	@GetMapping("/commuBoardList")
@@ -77,8 +82,10 @@ public class CommunityController {
 		
 		// 게시글 1개 가져오기
 		ComBoardVO boardContent = communityService.selectBoardContent(boardId);
+		List<RestAdopCommCommentVO> RestAdopCommCommenList = restAdopCommService.selectComments(boardId);
 		
 		model.addAttribute("commuContent",boardContent);
+		model.addAttribute("commentList", RestAdopCommCommenList);
 
 		return "community/commuBoardContent";
 	}
