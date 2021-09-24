@@ -91,18 +91,18 @@
 						<%-- 로그인 사용자일때 --%>
 						<c:if test="${not empty sessionScope.memberId }">
 							<button type="button" id = "goodBtn" class="btn btn-primary btn-lg"
-								onclick="check('${ adopTempContent.boardId}', '${adopTempContent.memberId }', 'Y')">
+								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'Y')">
 								<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>
 								<span class="align-middle">추천</span>
 							</button>
 
 							<button type="button" id = "notGoodBtn" class="btn btn-secondary btn-lg ml-3"
-								onclick="check('${ adopTempContent.boardId}', '${adopTempContent.memberId }', 'N')">
+								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'N')">
 								<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>
 								<span class="align-middle">비추천</span>
 							</button>
 							<button type="button" class="btn btn-danger btn-lg ml-3"
-								onclick="waring('${ adopTempContent.boardId}', '${adopTempContent.memberId }')">
+								onclick="waring('${ adopTempContent.boardId}', '${sessionScope.memberId }')">
 								<i class="material-icons align-middle">dangerous</i> <span
 									class="align-middle">신고</span>
 							</button>
@@ -352,12 +352,15 @@
 			 			}else if(RestAdopCommVO.goodOrNot == 'Y' && data.goodOrNot == '0'){
 							$("#notGoodBtn").attr("disabled", false);
 			 				$(good).replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');	
+			 				
 			 			}else if(RestAdopCommVO.goodOrNot == 'N' && data.goodOrNot == '1'){
 			 				$("#goodBtn").attr("disabled", true);
-			 				$(notGood).replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');		
+			 				$(notGood).replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');	
+			 				
 			 			}else{
 			 				$("#goodBtn").attr("disabled", false);
 			 				$(notGood).replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');	
+			 				
 			 			}
 					 			
 								
