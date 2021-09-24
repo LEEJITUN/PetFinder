@@ -63,12 +63,13 @@
 	                <colgroup>
 	                    <col style="width:22%"><col>
 	                </colgroup>
-	                <tbody>
+	                <thead class="thead-light">
 	                <tr>
-	                    <th scope="row">
+	                    <th scope="col" class="text-center pb-4">
 	                        <div class="thcell">프로필 사진</div>
 	                    </th>
 	                    <td>
+	                    
 	                        <div class="tdcell">
 	                        	<div class="profile_photo">
                                 	<img class="profile" src="/resources/images/default.png" class="img-thumbnail">                   
@@ -77,7 +78,7 @@
 	                        <br>
 	                        <div class="btn_area_btm">
 	                                <span class="btn_file">
-	                                	<button type="button" class="btn btn-outline-dark btn-sm">사진변경</button>
+	                                	
 	                                    <label for="inputImage" class="btn_model"><b id="btnChangeProfile" class="btn2" onclick="clickcr(this,'prf.upimg','','',event);">사진변경</b></label>
 	                                    <input type="file" id="inputImage" name="profileImage"  accept="image/*" />
 	                                    <button type="button" class="btn btn-outline-dark btn-sm">삭제</button>
@@ -85,8 +86,9 @@
 	                        </div>
 	                    </td>
 	                	</tr>
+	                	
 	                	<tr>
-	                    <th scope="row">
+	                    <th scope="col" class="text-center pb-4">
 	                        <div class="thcell"><label for="inpNickname">별명</label></div>
 	                    </th>
 	                    <td>
@@ -99,13 +101,13 @@
 	                        </div>
 	                    </td>
 	                </tr>
-	                </tbody>
+	                </thead>
 	            </table>
 	            
 	            <br>
 	            <div class="btn_wrap">
 	                <button type="submit" class="btn btn-success">적용</button>
-	                <button type="button" class="btn btn-secondary">취소</button>
+	                <button type="reset" class="btn btn-secondary">취소</button>
 	            </div>
 	        </fieldset>
 	    </form>
