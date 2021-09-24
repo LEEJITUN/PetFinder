@@ -15,7 +15,13 @@
 		<result column="PET_SIZE" 				property="petSize"/>
 		<result column="PET_COLOR" 				property="petColor"/>
 		<result column="PET_COATlENGTH" 		property="petCoatLength"/>
-		
+	</resultMap>
+	
+	<resultMap type="MemberProfileVO" id="memberProfileVO">
+		<result column="PROPIC_UUID" 			property="uuid"/>
+		<result column="MEMBER_ID" 				property="memberId"/>
+		<result column="PROPIC_UPLOAD_PATH" 	property="uploadpath"/>
+		<result column="PROPIC_FILENAME" 		property="filename"/>
 	</resultMap>
 	
 	<resultMap type="MemberVO" id="MemberVO">
@@ -32,6 +38,7 @@
 		<result column="MEMBER_PET_YN" 			property="memberPetYN"/>
 		
 		<collection property="petVO" resultMap="petVO"/>
+		<collection property="memberProfileVO" resultMap="memberProfileVO"/>
 	</resultMap>
 
 
@@ -57,12 +64,19 @@
 				TM.MEMBER_EMAIL,
 				TM.MEMBER_WARING,
 				TM.MEMBER_NOTIC,
-				TM.MEMBER_PET_YN
+				TM.MEMBER_PET_YN,
+                PIC.PROPIC_UUID,
+                PIC.MEMBER_ID,
+                PIC.PROPIC_UPLOAD_PATH,
+                PIC.PROPIC_FILENAME
 			FROM 
 				MEMBER TM
 			LEFT OUTER JOIN 
 				PET TP
 			ON TM.MEMBER_ID = TP.MEMBER_ID
+            LEFT OUTER JOIN 
+            PROPIC PIC
+            ON TM.MEMBER_ID = PIC.MEMBER_ID
 			WHERE	
 				TM.MEMBER_ID = #{memberId}
 		]]>

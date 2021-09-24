@@ -44,5 +44,7 @@ public class MemberVO {
 	
 	// 한마리일 경우
 	private PetVO petVO;
+	
+	private MemberProfileVO memberProfileVO;
 
 }
