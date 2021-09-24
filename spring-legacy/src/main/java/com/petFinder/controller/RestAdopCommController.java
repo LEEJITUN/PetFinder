@@ -59,10 +59,8 @@ public class RestAdopCommController {
 		}else {
 			restAdopCommService.deleteCommBoard(restAdopCommVO);		
 		}
-		
-		
-		
-		// 추천 비추천 조회(count) -> ???
+				
+		// 추천 비추천 조회(count)
 		RestAdopCommVO restAdopCommCount = restAdopCommService.selectTotalCount(restAdopCommVO);
 
 	

@@ -93,6 +93,10 @@ public class CommunityService {
 		communityMapper.deleteBoardContent(boardId);	
 	}
 
+	public int selectTotalCountBySearch(Criteria cri) {
+		return communityMapper.selectTotalCountBySearch(cri);
+	}
+
 
 
 

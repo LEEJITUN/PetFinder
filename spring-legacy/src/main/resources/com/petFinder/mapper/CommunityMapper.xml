@@ -12,10 +12,10 @@
 		SELECT IFNULL(MAX(BOARD_NUM), 0)+1 AS NUM 
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
-	]]>	
+	]]>
 	</select>
-	
-	
+
+
 	<!-- 게시글 전체 리스트 -->
 	<select id="selectBoardList" resultType="ComBoardVO">
 	<![CDATA[
@@ -23,28 +23,67 @@
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
 		ORDER BY BOARD_NUM DESC
-	]]>	
+	]]>
 	</select>
-	
+
+	<!--검색을 적용하여 해당 전체 글개수 가져오기 -->
+	<select id="selectTotalCountBySearch" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM BOARD_COM
+		]]>
+		<where>
+			BOARD_TYPE_ID = "COMM"
+			<if test="type == 'T'.toString()">
+				AND
+				BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'C'.toString()">
+				AND
+				BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'W'.toString()">
+				AND
+				MEMBER_NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+
 	<!-- 페이징 -->
 	<select id="selectBoardsWithPaging" resultType="ComBoardVO">
 	<![CDATA[
-		SELECT *
-		FROM BOARD_COM
-		WHERE BOARD_TYPE_ID = "COMM"
-		ORDER BY BOARD_NUM DESC
-		LIMIT #{startRow}, #{amount}
-	]]>	
+			SELECT *
+			FROM BOARD_COM
+		]]>
+		<where>
+			BOARD_TYPE_ID = "COMM"
+			<if test="type == 'T'.toString()">
+				AND
+				BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'C'.toString()">
+				AND
+				BOARD_CONTENT LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="type == 'W'.toString()">
+				AND
+				MEMBER_NICKNAME LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>	
+		<![CDATA[
+			ORDER BY BOARD_NUM DESC
+			LIMIT #{startRow}, #{amount}
+		]]>
 	</select>
-	
+
 	<select id="selectTotalCount" resultType="int">
 	<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
 	]]>
-	</select>	
-	
+	</select>
+
 	<!-- 글쓰기 -->
 	<insert id="insertBoardWrite">
 	<![CDATA[
@@ -78,7 +117,7 @@
 		)
 	]]>
 	</insert>
-	
+
 	<!-- 게시글 한개 가져오기 -->
 	<select id="selectBoardContent" resultType="ComBoardVO">
 	<![CDATA[
@@ -86,9 +125,9 @@
 		FROM BOARD_COM
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
-	]]>	
+	]]>
 	</select>
-	
+
 	<!-- 게시글 조회수 업 -->
 	<update id="updateBoardReadCount">
 	<![CDATA[
@@ -96,9 +135,9 @@
 		SET BOARD_READ_COUNT = BOARD_READ_COUNT + 1
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
-	]]>				
-	</update>		
-	
+	]]>
+	</update>
+
 	<!-- 게시글 수정하기 -->
 	<update id="updateBoardModify">
 	<![CDATA[
@@ -107,8 +146,8 @@
 			BOARD_CONTENT = #{boardContent}	
 		WHERE BOARD_TYPE_ID = "COMM"
 			AND BOARD_ID = #{boardId}
-		]]>				
-	</update>	
+		]]>
+	</update>
 
 	<!-- 게시글 삭제하기 -->
 	<delete id="deleteBoardContent">
@@ -116,7 +155,7 @@
 			DELETE FROM BOARD_COM
 			WHERE BOARD_TYPE_ID = "COMM"
 				AND BOARD_ID = #{boardId}
-	]]>	
+	]]>
 	</delete>
-	
+
 </mapper>

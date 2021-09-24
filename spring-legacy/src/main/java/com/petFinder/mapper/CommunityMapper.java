@@ -43,6 +43,9 @@ public interface CommunityMapper {
 	/* DELETE - 글번호에 해당하는 글 삭제하기 */
 	void deleteBoardContent(String boardId);
 
+	/* SELECT - 검색을 적용하여 해당 전체 글개수 가져오기 */
+	int selectTotalCountBySearch(Criteria cri);
+
 
 
 

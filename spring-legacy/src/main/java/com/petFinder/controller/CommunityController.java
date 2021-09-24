@@ -37,7 +37,7 @@ public class CommunityController {
 		
 		List<ComBoardVO> boardList = communityService.selectBoardPaging(cri); // 페이징
 		
-		int totalCount = communityService.selectTotalCount(); // 전체 글개수
+		int totalCount = communityService.selectTotalCountBySearch(cri); // 검색이 적용된 전체 글개수
 		
 		PageDTO pageDTO = new PageDTO(totalCount, cri); // 페이지블록(Pagination) 화면 만들때 필요한 정보
 		
@@ -61,7 +61,7 @@ public class CommunityController {
 		
 		communityService.insertBoardWrite(comBoardVO);
 		rttr.addAttribute("boardId", comBoardVO.getBoardId());
-		rttr.addAttribute("pageNum", pageNum);
+		rttr.addAttribute("pageNum", 1);
 				
 		return "redirect:/community/commuBoardContent";
 	} 
