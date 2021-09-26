@@ -23,9 +23,13 @@ public class RestAdopCommVO {
 	private int num;
 	private  String boardId;
 	private String memberId;
+	
+	// 추천 비추천
 	private String goodOrNot;
 	private int good;
 	private int notGood;
+	
+	// 신고
 	private String waring;
 	
 }

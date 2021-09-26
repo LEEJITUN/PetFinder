@@ -50,8 +50,32 @@ public class RestAdopCommService {
 		return restAdopCommMapper.deleteCommBoard(restAdopCommVO);
 		
 	}
+	 // ================ 신고 =================
+
+//	/* UPDATE - 신고 */
+//	public void updateadopWaringCheck(RestAdopCommVO restAdopCommVO) {
+//		
+//		int num = restAdopCommMapper.selectNextNumber(restAdopCommVO);
+//		restAdopCommVO.setNum(num);
+//		restAdopCommMapper.updateadopWaringCheck(restAdopCommVO);
+//	}
+//
+//	/* SELECT - 신고 갯수 */
+//	public RestAdopCommVO selectComment(RestAdopCommVO restAdopCommVO) {
+//		return restAdopCommMapper.selectComment(restAdopCommVO);
+//	}
+//	
+//	/* SELECT - 해당 게시물에 신고를 했는지 조회 */
+//	public int selectWaring(RestAdopCommVO restAdopCommVO) {
+//		return restAdopCommMapper.selectWaring(restAdopCommVO);
+//	}
+//
+//	/* DELETE - 해당 게시물에 신고 취소흘 했을 경우 삭제(해당 유저) */
+//	public int deleteWaringCheck(RestAdopCommVO restAdopCommVO) {
+//		return restAdopCommMapper.deleteWaringCheck(restAdopCommVO);
+//	}
 	
-	// ================ 댓글 =================
+	// ================= 댓글 =================
 
 	/* SELECT - 댓글 index 조회) */
 	public int selectCommentIndex(RestAdopCommCommentVO restAdopCommCommentVO) {
@@ -93,6 +117,5 @@ public class RestAdopCommService {
 		// 답글 insert 하기
 		restAdopCommCommentMapper.insertComment(restAdopCommCommentVO);	
 	}
-
 	
 }

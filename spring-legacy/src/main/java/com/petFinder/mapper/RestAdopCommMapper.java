@@ -7,6 +7,8 @@ import com.petFinder.domain.RestAdopCommVO;
 @Mapper
 public interface RestAdopCommMapper {
 	
+	// ================ 추천 비추천 =================
+	
 	/* UPDATE - 추천 비추천 */
 	void updateadopCommBoardCheck(RestAdopCommVO restAdopCommVO);
 
@@ -21,6 +23,20 @@ public interface RestAdopCommMapper {
 
 	/* DELETE - 추천 OR 비추천이 있을경우 삭제 (해당 유저) */
 	int deleteCommBoard(RestAdopCommVO restAdopCommVO);
+	
+	 // ================ 신고 =================
+
+//	/* UPDATE - 신고 */
+//	void updateadopWaringCheck(RestAdopCommVO restAdopCommVO);
+//	
+//	/* SELECT - 신고 갯수*/
+//	RestAdopCommVO selectComment(RestAdopCommVO restAdopCommVO);
+//
+//	/* SELECT - 해당 게시물에 신고를 했는지 조회 */
+//	int selectWaring(RestAdopCommVO restAdopCommVO);
+//
+//	/* DELETE - 해당 게시물에 신고 취소흘 했을 경우 삭제(해당 유저) */
+//	int deleteWaringCheck(RestAdopCommVO restAdopCommVO);
 
 	
 }

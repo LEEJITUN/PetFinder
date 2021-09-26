@@ -92,19 +92,19 @@
 						<%-- 로그인 사용자일때 --%>
 						<c:if test="${not empty sessionScope.memberId }">
 							<button type="button" id="goodBtn" class="btn btn-primary btn-lg"
-								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'Y')">
+								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'Y', null)">
 								<i class="material-icons align-middle" id="good">thumb_up_off_alt</i>
 								<span class="align-middle">추천</span>
 							</button>
 
 							<button type="button" id="notGoodBtn"
 								class="btn btn-secondary btn-lg ml-3"
-								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'N')">
+								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'N', null)">
 								<i class="material-icons align-middle" id="notGood">thumb_down_off_alt</i>
 								<span class="align-middle">비추천</span>
 							</button>
 							<button type="button" class="btn btn-danger btn-lg ml-3"
-								onclick="waring('${ adopTempContent.boardId}', '${sessionScope.memberId }')">
+								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', null, 'Y')">
 								<i class="material-icons align-middle">dangerous</i> <span
 									class="align-middle">신고</span>
 							</button>
@@ -514,24 +514,24 @@
 		   
 		  	// ======================== 추천 버튼 클릭 시 호출되는 함수 ========================
 				// ajax 함수 호출	
-				function check(boardId, memberId, goodOrNot) {
+				function check(boardId, memberId, goodOrNot, waring) {
 
 					var RestAdopCommVO = {
 						"boardId" : boardId,
 						"memberId" : memberId,
 						"goodOrNot" : goodOrNot,
+						"waring" : waring,
 					};
 
 					console.log('RestAdopCommVO', RestAdopCommVO);
 
-					$
-							.ajax({
+					$.ajax({
 								url : '/api/adopCommBoardCheck.json',
 								method : 'PUT',
 								data : JSON.stringify(RestAdopCommVO),
 								contentType : 'application/json; charset=UTF-8',
 								success : function(data) {
-
+								console.log('data', data);
 									// 누른 값 : Y , 데이터에서 나온 값 : 1
 									if (RestAdopCommVO.goodOrNot == 'Y'
 											&& data.goodOrNot == '1') {
@@ -554,7 +554,8 @@
 												.replaceWith(
 														'<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
 
-									} else {
+									}  else if (RestAdopCommVO.goodOrNot == 'N'
+										&& data.goodOrNot == '0') {
 										$("#goodBtn").attr("disabled", false);
 										$(notGood)
 												.replaceWith(
@@ -570,30 +571,29 @@
 								}
 							});
 				}
+				
+				// ======================== 신고 버튼을 클릭했을 때 호출되는 함수 ========================
 
-				// 신고 버튼을 클릭했을 때 호출되는 함수
-				function waring(boardId, memberId) {
-					var RestAdopCommVO = {
-						"boardId" : boardId,
-						"memberId" : memberId
-					};
-					$.ajax({
-						url : '/api/adopTempBoardWaring.json',
-						method : 'POST',
-						data : JSON.stringify(RestAdopCommVO),
-						contentType : 'application/json; charset=UTF-8',
-						success : function(data) {
-							// 			console.log(typeof data);  // object
-							// 			console.log(data);  // {}
-							// 			showData(data);
+// 				function waring(boardId, memberId) {
+// 					var RestAdopCommVO = {
+// 						"boardId" : boardId,
+// 						"memberId" : memberId
+// 					};
+// 					$.ajax({
+// 						url : '/api/adopTempBoardWaring.json',
+// 						method : 'POST',
+// 						data : JSON.stringify(RestAdopCommVO),
+// 						contentType : 'application/json; charset=UTF-8',
+// 						success : function(data) {
 
-						},
-						error : function(request, status, error) {
-							alert('code: ' + request.status + '\n message: '
-									+ request.responseText + '\n error: ' + error);
-						}
-					});
-				}
+
+// 						},
+// 						error : function(request, status, error) {
+// 							alert('code: ' + request.status + '\n message: '
+// 									+ request.responseText + '\n error: ' + error);
+// 						}
+// 					});
+// 				}
 				
 				
 

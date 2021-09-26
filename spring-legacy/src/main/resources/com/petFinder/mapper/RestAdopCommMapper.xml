@@ -65,6 +65,9 @@
 			 	BOARD_ID 		= #{boardId} 
 			 	AND MEMBER_ID 	= #{memberId}
 		]]>
+			 	<if test="waring != null">
+					AND WARING = #{waring}
+				</if>
 	</select>
 	
 	<delete id="deleteCommBoard">
@@ -75,6 +78,9 @@
 			 	BOARD_ID 		= #{boardId} 
 			 	AND MEMBER_ID 	= #{memberId}
 		]]>
+			 	<if test="waring == 'Y'.toString()">
+					AND WARING = #{waring}
+				</if>
 	</delete>
 	
   

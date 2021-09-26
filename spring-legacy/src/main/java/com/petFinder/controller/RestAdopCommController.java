@@ -1,9 +1,9 @@
 package com.petFinder.controller;
 /**
  * @title   : 추천 | 비추천 | 신고 댓글 Controller
- * @author  : SUMIN, HYEPIN
- * @date    : 2021.09.23 
- * @version : 1.0 
+ * @author  : SUMIN
+ * @date    : 2021.09.26 
+ * @version : 1.4
  **/
 
 import java.io.IOException;
@@ -44,14 +44,14 @@ public class RestAdopCommController {
 	@Autowired
 	private RestAdopCommService restAdopCommService;
 
-	// 추천 비추천 
+	// =================== 추천 비추천 ===================
+	
 	@PutMapping(value = "/adopCommBoardCheck",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<RestAdopCommVO> adopCommBoardCheck(@RequestBody RestAdopCommVO restAdopCommVO, 
 			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
-		
-		
+			
 		int checkNum = restAdopCommService.selectCheck(restAdopCommVO);
 		
 		// 추천과 비추천 중 하나라도 하지 않았을 경우 업데이트 (해당 유저)
@@ -69,7 +69,34 @@ public class RestAdopCommController {
 		return new ResponseEntity<RestAdopCommVO>(restAdopCommCount, HttpStatus.OK);
 	} 
 	
-	// =========================================================== 추천 비추천 완료 ========================================
+	// ===================== 신고 =====================
+
+	/*
+	@PutMapping(value = "/adopTempBoardWaring",
+	consumes = "application/json",
+	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })			
+	public ResponseEntity<RestAdopCommVO> adopTempBoardWaring(@RequestBody RestAdopCommVO restAdopCommVO, 
+			HttpServletRequest request, RedirectAttributes rttr) throws IOException {
+		
+		int checkNum = restAdopCommService.selectWaring(restAdopCommVO);
+		
+		// 신고를 취소했을 경우 업데이트 (해당 유저)
+		if(checkNum == 0) {
+			// 신고 업데이트
+			restAdopCommService.updateadopWaringCheck(restAdopCommVO);
+		}else {
+			restAdopCommService.deleteWaringCheck(restAdopCommVO);
+		}
+		
+		// 신고 조회(count)
+		RestAdopCommVO restAdopWaringCount = restAdopCommService.selectComment(restAdopCommVO);
+		
+		
+		return new ResponseEntity<RestAdopCommVO>(restAdopWaringCount, HttpStatus.OK);
+	}
+	*/
+
+	// =================== 댓글 답댓글 ===================	
 	
 	// 댓글 쓰기 -> 댓글 작성
 	@PostMapping(value = "/adopCommCommentWrite",
@@ -158,7 +185,6 @@ public class RestAdopCommController {
 		return new ResponseEntity<List<RestAdopCommCommentVO>>(RestAdopCommCommenList, HttpStatus.OK);
 	} 
 		
-	// =============================================================	
 	
 	// 댓글 쓰기 -> 댓글 전체 조회
 	@GetMapping(value = "/adopCommCommentList/{boardId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
