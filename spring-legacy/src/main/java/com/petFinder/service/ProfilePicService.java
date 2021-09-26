@@ -1,6 +1,8 @@
 package com.petFinder.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,18 +30,35 @@ public class ProfilePicService {
 	
 	// 프로필 사진 등록
 	@Transactional
-	public void insertProfilePic(MultipartFile file, String memberId) throws IllegalStateException, IOException {
+	public MemberProfileVO insertProfilePic(MultipartFile file, String memberId) throws IllegalStateException, IOException {
 		
 		// 실물 파일 등록
 		MemberProfileVO memberProfileVO = attachFileService.uploadProfilePic(file,memberId);
 		
 		System.out.println("memberProfileVO : " + memberProfileVO.getFilename());
 		
-		if(memberProfileVO != null){			
+		// 삭제 할 프로필 사진
+		MemberProfileVO  isProfile = profilePicMapper.selectProfilePic(memberId);
+		
+		if(isProfile == null){			
 			// DB 등록
 			profilePicMapper.insertProfilePic(memberProfileVO);
+		}else {
+			
+			// 실물 파일 삭제 
+			attachFileService.deleteProfileFile(isProfile);
+			
+			// 업데이트
+			profilePicMapper.updateProfilePic(memberProfileVO);
 		}
 		
+		return memberProfileVO;
+		
+	}
+
+	// 프로필 사진 삭제
+	public void deleteProfilePic(String memberId) {
+		profilePicMapper.deleteProfilePic(memberId);
 	}
 	
 

@@ -41,8 +41,13 @@ public class ReportBoardCommentVO {
 	// 댓글 수정일
 	private Date commentUpDate;
 	
+	private String commentDateString;
+	
 	// 순서
 	private int commentRef;
 	private int commentLev;
 	private int commentSeq;
+	
+	// 프로필 사진 
+	private MemberProfileVO memberProfileVO;
 }

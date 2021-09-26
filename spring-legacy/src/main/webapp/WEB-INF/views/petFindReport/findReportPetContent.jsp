@@ -206,7 +206,14 @@
 	             <c:forEach var="comment" items="${ commentList }">
 		             <ul class="list-unstyled mt-4" id="${comment.commentNum}">
 		              <li class="media mb-2">
-		                <img src="/resources/images/kirby2.jpg" width="50" height="50" class="mr-3 rounded-circle">
+		              <c:if test = "${ comment.memberProfileVO.uploadpath != null}">
+		                 <c:set var="fileCallPath" value="${ comment.memberProfileVO.uploadpath }/s_${ comment.memberProfileVO.uuid }_${ comment.memberProfileVO.filename }" />
+                         <img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">
+		              </c:if>
+		              <c:if test = "${ comment.memberProfileVO.uploadpath == null}">
+						<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">
+		              </c:if>
+		              
 		                <div class="media-body">
 		                  <div class="row">
 		                    <div class="col-md-4">
@@ -214,7 +221,7 @@
 		                    </div>
 		                    <div class="col-md-8">
 		                      <div class="text-right text-secondary">
-		                        <time class="comment-date">${comment.commentRegDate}</time>
+		                        <time class="comment-date">${comment.commentDateString}</time>
 		                   <c:if test = "${sessionScope.memberId eq comment.memberId}">
 		                        | <a  id = "remove" onclick = "removeComment('${comment.commentId}' , '${comment.reportId}')">삭제</a>
 		                        | <a id = "modify"
@@ -362,20 +369,27 @@
 					}
 				});
 			}
-		}
+	}
 	
 	
 
 		
 		// 댓글수정 버튼을 클릭했을 때 호출되는 함수
-		function modifyComment(nick,id,date,commentContent,index,commentId,reportId) {
+		function modifyComment(nick,id,date,commentContent,index,commentId,reportId,profile) {
 			
 				var str = "";
 				let memebrId = '${sessionScope.memberId}';
 				
-
+				
 				str += '<li class="media mb-2">';
-				str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+	            
+				if(profile != null){					
+					<c:set var="fileCallPath" value="${ profileVO.uploadpath }/s_${ profileVO.uuid }_${ profileVO.filename }" />
+		          	str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+				}else{
+					 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+				}
+				
 				str += '<div class="media-body" >';
 				str += '<div class="row">';
 				str += '<div class="col-md-4">';
@@ -513,10 +527,17 @@
 			
 			if (array != null && array.length > 0) {
 				for (let i = 0; i< array.length; i++) {
-					
+			        
 					str += '<ul class="list-unstyled mt-4"id="' + array[i].commentNum + '">';
 					str += '<li class="media mb-2">';
-					str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+
+					if(array[i].memberProfileVO.uploadpath != null){						
+						str += '<c:set var="fileCallPath" value="' + array[i].memberProfileVO.uploadpath + '/s_' +array[i].memberProfileVO.uuid + '_' + array[i].memberProfileVO.filename + '" />';
+					    str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+					}else{
+						 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+					}
+
 					str += '<div class="media-body" >';
 					str += '<div class="row">';
 					str += '<div class="col-md-4">';
@@ -524,12 +545,13 @@
 					str += '</div>';
 					str += '<div class="col-md-8">';
 					str += '<div class="text-right text-secondary">';
-					str += '<time class="comment-date">' + array[i].commentRegDate +'</time>';
+					str += '<time class="comment-date">' + array[i].commentDateString +'</time>';
 					
 					if(array[i].memberId == memebrId){
 						str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].reportId + '\')">삭제</a>';
 						str += ' | <a id = "modify"'; 
-						str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentRegDate +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].commentNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\')">수정</a>';
+						str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentDateString +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' 
+								+ array[i].commentNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\'' + ',\''+ array[i].memberProfileVO.uploadpath + '\')">수정</a>';
 					}
 					str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].reportId +  '\'' + ',\''+ array[i].commentNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
 					str += '</div>';

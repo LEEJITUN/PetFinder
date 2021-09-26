@@ -59,6 +59,7 @@ public class ReportCommentService {
 
 	// 댓글 전체 조회
 	public List<ReportBoardCommentVO> selectComments(String reportId) {
+		
 		return reportCommentMapper.selectComments(reportId);
 	}
 

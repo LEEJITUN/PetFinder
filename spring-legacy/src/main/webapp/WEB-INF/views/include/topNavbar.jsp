@@ -23,7 +23,7 @@
         <div class="container">
             <div class="col-sm-2">
                 <!-- Just an image -->
-                <a class="navbar-brand" href="/home.html">
+                <a class="navbar-brand" href="/home">
                     <img src="/resources/images/main_Title.png" width="100%" height="80%">
                 </a>
              </div>
@@ -61,13 +61,21 @@
                <div class=" my-2 my-lg-0" id="navbarSupportedContent">
                  <ul class="navbar-nav mr-auto">
                  <li class="nav-item dropdown active">
-                   
                  <%--로그인했을 때  내정보 --%> 
                 <c:choose>
                    <%-- 로그인 했을 때 --%>
                    <c:when test= "${ not empty sessionScope.memberId}"> 
                      <div class="row">
                          <div class="navbarBox" style="background: #BDBDBD;">
+                          <c:if test = "${ profileVO.uploadpath != null}">
+                          	 <c:set var="fileCallPath" value="${ profileVO.uploadpath }/s_${ profileVO.uuid }_${ profileVO.filename }" />
+                         	<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">
+		              	  </c:if>
+		              	  
+		              	  <c:if test = "${  profileVO.uploadpath == null}">
+							<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">
+		                  </c:if>
+                          	 
                              <img class="profile" src="/display?fileName=${fileCallPath}"  class="img-thumbnail" />
                              <i class="material-icons">person</i> 
                          </div>

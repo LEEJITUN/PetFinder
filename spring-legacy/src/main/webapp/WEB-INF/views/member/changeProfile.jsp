@@ -19,16 +19,12 @@
             font-size: 22px;
         }
         .profile_photo {
-            width: 100px;
-            height: 100px; 
+            width: 200px;
+            height: 200px; 
             border-radius: 50%;
             overflow: hidden;
         }
-        .profile {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }        
+       
     </style>
 </head>
 <body>
@@ -42,11 +38,9 @@
 	    <div class="p_header">
 		    <h2>프로필 수정</h2>
 		    <p> PET FINDER 대표 프로필과 별명을 수정 하실 수 있습니다.</p>
-		</div>
 	    <br>
 	    <div class="border border-light p-4 rounded">
-		<form id="profileForm" method="post" enctype="multipart/form-data">
-	        <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
+		<form id="/member/changeProfile" method="POST" enctype="multipart/form-data">
 	        <fieldset>
 	            <table class="tbl_model">
 	                <colgroup>
@@ -55,14 +49,20 @@
 	                <thead class="thead-light">
 	                <tr>
 	                    <th scope="col" class="text-center pb-4">
-	                        <div class="thcell">프로필 사진</div>
+	                       <!--  <div class="thcell">프로필 사진</div> -->
 	                    </th>
-	                    <td>                  
+	                    <td>          
 	                    	<div class="form-group">              
-                				<div class="col-md-5 col-lg-5 " align="center"> 
-                					<c:set var="fileCallPath" value="${ profilePicVO.uploadpath }/${profilePicVO.mid}/s_${ profilePicVO.uuid }_${ profilePicVO.filename }" />
-				                	<img src="/display?fileName=${fileCallPath}" id="preview-image"  class="img-thumbnail">      
-                				</div>
+			                   <div class=profile_photo style="background: #BDBDBD;" id = "profileBox"> 
+		                          <c:if test = "${ memberProfileVO.uploadpath != null}">
+                           	    	<c:set var="fileCallPath" value="${ memberProfileVO.uploadpath }/s_${ memberProfileVO.uuid }_${ memberProfileVO.filename }" />
+		                			<img class="profile"  src="/display?fileName=${fileCallPath}" id="preview-image" >
+				              	  </c:if>
+				              	  
+				              	  <c:if test = "${  memberProfileVO.uploadpath == null}">
+									<img src="/resources/images/default.png" class="profile" id="preview-image">
+				                  </c:if>
+			                	</div>
               				</div>
 	          				<div class="form-group col-sm-6">
             					<div id="fileBox">
@@ -86,11 +86,10 @@
 	                </tr>
 	                </thead>
 	            </table>
-	            
 	            <br>
 	            <div class="btn_wrap">
 	                <button type="submit" class="btn btn-success">적용</button>
-	                <button type="reset" class="btn btn-secondary">취소</button>
+	                <button type="reset" id ="resetBtn" class="btn btn-secondary" onclick="resetAll('${ sessionScope.memberId}')">취소</button>
 	            </div>
 	        </fieldset>
 	    </form>
@@ -129,5 +128,30 @@
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
 
+	<script>
+		//  프로필 리셋
+		function resetAll(memberId) {
+				console.log('memberId',memberId);
+				 // ajax 함수 호출
+				$.ajax({
+					url: '/api/memberPropicDelete/'+memberId+'.json',
+					method: 'DELETE',
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						console.log('date',data);
+						resetData();
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
+				
+		}
+		
+		function resetData(){
+			$('#preview-image').replaceWith('<img src="/resources/images/default.png" class="profile" id="preview-image">');
+		}
+	
+	</script>
 </body>
 </html>

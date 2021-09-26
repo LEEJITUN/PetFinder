@@ -43,7 +43,6 @@
     
     <div class="container mt-4">
         <div class="row mb-2">
-
             <!-- 프로필 설정 -->
             <div class="col-md-6">
               <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -55,7 +54,14 @@
                         <tr>                                            
                             <th>
                             	<div class="box" style="background: #BDBDBD;">
-                                    <img class="profile" src="/display?fileName=${fileCallPath}"  class="img-thumbnail">
+                            	      <c:if test = "${ memberProfileVO.uploadpath != null}">
+                            	    	<c:set var="fileCallPath" value="${ memberProfileVO.uploadpath }/s_${ memberProfileVO.uuid }_${ memberProfileVO.filename }" />
+			                			<img class="profile" src="/display?fileName=${fileCallPath}" id="preview-image"  class="img-thumbnail">
+					              	  </c:if>
+					              	  
+					              	  <c:if test = "${  profileVO.uploadpath == null}">
+										<img src="/resources/images/default.png" class="profile">
+					                  </c:if>
                                 </div> 
                             </th>
                             <th>별명</th>
@@ -64,7 +70,7 @@
                     </tbody>
                   </table>
                   <br>
-                  <button type="button" class="btn btn-light"><a href="/member/changeProfile?memberId=${ sessionScope.memberId }" " class="stretched-link">수정</a></button>
+                  <button type="button" class="btn btn-light"><a href="/member/changeProfile?memberId=${ sessionScope.memberId }" class="stretched-link">수정</a></button>
                 </div>
               </div>
             </div>

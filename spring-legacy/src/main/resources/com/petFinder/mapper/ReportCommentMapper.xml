@@ -5,6 +5,14 @@
 
 
 <mapper namespace="com.petFinder.mapper.ReportCommentMapper">
+
+	<resultMap type="MemberProfileVO" id="MemberProfileVO">
+		<result column="PROPIC_UUID"			property="uuid"/>
+		<result column="MEMBER_ID" 				property="memberId"/>
+		<result column="PROPIC_UPLOAD_PATH" 	property="uploadpath"/>
+		<result column="PROPIC_FILENAME" 		property="filename"/>
+	</resultMap>
+	
 	<resultMap type="ReportBoardCommentVO" id="ReportBoardCommentVO">
 		<result column="BOARD_COMMENTS_ID"			property="commentId"/>
 		<result column="REPORT_ID" 					property="reportId"/>
@@ -15,26 +23,35 @@
 		<result column="BOARD_COMMENTS_CONTENT" 	property="commentContent"/>
 		<result column="BOARD_COMMENTS_REG_DATE" 	property="commentRegDate"/>
 		<result column="BOARD_COMMENTS_MDF_DATE" 	property="commentUpDate"/>
+		<result column="BOARD_COMMENTS_DATE" 		property="commentDateString"/>
 		<result column="BOARD_COMMENTS_REF" 		property="commentRef"/>
 		<result column="BOARD_COMMENTS_LEV" 		property="commentLev"/>
 		<result column="BOARD_COMMENTS_SEQ" 		property="commentSeq"/>
+		
+		<collection property="memberProfileVO" resultMap="MemberProfileVO"/>
 	</resultMap>
 	
 	<select id="selectComments" resultMap="ReportBoardCommentVO">
 		<![CDATA[
    			SELECT
-   			 	BOARD_COMMENTS_ID, 
-				REPORT_ID, 
-				BOARD_COMMTENTS_NUM,
-				BOARD_REPORT_TYPE,
-				MEMBER_ID,
-				MEMBER_NICKNAME,
-				BOARD_COMMENTS_CONTENT,
-				IFNULL(BOARD_COMMENTS_MDF_DATE,BOARD_COMMENTS_REG_DATE) AS BOARD_COMMENTS_REG_DATE,
-				BOARD_COMMENTS_REF,
-				BOARD_COMMENTS_LEV,
-				BOARD_COMMENTS_SEQ
-			FROM BOARD_REPORT_COMMENTS 
+   			 	TC.BOARD_COMMENTS_ID, 
+				TC.REPORT_ID, 
+				TC.BOARD_COMMTENTS_NUM,
+				TC.BOARD_REPORT_TYPE,
+				TC.MEMBER_ID,
+				TC.MEMBER_NICKNAME,
+				TC.BOARD_COMMENTS_CONTENT,
+				IFNULL(TC.BOARD_COMMENTS_MDF_DATE,TC.BOARD_COMMENTS_REG_DATE) AS BOARD_COMMENTS_DATE,
+				TC.BOARD_COMMENTS_REF,
+				TC.BOARD_COMMENTS_LEV,
+				TC.BOARD_COMMENTS_SEQ,
+                TP.PROPIC_UUID,
+				TP.MEMBER_ID,
+				TP.PROPIC_UPLOAD_PATH,
+				TP.PROPIC_FILENAME
+			FROM BOARD_REPORT_COMMENTS TC
+            LEFT OUTER JOIN PROPIC TP
+            ON TC.MEMBER_ID = TP.MEMBER_ID
 			WHERE REPORT_ID = #{reportId}
 			ORDER BY BOARD_COMMENTS_REF,BOARD_COMMENTS_LEV,BOARD_COMMENTS_SEQ
 		]]>	

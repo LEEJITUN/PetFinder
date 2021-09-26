@@ -308,7 +308,7 @@
 
 	<script>
 		$(document).ready(function(){
-			selectPetKind('${ petVO.petKind }','${ petVO.petDetailKind }');
+			selectBox('${ petVO.petKind }','${ petVO.petDetailKind }');
 		});
 
 	</script>

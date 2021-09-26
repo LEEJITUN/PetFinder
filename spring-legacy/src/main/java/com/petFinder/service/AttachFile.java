@@ -133,6 +133,39 @@ public class AttachFile {
 	} // deleteAttachFiles
 	
 	/**
+	 *  @methodName : deleteProfileFile
+	 *  @author 	: JIYUN
+	 *  @date 		: 2021.09.15
+	 *  @param		: deleteAttachFiles 
+	 *  @return		: void
+	 **/
+	public void deleteProfileFile(MemberProfileVO profileVO) {
+		// 삭제할 파일정보가 없으면 메소드 종료
+		if (profileVO == null ) {
+			return;
+		}
+		
+		String basePath = "C:/upload";
+	
+		String uploadpath = basePath + "/" + profileVO.getUploadpath();
+		String filename = profileVO.getUuid() + "_" + profileVO.getFilename();
+		
+		File file = new File(uploadpath, filename);
+		
+		if (file.exists() == true) { // 해당 경로에 첨부파일이 존재하면
+			file.delete(); // 첨부파일 삭제하기
+		}
+		
+		// 섬네일 이미지 삭제하기
+		File thumbnailFile = new File(uploadpath, "s_" + filename);
+		if (thumbnailFile.exists() == true) {
+			thumbnailFile.delete();
+		}
+			
+		
+	} // deleteAttachFiles
+	
+	/**
 	 * 	프로필 사진 업로드
 	 * 
 	 *  @methodName : uploadProfilePic 
@@ -179,7 +212,7 @@ public class AttachFile {
 		
 		// 프로필 사진일 경우
 		if(fileType.equals("P")) {
-			uploadPath = new File(uploadFolder, getFolder()); // C:/upload/Adoptemp
+			uploadPath = new File(uploadFolder); // C:/upload/Adoptemp
 		}else {
 			uploadPath = new File(uploadFolder, getFolder()); // C:/upload/Adoptemp/2021/08/31
 		}

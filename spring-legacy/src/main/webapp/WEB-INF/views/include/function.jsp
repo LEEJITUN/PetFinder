@@ -25,11 +25,13 @@
 		}
 		
 		// input file에 change 이벤트 부여
-		const inputImage = document.getElementById("input-image")
+		const inputImage = document.getElementById("input-image");
+		
 		inputImage.addEventListener("change", e => {
 		    readImage(e.target)
-		})
+		});
 
+		
 	    function clickPetKind() {
 	        $('#petKind').change(function() {
 	

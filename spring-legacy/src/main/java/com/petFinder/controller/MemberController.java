@@ -129,6 +129,10 @@ public class MemberController {
 	   // 로그인 성공 
 	   session.setAttribute("memberId", memberId);
 	   session.setAttribute("memberNic",memberVO.getMemberNickName());
+
+	   // 로그인 성공시 프로필
+	   session.setAttribute("profileVO", memberVO.getMemberProfileVO());
+	   
 	   
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Location", "/"); // redirect 경로 "/"로 지정
@@ -193,8 +197,13 @@ public class MemberController {
    
    /* GET - 내정보 */
    @GetMapping("/memberInfo")
-   public String memberInfo() {
+   public String memberInfo(String memberId,Model model) {
 	   System.out.println("memberInfo 호출됨...");
+	   
+	   MemberVO memberVo = memberService.selectMemberById(memberId);
+	   model.addAttribute("memberVo",memberVo);
+	   model.addAttribute("memberProfileVO",memberVo.getMemberProfileVO());
+	   
 	   return "member/memberInfo";
    }  
    
@@ -215,7 +224,7 @@ public class MemberController {
    
    /* POST - 내정보 수정 */
    @PostMapping("/changeUserInfo")
-   public ResponseEntity<String> memberInfo(MemberVO memberVo, PetVO petVo) throws IllegalStateException, IOException {
+   public ResponseEntity<String> changeUserInfo(MemberVO memberVo, PetVO petVo) throws IllegalStateException, IOException {
 	     
 	   
 	   /****************** 데이터 설정 *******************/
@@ -240,7 +249,7 @@ public class MemberController {
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Content-Type","text/html; charset=UTF-8");
 	   
-	   String str = Script.href("프로필 변경완료!","/member/memberInfo?memberId=" + memberVo.getMemberId());
+	   String str = Script.href("내정보 변경완료!","/member/memberInfo?memberId=" + memberVo.getMemberId());
 	  
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
    }
@@ -258,7 +267,7 @@ public class MemberController {
       //MemberProfileVO memberProfileVO = profilePicService.getProfilePic(memberId);
       
       model.addAttribute("memberVO", memberVo);
-      //model.addAttribute("memberProfileVO", memberProfileVO);
+      model.addAttribute("memberProfileVO", memberVo.getMemberProfileVO());
       
       return "member/changeProfile";
    }
@@ -266,9 +275,12 @@ public class MemberController {
    @PostMapping("changeProfile")
    public ResponseEntity<String> changeProfile(MultipartFile file,MemberVO memberVO,HttpSession session) throws IllegalStateException, IOException {
 	   
+	   // 세션에 담을 프로필 사진
+	   MemberProfileVO ProfileVO = new MemberProfileVO();
+	   
 	   /****************** UPDATE_프로필 *******************/
 	   if(file.getSize() != 0) {		   
-		   profilePicService.insertProfilePic(file,memberVO.getMemberId());
+		   ProfileVO = profilePicService.insertProfilePic(file,memberVO.getMemberId());
 	   }
 	   
 	   /****************** UPDATE_별명 *******************/
@@ -278,7 +290,10 @@ public class MemberController {
 	   HttpHeaders headers = new HttpHeaders();
 	   headers.add("Content-Type","text/html; charset=UTF-8");
 	   
-	   String str = Script.href("내정보 변경완료!","/member/memberInfo?memberId=" + memberVO.getMemberId());
+	   String str = Script.href("프로필 변경완료!","/member/memberInfo?memberId=" + memberVO.getMemberId());
+	   
+	   // 로그인 성공시 프로필
+	   session.setAttribute("profileVO", ProfileVO);
 	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
    }
