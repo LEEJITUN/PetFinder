@@ -79,7 +79,7 @@
                     <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">종류</label>
               
                 <div class="col">
-	                <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+	                <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" >
 	                </select>
                 </div>
                 
@@ -93,7 +93,7 @@
                     <label for="inputDate" class="col-form-label mx-3" style="font-size: 25px;">날짜</label>
                 
                 <div class="col">
-                    <input  class="form-control" type="date" id="inputDate" placeholder=".input-sm">
+                    <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
                 </div> 
            
                     <button type="submit" class="btn btn-primary mx-3" action = "sample5_execDaumPostcode" style="font-size: 25px; width: 10%; background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>

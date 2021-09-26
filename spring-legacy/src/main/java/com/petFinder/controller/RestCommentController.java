@@ -151,18 +151,11 @@ public class RestCommentController {
 	@DeleteMapping(value = "/memberPropicDelete/{memberId}",
 	consumes = "application/json",
 	produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<MemberProfileVO> memberPropicDelete(@PathVariable("memberId") String memberId) 
+	public void memberPropicDelete(@PathVariable("memberId") String memberId) 
 			throws IOException {
 
-		// ===== 데이터 설정 ======
-
-		MemberProfileVO memberProfileVO = profilePicService.getProfilePic(memberId);
-		
-		if(memberProfileVO != null) {
 			profilePicService.deleteProfilePic(memberId);
-		}
 		
-		return new ResponseEntity<MemberProfileVO>(memberProfileVO, HttpStatus.OK);
 	} 
    
 }

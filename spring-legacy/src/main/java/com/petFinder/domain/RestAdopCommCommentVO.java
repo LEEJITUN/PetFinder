@@ -39,8 +39,14 @@ public class RestAdopCommCommentVO {
 	// 댓글 수정일
 	private Date commentUpDate;
 	
+	// 댓글 등록일,수정일 문자열
+	private String commentDateString;
+	
 	// 순서
 	private int commentRef;
 	private int commentLev;
 	private int commentSeq;
+	
+	// 프로필 사진 
+	private MemberProfileVO memberProfileVO;
 }

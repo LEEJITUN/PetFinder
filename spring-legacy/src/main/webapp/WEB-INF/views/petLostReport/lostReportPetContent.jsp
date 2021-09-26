@@ -212,108 +212,59 @@
 
             <hr class="featurette-divider">
 
-            <ul class="list-unstyled mt-4">
-              <li class="media mb-2">
-                <img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">
-                <div class="media-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>홍길동 (user1)</h6>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="text-right text-secondary">
-                        <time class="comment-date">2021-07-23 15:07:24</time>
-                        | <a href="#!">삭제</a>
-                        | <a href="#!">수정</a>
-                        | <a href="#!">답글</a>
-                      </div>
-                    </div>
-                  </div>
-                  <p>All my girls vintage Chanel baby. So you can have your cake. Tonight, tonight, tonight, I'm walking on air. Slowly swallowing down my fear, yeah yeah. Growing fast into a bolt of lightning. So hot and heavy, 'Til dawn. That fairy tale ending with a knight in shining armor. Heavy is the head that wears the crown.</p>
-                </div>
-              </li>
-              
-              <li class="media mb-2">
-                <img src="/resources/images/kirby2.jpg" width="50" height="50" class="mr-3 rounded-circle">
-                <div class="media-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>성춘향 (user2)</h6>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="text-right text-secondary">
-                        <time class="comment-date">2021-07-23 15:07:24</time>
-                        | <a href="#!">삭제</a>
-                        | <a href="#!">수정</a>
-                        | <a href="#!">답글</a>
-                      </div>
-                    </div>
-                  </div>
-                  <p>Maybe a reason why all the doors are closed. Cause once you’re mine, once you’re mine. Be your teenage dream tonight. Heavy is the head that wears the crown. It's not even a holiday, nothing to celebrate. A perfect storm, perfect storm.</p>
-                </div>
-              </li>
+            <ul class="list-unstyled mt-4" id ="mainUl">
+            
+      		<c:choose>
+	             <c:when test="${fn:length(commentList) >  0}">
+	             <c:forEach var="comment" items="${ commentList }">
+		             <ul class="list-unstyled mt-4" id="${comment.commentNum}">
 
-              <li class="media mb-2" style="margin-left: 40px;">
-                <i class="material-icons">subdirectory_arrow_right</i>
-                <img src="/resources/images/kirby4.jpg" width="50" height="50" class="mr-3 rounded-circle">
-                <div class="media-body">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <h6>이몽룡 (user3)</h6>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="text-right text-secondary">
-                        <time class="comment-date">2021-07-23 15:07:24</time>
-                        | <a href="#!">삭제</a>
-                        | <a href="#!">수정</a>
-                        | <a href="#!">답글</a>
-                      </div>
-                    </div>
-                  </div>
-                  <p>Are you brave enough to let me see your peacock? There’s no going back. This is the last time you say, after the last line you break. At the eh-end of it all.</p>
-                </div>
-              </li>
-
-              <!-- modify comment -->
-              <li class="media mb-2" style="margin-left: 40px;">
-                <i class="material-icons">subdirectory_arrow_right</i>
-                <div class="media-body">
-                  <form action="" method="post">
-                    <div class="row">
-                      <div class="col-10">
-                        <div class="form-group">
-                          <label>댓글 수정</label>
-                          <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-2 align-self-center">
-                        <button type="submit" class="btn btn-info btn-sm">수정</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </li>
-              <!-- end of modify comment -->
-
-              <!-- write reply comment -->
-              <li class="media mb-2" style="margin-left: 80px;">
-                <i class="material-icons">subdirectory_arrow_right</i>
-                <div class="media-body">
-                  <form action="" method="post">
-                    <div class="row">
-                      <div class="col-10">
-                        <div class="form-group">
-                          <label>답댓글 작성</label>
-                          <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-2 align-self-center">
-                        <button type="submit" class="btn btn-info btn-sm">작성</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </li>
+						<c:if test = "${comment.commentSeq != 0 }">
+							<li class="media mb-2" style="margin-left: 80px;">
+							<i class="material-icons">subdirectory_arrow_right</i>
+						</c:if>
+						<c:if test = "${comment.commentSeq == 0 }">
+			              <li class="media mb-2">
+						</c:if>
+							
+		              <c:if test = "${ comment.memberProfileVO.uploadpath != null}">
+		                 <c:set var="fileCallPath" value="${ comment.memberProfileVO.uploadpath }/s_${ comment.memberProfileVO.uuid }_${ comment.memberProfileVO.filename }" />
+                         <img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">
+		              </c:if>
+		              <c:if test = "${ comment.memberProfileVO.uploadpath == null}">
+						<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">
+		              </c:if>
+		              
+		                <div class="media-body">
+		                  <div class="row">
+		                    <div class="col-md-4">
+		                      <h6>${ comment.memberNickName } (${ comment.memberId } )</h6>
+		                    </div>
+		                    <div class="col-md-8">
+		                      <div class="text-right text-secondary">
+		                        <time class="comment-date">${comment.commentDateString}</time>
+		                   <c:if test = "${sessionScope.memberId eq comment.memberId}">
+		                        | <a  id = "remove" onclick = "removeComment('${comment.reportId}', '${comment.commentNum}')">삭제</a>
+		                        | <a id = "modify"
+		                        onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}'
+		                         , '${comment.commentDateString}' , '${comment.commentContent}' , '${ comment.commentNum}'
+		                         , '${ comment.commentId}' , '${ comment.reportId}'  , '${ comment.memberProfileVO.uploadpath}')">수정</a>
+		                  </c:if>
+		                  
+		                  <c:if test = "${comment.commentSeq == 0 }">
+		                        | <a type="button" id = "reply" 
+		                        onclick="replyComment('${comment.commentId}' , '${comment.reportId}', '${comment.commentNum}' , '${comment.commentRef}')">답글</a>
+		                  </c:if>    
+		                      </div>
+		                    </div>
+		                  </div>
+		                  <p> ${ comment.commentContent}</p>
+		                </div>
+		              </li>
+		            </ul>
+	              </c:forEach>
+	             </c:when>
+             </c:choose>
               <!-- end of write reply comment -->
             </ul>
 
@@ -321,20 +272,26 @@
             <hr class="featurette-divider">
 
 
-            <!-- write new comment -->
-            <form action="" method="post">
-              <div class="row my-4">
-                <div class="col-10">
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">새댓글 작성</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                  </div>
-                </div>
-                <div class="col-2 align-self-center">
-                  <button type="submit" class="btn btn-info btn-sm">작성</button>
-                </div>
-              </div>
-            </form>
+			<c:if test = "${sessionScope.memberId != null}">
+	            <!-- write new comment -->
+	            <form id="frm">
+	            	<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />
+	 		    	<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+	 		    	<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />
+	 				<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
+	              <div class="row my-4">
+	                <div class="col-10">
+	                  <div class="form-group">
+	                    <label for="exampleFormControlTextarea1">새댓글 작성</label>
+	                    <textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>
+	                  </div>
+	                </div>
+	                <div class="col-2 align-self-center">
+	                  <button type="submit" id="newCreatBtn" class="btn btn-info btn-sm">작성</button>
+	                </div>
+	              </div>
+	            </form>
+            </c:if>
             <!-- end of write new comment -->
           </div>
           <!-- end of Comment -->
@@ -367,10 +324,284 @@
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+    <script src="/resources/js/jquery.serializeObject.min.js"></script>
+    
     
    <script>
+   $('form#frm').on('submit', function () {
+		event.preventDefault();
+		
+		let obj = $(this).serializeObject();
+		let strJson = JSON.stringify(obj);
+		
+		
+		// ajax 함수 호출
+		$.ajax({
+			url: '/api/findReportCommentWrite.json',
+			method: 'POST',
+			data: strJson,
+			contentType: 'application/json; charset=UTF-8',
+			success: function (data) {
+				showData(data);
+
+			},
+			error: function (request, status, error) {
+				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+			}
+		});
+	});
+	
+	
+	function allSelect(reportId) {		
+		
+		// ajax 함수 호출
+		$.ajax({
+			url: '/api/findReportCommentList/' + reportId + '.json',
+			method: 'GET',
+			data: reportId,
+			contentType: 'application/json; charset=UTF-8',
+			success: function (data) {
+				showData(data);
+
+			},
+			error: function (request, status, error) {
+				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+			}
+		});
+	}
+	
+	//  댓글삭제 버튼을 클릭했을 때 호출되는 함수
+	function removeComment(reportId,commentNum) {
+			var reportBoardCommentVO  = {
+							"reportId"  : reportId,
+							"commentNum"  : commentNum,
+			};
+			
+			let isRemove = confirm('이 글을 정말 삭제하시겠습니까?');
+			
+			if (isRemove == true) {
+				// 삭제 후 -> 다시 리로드 showData();
+
+				 // ajax 함수 호출
+				$.ajax({
+					url: '/api/findReportCommentDelete.json',
+					method: 'DELETE',
+					data: JSON.stringify(reportBoardCommentVO),
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						showData(data);
+
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
+			}
+	}
+	
+	
+
+		
+		// 댓글수정 버튼을 클릭했을 때 호출되는 함수
+		function modifyComment(nick,id,date,commentContent,index,commentId,reportId,profile) {
+			
+				var str = "";
+				let memebrId = '${sessionScope.memberId}';
+				
+				
+				str += '<li class="media mb-2">';
+	            
+				if(profile != null){					
+					<c:set var="fileCallPath" value="${ profileVO.uploadpath }/s_${ profileVO.uuid }_${ profileVO.filename }" />
+		          	str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+				}else{
+					 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+				}
+				
+				str += '<div class="media-body" >';
+				str += '<div class="row">';
+				str += '<div class="col-md-4">';
+				str += '<h6>' + nick + '(' + id + ') </h6>';
+				str += '</div>';
+				str += '<div class="col-md-8">';
+				str += '<div class="text-right text-secondary">';
+				str += '<time class="comment-date">' + date +'</time>';
+				
+				if(id == memebrId){
+					str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  reportId + '\'' + ',\'' + index + '\')">저장</a>';
+					str += ' | <a  id = "cancle" onclick = "allSelect(\'' + reportId + '\')">취소</a>';
+				}
+				str += '</div>';
+				str += '</div>';
+				str += '</div>';
+				str += ' <textarea class="form-control"  id="textarea' + index + '" name = "' + index + '" rows="3">' + commentContent + '</textarea>';
+				str += '</div>';
+				str += '</li>';
+
+				$('ul#'+index).html(str); 
+		}
+		
+		
+		
+		// 댓글답글 버튼을 클릭했을 때 호출되는 함수
+		function replyComment(commentId,reportId,index,commentRef) {
+		
+			event.preventDefault();
+			
+			// 댓글 답글 폼 나오게
+			
+			var str = "";
+				
+			str += '<li class="media mb-2" style="margin-left: 80px;">';
+			str += '<i class="material-icons">subdirectory_arrow_right</i>';
+			str += '<div class="media-body">';
+			str += '<form id="frm' + index + '">';
+			str += '<input type = "hidden" value = "${sessionScope.memberId }" name = "memberId" />';
+			
+			str += '<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />';
+			str += '<input type = "hidden" value = "${reportBoardVO.reportId}" name = "reportId" />';
+			str += '<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />';
+			str += '<input type = "hidden" value = "' + commentRef + '" name = "commentRef" />';
+			str += '<div class="row">';
+			str += '<div class="col-10">';
+			str += '<div class="form-group">';
+			
+			str += '<label>답댓글 작성</label>';
+			str += '<textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>';
+			str += '</div>';
+			str += '</div>';
+			str += '<div class="col-2 align-self-center">';
+			str += '<button type="submit" onclick = "replySave('+ index + ')" class="btn btn-info btn-sm">작성</button>';
+			str += '</div></div></form></div></li>';
+
+				
+			$('ul#'+index).append(str); 
+				
+		}
+
+		function replySave(index){
+			
+		  $('#frm'+index).on('submit', function () {
+				event.preventDefault();
+				
+				let obj = $(this).serializeObject();
+				let strJson = JSON.stringify(obj);
+				console.log('여기',strJson);
+				
+				
+				// ajax 함수 호출
+				$.ajax({
+					url: '/api/findReportCommentReply.json',
+					method: 'POST',
+					data: strJson,
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						showData(data);
+
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
+			});
+		}
+		
+		function saveComment(commentId,reportId,index) {
+			event.preventDefault();
+			const commentContent = $('#textarea'+index).val();
+
+			var reportBoardCommentVO = {
+					"commentContent" : commentContent,
+					"commentId": commentId,
+					"reportId" : reportId,
+			};
+			
+			 // ajax 함수 호출
+			$.ajax({
+				url: '/api/findReportCommentModify.json',
+				method: 'PUT',
+				data: JSON.stringify(reportBoardCommentVO),
+				contentType: 'application/json; charset=UTF-8',
+				success: function (data) {
+					showData(data);
+
+				},
+				error: function (request, status, error) {
+					alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+				}
+			});
+		}
+
+		function showData(array) {
+			
+			let str = '';
+			let memebrId = '${sessionScope.memberId}';
+			
+			if (array != null && array.length > 0) {
+				for (let i = 0; i< array.length; i++) {
+			        
+					str += '<ul class="list-unstyled mt-4"id="' + array[i].commentNum + '">';
+					
+					// 답글일 경우
+					if(array[i].commentSeq != 0){
+						str += '<li class="media mb-2" style="margin-left: 80px;">';
+						str += '<i class="material-icons">subdirectory_arrow_right</i>'
+					}else{
+						str += '<li class="media mb-2">';
+					}
+
+					if(array[i].memberProfileVO.uploadpath != null){						
+						str += '<c:set var="fileCallPath" value="' + array[i].memberProfileVO.uploadpath + '/s_' +array[i].memberProfileVO.uuid + '_' + array[i].memberProfileVO.filename + '" />';
+					    str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+					}else{
+						 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+					}
+
+					str += '<div class="media-body" >';
+					str += '<div class="row">';
+					str += '<div class="col-md-4">';
+					str += '<h6>' + array[i].memberNickName + '(' + array[i].memberId + ') </h6>';
+					str += '</div>';
+					str += '<div class="col-md-8">';
+					str += '<div class="text-right text-secondary">';
+					str += '<time class="comment-date">' + array[i].commentDateString +'</time>';
+					
+		           	// 해당 세션id만 수정,삭제 가능
+					if(array[i].memberId == memebrId){
+						str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].reportId + '\'' + ',\'' +  array[i].commentNum + '\')">삭제</a>';
+						str += ' | <a id = "modify"'; 
+						str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentDateString +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' 
+								+ array[i].commentNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\'' + ',\''+ array[i].memberProfileVO.uploadpath + '\')">수정</a>';
+					}
+		            
+					// 댓글이 시퀀스가 0 일때만 답글 가능
+					if(array[i].commentSeq == 0){
+						str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].reportId +  '\'' + ',\''+ array[i].commentNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+					}
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					str += '<input type = "hidden" value = "' + array[i].commentNum + '" name = "commentNum" />';
+					str += '<p> ' + array[i].commentContent + '</p>';
+					str += '</div>';
+					str += '</li>';
+					str += '</ul>';
+					
+				} // for
+
+			} else { // array == null || array.length == 0
+				str = `
+
+				`;
+			}
+
+			$('div#comment > ul').html(str);
+			
+
+		} // showData
+		
 		// 글삭제 버튼을 클릭했을 때 호출되는 함수
-		function remove(event) {
+		function remove() {
 			// 이벤트 소스(이벤트가 발생한 오브젝트)의 기본동작을 못하게 만듬
 			// 기본동작을 가진 대표적인 두 태그 : a 태그(클릭 못하게), form 태그(submit 못하게) 
 			event.preventDefault();

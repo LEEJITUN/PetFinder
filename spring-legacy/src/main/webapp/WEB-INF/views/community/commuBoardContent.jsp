@@ -157,26 +157,42 @@
 							<c:when test="${fn:length(commentList) >  0}">
 								<c:forEach var="comment" items="${ commentList }">
 									<ul class="list-unstyled mt-4" id="${comment.boardNum}">
-										<li class="media mb-2"><img
-											src="/resources/images/kirby2.jpg" width="50" height="50"
-											class="mr-3 rounded-circle">
+										
+										<c:if test = "${comment.commentSeq != 0 }">
+											<li class="media mb-2" style="margin-left: 80px;">
+											<i class="material-icons">subdirectory_arrow_right</i>
+										</c:if>
+										<c:if test = "${comment.commentSeq == 0 }">
+							              <li class="media mb-2">
+										</c:if>
+						
+										
+										<c:if test = "${ comment.memberProfileVO.uploadpath != null}">
+							                 <c:set var="fileCallPath" value="${ comment.memberProfileVO.uploadpath }/s_${ comment.memberProfileVO.uuid }_${ comment.memberProfileVO.filename }" />
+					                         <img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">
+							            </c:if>
+							            <c:if test = "${ comment.memberProfileVO.uploadpath == null}">
+											<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">
+							            </c:if>
 											<div class="media-body">
 												<div class="row">
 													<div class="col-md-4">
-														<h6>${ comment.memberNickName }(${ comment.memberId }
-															)</h6>
+														<h6>${ comment.memberNickName }(${ comment.memberId })</h6>
 													</div>
 													<div class="col-md-8">
 														<div class="text-right text-secondary">
-															<time class="comment-date">${comment.commentRegDate}</time>
+															<time class="comment-date">${comment.commentDateString}</time>
 															<c:if test="${sessionScope.memberId eq comment.memberId}">
 		                        | <a id="remove"
 																	onclick="removeComment('${comment.commentId}' , '${comment.boardId}')">삭제</a>
-		                        | <a id="modify"
-																	onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}')">수정</a>
+		                       | <a id="modify" onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}'
+		                         , '${comment.commentDateString}' , '${comment.commentContent}' 
+		                         , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}', '${ comment.memberProfileVO.uploadpath}')">수정</a>
 															</c:if>
+												<c:if test = "${comment.commentSeq == 0 }">
 															| <a type="button" id="reply"
 																onclick="replyComment('${comment.commentId}' , '${comment.boardId}', '${comment.boardNum}' , '${comment.commentRef}')">답글</a>
+												</c:if>		
 														</div>
 													</div>
 												</div>
@@ -325,14 +341,21 @@
 			}
 		
 			// 댓글수정 버튼을 클릭했을 때 호출되는 함수
-			function modifyComment(nick,id,date,commentContent,index,commentId,boardId) {
+			function modifyComment(nick,id,date,commentContent,index,commentId,boardId,profile) {
  				console.log('id', id);
 					var str = "";
 					let memebrId = '${sessionScope.memberId}';
 					
 
 					str += '<li class="media mb-2">';
-					str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+
+					if(profile != null){					
+						<c:set var="fileCallPath" value="${ profileVO.uploadpath }/s_${ profileVO.uuid }_${ profileVO.filename }" />
+			          	str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+					}else{
+						 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+					}
+					
 					str += '<div class="media-body" >';
 					str += '<div class="row">';
 					str += '<div class="col-md-4">';
@@ -458,8 +481,22 @@
 		            for (let i = 0; i< array.length; i++) {
 		               
 		               str += '<ul class="list-unstyled mt-4"id="' + array[i].boardNum + '">';
-		               str += '<li class="media mb-2">';
-		               str += '<img src="/resources/images/kirby1.jpg" width="50" height="50" class="mr-3 rounded-circle">';
+						
+		               // 답글일 경우 
+		               if(array[i].commentSeq != 0){
+							str += '<li class="media mb-2" style="margin-left: 80px;">';
+							str += '<i class="material-icons">subdirectory_arrow_right</i>'
+						}else{
+							str += '<li class="media mb-2">';
+						}
+
+						if(array[i].memberProfileVO.uploadpath != null){						
+							str += '<c:set var="fileCallPath" value="' + array[i].memberProfileVO.uploadpath + '/s_' +array[i].memberProfileVO.uuid + '_' + array[i].memberProfileVO.filename + '" />';
+						    str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
+						}else{
+							 str += '<img src="/resources/images/default.png" width="50" height="50" class="mr-3 rounded-circle">';
+						}
+		               
 		               str += '<div class="media-body" >';
 		               str += '<div class="row">';
 		               str += '<div class="col-md-4">';
@@ -467,14 +504,20 @@
 		               str += '</div>';
 		               str += '<div class="col-md-8">';
 		               str += '<div class="text-right text-secondary">';
-		               str += '<time class="comment-date">' + array[i].commentRegDate +'</time>';
+		               str += '<time class="comment-date">' + array[i].commentDateString +'</time>';
 		               
+		           	   // 해당 세션id만 수정,삭제 가능
 		               if(array[i].memberId == memebrId){
 		                  str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].boardId + '\')">삭제</a>';
 		                  str += ' | <a id = "modify"'; 
-		                  str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentRegDate +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].boardId + '\')">수정</a>';
+		                  str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentDateString +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].boardId + '\')">수정</a>';
 		               }
-		               str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].boardId +  '\'' + ',\''+ array[i].boardNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+		               
+		               // 댓글이 시퀀스가 0 일때만 답글 가능
+		               if(array[i].commentSeq == 0){
+		               	str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].boardId +  '\'' + ',\''+ array[i].boardNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+		               }
+		               
 		               str += '</div>';
 		               str += '</div>';
 		               str += '</div>';

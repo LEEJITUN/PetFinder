@@ -205,7 +205,15 @@
 	             <c:when test="${fn:length(commentList) >  0}">
 	             <c:forEach var="comment" items="${ commentList }">
 		             <ul class="list-unstyled mt-4" id="${comment.commentNum}">
-		              <li class="media mb-2">
+
+						<c:if test = "${comment.commentSeq != 0 }">
+							<li class="media mb-2" style="margin-left: 80px;">
+							<i class="material-icons">subdirectory_arrow_right</i>
+						</c:if>
+						<c:if test = "${comment.commentSeq == 0 }">
+			              <li class="media mb-2">
+						</c:if>
+							
 		              <c:if test = "${ comment.memberProfileVO.uploadpath != null}">
 		                 <c:set var="fileCallPath" value="${ comment.memberProfileVO.uploadpath }/s_${ comment.memberProfileVO.uuid }_${ comment.memberProfileVO.filename }" />
                          <img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">
@@ -225,10 +233,15 @@
 		                   <c:if test = "${sessionScope.memberId eq comment.memberId}">
 		                        | <a  id = "remove" onclick = "removeComment('${comment.commentId}' , '${comment.reportId}')">삭제</a>
 		                        | <a id = "modify"
-		                        onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}' , '${comment.commentRegDate}' , '${comment.commentContent}' , '${ comment.commentNum}', '${ comment.commentId}' , '${ comment.reportId}')">수정</a>
+		                        onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}'
+		                         , '${comment.commentDateString}' , '${comment.commentContent}' , '${ comment.commentNum}'
+		                         , '${ comment.commentId}' , '${ comment.reportId}'  , '${ comment.memberProfileVO.uploadpath}')">수정</a>
 		                  </c:if>
+		                  
+		                  <c:if test = "${comment.commentSeq == 0 }">
 		                        | <a type="button" id = "reply" 
 		                        onclick="replyComment('${comment.commentId}' , '${comment.reportId}', '${comment.commentNum}' , '${comment.commentRef}')">답글</a>
+		                  </c:if>    
 		                      </div>
 		                    </div>
 		                  </div>
@@ -529,7 +542,14 @@
 				for (let i = 0; i< array.length; i++) {
 			        
 					str += '<ul class="list-unstyled mt-4"id="' + array[i].commentNum + '">';
-					str += '<li class="media mb-2">';
+					
+					// 답글일 경우
+					if(array[i].commentSeq != 0){
+						str += '<li class="media mb-2" style="margin-left: 80px;">';
+						str += '<i class="material-icons">subdirectory_arrow_right</i>'
+					}else{
+						str += '<li class="media mb-2">';
+					}
 
 					if(array[i].memberProfileVO.uploadpath != null){						
 						str += '<c:set var="fileCallPath" value="' + array[i].memberProfileVO.uploadpath + '/s_' +array[i].memberProfileVO.uuid + '_' + array[i].memberProfileVO.filename + '" />';
@@ -547,13 +567,18 @@
 					str += '<div class="text-right text-secondary">';
 					str += '<time class="comment-date">' + array[i].commentDateString +'</time>';
 					
+		           	// 해당 세션id만 수정,삭제 가능
 					if(array[i].memberId == memebrId){
 						str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].reportId + '\')">삭제</a>';
 						str += ' | <a id = "modify"'; 
 						str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentDateString +  '\'' + ',\'' + array[i].commentContent + '\'' + ',\'' 
 								+ array[i].commentNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].reportId + '\'' + ',\''+ array[i].memberProfileVO.uploadpath + '\')">수정</a>';
 					}
-					str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].reportId +  '\'' + ',\''+ array[i].commentNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+		            
+					// 댓글이 시퀀스가 0 일때만 답글 가능
+					if(array[i].commentSeq == 0){
+						str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].reportId +  '\'' + ',\''+ array[i].commentNum + '\'' + ',\''+ array[i].commentRef + '\')">답글</a>';
+					}
 					str += '</div>';
 					str += '</div>';
 					str += '</div>';

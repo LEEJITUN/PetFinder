@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.petFinder.domain.PetVO;
+import com.petFinder.domain.ReportBoardCommentVO;
 import com.petFinder.domain.ReportBoardVO;
 import com.petFinder.service.PetFindService;
 import com.petFinder.service.PetLostService;
+import com.petFinder.service.ReportCommentService;
 
 
 @Controller
@@ -34,6 +36,9 @@ public class PetLostController {
 	
 	@Autowired
 	PetFindService petFindService;
+	
+	@Autowired
+	ReportCommentService reportCommentService;
 	
 	@GetMapping("/lostReportPetWrite")
 	public String lostReportPetWrite() {
@@ -81,12 +86,14 @@ public class PetLostController {
 	public String lostReportPetContent(String reportId, Model model) {
 		
 		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"L");
+		List<ReportBoardCommentVO> ReportBoardCommentList = reportCommentService.selectComments(reportId);
 		
 		// 조회수 증가
 		petFindService.updateReportReadCunt(reportId);
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());
+		model.addAttribute("commentList", ReportBoardCommentList);
 		
 		return "petLostReport/lostReportPetContent";
 	}

@@ -121,7 +121,7 @@
 		<if test="petCoatLength != null">
 			AND PET_COATlENGTH LIKE #{petCoatLength}
 		</if>
-		<if test="inputDate != null">
+		<if test='inputDate != null and  inputDate != ""'>
 			AND PET_FIND_DATE LIKE #{inputDate}
 		</if>
 		<![CDATA[
@@ -185,7 +185,7 @@
 		<if test="petCoatLength != null">
 			AND PET_COATlENGTH LIKE #{petCoatLength}
 		</if>
-		<if test="inputDate != null">
+		<if test='inputDate != null and  inputDate != ""'>
 			AND PET_LOST_DATE LIKE #{inputDate}
 		</if>
 			LIMIT #{startRow}, #{amount}

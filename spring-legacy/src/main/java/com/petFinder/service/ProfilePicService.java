@@ -58,7 +58,16 @@ public class ProfilePicService {
 
 	// 프로필 사진 삭제
 	public void deleteProfilePic(String memberId) {
-		profilePicMapper.deleteProfilePic(memberId);
+		
+		// 삭제 할 프로필 사진
+		MemberProfileVO  isProfile = profilePicMapper.selectProfilePic(memberId);
+		
+		if(isProfile != null) {
+			// 실물 파일 삭제 
+			attachFileService.deleteProfileFile(isProfile);
+			
+			profilePicMapper.deleteProfilePic(memberId);
+		}
 	}
 	
 
