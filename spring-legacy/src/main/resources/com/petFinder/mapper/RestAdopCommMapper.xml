@@ -6,13 +6,14 @@
 
 <mapper namespace="com.petFinder.mapper.RestAdopCommMapper">
 	<resultMap type="RestAdopCommVO" id="RestAdopCommVO">
-      <result column="NUM"           property="num"/>
-      <result column="BOARD_ID"      property="boardId"/>
-      <result column="MEMBER_ID"     property="memberId"/>
-      <result column="GOOD_OR_NOT"   property="goodOrNot"/>
-      <result column="GOOD"          property="good"/>
-      <result column="NOT_GOOD"      property="notGood"/>
-      <result column="WARING"        property="waring"/>    
+      <result column="NUM"           	property="num"/>
+      <result column="BOARD_ID"      	property="boardId"/>
+      <result column="MEMBER_ID"     	property="memberId"/>
+      <result column="GOOD_OR_NOT"   	property="goodOrNot"/>
+      <result column="GOOD"          	property="good"/>
+      <result column="NOT_GOOD"      	property="notGood"/>
+      <result column="WARING"        	property="waring"/>   
+      <result column="WARING_CNT"       property="waringCount"/>  
    </resultMap>
    
 	<!-- 게시글 번호 생성 -->
@@ -20,6 +21,59 @@
 		<![CDATA[
       	 SELECT IFNULL(MAX(NUM), 0)+1 AS NUM 
          FROM BOARD_COM_CONFIG;
+		]]>
+	</select>
+	
+	<!-- SELECT - 추천 비추천 각각 갯수 -->
+	<select id="selectTotalCount" resultMap="RestAdopCommVO">
+		<![CDATA[
+			SELECT 
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'Y' AND BOARD_ID = #{boardId}) AS GOOD,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'N' AND BOARD_ID = #{boardId}) AS NOT_GOOD,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE MEMBER_ID  = #{memberId} AND BOARD_ID = #{boardId}) AS GOOD_OR_NOT
+			FROM DUAL ;
+		]]>
+	</select>
+	
+	<!-- SELECT - 추천 비추천 유무 -->
+	<select id="selectCheck" resultType="int">
+		<![CDATA[
+		   	 SELECT COUNT(GOOD_OR_NOT)
+			 FROM BOARD_COM_CONFIG
+			 WHERE 
+			 	BOARD_ID 		= #{boardId} 
+			 	AND MEMBER_ID 	= #{memberId}
+		]]>
+	</select>
+	
+		<!-- SELECT - 신고 유무 -->
+	<select id="selectWaring" resultType="int">
+		<![CDATA[
+		   	 SELECT COUNT(WARING)
+			 FROM BOARD_COM_CONFIG
+			 WHERE 
+			 	BOARD_ID 		= #{boardId} 
+			 	AND MEMBER_ID 	= #{memberId}
+		]]>
+	</select>
+	
+		<!-- SELECT - 신고  갯수 -->
+	<select id="selectComment" resultMap="RestAdopCommVO">
+		<![CDATA[
+			SELECT 
+			(SELECT COUNT(WARING) FROM BOARD_COM_CONFIG WHERE WARING = 'Y' AND BOARD_ID = #{boardId}) AS WARING
+			FROM DUAL 
+		]]>
+	</select>
+	
+	<!-- SELECT  해당 유저 전체 갯수 -->
+	<select id="getBoardWaringAndGood" resultMap="RestAdopCommVO">
+		<![CDATA[
+			SELECT 
+			(SELECT COUNT(WARING) FROM BOARD_COM_CONFIG WHERE BOARD_ID = #{boardId}  AND MEMBER_ID = #{memberId}) AS WARING_CNT,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE BOARD_ID = #{boardId}  AND MEMBER_ID = #{memberId} AND GOOD_OR_NOT = 'Y') AS GOOD,
+			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE BOARD_ID = #{boardId}  AND MEMBER_ID = #{memberId} AND GOOD_OR_NOT = 'N') AS NOT_GOOD
+			FROM DUAL
 		]]>
 	</select>
 	
@@ -40,35 +94,31 @@
 		#{waring}
 		)
 	ON DUPLICATE KEY UPDATE
-		GOOD_OR_NOT = #{goodOrNot},
+		GOOD_OR_NOT = #{goodOrNot}
+	]]>	
+	</insert>
+	
+		<!-- Merge : Key 에 해당하는 데이터가 없으면 Insert.  있으면 Update 하는 기능 -->
+	<insert id = "updateadopWaringCheck">
+	<![CDATA[
+	INSERT INTO board_com_config(
+		NUM,
+		BOARD_ID,
+		MEMBER_ID,
+		GOOD_OR_NOT,
+	    WARING
+	)VALUES(
+		#{num},		
+		#{boardId},
+		#{memberId},
+		#{goodOrNot},
+		#{waring}
+		)
+	ON DUPLICATE KEY UPDATE
 		WARING = #{waring}
 	]]>	
 	</insert>
 	
-	<!-- SELECT - 추천 비추천 각각 갯수 -->
-	<select id="selectTotalCount" resultMap="RestAdopCommVO">
-		<![CDATA[
-			SELECT 
-			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'Y' AND BOARD_ID = #{boardId}) AS GOOD,
-			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE GOOD_OR_NOT = 'N' AND BOARD_ID = #{boardId}) AS NOT_GOOD,
-			(SELECT COUNT(GOOD_OR_NOT) FROM BOARD_COM_CONFIG WHERE MEMBER_ID  = #{memberId} AND BOARD_ID = #{boardId}) AS GOOD_OR_NOT
-			FROM DUAL ;
-		]]>
-	</select>
-	
-	<!-- SELECT - 추천 비추천 유무 -->
-	<select id="selectCheck" resultType="int">
-		<![CDATA[
-		   	 SELECT COUNT(*)
-			 FROM BOARD_COM_CONFIG
-			 WHERE 
-			 	BOARD_ID 		= #{boardId} 
-			 	AND MEMBER_ID 	= #{memberId}
-		]]>
-			 	<if test="waring != null">
-					AND WARING = #{waring}
-				</if>
-	</select>
 	
 	<delete id="deleteCommBoard">
 		<![CDATA[
@@ -77,11 +127,20 @@
 			WHERE 
 			 	BOARD_ID 		= #{boardId} 
 			 	AND MEMBER_ID 	= #{memberId}
+			 	AND WARING	IS NULL
 		]]>
-			 	<if test="waring == 'Y'.toString()">
-					AND WARING = #{waring}
-				</if>
 	</delete>
 	
-  
+	<delete id="deleteWaringCheck">
+		<![CDATA[
+			DELETE 
+			FROM BOARD_COM_CONFIG 
+			WHERE 
+			 	BOARD_ID 		= #{boardId} 
+			 	AND MEMBER_ID 	= #{memberId}
+			 	AND GOOD_OR_NOT	IS NULL
+			 	
+		]]>
+	</delete>
+
 </mapper>

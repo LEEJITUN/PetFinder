@@ -107,10 +107,7 @@
                       <div class="col-md-6 ">
                         <div>
                           <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
-         					<option value="" disabled selected>종류 선택</option>
-                            <option value="D">강아지</option>
-                            <option value="C">고양이</option>
-                            <option value="O">기타</option>
+         		
                           </select>
                         </div>
                       </div>
@@ -142,9 +139,7 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petGender" name = "petGender" required>
-                          <option selected disabled value="">선택</option>
-                          <option value="M">남자</option>
-                          <option value="F">여자</option>
+      
                         </select>
                       </div>
                     </div>
@@ -156,10 +151,7 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petSize" name = "petSize">
-                         <option selected disabled value="">선택</option>
-                         <option value="S">소형</option>
-	                     <option value="M">중형</option>
-	                     <option value="L">대형</option>
+             
                         </select>
                       </div>
                     </div>
@@ -171,10 +163,7 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petColor" name = "petColor" >
-                          <option selected disabled value="">선택</option>
-    			          <option value="A">화이트</option>
-	                      <option value="B">블랙</option>
-	                      <option value="C">브라운</option>
+                  
                         </select>
                       </div>
                     </div>
@@ -186,10 +175,7 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petCoatLength" name = "petCoatLength">
-                          <option selected disabled value="">선택</option>
-                          <option value="S">단모</option>
-	                      <option value="L">장모</option>
-	                      <option value="C">곱슬</option>
+                      
                         </select>
                       </div>
                     </div>
@@ -212,15 +198,17 @@
                 <tr>
                   <th scope="col" class="text-center pb-4" width="175px">첨부파일</th>
                   <td>
-                    <div id="fileBox">
-                      <div class="my-2">
-                        <input type="file" name="files" multiple>
-                        <button type="button" class="btn btn-secondary btn-sm delete-file">
-                          <i class="material-icons align-middle">clear</i>
-                          <span class="align-middle">삭제</span>
-                        </button>
-                      </div>
-                    </div>
+                  <button type="button" class="btn btn-primary my-3" id="btnAddFile">파일 추가</button>
+				  <div><span>첨부 파일</span></div>
+				  <div id="fileBox">
+				  	<div class="my-2">
+	                  <input type="file" name="files" multiple>
+	                  <button type="button" class="btn btn-primary btn-sm delete-file">
+	                  	<i class="material-icons align-middle">clear</i>
+	                  	<span class="align-middle">삭제</span>
+	                  </button>
+	                </div>
+                   </div>
                   </td>
                 </tr>
             </table>
@@ -228,7 +216,7 @@
             <div class="my-4 text-center">
               <button type="submit" class="btn btn-warning">
                 <i class="material-icons align-middle">create</i>
-                <span class="align-middle">답글등록</span>
+                <span class="align-middle">분실 신고</span>
               </button>
               <button type="reset" class="btn btn-secondary ml-3">
                 <i class="material-icons align-middle">clear</i>
@@ -270,6 +258,54 @@
 	<script src="/resources/js/bootstrap.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+
+	<script>
+	
+		$(document).ready(function(){
+			selectBox('KIND',null);
+			selectBox('GENDER',null);
+			selectBox('SIZE',null);
+			selectBox('COLOR',null);
+			selectBox('COATlENGTH',null);
+		});
+		
+		const MAX_FILE_COUNT = 5;
+		let fileCount = 1;  // 화면에 보이는 file 입력상자 개수
+		
+		// jQuuery 방식 이벤트 처리
+		// 정적 이벤트 연결
+		$('#btnAddFile').on('click', function (event) {
+			if (fileCount >= MAX_FILE_COUNT) {
+				alert('첨부파일은 최대 5개 까지만 첨부할 수 있습니다.')
+				return;
+			}
+			
+			var str = `
+				<div class="my-2">
+	                <input type="file" name="files" multiple>
+	                <button type="button" class="btn btn-primary btn-sm delete-file">
+	                	<i class="material-icons align-middle">clear</i>
+	                	<span class="align-middle">삭제</span>
+	                </button>
+	            </div>
+			`;
+			$('div#fileBox').append(str);
+			
+			fileCount++;
+		});
+		
+		
+		// 동적 이벤트 연결 - 이벤트 등록을 이미 존재하는 요소에게 위임하는 방식
+		$('div#fileBox').on('click', 'button.delete-file', function (event) {
+			//event.target; // 실제 이벤트가 발생한 오브젝트
+			
+			$(this).closest('div').remove();  // empty()와 구분 주의!
+			//$(this).parent().remove();
+			
+			fileCount--;
+		});
+
+	</script>
 </body>
 
 </html>

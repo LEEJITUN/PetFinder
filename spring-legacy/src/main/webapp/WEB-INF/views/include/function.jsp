@@ -35,17 +35,16 @@
 	
 	        	var codeM = this.value;
 	        	
-	        	selectPetKind(codeM,null);
+	        	selectBox(codeM,null);
 	        	
       		});
 	            
 	    }
 		
-		function selectPetKind(codeM, codeD){
+		function selectBox(codeM, codeD){
         	let changeItemArray = [];
         	
         	console.log(';codeM : ',codeM);
-        	console.log(';codeD : ',codeD);
         	
         	$.ajax({
 				url: '/api/coedStrList/' + codeM + '.json',
@@ -57,7 +56,12 @@
 						changeItemArray.push(item);
 					}
 					
-					setDataPetKind(changeItemArray,codeM,codeD);
+					if(codeM == 'D' || codeM == 'C'){
+						console.log('품종');
+						setDataPetKind(changeItemArray,codeM,codeD);
+					}else {
+						setSelectBox(changeItemArray,codeM,codeD);
+					}
 				},
 				error : function(request, status, error) {
 					alert('code: ' + request.status + '\n message: '
@@ -66,9 +70,45 @@
 			});
 		}
 		
+		// selectBox 나누기
+		function setSelectBox(changeItemArray,codeM,codeD){
+	
+			if(codeM == 'KIND' ){
+				setSelectBoxData(changeItemArray,codeD,'petKind');
+			}else if(codeM == 'SIZE' ){
+				setSelectBoxData(changeItemArray,codeD,'petSize');
+				 
+			}else if(codeM == 'COLOR' ){
+				setSelectBoxData(changeItemArray,codeD,'petColor');
+				 
+			}else if(codeM == 'COATlENGTH' ){
+				setSelectBoxData(changeItemArray,codeD,'petCoatLength');
+				 
+			}else if(codeM == 'GENDER' ){
+				setSelectBoxData(changeItemArray,codeD,'petGender');
+			}
+		}
+		
+		// selectBox 값 담기
+		function setSelectBoxData(changeItemArray,codeD,selectBoxName){
+			 $('#'+selectBoxName).empty();
+			 
+			 $('#'+selectBoxName).append("<option value = '' disabled selected>선택</option>");
+			 
+			  for (var i = 0; i < changeItemArray.length; i++) {
+				  
+			  		 if(codeD == changeItemArray[i].codeD){
+						 var option = $("<option value = "+ changeItemArray[i].codeD + " selected >" + changeItemArray[i].str + "</option>");
+						 $('#'+selectBoxName).append(option);
+			  		 }else{
+						 var option = $("<option value = "+ changeItemArray[i].codeD + ">" + changeItemArray[i].str + "</option>");
+						 $('#'+selectBoxName).append(option);
+			  		 }
+			  }
+		}
+		
 		function setDataPetKind(changeItemArray,codeM,codeD){
 			
-			console.log('codeD222222', codeD);
 	          $('#petDetailKind').empty();
 	          
 	         if(codeM != 'O') {

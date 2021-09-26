@@ -32,4 +32,8 @@ public class RestAdopCommVO {
 	// 신고
 	private String waring;
 	
+	// 해당 유저 조회 시 COUNT
+	private int waringCount;
+	
+	
 }

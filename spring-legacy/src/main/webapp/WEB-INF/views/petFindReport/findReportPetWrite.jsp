@@ -104,10 +104,6 @@
                       <div class="col-md-6 ">
                         <div>
                           <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
-         					<option value="" disabled selected>종류 선택</option>
-                            <option value="D">강아지</option>
-                            <option value="C">고양이</option>
-                            <option value="O">기타</option>
                           </select>
                         </div>
                       </div>
@@ -126,9 +122,6 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petGender" name = "petGender" required>
-                          <option selected disabled value="">선택</option>
-                          <option value="M">남자</option>
-                          <option value="F">여자</option>
                         </select>
                       </div>
                     </div>
@@ -140,10 +133,6 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petSize" name = "petSize">
-                         <option selected disabled value="">선택</option>
-                         <option value="S">소형</option>
-	                     <option value="M">중형</option>
-	                     <option value="L">대형</option>
                         </select>
                       </div>
                     </div>
@@ -155,10 +144,6 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petColor" name = "petColor" >
-                          <option selected disabled value="">선택</option>
-    			          <option value="A">화이트</option>
-	                      <option value="B">블랙</option>
-	                      <option value="C">브라운</option>
                         </select>
                       </div>
                     </div>
@@ -170,10 +155,6 @@
                     <div class="form-row form-control-sm mb-3">
                       <div class="col">
                         <select class="custom-select" id="petCoatLength" name = "petCoatLength">
-                          <option selected disabled value="">선택</option>
-                          <option value="S">단모</option>
-	                      <option value="L">장모</option>
-	                      <option value="C">곱슬</option>
                         </select>
                       </div>
                     </div>
@@ -277,6 +258,14 @@
 	<script src="/resources/js/bootstrap.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>		
+		$(document).ready(function(){
+			selectBox('KIND',null);
+			selectBox('GENDER',null);
+			selectBox('SIZE',null);
+			selectBox('COLOR',null);
+			selectBox('COATlENGTH',null);
+		});
+	
 		const MAX_FILE_COUNT = 5;
 		let fileCount = 1;  // 화면에 보이는 file 입력상자 개수
 		
@@ -312,6 +301,9 @@
 			
 			fileCount--;
 		});
+		
+
+
 	</script>
 </body>
 

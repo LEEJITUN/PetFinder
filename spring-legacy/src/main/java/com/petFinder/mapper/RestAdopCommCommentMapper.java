@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.petFinder.domain.RestAdopCommCommentVO;
+import com.petFinder.domain.RestAdopCommVO;
 
 @Mapper
 public interface RestAdopCommCommentMapper {
@@ -25,5 +26,6 @@ public interface RestAdopCommCommentMapper {
 
 	/* UPDATE - ´ä±Û +1 */
 	void updateReSeqPlusOne(RestAdopCommCommentVO restAdopCommCommentVO);
+
 
 }

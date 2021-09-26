@@ -48,28 +48,26 @@
                     <div class="col-md-4 mb-3">
                     <label for="size">종류</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="searchType" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
+                        <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+       					  <option value="" disabled selected>종류 선택</option>
+   
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="size">품종</label>
                         <div>
-                            <select class="custom-select d-block w-100" id="kind" required>
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                            </select>
+	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >
+	
+	                        </select>
                         </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="size">성별</label>
                             <div>
-                                <select class="custom-select d-block w-100" id="gender" required>
-                                    <option value="">Choose...</option>
-                                    <option>United States</option>
-                                </select>
+		                        <select class="custom-select" id="petGender" name = "petGender" required>
+		                        
+		                        </select>
                             </div>
                             </div>
 
@@ -77,28 +75,22 @@
                     <div class="col-md-4 mb-3">
                     <label for="size">사이즈</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="size" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
+                        <select class="custom-select" id="petSize" name = "petSize">
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
                     <label for="size">색</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="color" required>
-                            <option value="">Choose...</option>
-                            <option>United States</option>
+                       <select class="custom-select" id="petColor" name = "petColor" >
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="size">털길이</label>
                         <div>
-                            <select class="custom-select d-block w-100" id="coatLength" required>
-                                <option value="">Choose...</option>
-                                <option>United States</option>
-                            </select>
+                        <select class="custom-select" id="petCoatLength" name = "petCoatLength">
+                        </select>
                         </div>
                         </div>
                     </div>
@@ -222,13 +214,23 @@
 
 
    <%--  include footer.jsp --%>
+   <jsp:include page="/WEB-INF/views/include/function.jsp" />
    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
-
 
 
     <!-- JavaScript -->
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+	<script>
+	
+		$(document).ready(function(){
+			selectBox('KIND',null);
+			selectBox('GENDER',null);
+			selectBox('SIZE',null);
+			selectBox('COLOR',null);
+			selectBox('COATlENGTH',null);
+		});
 
+	</script>
 </body>
 </html>
