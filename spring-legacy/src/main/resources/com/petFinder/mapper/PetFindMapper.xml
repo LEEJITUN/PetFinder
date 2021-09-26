@@ -72,14 +72,14 @@
 				TP.BNAME,
 				TP.ADDRESS,
                 (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
-				TP.PET_DETAIL_KIND,
+				(SELECT STR FROM TYPE_STR WHERE TYPE_D = TP.PET_DETAIL_KIND) AS PET_DETAIL_KIND,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'GENDER' AND TYPE_D = TP.PET_GENDER) AS PET_GENDER,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'SIZE' AND TYPE_D = TP.PET_SIZE) AS PET_SIZE,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COLOR' AND TYPE_D = TP.PET_COLOR) AS PET_COLOR,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COATlENGTH' AND TYPE_D = TP.PET_COATlENGTH) AS PET_COATlENGTH,
 				TP.PET_CHARACTER, 
-				DATE_FORMAT(TP.PET_FIND_DATE, '%y-%m-%d') AS PET_FIND_DATE,
-				DATE_FORMAT(TP.PET_FIND_DATE, '%y-%m-%d') AS PET_LOST_DATE,
+				DATE_FORMAT(TP.PET_FIND_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
+				DATE_FORMAT(TP.PET_FIND_DATE, '%Y-%m-%d') AS PET_LOST_DATE,
 				TB.BOARD_NUM, 
 				TB.BOARD_REPORT_TYPE,
 				TB.MEMBER_NICKNAME,
@@ -102,7 +102,29 @@
 				ATTACH_REPORT TA
 			ON TB.REPORT_ID = TA.REPORT_ID
 			WHERE TB.BOARD_REPORT_TYPE = 'F'
-			
+		]]>	
+		<if test="petKind != null">
+			AND PET_KIND LIKE  #{petKind}
+		</if>
+		<if test="petDetailKind != null">
+			AND PET_DETAIL_KIND LIKE #{petDetailKind}
+		</if>
+		<if test="petGender != null">
+			AND PET_GENDER LIKE  #{petGender}
+		</if>
+		<if test="petSize != null">
+			AND PET_SIZE LIKE #{petSize}
+		</if>
+		<if test="petColor != null">
+			AND PET_COLOR LIKE #{petColor}
+		</if>
+		<if test="petCoatLength != null">
+			AND PET_COATlENGTH LIKE #{petCoatLength}
+		</if>
+		<if test="inputDate != null">
+			AND PET_FIND_DATE LIKE #{inputDate}
+		</if>
+		<![CDATA[
 			UNION ALL
 			
 			SELECT 
@@ -113,14 +135,14 @@
 				TP.BNAME,
 				TP.ADDRESS,
                 (SELECT STR FROM TYPE_STR WHERE TYPE_M = 'KIND' AND TYPE_D = TP.PET_KIND) AS PET_KIND,
-				TP.PET_DETAIL_KIND,
+                (SELECT STR FROM TYPE_STR WHERE TYPE_D = TP.PET_DETAIL_KIND) AS PET_DETAIL_KIND,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'GENDER' AND TYPE_D = TP.PET_GENDER) AS PET_GENDER,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'SIZE' AND TYPE_D = TP.PET_SIZE) AS PET_SIZE,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COLOR' AND TYPE_D = TP.PET_COLOR) AS PET_COLOR,
 				(SELECT STR FROM TYPE_STR WHERE TYPE_M = 'COATlENGTH' AND TYPE_D = TP.PET_COATlENGTH) AS PET_COATlENGTH,
 				TP.PET_CHARACTER, 
-				DATE_FORMAT(TP.PET_LOST_DATE, '%y-%m-%d') AS PET_FIND_DATE,
-				DATE_FORMAT(TP.PET_LOST_DATE, '%y-%m-%d') AS PET_LOST_DATE,
+				DATE_FORMAT(TP.PET_LOST_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
+				DATE_FORMAT(TP.PET_LOST_DATE, '%Y-%m-%d') AS PET_LOST_DATE,
 				TB.BOARD_NUM, 
 				TB.BOARD_REPORT_TYPE,
 				TB.MEMBER_NICKNAME,
@@ -143,8 +165,30 @@
 				ATTACH_REPORT TA
 			ON TB.REPORT_ID = TA.REPORT_ID
 			WHERE TB.BOARD_REPORT_TYPE = 'L'
-			LIMIT #{startRow}, #{amount}
 		]]>	
+		
+		<if test="petKind != null">
+			AND PET_KIND LIKE  #{petKind}
+		</if>
+		<if test="petDetailKind != null">
+			AND PET_DETAIL_KIND LIKE #{petDetailKind}
+		</if>
+		<if test="petGender != null">
+			AND PET_GENDER LIKE  #{petGender}
+		</if>
+		<if test="petSize != null">
+			AND PET_SIZE LIKE #{petSize}
+		</if>
+		<if test="petColor != null">
+			AND PET_COLOR LIKE #{petColor}
+		</if>
+		<if test="petCoatLength != null">
+			AND PET_COATlENGTH LIKE #{petCoatLength}
+		</if>
+		<if test="inputDate != null">
+			AND PET_LOST_DATE LIKE #{inputDate}
+		</if>
+			LIMIT #{startRow}, #{amount}
 	</select>
 	
 	<select id="selectFindReport" resultMap="ReportBoardVO">

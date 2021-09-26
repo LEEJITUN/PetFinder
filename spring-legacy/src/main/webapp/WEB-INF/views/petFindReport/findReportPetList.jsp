@@ -14,7 +14,7 @@
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
       <!-- Select Box -->
-      <form>
+	<form action="/petFindReport/findReportPetList" method="GET">
         <div class="album py-5">
             <div class="container" style="background-color:  rgb(255, 239, 107); padding-top: 30px; padding-bottom: 30px;">
               
@@ -22,7 +22,7 @@
                 <div class="col-md-4 mb-3">
                     <label for="size">지역(구)전체</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="area" required>
+                        <select class="custom-select d-block w-100" id="area" >
                             <option value="">Choose...</option>
                             <option>United States</option>
                         </select>
@@ -32,7 +32,7 @@
                     <label for="size">지역(동)전체</label>
 
                     <div>
-                        <select class="custom-select d-block w-100" id="village" required>
+                        <select class="custom-select d-block w-100" id="village" >
                             <option value="">Choose...</option>
                             <option>United States</option>
                         </select>
@@ -41,14 +41,14 @@
                     <div class="col-md-4 mb-3">
                     <label for="size">날짜</label>
                     <div>
-                        <input  class="form-control" type="date" id="inputDate" placeholder=".input-sm">
+                        <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
                     </div>
                     </div>
 
                     <div class="col-md-4 mb-3">
                     <label for="size">종류</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+                        <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" >
        					  <option value="" disabled selected>종류 선택</option>
    
                         </select>
@@ -65,7 +65,7 @@
                         <div class="col-md-4 mb-3">
                             <label for="size">성별</label>
                             <div>
-		                        <select class="custom-select" id="petGender" name = "petGender" required>
+		                        <select class="custom-select" id="petGender" name = "petGender" >
 		                        
 		                        </select>
                             </div>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn btn-info">상세정보 검색</button>
+                      <button type="submit" class="btn btn-info">상세정보 검색</button>
                       </div>
                     </div>
                     </div>

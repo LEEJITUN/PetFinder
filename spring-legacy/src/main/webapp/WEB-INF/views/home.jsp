@@ -67,7 +67,7 @@
 
 
     <div class = "container-fluid " style="position: relative; background-color:  rgb(255, 239, 107);   width: 70%; height: 130px;  transform: translate(-0%,-30%);">
-        <form style="transform: translate(0%,70%);">
+        <form action="/petFindReport/findReportPetList" method="GET" style="transform: translate(0%,70%);">
             <div class="form-row" >
               
                 <label for="inputLocation"  class="col-form-label mx-3" style="font-size: 25px;">지역</label>     
@@ -76,10 +76,18 @@
                     <input  class="form-control"type="text" id="sample3_postcode" placeholder="주소를 입력하세요.">
                 </div>
                 <button type="button" class="btn btn-primary mx-3" onclick = "sample3_execDaumPostcode()" style="background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>
-                    <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">품종</label>
+                    <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">종류</label>
               
                 <div class="col">
-                    <input  class="form-control" type="text" id="inputPet" placeholder="반려동물 종류">
+	                <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" required>
+	                </select>
+                </div>
+                
+                <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">품종</label>
+              
+                <div class="col">
+        			<select class="form-control" id="petDetailKind" name="petDetailKind" >
+	                </select>
                 </div>
                
                     <label for="inputDate" class="col-form-label mx-3" style="font-size: 25px;">날짜</label>
@@ -88,7 +96,7 @@
                     <input  class="form-control" type="date" id="inputDate" placeholder=".input-sm">
                 </div> 
            
-                    <button type="button" class="btn btn-primary mx-3" action = "sample5_execDaumPostcode" style="font-size: 25px; width: 10%; background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>
+                    <button type="submit" class="btn btn-primary mx-3" action = "sample5_execDaumPostcode" style="font-size: 25px; width: 10%; background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>
 
            </div>
         </form>
@@ -225,6 +233,7 @@
 
    <%--  include footer.jsp --%>
    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
+   <jsp:include page="/WEB-INF/views/include/function.jsp" />
    
 
 
@@ -238,9 +247,14 @@
   <script src="/resources/js/locationAPI.js"></script>
 
   <script>
+    $(document).ready(function(){
+			selectBox('KIND',null);
+	});
+    
     $('.carouselExampleIndicators2').carousel({
     interval: 1500
-    })
+    });
+    
   </script>
 </body>
 </html>
