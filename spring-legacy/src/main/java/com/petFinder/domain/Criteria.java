@@ -33,10 +33,7 @@ public class Criteria {
 		// 3페이지 -> 20
 		// 4페이지 -> 30
 		// ...
-		
 
-		
-		startRow = (pageNum-1) & amount;
 	}
 
 }
