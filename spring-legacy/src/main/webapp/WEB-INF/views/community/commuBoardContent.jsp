@@ -103,7 +103,7 @@
 
 							<button type="button" id="notGoodBtn"
 								class="btn btn-secondary btn-lg ml-3"
-								onclick="check('${ commuContent.boardId}', '${sessionScope.memberId }', 'N')">
+								onclick="check('${ commuContent.boardId}', '${ sessionScope.memberId }', 'N')">
 								<i class="material-icons align-middle" id="notGood">thumb_down_off_alt</i>
 								<span class="align-middle">비추천</span>
 							</button>
@@ -127,7 +127,10 @@
 								class="align-middle">글목록</span>
 						</button>
 					</div>
+					
 					<div class="col-sm-10 text-right">
+					<%-- 로그인 사용자일때 --%>
+					<c:if test="${ sessionScope.memberId eq commuContent.memberId }">
 						<button type="button" class="btn btn-primary text-white btn-sm"
 							onclick="location.href = '/community/commuBoardModify?boardId=${ commuContent.boardId }&pageNum=${ pageNum }';">
 							<i class="material-icons align-middle">edit</i> <span
@@ -138,6 +141,7 @@
 							<i class="material-icons align-middle">delete</i> <span
 								class="align-middle">글삭제</span>
 						</button>
+						</c:if>
 					</div>
 				</div>
 
