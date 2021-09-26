@@ -75,6 +75,11 @@ public class RestAdopCommService {
 		return restAdopCommMapper.deleteWaringCheck(restAdopCommVO);
 	}
 	
+	// 추천,비추천,신고 전체 조회
+	public RestAdopCommVO getBoardWaringAndGood(RestAdopCommVO restAdopCommVO) {
+		return restAdopCommMapper.getBoardWaringAndGood(restAdopCommVO);
+	}
+	
 	// ================= 댓글 =================
 
 	/* SELECT - 댓글 index 조회) */
@@ -118,9 +123,5 @@ public class RestAdopCommService {
 		restAdopCommCommentMapper.insertComment(restAdopCommCommentVO);	
 	}
 
-	// 추천,비추천,신고 전체 조회
-	public RestAdopCommVO getBoardWaringAndGood(RestAdopCommVO restAdopCommVO) {
-		return restAdopCommMapper.getBoardWaringAndGood(restAdopCommVO);
-	}
 	
 }

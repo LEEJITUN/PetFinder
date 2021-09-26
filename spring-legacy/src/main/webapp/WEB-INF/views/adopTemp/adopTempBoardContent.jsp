@@ -54,18 +54,18 @@
 
 					<!-- 글 상세보기 영역 -->
 					<table class="table">
-						<tr>
-							<th scope="row" class="text-center">작성자</th>
-							<td>${ adopTempContent.memberNickName }</td>
-							<th scope="row" class="text-center">작성일</th>
-							<td><fmt:formatDate
-									value="${ adopTempContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
-							<th scope="row" class="text-center"></th>
-							<th scope="row" class="text-center">조회수</th>
-							<td>${ adopTempContent.boardReadCount }</td>
-							<td></td>
-						</tr>
-
+						<thead>
+							<tr>
+								<th scope="row" class="text-center">작성자</th>
+								<td>${ adopTempContent.memberNickName }</td>
+								<th scope="row" class="text-center">작성일</th>
+								<td><fmt:formatDate value="${ adopTempContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
+								<th scope="row" class="text-center">조회수</th>
+								<td>${ adopTempContent.boardReadCount }</td>
+							</tr>
+						</thead>
+						
+						<tbody>
 						<tr style="height: 300px">
 							<th scope="row" class="text-center">내용</th>
 							<td colspan="5"><pre>${ adopTempContent.boardContent}</pre>
@@ -85,6 +85,7 @@
 							<th scope="row" class="text-center"></th>
 							<td colspan="5"></td>
 						</tr>
+						</tbody>
 					</table>
 
 					<br>
@@ -127,7 +128,7 @@
 						<c:if test="${not empty sessionScope.memberId }">
 							<%-- 로그인 사용자 닉네임과 글작성자 닉네임이  같을때 --%>
 							<c:if
-								test="${ sessionScope.memberNic eq adopTempContent.memberNickName }">
+								test="${ sessionScope.memberId eq adopTempContent.memberId }">
 
 								<button type="button" class="btn btn-primary text-white btn-sm"
 									onclick="location.href = '/adopTemp/adopTempBoardModify?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';">
@@ -140,10 +141,6 @@
 										class="align-middle">글삭제</span>
 								</button>
 							</c:if>
-							<button type="button" class="btn btn-danger btn-sm ml-3">
-								<i class="material-icons align-middle">reply</i> <span
-									class="align-middle">답글쓰기</span>
-							</button>
 						</c:if>
 					</div>
 				</div>
@@ -225,7 +222,6 @@
 		</div>
 		<!-- end of Right area -->
 	</div>
-
 	<!-- end of middle container -->
 
 	<!-- a link container -->
@@ -254,7 +250,7 @@
 	
 	<script>
 	
-	
+	// 화면이 시작할떼 돌아감 -> selectMemberGoodOrWarn 
 	$(document).ready(function(){
 		selectMemberGoodOrWarn('${adopTempContent.boardId }','${sessionScope.memberId }')
 	});
@@ -603,9 +599,8 @@
  				}
 				
 				
-				// 해당 유저의 추천,비추천,신고 체크
-
-				
+				// ======================== 해당 유저의 추천,비추천,신고 체크 ========================
+	
  				function selectMemberGoodOrWarn(boardId, memberId) {
  			
  					$.ajax({

@@ -24,7 +24,7 @@ public interface RestAdopCommMapper {
 	/* DELETE - 추천 OR 비추천이 있을경우 삭제 (해당 유저) */
 	int deleteCommBoard(RestAdopCommVO restAdopCommVO);
 	
-	 // ================ 신고 =================
+	// ================ 신고 =================
 
 	/* UPDATE - 신고 */
 	void updateadopWaringCheck(RestAdopCommVO restAdopCommVO);
