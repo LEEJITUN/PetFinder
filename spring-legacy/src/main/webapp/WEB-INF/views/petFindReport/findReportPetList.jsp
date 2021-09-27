@@ -191,7 +191,7 @@
             	
             	<!-- 다음 -->
                  <li class="page-item ${(pageMaker.next) ? '': 'disabled'}">
-                <a class="page-link" href="${(pageMaker.next) ? 'petFindReport/findReportPetList?pageNum=' += (pageMaker.endPage + 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Previous</a>
+                <a class="page-link" href="${(pageMaker.next) ? 'petFindReport/findReportPetList?pageNum=' += (pageMaker.endPage + 1) += '&type=' += pageMaker.cri.type += '&keyword=' += pageMaker.cri.keyword : '' }#board" tabindex="-1" aria-disabled="true">Next</a>
                 </li>
             </ul>
         </nav>
