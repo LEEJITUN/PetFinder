@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -36,8 +36,8 @@
 					<li class="nav-item"><a
 						class="nav-link active btn-lg text-white text-center Board-font"
 						href="#"
-						style="background-color: rgb(41, 128, 185); color: black;"><h3>ÀÔ¾ç
-								| ÀÓº¸</h3></a></li>
+						style="background-color: rgb(41, 128, 185); color: black;"><h3>ì…ì–‘
+								| ì„ë³´</h3></a></li>
 				</ul>
 				<!-- end of Vertical Nav -->
 			</div>
@@ -50,34 +50,34 @@
 				<!-- Contents area -->
 				<div id="comment" class="border border-primary p-3">
 					<br>
-					<h3 class="text-center">Á¦¸ñ : ${ adopTempContent.boardTitle }</h3>
+					<h3 class="text-center">ì œëª© : ${ adopTempContent.boardTitle }</h3>
 
-					<!-- ±Û »ó¼¼º¸±â ¿µ¿ª -->
+					<!-- ê¸€ ìƒì„¸ë³´ê¸° ì˜ì—­ -->
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="row" class="text-center">ÀÛ¼ºÀÚ</th>
+								<th scope="row" class="text-center">ì‘ì„±ì</th>
 								<td>${ adopTempContent.memberNickName }</td>
-								<th scope="row" class="text-center">ÀÛ¼ºÀÏ</th>
+								<th scope="row" class="text-center">ì‘ì„±ì¼</th>
 								<td><fmt:formatDate value="${ adopTempContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
-								<th scope="row" class="text-center">Á¶È¸¼ö</th>
+								<th scope="row" class="text-center">ì¡°íšŒìˆ˜</th>
 								<td>${ adopTempContent.boardReadCount }</td>
 							</tr>
 						</thead>
 						
 						<tbody>
 						<tr style="height: 300px">
-							<th scope="row" class="text-center">³»¿ë</th>
+							<th scope="row" class="text-center">ë‚´ìš©</th>
 							<td colspan="5"><pre>${ adopTempContent.boardContent}</pre>
 
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="text-center">Ã·ºÎÆÄÀÏ</th>
+							<th scope="row" class="text-center">ì²¨ë¶€íŒŒì¼</th>
 							<td colspan="5">
 								<ul>
-									<li>Ã·ºÎÆÄÀÏ1</li>
-									<li>Ã·ºÎÆÄÀÏ2</li>
+									<li>ì²¨ë¶€íŒŒì¼1</li>
+									<li>ì²¨ë¶€íŒŒì¼2</li>
 								</ul>
 							</td>
 						</tr>
@@ -90,24 +90,24 @@
 
 					<br>
 					<div class="text-center">
-						<%-- ·Î±×ÀÎ »ç¿ëÀÚÀÏ¶§ --%>
+						<%-- ë¡œê·¸ì¸ ì‚¬ìš©ìì¼ë•Œ --%>
 						<c:if test="${not empty sessionScope.memberId }">
 							<button type="button" id="goodBtn" class="btn btn-primary btn-lg"
 								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'Y')">
 								<i class="material-icons align-middle" id="good">thumb_up_off_alt</i>
-								<span class="align-middle">ÃßÃµ</span>
+								<span class="align-middle">ì¶”ì²œ</span>
 							</button>
 
 							<button type="button" id="notGoodBtn"
 								class="btn btn-secondary btn-lg ml-3"
 								onclick="check('${ adopTempContent.boardId}', '${sessionScope.memberId }', 'N')">
 								<i class="material-icons align-middle" id="notGood">thumb_down_off_alt</i>
-								<span class="align-middle">ºñÃßÃµ</span>
+								<span class="align-middle">ë¹„ì¶”ì²œ</span>
 							</button>
 							<button type="button" class="btn btn-danger btn-lg ml-3"
 								onclick="waring('${ adopTempContent.boardId}', '${sessionScope.memberId }','Y')">
 								<i class="material-icons align-middle" id="waring">error_outline</i> <span
-									class="align-middle">½Å°í</span>
+									class="align-middle">ì‹ ê³ </span>
 							</button>
 						</c:if>
 					</div>
@@ -119,26 +119,26 @@
 						<button type="button" class="btn btn-secondary btn-sm "
 							onclick="location.href = '/adopTemp/adopTempBoardList?pageNum=${ pageNum }';">
 							<i class="material-icons align-middle">list</i> <span
-								class="align-middle">±Û¸ñ·Ï</span>
+								class="align-middle">ê¸€ëª©ë¡</span>
 						</button>
 					</div>
 
 					<div class="col-sm-10 text-right">
-						<%-- ·Î±×ÀÎ »ç¿ëÀÚÀÏ¶§ --%>
+						<%-- ë¡œê·¸ì¸ ì‚¬ìš©ìì¼ë•Œ --%>
 						<c:if test="${not empty sessionScope.memberId }">
-							<%-- ·Î±×ÀÎ »ç¿ëÀÚ ´Ğ³×ÀÓ°ú ±ÛÀÛ¼ºÀÚ ´Ğ³×ÀÓÀÌ  °°À»¶§ --%>
+							<%-- ë¡œê·¸ì¸ ì‚¬ìš©ì ë‹‰ë„¤ì„ê³¼ ê¸€ì‘ì„±ì ë‹‰ë„¤ì„ì´  ê°™ì„ë•Œ --%>
 							<c:if
 								test="${ sessionScope.memberId eq adopTempContent.memberId }">
 
 								<button type="button" class="btn btn-primary text-white btn-sm"
 									onclick="location.href = '/adopTemp/adopTempBoardModify?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';">
 									<i class="material-icons align-middle">edit</i> <span
-										class="align-middle">±Û¼öÁ¤</span>
+										class="align-middle">ê¸€ìˆ˜ì •</span>
 								</button>
 								<button type="button" class="btn btn-danger btn-sm ml-3"
 									onclick="remove(event);">
 									<i class="material-icons align-middle">delete</i> <span
-										class="align-middle">±Û»èÁ¦</span>
+										class="align-middle">ê¸€ì‚­ì œ</span>
 								</button>
 							</c:if>
 						</c:if>
@@ -148,7 +148,7 @@
 
 				<!-- Comment -->
 				<div id="comment" class="border border-secondary mt-2 p-3">
-					<i class="material-icons">forum</i> ´ñ±Û
+					<i class="material-icons">forum</i> ëŒ“ê¸€
 
 					<hr class="featurette-divider">
 
@@ -185,12 +185,12 @@
 														<div class="text-right text-secondary">
 															<time class="comment-date">${comment.commentDateString}</time>
 															<c:if test="${sessionScope.memberId eq comment.memberId}">
-		                        | <a id="remove" onclick="removeComment('${comment.commentId}' , '${comment.boardId}')">»èÁ¦</a>
+		                        | <a id="remove" onclick="removeComment('${comment.commentId}' , '${comment.boardId}')">ì‚­ì œ</a>
 		                        | <a id="modify" onclick="modifyComment('${comment.memberNickName}' , '${comment.memberId}'
 		                         , '${comment.commentDateString}' , '${comment.commentContent}' 
-		                         , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}', '${ comment.memberProfileVO.uploadpath}')">¼öÁ¤</a>
+		                         , '${ comment.boardNum}', '${ comment.commentId}' , '${ comment.boardId}', '${ comment.memberProfileVO.uploadpath}')">ìˆ˜ì •</a>
 															</c:if>
-								| <a type="button" id="reply" onclick="replyComment('${comment.commentId}' , '${comment.boardId}', '${comment.boardNum}' , '${comment.commentRef}')">´ä±Û</a>
+								| <a type="button" id="reply" onclick="replyComment('${comment.commentId}' , '${comment.boardId}', '${comment.boardNum}' , '${comment.commentRef}')">ë‹µê¸€</a>
 														</div>
 													</div>
 												</div>
@@ -217,14 +217,14 @@
 							<div class="row my-4">
 								<div class="col-10">
 									<div class="form-group">
-										<label for="exampleFormControlTextarea1">»õ´ñ±Û ÀÛ¼º</label>
+										<label for="exampleFormControlTextarea1">ìƒˆëŒ“ê¸€ ì‘ì„±</label>
 										<textarea class="form-control" id="commentContent"
 											name="commentContent" rows="3"></textarea>
 									</div>
 								</div>
 								<div class="col-2 align-self-center">
 									<button type="submit" id="newCreatBtn"
-										class="btn btn-info btn-sm">ÀÛ¼º</button>
+										class="btn btn-info btn-sm">ì‘ì„±</button>
 								</div>
 							</div>
 						</form>
@@ -243,9 +243,9 @@
 	<div class="container-fluid">
 		<hr style="border: solid 2px lightgray">
 		<div class="mx-5">
-			<a href="#!" style="color: gray;">&ensp; °³½Ä¿ë Á¾½Ä &ensp;</a> | <a
-				href="#!" style="color: gray;">&ensp; ÄÉÀÌÁö ÇÁ¸® ÄÚ¸®¾Æ &ensp;</a> | <a
-				href="#!" style="color: gray;">&ensp; µ¿¹°º¸È£ °ü¸®½Ã½ºÅÛ &ensp;</a>
+			<a href="#!" style="color: gray;">&ensp; ê°œì‹ìš© ì¢…ì‹ &ensp;</a> | <a
+				href="#!" style="color: gray;">&ensp; ì¼€ì´ì§€ í”„ë¦¬ ì½”ë¦¬ì•„ &ensp;</a> | <a
+				href="#!" style="color: gray;">&ensp; ë™ë¬¼ë³´í˜¸ ê´€ë¦¬ì‹œìŠ¤í…œ &ensp;</a>
 		</div>
 		<hr style="border: solid 2px lightgray">
 	</div>
@@ -265,7 +265,7 @@
 	
 	<script>
 	
-	// È­¸éÀÌ ½ÃÀÛÇÒ¶¼ µ¹¾Æ°¨ -> selectMemberGoodOrWarn 
+	// í™”ë©´ì´ ì‹œì‘í• ë–¼ ëŒì•„ê° -> selectMemberGoodOrWarn 
 	$(document).ready(function(){
 		selectMemberGoodOrWarn('${adopTempContent.boardId }','${sessionScope.memberId }')
 	});
@@ -277,7 +277,7 @@
 		let strJson = JSON.stringify(obj);
 		
 // 		console.log('data ', strJson);
-		// ajax ÇÔ¼ö È£Ãâ
+		// ajax í•¨ìˆ˜ í˜¸ì¶œ
 		$.ajax({
 			url: '/api/adopCommCommentWrite.json',
 			method: 'POST',
@@ -295,7 +295,7 @@
 	
 	function allSelect(boardId) {		
 		
-		// ajax ÇÔ¼ö È£Ãâ
+		// ajax í•¨ìˆ˜ í˜¸ì¶œ
 		$.ajax({
 			url: '/api/adopCommCommentList/' + boardId + '.json',
 			method: 'GET',
@@ -312,19 +312,19 @@
 	}
 		
 		
-		//  ´ñ±Û»èÁ¦ ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+		//  ëŒ“ê¸€ì‚­ì œ ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
 		function removeComment(commentId,boardId) {
 				var restAdopCommCommentVO  = {
 								"commentId" : commentId,
 								"boardId"  : boardId,
 					};
 				
-				let isRemove = confirm('ÀÌ ±ÛÀ» Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?');
+				let isRemove = confirm('ì´ ê¸€ì„ ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?');
 				
 				if (isRemove == true) {
-					// »èÁ¦ ÈÄ -> ´Ù½Ã ¸®·Îµå showData();
+					// ì‚­ì œ í›„ -> ë‹¤ì‹œ ë¦¬ë¡œë“œ showData();
 
-					 // ajax ÇÔ¼ö È£Ãâ
+					 // ajax í•¨ìˆ˜ í˜¸ì¶œ
 					$.ajax({
 						url: '/api/adopCommCommentDelete.json',
 						method: 'DELETE',
@@ -341,7 +341,7 @@
 				}
 			}
 		
-			// ´ñ±Û¼öÁ¤ ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+			// ëŒ“ê¸€ìˆ˜ì • ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
 			function modifyComment(nick,id,date,commentContent,index,commentId,boardId,profile) {
  				console.log('id', id);
 					var str = "";
@@ -367,8 +367,8 @@
 					str += '<time class="comment-date">' + date +'</time>';
 					
 					if(id == memebrId){
-						str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  boardId + '\'' + ',\'' + index + '\')">ÀúÀå</a>';
-						str += ' | <a  id = "cancle" onclick = "allSelect(\'' + boardId + '\')">Ãë¼Ò</a>';
+						str += ' | <a id = "save" onclick="saveComment(\'' + commentId + '\'' + ',\'' +  boardId + '\'' + ',\'' + index + '\')">ì €ì¥</a>';
+						str += ' | <a  id = "cancle" onclick = "allSelect(\'' + boardId + '\')">ì·¨ì†Œ</a>';
 					}
 					str += '</div>';
 					str += '</div>';
@@ -382,13 +382,13 @@
 			
 			
 			
-			// ´ñ±Û´ä±Û ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+			// ëŒ“ê¸€ë‹µê¸€ ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
 			function replyComment(commentId,boardId,index,commentRef) {
 				console.log('boardId', boardId);
  				console.log('index', index);
 				event.preventDefault();
 				
-				// ´ñ±Û ´ä±Û Æû ³ª¿À°Ô
+				// ëŒ“ê¸€ ë‹µê¸€ í¼ ë‚˜ì˜¤ê²Œ
 				
 				var str = "";
 					
@@ -405,12 +405,12 @@
 				str += '<div class="col-10">';
 				str += '<div class="form-group">';
 				
-				str += '<label>´ä´ñ±Û ÀÛ¼º</label>';
+				str += '<label>ë‹µëŒ“ê¸€ ì‘ì„±</label>';
 				str += '<textarea class="form-control" id="commentContent" name = "commentContent" rows="3"></textarea>';
 				str += '</div>';
 				str += '</div>';
 				str += '<div class="col-2 align-self-center">';
-				str += '<button type="submit" onclick = "replySave('+ index + ')" class="btn btn-info btn-sm">ÀÛ¼º</button>';
+				str += '<button type="submit" onclick = "replySave('+ index + ')" class="btn btn-info btn-sm">ì‘ì„±</button>';
 				str += '</div></div></form></div></li>';
 
 					
@@ -425,10 +425,10 @@
 					
 					let obj = $(this).serializeObject();
 					let strJson = JSON.stringify(obj);
-					console.log('¿©±â',strJson);
+					console.log('ì—¬ê¸°',strJson);
 					
 					
-					// ajax ÇÔ¼ö È£Ãâ
+					// ajax í•¨ìˆ˜ í˜¸ì¶œ
 					$.ajax({
 						url: '/api/adopCommCommentReply.json',
 						method: 'POST',
@@ -456,7 +456,7 @@
 						"boardId" : boardId,
 				};
 				
-				 // ajax ÇÔ¼ö È£Ãâ
+				 // ajax í•¨ìˆ˜ í˜¸ì¶œ
 				$.ajax({
 					url: '/api/adopCommCommentModify.json',
 					method: 'PUT',
@@ -483,7 +483,7 @@
 		               
 		               str += '<ul class="list-unstyled mt-4"id="' + array[i].boardNum + '">';
 						
-		               // ´ä±ÛÀÏ °æ¿ì
+		               // ë‹µê¸€ì¼ ê²½ìš°
 						if(array[i].commentSeq != 0){
 							str += '<li class="media mb-2" style="margin-left: 80px;">';
 							str += '<i class="material-icons">subdirectory_arrow_right</i>'
@@ -491,7 +491,7 @@
 							str += '<li class="media mb-2">';
 						}
 						
-						// ÇØ´ç ¼¼¼Çid¸¸ ¼öÁ¤,»èÁ¦ °¡´É
+						// í•´ë‹¹ ì„¸ì…˜idë§Œ ìˆ˜ì •,ì‚­ì œ ê°€ëŠ¥
 						if(array[i].memberProfileVO.uploadpath != null){						
 							str += '<c:set var="fileCallPath" value="' + array[i].memberProfileVO.uploadpath + '/s_' +array[i].memberProfileVO.uuid + '_' + array[i].memberProfileVO.filename + '" />';
 						    str += '<img  src="/display?fileName=${ fileCallPath }" width="50" height="50" class="mr-3 rounded-circle">';
@@ -509,15 +509,15 @@
 		               str += '<time class="comment-date">' + array[i].commentDateString +'</time>';
 		               
 		               if(array[i].memberId == memebrId){
-		                  str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].boardId + '\')">»èÁ¦</a>';
+		                  str += ' | <a  id = "remove" onclick = "removeComment(\'' +  array[i].commentId + '\'' + ',\'' +  array[i].boardId + '\')">ì‚­ì œ</a>';
 		                  str += ' | <a id = "modify"'; 
 		                  str += ' onclick="modifyComment(\'' + array[i].memberNickName +  '\'' + ',\''+ array[i].memberId +  '\'' + ',\'' + array[i].commentDateString +  '\'' + ',\'' 
-		                		  + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].boardId + '\'' + ',\''+ array[i].memberProfileVO.uploadpath + '\')">¼öÁ¤</a>';
+		                		  + array[i].commentContent + '\'' + ',\'' + array[i].boardNum +  '\'' + ',\'' + array[i].commentId +  '\'' + ',\'' + array[i].boardId + '\'' + ',\''+ array[i].memberProfileVO.uploadpath + '\')">ìˆ˜ì •</a>';
 		               }
 		               
-					   // ´ñ±ÛÀÌ ½ÃÄö½º°¡ 0 ÀÏ¶§¸¸ ´ä±Û °¡´É
+					   // ëŒ“ê¸€ì´ ì‹œí€€ìŠ¤ê°€ 0 ì¼ë•Œë§Œ ë‹µê¸€ ê°€ëŠ¥
 					   if(array[i].commentSeq == 0){
-		              	 str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].boardId +  '\'' + ',\''+ array[i].boardNum + '\'' + ',\''+ array[i].commentRef + '\')">´ä±Û</a>';
+		              	 str += ' | <a type="button" id = "reply" onclick="replyComment(\'' +  array[i].commentId +  '\'' + ',\'' + array[i].boardId +  '\'' + ',\''+ array[i].boardNum + '\'' + ',\''+ array[i].commentRef + '\')">ë‹µê¸€</a>';
 					   }
 		               
 					   str += '</div>';
@@ -543,21 +543,21 @@
 		      } // showData
 		      
 
-			// ======================== ±Û »èÁ¦¹öÆ° Å¬¸¯½Ã È£ÃâµÇ´Â ÇÔ¼ö ========================
+			// ======================== ê¸€ ì‚­ì œë²„íŠ¼ í´ë¦­ì‹œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ ========================
 				
 				function remove(event) {
-					// ÀÌº¥Æ® ¼Ò½º(ÀÌº¥Æ®°¡ ¹ß»ıÇÑ ¿ÀºêÁ§Æ®)ÀÇ ±âº»µ¿ÀÛÀ» ¸øÇÏ°Ô ¸¸µë
-					// ±âº»µ¿ÀÛÀ» °¡Áø ´ëÇ¥ÀûÀÎ µÎ ÅÂ±× : a ÅÂ±×(Å¬¸¯ ¸øÇÏ°Ô), form ÅÂ±×(submit ¸øÇÏ°Ô) 
+					// ì´ë²¤íŠ¸ ì†ŒìŠ¤(ì´ë²¤íŠ¸ê°€ ë°œìƒí•œ ì˜¤ë¸Œì íŠ¸)ì˜ ê¸°ë³¸ë™ì‘ì„ ëª»í•˜ê²Œ ë§Œë“¬
+					// ê¸°ë³¸ë™ì‘ì„ ê°€ì§„ ëŒ€í‘œì ì¸ ë‘ íƒœê·¸ : a íƒœê·¸(í´ë¦­ ëª»í•˜ê²Œ), form íƒœê·¸(submit ëª»í•˜ê²Œ) 
 					event.preventDefault();
 
-					let isRemove = confirm('ÀÌ ±ÛÀ» Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?');
+					let isRemove = confirm('ì´ ê¸€ì„ ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?');
 					if (isRemove == true) {
 						location.href = '/adopTemp/adopTempBoardRemove?boardId=${ adopTempContent.boardId }&pageNum=${ pageNum }';
 					}
 				}
 		   
-		  	// ======================== ÃßÃµ ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÇ´Â ÇÔ¼ö ========================
-				// ajax ÇÔ¼ö È£Ãâ	
+		  	// ======================== ì¶”ì²œ ë²„íŠ¼ í´ë¦­ ì‹œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ ========================
+				// ajax í•¨ìˆ˜ í˜¸ì¶œ	
 				function check(boardId, memberId, goodOrNot) {
 
 					var restAdopCommVO = {
@@ -575,7 +575,7 @@
 								contentType : 'application/json; charset=UTF-8',
 								success : function(data) {
 								console.log('data', data);
-									// ´©¸¥ °ª : Y , µ¥ÀÌÅÍ¿¡¼­ ³ª¿Â °ª : 1
+									// ëˆ„ë¥¸ ê°’ : Y , ë°ì´í„°ì—ì„œ ë‚˜ì˜¨ ê°’ : 1
 									if (restAdopCommVO.goodOrNot == 'Y'
 											&& data.goodOrNot == '1') {
 										$("#notGoodBtn").attr("disabled", true);
@@ -611,7 +611,7 @@
 							});
 				}
 				
-				// ======================== ½Å°í ¹öÆ°À» Å¬¸¯ÇßÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö ========================
+				// ======================== ì‹ ê³  ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ ========================
 
  				function waring(boardId, memberId,waring) {
  					var restAdopCommVO = {
@@ -642,7 +642,7 @@
  				}
 				
 				
-				// ======================== ÇØ´ç À¯ÀúÀÇ ÃßÃµ,ºñÃßÃµ,½Å°í Ã¼Å© ========================
+				// ======================== í•´ë‹¹ ìœ ì €ì˜ ì¶”ì²œ,ë¹„ì¶”ì²œ,ì‹ ê³  ì²´í¬ ========================
 	
  				function selectMemberGoodOrWarn(boardId, memberId) {
  			
