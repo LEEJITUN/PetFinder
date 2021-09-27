@@ -148,20 +148,21 @@
 
           <br>
           <div class="text-center">
-
-            <button type="button" class="btn btn-primary btn-lg">
-              <i class="material-icons align-middle">thumb_up_off_alt</i>
-              <span class="align-middle">추천</span>
-            </button>
-            <button type="button" class="btn btn-secondary btn-lg ml-3">
-              <i class="material-icons align-middle">thumb_down_off_alt</i>
-              <span class="align-middle">비추천</span>
-            </button>
-            <button type="button" class="btn btn-danger btn-lg ml-3">
-              <i class="material-icons align-middle">dangerous</i>
-              <span class="align-middle">신고</span>
-            </button>
-            
+		  <%-- 로그인 사용자일때 --%>
+			<c:if test="${not empty sessionScope.memberId }">
+				<button type="button" id="goodBtn" class="btn btn-primary btn-lg" onclick="check('${ reportBoardVO.reportId }', '${sessionScope.memberId }', 'Y')">
+					<i class="material-icons align-middle" id="good">thumb_up_off_alt</i>
+					<span class="align-middle">추천</span>
+				</button>
+				<button type="button" id="notGoodBtn"  class="btn btn-secondary btn-lg ml-3" onclick="check('${  reportBoardVO.reportId }', '${sessionScope.memberId }', 'N')">
+						<i class="material-icons align-middle" id="notGood">thumb_down_off_alt</i>
+						<span class="align-middle">비추천</span>
+				</button>
+				<button type="button" class="btn btn-danger btn-lg ml-3" onclick="waring('${ reportBoardVO.reportId }', '${sessionScope.memberId }','Y')">
+						<i class="material-icons align-middle" id="waring">error_outline</i> 
+						<span class="align-middle">신고</span>
+				</button>
+            </c:if>
           </div>
           <br><br><br>
 
@@ -247,7 +248,6 @@
 		                  </div>
 		                  <p> ${ comment.commentContent}</p>
 		                </div>
-		              </li>
 		            </ul>
 	              </c:forEach>
 	             </c:when>
@@ -312,7 +312,12 @@
     <script src="/resources/js/jquery.serializeObject.min.js"></script>
 
    <script>
-
+   
+	// 화면이 시작할떼 돌아감 -> selectMemberGoodOrWarn 
+	$(document).ready(function(){
+		selectMemberGoodOrWarn('${ reportBoardVO.reportId }','${sessionScope.memberId }')
+	});
+   
 	$('form#frm').on('submit', function () {
 		event.preventDefault();
 		
@@ -600,6 +605,129 @@
 			
 
 		} // showData
+		
+		
+	  	// ======================== 추천 버튼 클릭 시 호출되는 함수 ========================
+		// ajax 함수 호출	
+		function check(reportId, memberId, goodOrNot) {
+
+			var restAdopCommVO = {
+				"boardId" : reportId,
+				"memberId" : memberId,
+				"goodOrNot" : goodOrNot,
+			};
+
+			console.log('restAdopCommVO', restAdopCommVO);
+
+			$.ajax({
+						url : '/api/adopCommBoardCheck.json',
+						method : 'PUT',
+						data : JSON.stringify(restAdopCommVO),
+						contentType : 'application/json; charset=UTF-8',
+						success : function(data) {
+						console.log('data', data);
+							// 누른 값 : Y , 데이터에서 나온 값 : 1
+							if (restAdopCommVO.goodOrNot == 'Y'
+									&& data.goodOrNot == '1') {
+								$("#notGoodBtn").attr("disabled", true);
+								$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
+
+							} else if (restAdopCommVO.goodOrNot == 'Y'
+									&& data.goodOrNot == '0') {
+								$("#notGoodBtn").attr("disabled", false);
+								$('#good')
+										.replaceWith(
+												'<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');
+
+							} else if (restAdopCommVO.goodOrNot == 'N'
+									&& data.goodOrNot == '1') {
+								$("#goodBtn").attr("disabled", true);
+								$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
+
+							}  else if (restAdopCommVO.goodOrNot == 'N'
+								&& data.goodOrNot == '0') {
+								$("#goodBtn").attr("disabled", false);
+								$('#notGood')
+										.replaceWith(
+												'<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
+
+							}
+
+						},
+						error : function(request, status, error) {
+							alert('code: ' + request.status + '\n message: '
+									+ request.responseText + '\n error: '
+									+ error);
+						}
+					});
+		}
+		
+		// ======================== 신고 버튼을 클릭했을 때 호출되는 함수 ========================
+
+			function waring(reportId, memberId,waring) {
+				var restAdopCommVO = {
+					"boardId" : reportId,
+					"memberId" : memberId,
+					"waring" : waring,
+				};
+				$.ajax({
+					url : '/api/adopTempBoardWaring.json',
+					method : 'PUT',
+				data : JSON.stringify(restAdopCommVO),
+				contentType : 'application/json; charset=UTF-8',
+					success : function(data) {
+			
+						console.log('data',data);
+						if (data.waring == '1') {
+						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
+					}else{
+						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error_outline</i>');
+					}
+					},
+
+					error : function(request, status, error) {
+						alert('code: ' + request.status + '\n message: '
+								+ request.responseText + '\n error: ' + error);
+					}
+				});
+			}
+		
+		
+		// ======================== 해당 유저의 추천,비추천,신고 체크 ========================
+
+			function selectMemberGoodOrWarn(reportId, memberId) {
+				var restAdopCommVO = {
+						"boardId" : reportId,
+						"memberId" : memberId,
+					};
+				$.ajax({
+					url: '/api/boardWaringAndGood/' + reportId + '/'+ memberId + '.json',
+					method: 'GET',
+				contentType : 'application/json; charset=UTF-8',
+					success : function(data) {
+						
+						console.log('data',data);
+						if (data.waringCount == '1') {
+						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
+					}
+						
+						if(data.good == '1'){
+						$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
+						}
+						
+						if(data.notGood == '1'){
+							$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
+						}
+					},
+
+					error : function(request, status, error) {
+						alert('code: ' + request.status + '\n message: '
+								+ request.responseText + '\n error: ' + error);
+					}
+				});
+			}
+		
+
 	
   </script>
   
