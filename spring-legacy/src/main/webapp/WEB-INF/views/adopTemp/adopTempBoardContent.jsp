@@ -656,11 +656,12 @@
  							
  							if(data[0].good == '1'){
 								$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
-								$('input[id=goodBtn]').attr('waringCount',waringCount);
+								
  							}
  							
  							if(data[0].notGood == '1'){
  								$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
+ 								
  							}
  						},
 
