@@ -323,6 +323,7 @@
 		
 		let obj = $(this).serializeObject();
 		let strJson = JSON.stringify(obj);
+		document.getElementById("commentContent").value='';
 		
 		
 		// ajax 함수 호출

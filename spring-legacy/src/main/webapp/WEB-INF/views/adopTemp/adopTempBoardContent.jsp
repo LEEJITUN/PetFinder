@@ -270,11 +270,13 @@
 		selectMemberGoodOrWarn('${adopTempContent.boardId }','${sessionScope.memberId }')
 	});
 	
+	
 	$('form#frm').on('submit', function () {
 		event.preventDefault();
 		
 		let obj = $(this).serializeObject();
 		let strJson = JSON.stringify(obj);
+		document.getElementById("commentContent").value='';
 		
 // 		console.log('data ', strJson);
 		// ajax 함수 호출
@@ -541,6 +543,7 @@
 		         
 
 		      } // showData
+		  	
 		      
 
 			// ======================== 글 삭제버튼 클릭시 호출되는 함수 ========================
