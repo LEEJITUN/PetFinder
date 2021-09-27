@@ -21,7 +21,7 @@
           <!-- Vertical Nav -->
           <ul class="nav flex-column nav-pills">
             <li class="nav-item">
-              <a class="nav-link active btn-lg text-white text-center Board-font" href="#" style="background-color: rgb(251, 215, 71); color: black;"><h3>반려동물 신고</h3></a>
+              <a class="nav-link active btn-lg text-white text-center Board-font" href="#" style="background-color: rgb(46, 204, 113); color: black;"> <h3>반려동물 신고</h3></a>
             </li>
             <li class="nav-item" >
               <a class="nav-link" href="/petLostReport/lostReportPetWrite" style="color: black;">반려동물 분실 신고</a>
@@ -38,17 +38,24 @@
       <!-- Right area -->
       <div class="col-sm-9">
           
-       		<input type = "hidden" value = "${sessionScope.memberId}" name = "memberId" />
- 		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
- 		    <input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
+       	<input type = "hidden" value = "${sessionScope.memberId}" name = "memberId" />
+ 		<input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
+ 		<input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
  		
-              <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"
-				value="${reportBoardVO.boardTitle}" disabled />
-              <div class="form-group"></div>
-              
-              <div class = "row">              
-              	<h5>작성자&nbsp;${reportBoardVO.memberId}</h5>
-              </div>
+ 		<!-- Contents area -->
+        <div class="border border-success p-4 rounded">
+        
+	      <div class="form-group">
+               	<div class = "row">
+               	     <div class="col-sm-9 ">
+		                <input type="text" class="form-control form-control-lg"  name = "boardTitle"  id = "boardTitle" value="${reportBoardVO.boardTitle}" disabled />
+	                </div>
+               	    <div class="col-sm-3 ">
+		                <input type="text" class="form-control form-control-lg " style = "text-align:center;" id="memberId" name="memberId" value="${reportBoardVO.memberId}" disabled/>
+	                </div>
+                </div>
+            </div>
+
               <!-- carouselExampleFade  -->
 
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -164,7 +171,7 @@
             </c:if>
           </div>
           <br><br><br>
-
+			</div>
         <br>
         <div class="row">
           <div class = "col-sm-2">

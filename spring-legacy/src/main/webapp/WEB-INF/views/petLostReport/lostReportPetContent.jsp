@@ -43,13 +43,18 @@
  		    <input type = "hidden" value = "${sessionScope.memberNic}" name = "memberNickName" />
  		    <input type = "hidden" value = "${reportBoardVO.boardReportType}" name = "boardReportType" />
  		
-              <input class="form-control form-control-lg" type="text" name = "boardTitle"  id = "boardTitle"
-				value="${reportBoardVO.boardTitle}" disabled />
-              <div class="form-group"></div>
-              
-              <div class = "row">              
-              	<h5>작성자&nbsp;${reportBoardVO.memberId}</h5>
-              </div>
+        <div class="border border-warning p-4 rounded">
+        
+        	<div class="form-group">
+               	<div class = "row">
+               	     <div class="col-sm-9 ">
+		                <input type="text" class="form-control form-control-lg"  name = "boardTitle"  id = "boardTitle" value="${reportBoardVO.boardTitle}" disabled />
+	                </div>
+               	    <div class="col-sm-3 ">
+		                <input type="text" class="form-control form-control-lg " style = "text-align:center;" id="memberId" name="memberId" value="${reportBoardVO.memberId}" disabled/>
+	                </div>
+                </div>
+            </div>
               <!-- carouselExampleFade  -->
 
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -177,7 +182,7 @@
             </c:if>
           </div>
           <br><br><br>
-
+		</div>
         <br>
         <div class="row">
           <div class = "col-sm-2">
