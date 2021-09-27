@@ -228,9 +228,68 @@
 	
 	<select id="selectTotalCountBySearch" resultType="int">
 		<![CDATA[
-   			SELECT COUNT(*)
-			FROM BOARD_REPORT 
-		]]>	
+		
+		SELECT COUNT(*)
+        FROM
+	        (SELECT 
+					SIDO,
+					SIGUNGU,
+					BNAME,
+					ADDRESS,
+					PET_KIND,
+					PET_DETAIL_KIND,
+					PET_GENDER,
+					PET_SIZE,
+					PET_COLOR,
+					PET_COATlENGTH,
+					PET_CHARACTER,
+					DATE_FORMAT(PET_FIND_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
+					DATE_FORMAT(PET_FIND_DATE, '%Y-%m-%d') AS PET_LOST_DATE
+			FROM PET_FIND_REPORT
+	        
+	        UNION ALL 
+	        
+	        SELECT
+	
+					SIDO,
+					SIGUNGU,
+					BNAME,
+					ADDRESS,
+					PET_KIND,
+					PET_DETAIL_KIND,
+					PET_GENDER,
+					PET_SIZE,
+					PET_COLOR,
+					PET_COATlENGTH,
+					PET_CHARACTER,
+					DATE_FORMAT(PET_LOST_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
+					DATE_FORMAT(PET_LOST_DATE, '%Y-%m-%d') AS PET_LOST_DATE
+			FROM PET_LOST_REPORT) TM
+		]]>
+	<where>		
+		<if test="petKind != null">
+			AND PET_KIND =  #{petKind}
+		</if>
+		<if test="petDetailKind != null">
+			AND PET_DETAIL_KIND LIKE #{petDetailKind}
+		</if>
+		<if test="petGender != null">
+			AND PET_GENDER =  #{petGender}
+		</if>
+		<if test="petSize != null">
+			AND PET_SIZE = #{petSize}
+		</if>
+		<if test="petColor != null">
+			AND PET_COLOR = #{petColor}
+		</if>
+		<if test="petCoatLength != null">
+			AND PET_COATlENGTH = #{petCoatLength}
+		</if>
+		<if test='inputDate != null and  inputDate != ""'>
+			AND PET_LOST_DATE = #{inputDate}
+		</if>
+	</where>
+			 
 	</select>
 	
 	
