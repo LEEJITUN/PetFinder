@@ -53,7 +53,7 @@ public class PetFindController {
 
 		List<ReportBoardVO> reportBoardList =  petFindService.selectAllFindReport(cri);
 		
-		PageDTO pageDTO = new PageDTO(reportBoardList.size(), cri); // 페이지블록(Pagination) 화면만들 떄 필요한 정보
+		PageDTO pageDTO = new PageDTO(reportBoardList.size()+1, cri); // 페이지블록(Pagination) 화면만들 떄 필요한 정보
 		
 		model.addAttribute("reportBoardList", reportBoardList);
 		model.addAttribute("pageMaker", pageDTO);

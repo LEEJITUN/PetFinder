@@ -58,10 +58,10 @@
 						changeItemArray.push(item);
 					}
 					
-					if(codeM == 'D' || codeM == 'C'){
+					if(codeM == 'D' || codeM == 'C'|| codeM == 'O'){
 						console.log('품종');
 						setDataPetKind(changeItemArray,codeM,codeD);
-					}else {
+					}else{
 						setSelectBox(changeItemArray,codeM,codeD);
 					}
 				},
@@ -127,7 +127,6 @@
 				  }
 
 	          }else{
-
 	          	 $('#petDetailKind').replaceWith("<input class = 'form-control' type = 'text' id='petDetailKind' name='petDetailKindInput' placeholder='직접입력'>");
 	          }
 		}
