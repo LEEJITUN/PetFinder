@@ -67,15 +67,12 @@
 						
 						<tbody>
 						<tr style="height: 300px">
-							<th scope="row" class="text-center">내용</th>
-							<td colspan="5"><pre>${ adopTempContent.boardContent}</pre>
-
-							</td>
+							<td colspan="6"><pre>${ adopTempContent.boardContent}</pre></td>
 						</tr>
-						<tr>
-							<th scope="row" class="text-center"></th>
-							<td colspan="5"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<th scope="row" class="text-center"></th> -->
+<!-- 							<td colspan="5"></td> -->
+<!-- 						</tr> -->
 						</tbody>
 					</table>
 
