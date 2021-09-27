@@ -150,6 +150,10 @@
 	              </c:otherwise>
 	              </c:choose>
 	                <div class="card-body">
+		                <div align="right">
+		                	<span class="badge badge-pill badge-warning" >분실</span>
+		                	<span class="badge badge-pill badge-success" >발견</span>
+		                </div>	                
 	                <h5 class="card-title">${reportBoard.boardTitle}</h5>
 	                  <p class="card-text">
 	                  <c:choose>
