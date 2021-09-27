@@ -65,7 +65,7 @@
                                 </div> 
                             </th>
                             <th>별명</th>
-                            <td>${ memberVO.memberNickName }</td>
+                            <td>${ memberVo.memberNickName }</td>
                         </tr>
                     </tbody>
                   </table>
@@ -86,19 +86,19 @@
                     <tbody>   
                         <tr>
                             <th>폰번호</th>
-                            <td>${ memberVO.memberPhoneNumber }</td>
+                            <td>${ memberVo.memberPhoneNumber }</td>
                         </tr>                    
                         <tr>                
                             <th>이메일주소</th>
-                            <td>${ memberVO.memberEmail }</td>
+                            <td>${ memberVo.memberEmail }</td>
                         </tr>
                         <tr>
                             <th>알림수신</th>
-                            <td>${ memberVO.memberNotice }</td>
+                            <td>${ memberVo.memberNotice }</td>
                         </tr>    
                         <tr>
                             <th>등록번호</th>
-                            <td>${ petVO.petRegisterNumber }</td>
+                            <td>${ memberVo.petVO.petRegisterNumber }</td>
                         </tr>                                                                    
                     </tbody>
                   </table>
