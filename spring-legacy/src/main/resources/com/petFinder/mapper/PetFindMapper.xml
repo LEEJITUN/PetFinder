@@ -226,6 +226,14 @@
 		]]>	
 	</select>
 	
+	<select id="selectTotalCountBySearch" resultType="int">
+		<![CDATA[
+   			SELECT COUNT(*)
+			FROM BOARD_REPORT 
+		]]>	
+	</select>
+	
+	
 	<insert id="insertFindReportBoard">
 		<![CDATA[
 			INSERT INTO BOARD_REPORT (

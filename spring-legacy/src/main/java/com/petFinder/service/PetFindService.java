@@ -183,5 +183,9 @@ public class PetFindService {
 		petFindMapper.updateReportReadCunt(reportId);
 	}
 
+	public int selectTotalCountBySearch(Criteria cri) {
+		return petFindMapper.selectTotalCountBySearch(cri);
+	}
+
 	
 }

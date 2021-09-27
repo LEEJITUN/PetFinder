@@ -47,5 +47,8 @@ public interface PetFindMapper {
 	/* UPDATE - 해당 신고 게시물 조회수 증가 */
 	void updateReportReadCunt(String reportId);
 
+	/* SELECT - 해당 글 카운트*/
+	int selectTotalCountBySearch(Criteria cri);
+
 
 }
