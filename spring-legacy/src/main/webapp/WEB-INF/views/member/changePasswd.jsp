@@ -23,7 +23,7 @@
     <!--  include topNavbar.jsp  -->
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
-
+	<br><br>
     <!-- middle container -->
     <div class="container mt-4">
       <div class="row">
@@ -37,9 +37,12 @@
         <!-- Contents area -->
         <div class="border p-4 rounded">
             <h5 class="Board-font">비밀번호 변경</h5>
-
+            <p><strong>* 안전한 비밀번호로 내정보를 보호하세요.</strong>
+			<p>	- <strong style="color:red">다른 아이디/사이트에서 사용한 적 없는 비밀번호</strong><br>
+				- <strong style="color:red">이전에 사용한 적 없는 비밀번호</strong>가 안전합니다.<br>
+            <br>			
             <hr class="featurette-divider">
-
+			<br>
             <form action="/member/changePasswd" method="POST" enctype="multipart/form-data">
                         
              <div class="form-group">
@@ -50,7 +53,7 @@
                 <input type="hidden" id="memberId" name="memberId" value="${ sessionScope.memberId }" >
                 <input type="text" class="form-control" aria-describedby="idHelp" value="${ sessionScope.memberId }" disabled="disabled">
               </div>
-
+				<br>
               <div class="form-group">
                 <label for="memberPassword">
                   <i class="material-icons align-middle">lock</i>
@@ -76,7 +79,7 @@
               </div> 
            -->
               
-            
+            <br><br>
             <div class="my-3 text-center">
                 <button type="submit" class="btn btn-success">변경하기</button>
             </div>
@@ -91,7 +94,7 @@
       </div>
     </div>
     <!-- end of middle container -->
-
+	<br>
     
 	<!-- Footer -->
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />

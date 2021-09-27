@@ -32,13 +32,12 @@
 	<jsp:include page="/WEB-INF/views/include/topNavbar.jsp" />
 	
 	<!-- middle container -->
-	<br><br><br>
+	<br><br>
 	<div class="container">
 	  <div class="jumbotron">
 	    <div class="p_header">
 		    <h2>프로필 수정</h2>
 		    <p> PET FINDER 대표 프로필과 별명을 수정 하실 수 있습니다.</p>
-	    <br>
 	    <div class="border border-light p-4 rounded">
 		<form id="/member/changeProfile" method="POST" enctype="multipart/form-data">
 	        <fieldset>
@@ -49,10 +48,10 @@
 	                <thead class="thead-light">
 	                <tr>
 	                    <th scope="col" class="text-center pb-4">
-	                       <!--  <div class="thcell">프로필 사진</div> -->
+	                       <div class="thcell">프로필 사진</div>
 	                    </th>
 	                    <td>          
-	                    	<div class="form-group">              
+	                    	<div class="form-group col-sm-6">              
 			                   <div class=profile_photo style="background: #BDBDBD;" id = "profileBox"> 
 		                          <c:if test = "${ memberProfileVO.uploadpath != null}">
                            	    	<c:set var="fileCallPath" value="${ memberProfileVO.uploadpath }/s_${ memberProfileVO.uuid }_${ memberProfileVO.filename }" />
@@ -96,8 +95,8 @@
 		</div>
 	  </div>
 	</div>
-	<br><br><br>
-	
+	</div>
+	<br><br>
 	<!-- end of middle container -->
 
 
