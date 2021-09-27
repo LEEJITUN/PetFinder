@@ -75,12 +75,12 @@ public class RestAdopCommService {
 		return restAdopCommMapper.deleteWaringCheck(restAdopCommVO);
 	}
 	
-	// 추천,비추천,신고 전체 조회
+	// SELECT - 추천,비추천,신고 전체 조회
 	public RestAdopCommVO getBoardWaringAndGood(RestAdopCommVO restAdopCommVO) {
 		return restAdopCommMapper.getBoardWaringAndGood(restAdopCommVO);
 	}
 
-	// 
+	// SELECT  추천, 비추천, 신고 count
 	public RestAdopCommVO getBoardWaringAndGoodCount(RestAdopCommVO restAdopCommVO) {
 		return restAdopCommMapper.getBoardWaringAndGoodCount(restAdopCommVO);
 	}

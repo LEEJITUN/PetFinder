@@ -164,15 +164,15 @@
 			<c:if test="${not empty sessionScope.memberId }">
 				<button type="button" id="goodBtn" class="btn btn-primary btn-lg" onclick="check('${ reportBoardVO.reportId }', '${sessionScope.memberId }', 'Y')">
 					<i class="material-icons align-middle" id="good">thumb_up_off_alt</i>
-					<span class="align-middle">추천</span>
+					<span class="align-middle" id="good">추천</span>
 				</button>
 				<button type="button" id="notGoodBtn"  class="btn btn-secondary btn-lg ml-3" onclick="check('${  reportBoardVO.reportId }', '${sessionScope.memberId }', 'N')">
 						<i class="material-icons align-middle" id="notGood">thumb_down_off_alt</i>
-						<span class="align-middle">비추천</span>
+						<span class="align-middle" id="notGood">비추천</span>
 				</button>
 				<button type="button" class="btn btn-danger btn-lg ml-3" onclick="waring('${ reportBoardVO.reportId }', '${sessionScope.memberId }','Y')">
 						<i class="material-icons align-middle" id="waring">error_outline</i> 
-						<span class="align-middle">신고</span>
+						<span class="align-middle" id="waring">신고</span>
 				</button>
             </c:if>
           </div>
@@ -700,17 +700,20 @@
 					success : function(data) {
 						
 						console.log('data',data);
-						if (data.waringCount == '1') {
-						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
+						if (data[0].waringCount == '1') {
+							$('i#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
 					}
 						
-						if(data.good == '1'){
-						$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
+						if(data[0].good == '1'){
+							$('i#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
 						}
 						
-						if(data.notGood == '1'){
-							$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
+						if(data[0].notGood == '1'){
+							$('i#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
 						}
+						
+						$('span#good').replaceWith('<span class="align-middle" id="good">추천(' + data[1].good + ')</span>');
+						$('span#notGood').replaceWith('<span class="align-middle" id="notGood">비추천(' + data[1].notGood  + ')</span>');
 					},
 
 					error : function(request, status, error) {

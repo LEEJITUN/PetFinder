@@ -101,6 +101,8 @@
 					</div>
 					<br> <br> <br>
 				</div>
+				<!-- end of Comment -->
+				
 				<br>
 				<div class="row">
 					<div class="col-sm-2">
@@ -183,7 +185,7 @@
 													</div>
 												</div>
 												<p>${ comment.commentContent}</p>
-											</div></li>
+											</div>
 									</ul>
 								</c:forEach>
 							</c:when>
@@ -219,7 +221,6 @@
 					</c:if>
 					<!-- end of write new comment -->
 				</div>
-				<!-- end of Comment -->
 			</div>
 			<!-- end of Contents area -->
 		</div>

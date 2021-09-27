@@ -186,7 +186,7 @@
 													</div>
 												</div>
 												<p>${ comment.commentContent}</p>
-											</div></li>
+											</div>
 									</ul>
 								</c:forEach>
 							</c:when>
