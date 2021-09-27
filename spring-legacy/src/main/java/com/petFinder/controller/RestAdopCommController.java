@@ -7,6 +7,7 @@ package com.petFinder.controller;
  **/
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,15 +89,21 @@ public class RestAdopCommController {
 	
 	// 추천, 신고 조회
 	@GetMapping(value = "/boardWaringAndGood/{boardId}/{memberId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<RestAdopCommVO> boardWaringAndGood(@PathVariable("boardId") String boardId,@PathVariable("memberId") String memberId) {
-
+	public ResponseEntity<List<RestAdopCommVO>> boardWaringAndGood(@PathVariable("boardId") String boardId,@PathVariable("memberId") String memberId) {
+		
 		RestAdopCommVO restAdopCommVO = new RestAdopCommVO();
 		restAdopCommVO.setMemberId(memberId);
 		restAdopCommVO.setBoardId(boardId);
 		
-		RestAdopCommVO returltVO = restAdopCommService.getBoardWaringAndGood(restAdopCommVO);
+		RestAdopCommVO returltVO1 = restAdopCommService.getBoardWaringAndGood(restAdopCommVO);
+		RestAdopCommVO returltVO2 = restAdopCommService.getBoardWaringAndGoodCount(restAdopCommVO);
 		
-		return new ResponseEntity<RestAdopCommVO>(returltVO, HttpStatus.OK);
+		List<RestAdopCommVO> list = new ArrayList<RestAdopCommVO>();
+		
+		list.add(returltVO1);
+		list.add(returltVO2);
+		
+		return new ResponseEntity<List<RestAdopCommVO>>(list, HttpStatus.OK);
 	}
 	
 	

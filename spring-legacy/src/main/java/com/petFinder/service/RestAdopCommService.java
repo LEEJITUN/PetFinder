@@ -79,6 +79,11 @@ public class RestAdopCommService {
 	public RestAdopCommVO getBoardWaringAndGood(RestAdopCommVO restAdopCommVO) {
 		return restAdopCommMapper.getBoardWaringAndGood(restAdopCommVO);
 	}
+
+	// 
+	public RestAdopCommVO getBoardWaringAndGoodCount(RestAdopCommVO restAdopCommVO) {
+		return restAdopCommMapper.getBoardWaringAndGoodCount(restAdopCommVO);
+	}
 	
 	// ================= ´ñ±Û =================
 

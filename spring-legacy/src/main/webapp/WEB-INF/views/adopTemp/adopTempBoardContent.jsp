@@ -73,15 +73,6 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="text-center">첨부파일</th>
-							<td colspan="5">
-								<ul>
-									<li>첨부파일1</li>
-									<li>첨부파일2</li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
 							<th scope="row" class="text-center"></th>
 							<td colspan="5"></td>
 						</tr>
@@ -646,25 +637,29 @@
 				
 				
 				// ======================== 해당 유저의 추천,비추천,신고 체크 ========================
-	
+					
  				function selectMemberGoodOrWarn(boardId, memberId) {
- 			
  					$.ajax({
  						url: '/api/boardWaringAndGood/' + boardId + '/'+ memberId + '.json',
  						method: 'GET',
 						contentType : 'application/json; charset=UTF-8',
  						success : function(data) {
  							
- 							console.log('data',data);
- 							if (data.waringCount == '1') {
+ 							console.log('data0', data[0]);
+ 							console.log('data1', data[1]);
+//  						console.log('data',data);
+
+ 							if (data[0].waringCount == '1') {
 								$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
+								
 							}
  							
- 							if(data.good == '1'){
+ 							if(data[0].good == '1'){
 								$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
+								$('input[id=goodBtn]').attr('waringCount',waringCount);
  							}
  							
- 							if(data.notGood == '1'){
+ 							if(data[0].notGood == '1'){
  								$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
  							}
  						},
