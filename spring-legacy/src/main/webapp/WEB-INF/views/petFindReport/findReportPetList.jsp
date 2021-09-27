@@ -20,31 +20,52 @@
               
               <div class="row">
                 <div class="col-md-4 mb-3">
-                    <label for="size">지역(구)전체</label>
+                    <label for="size">지역선택 (시/구)</label>
                     <div>
                         <select class="custom-select d-block w-100" id="area" >
-                            <option value="">Choose...</option>
+                            <option value="">:: 시/구 ::</option>
                             <option>United States</option>
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                    <label for="size">지역(동)전체</label>
-
+                    <label for="size">(시/군/구)</label>
                     <div>
                         <select class="custom-select d-block w-100" id="village" >
-                            <option value="">Choose...</option>
+                            <option value="">:: 시/군/구 ::</option>
                             <option>United States</option>
                         </select>
                     </div>
                     </div>
+                    <div class="col-md-4 mb-3">
+                    <label for="size">(읍/면/동)</label>
+                    <div>
+                        <select class="custom-select d-block w-100" id="village" >
+                            <option value="">:: 읍/면/동 ::</option>
+                            <option>United States</option>
+                        </select>
+                    </div>
+                    </div>                  
+                    
                     <div class="col-md-4 mb-3">
                     <label for="size">날짜</label>
                     <div>
                         <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
                     </div>
                     </div>
-
+                    <div class="col-md-4 mb-3">
+                    <label for="size"></label>
+                    <div>
+                       
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                    <label for="size"></label>
+                    <div>
+                       
+                    </div>
+                    </div>                    
+                                                            
                     <div class="col-md-4 mb-3">
                     <label for="size">종류</label>
                     <div>
@@ -198,19 +219,6 @@
         <!-- end of pagination area -->
       </div>
       <!-- end of Thumbnail -->
-
-    <!-- a link container -->
-    <div class="container-fluid" >
-        <hr style="border: solid 2px lightgray">
-        <div class="mx-5" >
-            <a href="#!"  style="color: gray;">&ensp; 개식용 종식 &ensp;</a>
-        | <a href="#!" style="color: gray;">&ensp; 케이지 프리 코리아 &ensp;</a>
-        | <a href="#!" style="color: gray;">&ensp; 동물보호 관리시스템 &ensp;</a>
-        </div>
-        <hr style="border: solid 2px lightgray">
-    </div>
-    <!-- end of a link container -->
-    <!-- a link container -->
 
 
    <%--  include footer.jsp --%>

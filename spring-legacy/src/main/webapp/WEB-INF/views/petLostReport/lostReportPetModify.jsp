@@ -33,10 +33,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: black;">반려동물 분실 신고</a>
+            <a class="nav-link" href="/petLostReport/lostReportPetWrite" style="color: black;">반려동물 분실 신고</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: black;">유기동물 발견 신고</a>
+            <a class="nav-link" href="/petFindReport/findReportPetWrite" style="color: black;">유기동물 발견 신고</a>
           </li>
         </ul>
         <!-- end of Vertical Nav -->
@@ -254,44 +254,12 @@
   </div>
   <!-- end of middle container -->
 
-  <!-- a link container -->
-  <div class="container-fluid">
-    <hr style="border: solid 2px lightgray">
-    <div class="mx-5">
-      <a href="#!" style="color: gray;">&ensp; 개식용 종식 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 케이지 프리 코리아 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 동물보호 관리시스템 &ensp;</a>
-    </div>
-    <hr style="border: solid 2px lightgray">
-  </div>
-  <!-- end of a link container -->
-  <!-- a link container -->
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-1 " style="margin-bottom: 1%; margin-left: 5%; margin-top: 1%; margin-right: 3%;">
-          <!-- Just an image -->
-          <a class="navbar-brand" href="/index.html">
-            <img src="/resources/images/main_Title.png" width="100%" height="80%">
-          </a>
-        </div>
-
-
-        <div style="margin-top: 1%;" class="text-center">
-          <p style="font-size: 16px; color: black; font-family: sans-serif; ">(47291) 부산광역시 부산진구 중앙대로 708 | 전화번호
-            051-xxxx-xxxx</p>
-          <p style="font-size: 16px; color: black; font-family: sans-serif; margin-top: -2%;">copyright. 2021 by JI YUN
-            LEE. all rights reserved.</p>
-        </div>
-
-      </div>
-  </footer>
-  <!-- end of FOOTER -->
-
+	<!-- include -->
+    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	<jsp:include page="/WEB-INF/views/include/function.jsp" ></jsp:include>
 	<jsp:include page="/WEB-INF/views/include/locationAPI.jsp" ></jsp:include>
+	
 
   	<!-- JavaScript -->
 	<script src="/resources/js/jquery-3.6.0.js"></script>

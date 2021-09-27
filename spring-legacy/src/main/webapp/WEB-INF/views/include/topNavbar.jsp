@@ -44,7 +44,7 @@
                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/petLostReport/lostReportPetWrite">반려동물 분실 신고</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="/petFindReport/findReportPetWrite">반려동물 발견 신고</a>
+                              <a class="dropdown-item" href="/petFindReport/findReportPetWrite">유기동물 발견 신고</a>
                           </div>
                       </li>
                      </c:if>

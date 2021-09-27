@@ -28,10 +28,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: black;">반려동물 분실 신고</a>
+            <a class="nav-link" href="/petLostReport/lostReportPetWrite" style="color: black;">반려동물 분실 신고</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color: black;">유기동물 발견 신고</a>
+            <a class="nav-link" href="/petFindReport/findReportPetWrite" style="color: black;">유기동물 발견 신고</a>
           </li>
         </ul>
         <!-- end of Vertical Nav -->
@@ -237,21 +237,12 @@
   </div>
   <!-- end of middle container -->
 
-  <!-- a link container -->
-  <div class="container-fluid">
-    <hr style="border: solid 2px lightgray">
-    <div class="mx-5">
-      <a href="#!" style="color: gray;">&ensp; 개식용 종식 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 케이지 프리 코리아 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 동물보호 관리시스템 &ensp;</a>
-    </div>
-    <hr style="border: solid 2px lightgray">
-  </div>
-  <!-- end of a link container -->
-  <!-- a link container -->
 
+    <!-- include -->
+    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 	<jsp:include page="/WEB-INF/views/include/function.jsp" ></jsp:include>
 	<jsp:include page="/WEB-INF/views/include/locationAPI.jsp" ></jsp:include>
+
 
   	<!-- JavaScript -->
 	<script src="/resources/js/jquery-3.6.0.js"></script>

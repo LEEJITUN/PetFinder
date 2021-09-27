@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,12 +154,27 @@
                 <div style="margin-top: 2%;"></div>
                 <h3>도움이 필요한 사람들을 위해 발견 신고도 해주세요.</h3>
               </div>
-              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
-                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" > <h4>반려동물 분실 신고</h4></button>
-                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);" > <h4>유기동물 발견 신고</h4></button>
-              </div>
+              <%-- 로그인 사용자일때 --%>
+              <c:if test="${ not empty sessionScope.memberId }"> 
+	              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
+	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" 
+	                	onclick="location.href='/petLostReport/lostReportPetWrite'"><h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);" 
+	                	onclick="location.href='/petFindReport/findReportPetWrite'"><h4>유기동물 발견 신고</h4></button>
+	              </div>   
+      		  </c:if>
+              
+              <%--  로그인 안했을 때 --%>
+              <c:if test="${ empty sessionScope.memberId }">            
+	              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
+	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" 
+	                		onclick="location.href='/member/login'"><h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);" 
+	                		onclick="location.href='/member/login'" ><h4>유기동물 발견 신고</h4></button>
+	              </div>  
+              </c:if>   
             </div>
-            <!-- end fo right Menu-->
+            <!-- end of right Menu-->
 
         </div>
     </div>
@@ -210,7 +226,8 @@
               <h3>도움이 필요한 동물에게 보금자리를 내어주세요.</h3>
             </div>
             <div class="text-center" style="margin-top: 5%; margin-right: 10%;">
-              <button type="button" class="btn btn-warning btn-lg text-white " style="height: 70px; padding-left: 100px;  padding-right: 100px;  background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" ><h4>임보 | 입양</h4></button>
+              <button type="button" class="btn btn-warning btn-lg text-white " style="height: 70px; padding-left: 100px;  padding-right: 100px;  background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" 
+              			onclick="location.href='/adopTemp/adopTempBoardList'"><h4>임보 | 입양</h4></button>
             </div>
           </div>
             <!-- end fo right Menu-->
@@ -218,24 +235,11 @@
     </div>
   <!-- end of middle2 container -->
 
-  <!-- a link container -->
-  <div class="container-fluid" >
-    <hr style="border: solid 2px lightgray">
-    <div class="mx-5" >
-        <a href="#!"  style="color: gray;">&ensp; 개식용 종식 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 케이지 프리 코리아 &ensp;</a>
-      | <a href="#!" style="color: gray;">&ensp; 동물보호 관리시스템 &ensp;</a>
-    </div>
-    <hr style="border: solid 2px lightgray">
- </div>
-  <!-- end of a link container -->
- <!-- a link container -->
 
-   <%--  include footer.jsp --%>
+   <!-- include -->
    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
    <jsp:include page="/WEB-INF/views/include/function.jsp" />
    
-
 
   <!-- JavaScript -->
   <script src="/resources/js/jquery-3.6.0.js"></script>
