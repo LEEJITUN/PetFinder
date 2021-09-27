@@ -51,7 +51,8 @@
 				<!-- Contents area -->
 				<div id="comment" class="border border-primary p-3">
 					<br>
-					<h3 class="text-center">${ commuContent.boardTitle }</h3>
+					<h3 class="text-center">제목 : ${ commuContent.boardTitle }</h3>
+
 					<!-- 글 상세보기 영역 -->
 					<table class="table">
 						<thead>
@@ -59,26 +60,23 @@
 								<th scope="row" class="text-center">작성자</th>
 								<td>${ commuContent.memberNickName }</td>
 								<th scope="row" class="text-center">작성일</th>
-								<td><fmt:formatDate value="${ commuContent.boardRegDate }"
-										pattern="yyyy.MM.dd" /></td>
+								<td><fmt:formatDate value="${ commuContent.boardRegDate }" pattern="yyyy.MM.dd" /></td>
 								<th scope="row" class="text-center">조회수</th>
 								<td>${ commuContent.boardReadCount }</td>
 							</tr>
 						</thead>
-
+						
 						<tbody>
-
-							<tr style="height: 300px">
-								<th scope="row" class="text-center">내용</th>
-								<td colspan="5">${ commuContent.boardContent }</td>
-							</tr>
-
-							<tr>
-								<th scope="row" class="text-center"></th>
-								<td colspan="5"></td>
-							</tr>
+						<tr style="height: 300px">
+							<td colspan="6"><pre>${ commuContent.boardContent }</pre></td>
+						</tr>
+<!-- 						<tr> -->
+<!-- 							<th scope="row" class="text-center"></th> -->
+<!-- 							<td colspan="5"></td> -->
+<!-- 						</tr> -->
 						</tbody>
 					</table>
+
 
 					<br>
 					<div class="text-center">
