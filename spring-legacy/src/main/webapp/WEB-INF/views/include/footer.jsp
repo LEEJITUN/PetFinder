@@ -24,7 +24,6 @@
             </a>
           </div>
 
-
           <div style="margin-top: 1%;">
             <p style="font-size: 16px; color: black; font-family: sans-serif; ">(47291) 부산광역시 부산진구 중앙대로 708  |  전화번호 051-xxxx-xxxx</p>
             <p style="font-size: 16px; color: black; font-family: sans-serif; margin-top: -2%;">copyright. 2021 by JI YUN LEE. all rights reserved.</p>
