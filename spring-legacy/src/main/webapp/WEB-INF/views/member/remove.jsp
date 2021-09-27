@@ -37,7 +37,14 @@
         <!-- Contents area -->
         <div class="border p-4 rounded">
             <h5 class="Board-font">탈퇴하기</h5>
-
+            <p>회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.
+            <br><br>
+            <p><strong>* 탈퇴 후에도 게시판형 서비스에 등록한 게시물은 그대로 남아 있습니다.</strong>
+			
+			<p>	- 모든 게시글 및 댓글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.<br>
+				- 삭제를 원하는 게시글이 있다면 <strong style="color:red">반드시 탈퇴 전 삭제하시기 바랍니다.</strong><br>
+				- 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, <br>  
+				&ensp;게시글을 임의로 삭제해드릴 수 없습니다.<br><br>
             <hr class="featurette-divider">
 
             <form action="/member/remove" method="POST" enctype="multipart/form-data" id="frm">
