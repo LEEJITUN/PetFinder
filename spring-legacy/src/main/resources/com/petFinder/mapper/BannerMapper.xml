@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.petFinder.mapper.BannerMapper">
+	
+	<resultMap type="AttachVO" id="AttachVO">
+		<result column="ATTACH_UUID"			property="uuid"/>
+		<result column="ATTACH_UPLOAD_PATH" 	property="uploadpath"/>
+		<result column="ATTACH_NAME" 			property="filename"/>
+		<result column="ATTACH_TYPE" 			property="filetype"/>
+		<result column="REPORT_ID" 				property="reportId"/>
+	</resultMap>
+
+	
+	<select id="selectBestOfReportBoard" resultMap="AttachVO">
+		SELECT * 
+		FROM ATTACH_REPORT
+		WHERE 
+			REPORT_ID IN (  SELECT T.* 
+							FROM (  SELECT 
+										BOARD_ID
+									FROM 
+										BOARD_COM_CONFIG
+									WHERE 
+										GOOD_OR_NOT = 'Y'
+									GROUP BY BOARD_ID 
+									ORDER BY COUNT(GOOD_OR_NOT) DESC
+									LIMIT 3
+								) T
+						  );
+	</select>
+	
+	
+	<insert id="insertBanner">
+		<![CDATA[
+			INSERT INTO BANNER (
+				BANNER_UUID,
+				BANNER_UPLOAD_PATH,
+				BANNER_NAME,
+				BANNER_TYPE, 
+				BOARD_ID
+			)
+			VALUES
+		]]>
+		<foreach collection="list" item="attach" separator=",">
+			(
+				 #{attach.uuid},
+				 #{attach.uploadpath},
+				 #{attach.filename},
+				 #{attach.filetype}, 
+				 #{attach.reportId}
+			  )
+		</foreach>
+	</insert>
+	
+ 	<!-- 게시글 삭제하기 -->
+	<delete id="deleteBanner">
+		<![CDATA[
+			DELETE FROM BANNER
+		]]>
+	</delete>
+
+</mapper>

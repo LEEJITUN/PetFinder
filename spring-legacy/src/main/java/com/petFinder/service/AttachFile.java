@@ -10,21 +10,20 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.petFinder.domain.AttachVO;
 import com.petFinder.domain.MemberProfileVO;
-
-
+import com.petFinder.mapper.BannerMapper;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Service
 @Transactional
 public class AttachFile {	
-	
 	
 	/************************************ 실물 파일 처리 *************************************/
 	
@@ -282,7 +281,6 @@ public class AttachFile {
 		
 		return ob;
 	}
-
 
 
 }

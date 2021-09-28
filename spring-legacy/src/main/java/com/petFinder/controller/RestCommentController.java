@@ -155,7 +155,7 @@ public class RestCommentController {
 			throws IOException {
 
 			profilePicService.deleteProfilePic(memberId);
-		
+			
 	} 
    
 }

@@ -30,7 +30,7 @@ import com.petFinder.domain.Criteria;
 import com.petFinder.domain.PetVO;
 import com.petFinder.domain.ReportBoardCommentVO;
 import com.petFinder.domain.ReportBoardVO;
-import com.petFinder.mapper.AttachMapper;
+import com.petFinder.mapper.BannerMapper;
 import com.petFinder.mapper.ReportCommentMapper;
 import com.petFinder.mapper.PetFindMapper;
 import com.petFinder.mapper.PetLostMapper;

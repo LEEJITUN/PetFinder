@@ -43,6 +43,8 @@ public class MemberController {
 	@Autowired
 	private ProfilePicService profilePicService;
 
+	@Autowired
+	private AttachFile attachFileService;
 
    /* GET - 회원가입 */
    @GetMapping("/join") // /member/join
@@ -281,10 +283,11 @@ public class MemberController {
 	   /****************** UPDATE_프로필 *******************/
 	   if(file.getSize() != 0) {		   
 		   ProfileVO = profilePicService.insertProfilePic(file,memberVO.getMemberId());
-		   // 프로필 변경 시 세션 다시 담기 
-		   session.setAttribute("profileVO", ProfileVO);
 	   }
 	   
+	   ProfileVO = profilePicService.selectProfilePic(memberVO.getMemberId());
+			   
+			   
 	   /****************** UPDATE_별명 *******************/
 	   memberService.updateMemberByNic(memberVO);
 	   
@@ -294,6 +297,8 @@ public class MemberController {
 	   
 	   String str = Script.href("프로필 변경완료!","/member/memberInfo?memberId=" + memberVO.getMemberId());
 	   
+	   // 프로필 변경 시 세션 다시 담기 
+	   session.setAttribute("profileVO", ProfileVO);
 
 	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
