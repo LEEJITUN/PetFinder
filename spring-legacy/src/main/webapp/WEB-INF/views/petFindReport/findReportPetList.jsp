@@ -151,8 +151,12 @@
 	              </c:choose>
 	                <div class="card-body">
 		                <div align="right">
-		                	<span class="badge badge-pill badge-warning" >분실</span>
-		                	<span class="badge badge-pill badge-success" >발견</span>
+				                <c:if test = "${reportBoard.boardReportType == 'L'}">
+				                		<span class="badge badge-pill badge-warning" >분실</span>
+				                </c:if>
+				                <c:if test = "${reportBoard.boardReportType == 'F'}">
+				                		<span class="badge badge-pill badge-success" >발견</span>
+				                </c:if>
 		                </div>	                
 	                <h5 class="card-title">${reportBoard.boardTitle}</h5>
 	                  <p class="card-text">
