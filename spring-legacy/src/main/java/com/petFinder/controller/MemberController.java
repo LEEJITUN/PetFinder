@@ -281,6 +281,8 @@ public class MemberController {
 	   /****************** UPDATE_프로필 *******************/
 	   if(file.getSize() != 0) {		   
 		   ProfileVO = profilePicService.insertProfilePic(file,memberVO.getMemberId());
+		   // 프로필 변경 시 세션 다시 담기 
+		   session.setAttribute("profileVO", ProfileVO);
 	   }
 	   
 	   /****************** UPDATE_별명 *******************/
@@ -292,8 +294,7 @@ public class MemberController {
 	   
 	   String str = Script.href("프로필 변경완료!","/member/memberInfo?memberId=" + memberVO.getMemberId());
 	   
-	   // 로그인 성공시 프로필
-	   session.setAttribute("profileVO", ProfileVO);
+
 	   
 	   return new ResponseEntity<String>(str,headers,HttpStatus.OK);
    }
