@@ -554,32 +554,26 @@
 								success : function(data) {
 								console.log('data', data);
 									// 누른 값 : Y , 데이터에서 나온 값 : 1
-									if (restAdopCommVO.goodOrNot == 'Y'
-											&& data.goodOrNot == '1') {
+									if (restAdopCommVO.goodOrNot == 'Y' && data.goodOrNot == '1') {
 										$("#notGoodBtn").attr("disabled", true);
 										$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
 
-									} else if (restAdopCommVO.goodOrNot == 'Y'
-											&& data.goodOrNot == '0') {
+									} else if (restAdopCommVO.goodOrNot == 'Y' && data.goodOrNot == '0') {
 										$("#notGoodBtn").attr("disabled", false);
-										$('#good')
-												.replaceWith(
-														'<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');
+										$('#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_off_alt</i>');
 
-									} else if (restAdopCommVO.goodOrNot == 'N'
-											&& data.goodOrNot == '1') {
+									} else if (restAdopCommVO.goodOrNot == 'N' && data.goodOrNot == '1') {
 										$("#goodBtn").attr("disabled", true);
 										$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
 
 									}  else if (restAdopCommVO.goodOrNot == 'N'
 										&& data.goodOrNot == '0') {
 										$("#goodBtn").attr("disabled", false);
-										$('#notGood')
-												.replaceWith(
-														'<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
-
+										$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
 									}
-
+								
+									$('span#good').replaceWith('<span class="align-middle" id="good">추천(' + data.good + ')</span>');
+									$('span#notGood').replaceWith('<span class="align-middle" id="notGood">비추천(' + data.notGood  + ')</span>');
 								},
 								error : function(request, status, error) {
 									alert('code: ' + request.status + '\n message: '
@@ -638,10 +632,12 @@
 							}
  							
  							if(data[0].good == '1'){
+ 								$("#notGoodBtn").attr("disabled", true);
 								$('i#good').replaceWith('<i class="material-icons align-middle" id = "good">thumb_up_alt</i>');
  							}
  							
  							if(data[0].notGood == '1'){
+ 								$("#goodBtn").attr("disabled", true);
  								$('i#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_alt</i>');
  							}
  							
