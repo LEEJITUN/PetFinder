@@ -50,8 +50,6 @@ public class RestComSelectBoxController {
 
 		List<ComCodeVO> coedStrList = restComSelectBoxService.selectCoedStrList(codeM);
 		
-		
-		System.out.println("coedStrList");
 		return new ResponseEntity<List<ComCodeVO>>(coedStrList, HttpStatus.OK);
 	} 
    

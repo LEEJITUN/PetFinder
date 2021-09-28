@@ -295,6 +295,7 @@
 	<script>
 		$(document).ready(function(){
 			selectBox('${ petVO.petKind }','${ petVO.petDetailKind }');
+			clickPetsYesOrNo();
 		});
 
 	</script>

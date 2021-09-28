@@ -168,7 +168,7 @@
                             <i class="material-icons align-middle">pets</i>
                             <span class="align-middle">반려동물 등록번호</span>
                         </label>
-                        <input type="text" class="form-control" id="petRegisterNumber" name="petRegisterNumber" placeholder="'-' 를 빼고 입력해주세요." required>
+                        <input type="number" class="form-control" id="petRegisterNumber" name="petRegisterNumber" placeholder="'-' 를 빼고 입력해주세요." required>
                     </div>
         		</div>
         	</div>

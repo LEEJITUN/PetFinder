@@ -64,7 +64,7 @@
               <thead class="thead-light">
                 <tr>
                   <th scope="col" class="text-center pb-3">동물등록번호</th>
-                  <td><input class="form-control" type="text" id="petRegisterNumber"  name = "petRegisterNumber" placeholder="동물등록번호를 입력해주세요." ></td>
+                  <td><input class="form-control" type="number" id="petRegisterNumber"  name = "petRegisterNumber" placeholder="동물등록번호를 입력해주세요." ></td>
                 </tr>
                 <tr>
                   <th scope="col" class="text-center pb-3">이름</th>
