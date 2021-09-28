@@ -64,7 +64,9 @@
 
 	<select id="selectAllFindReport" resultMap="ReportBoardVO">
 		<![CDATA[
-			SELECT 
+			SELECT TM.*
+			FROM
+			(SELECT 
 				TP.REPORT_ID, 
 				TP.MEMBER_ID, 
 				TP.SIDO,
@@ -188,6 +190,8 @@
 		<if test='inputDate != null and  inputDate != ""'>
 			AND PET_LOST_DATE LIKE #{inputDate}
 		</if>
+		) TM
+			ORDER BY PET_FIND_DATE,PET_LOST_DATE
 			LIMIT #{startRow}, #{amount}
 	</select>
 	
