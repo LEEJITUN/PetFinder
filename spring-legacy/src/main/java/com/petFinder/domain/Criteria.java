@@ -43,7 +43,7 @@ public class Criteria {
 	private String inputDate;
 	
 	public Criteria () {
-		this(1, 10); // 기본값은 1페이지 요천, 한페이지당 글 10개씩 가져옴
+		this(1, 12); // 기본값은 1페이지 요천, 한페이지당 글 10개씩 가져옴
 	}
 	
 	public Criteria(int pageNum, int amount) {
