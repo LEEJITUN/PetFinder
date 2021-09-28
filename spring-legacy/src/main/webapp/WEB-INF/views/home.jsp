@@ -64,46 +64,90 @@
     </div>
     <!-- end of Carousel -->
 
-    <!-- search Div-->
-
-
-    <div class = "container-fluid " style="position: relative; background-color:  rgb(255, 239, 107);   width: 70%; height: 130px;  transform: translate(-0%,-30%);">
-        <form action="/petFindReport/findReportPetList" method="GET" style="transform: translate(0%,70%);">
-            <div class="form-row" >
-              
-                <label for="inputLocation"  class="col-form-label mx-3" style="font-size: 25px;">지역</label>     
-             
-                <div class="col">
-                    <input  class="form-control"type="text" id="sample3_postcode" placeholder="주소를 입력하세요.">
-                </div>
-                <button type="button" class="btn btn-primary mx-3" onclick = "sample3_execDaumPostcode()" style="background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>
-                    <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">종류</label>
-              
-                <div class="col">
-	                <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" >
-	                </select>
-                </div>
+	<!-- search Div -->
+    <div class = "container-fluid " style="position: relative; background-color:  rgb(255, 239, 107); width: 70%; margin-top:-70px;">
+        
+    <!-- Select Box -->
+		<form action="/petFindReport/findReportPetList" method="GET">
+	        <div class="album py-4">
+	              
+	              <div class="row">
+	              
+	              	<label for="inputLocation"  class="col-form-label mx-4" style="font-size: 25px;">지역</label>  
+	                <div class="col-md-3 mb-3">
+	                	<div>
+	                        <select class="custom-select d-block w-100 text-center" id="area" >
+	                            <option value="">:: 시/구 ::</option>
+	                            <option>United States</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                <label class="col-form-label mx-2" >시군구</label>
+	                <div class="col-md-3 mb-3">
+	                    <div>
+	                        <select class="custom-select d-block w-100 text-center" id="village" >
+	                            <option value="">:: 시/군/구 ::</option>
+	                            <option>United States</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                <label class="col-form-label mx-2" >읍면동</label> 
+	                <div class="col-md-3 mb-3">
+	                    <div>
+	                        <select class="custom-select d-block w-100 text-center" id="village" >
+	                            <option value="">:: 읍/면/동 ::</option>
+	                            <option>United States</option>
+	                        </select>
+	                    </div>
+	                </div>    
+	              </div>
+	              
+	              <div class= "row">    
+	                   
+	                <label for="inputLocation"  class="col-form-label mx-4" style="font-size: 25px;">날짜</label>    
+	                <div class="col-md-3 mb-2">
+	                    <div>
+	                        <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
+	                    </div>
+	                </div>    
+	                       
+	                <label for="inputLocation"  class="col-form-label mx-2 " style="font-size: 25px;">&nbsp;종류&nbsp;</label>                                           
+	                <div class="col-md-3 mb-2">
+	                    <div>
+	                        <select class="custom-select d-block w-100" id="petKind" name="petKind" onclick="clickPetKind()" >
+	       					  <option value="" disabled selected>종류 선택</option>
+	                        </select>
+	                    </div>
+	                </div>
+	                
+	                <label for="inputLocation"  class="col-form-label mx-2" style="font-size: 25px;">&nbsp;품종&nbsp;</label>            
+	                <div class="col-md-3 mb-2">
+	                    <div>
+	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >
+		
+	                        </select>
+	                    </div>
+	                </div>
+	                
+	              </div>
+	                           
+	         </div>	  
                 
-                <label for="inputPet" class="col-form-label mx-3" style="font-size: 25px;">품종</label>
-              
-                <div class="col">
-        			<select class="form-control" id="petDetailKind" name="petDetailKind" >
-	                </select>
-                </div>
-               
-                    <label for="inputDate" class="col-form-label mx-3" style="font-size: 25px;">날짜</label>
-                
-                <div class="col">
-                    <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
-                </div> 
-           
-                    <button type="submit" class="btn btn-primary mx-3" action = "sample5_execDaumPostcode" style="font-size: 25px; width: 10%; background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">찾기</button>
+             <div class="text-center">
+       		<button type="submit" class="btn btn-info">찾기</button>
+             </div>    
+		</form>
+ 	</div>
+    <!-- end of Select Box -->
 
-           </div>
-        </form>
-        <div id="wrap"  style="display:none; position:relative; width: 10%; height: 30%; ">
+        
+    <br><br><br>
+
+        
+ <!--      접기버튼 
+         <div id="wrap"  style="display:none; position:relative; width: 10%; height: 30%; ">
             <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-        </div>
+        </div> -->
     </div>
     <!-- end of search -->
 
@@ -154,23 +198,19 @@
                 <div style="margin-top: 2%;"></div>
                 <h3>도움이 필요한 사람들을 위해 발견 신고도 해주세요.</h3>
               </div>
-              
+              <br>
               <c:choose>
               <%-- 로그인 사용자일때 --%>
               <c:when test="${ not empty sessionScope.memberId }"> 
-	              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
-	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" 
-	                	onclick="location.href='/petLostReport/lostReportPetWrite'"><h4>반려동물 분실 신고</h4></button>
-	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);" 
-	                	onclick="location.href='/petFindReport/findReportPetWrite'"><h4>유기동물 발견 신고</h4></button>
+	              <div class="text-center">
+	                <button type="button" class="btn btn-warning btn-lg text-white" onclick="location.href='/petLostReport/lostReportPetWrite'"><h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-success btn-lg text-white" onclick="location.href='/petFindReport/findReportPetWrite'"><h4>유기동물 발견 신고</h4></button>
 	              </div>   
       		  </c:when>
           		<c:otherwise>
 	              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
-	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" 
-	                		onclick="location.href='/member/login'"><h4>반려동물 분실 신고</h4></button>
-	                <button type="button" class="btn btn-warning btn-lg text-white" style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);" 
-	                		onclick="location.href='/member/login'" ><h4>유기동물 발견 신고</h4></button>
+	                <button type="button" class="btn btn-warning btn-lg text-white" onclick="location.href='/member/login'"><h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-success btn-lg text-white" onclick="location.href='/member/login'"><h4>유기동물 발견 신고</h4></button>
 	              </div>
 	              </c:otherwise>  
 			</c:choose>
@@ -227,7 +267,7 @@
               <h3>도움이 필요한 동물에게 보금자리를 내어주세요.</h3>
             </div>
             <div class="text-center" style="margin-top: 5%; margin-right: 10%;">
-              <button type="button" class="btn btn-warning btn-lg text-white " style="height: 70px; padding-left: 100px;  padding-right: 100px;  background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" 
+              <button type="button" class="btn btn-primary btn-lg text-white " style="height: 70px; padding-left: 100px;  padding-right: 100px;  background-color: rgb(41, 128, 185); border-color: rgb(41, 128, 185);" 
               			onclick="location.href='/adopTemp/adopTempBoardList'"><h4>임보 | 입양</h4></button>
             </div>
           </div>
