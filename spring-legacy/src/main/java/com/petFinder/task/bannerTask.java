@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.petFinder.domain.AttachVO;
 import com.petFinder.service.BannerService;
 
+
 @Component
 public class bannerTask {
 	
