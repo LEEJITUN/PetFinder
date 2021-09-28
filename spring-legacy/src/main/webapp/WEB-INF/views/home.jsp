@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -153,15 +154,34 @@
                 <!-- carousel_1 -->
                 <div id="carouselExampleIndicators" class="carousel slide text-center" data-ride="carousel" style="width: 60%; margin-left: 25%; margin-top: 7%; margin-bottom: 5%; ">
                     <div class="carousel-inner" style="padding-bottom: 12%;  ">
-                      <div class="carousel-item active "> 
+		            <c:choose>
+	              	<c:when test="${fn:length(bannerList) >  0}" >
+	              		<c:forEach var="attach" items="${ bannerList }"  varStatus="status">
+	              		    <c:set var="fileCallPath" value="${ attach.uploadpath }/s_${ attach.uuid }_${ attach.filename }" />
+						    
+						    <div class="carousel-item <c:if test = "${status.index eq 0}" >active </c:if> text-center">
+		           					<a href="">
+		           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 500px;" >
+		           					</a>
+						    </div>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+					 <div class="carousel-item active "> 
                         <img src="/resources/images/main1_slide.PNG" class="d-block w-100 carousel-size" >
                       </div>
+                      
                       <div class="carousel-item">
                         <img src="/resources/images/main2_slide.PNG" class="d-block w-100 carousel-size" >
                       </div>
+                      
                       <div class="carousel-item">
                         <img src="/resources/images/main1_slide.PNG" class="d-block w-100 carousel-size">
                       </div>
+                      
+					</c:otherwise>
+				</c:choose>
+                 
                       
                       <!-- move button -->
                       <a class="carousel-control-prev justify-content-center" href="#carouselExampleIndicators" role="button" data-slide="prev" style="padding-top: 57%;">

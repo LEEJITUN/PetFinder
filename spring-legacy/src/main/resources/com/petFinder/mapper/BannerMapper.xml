@@ -14,6 +14,17 @@
 		<result column="REPORT_ID" 				property="reportId"/>
 	</resultMap>
 
+
+	<select id="selectBanner" resultMap="AttachVO">
+		SELECT 
+			BANNER_UUID AS ATTACH_UUID,
+			BANNER_UPLOAD_PATH AS ATTACH_UPLOAD_PATH,
+			BANNER_NAME AS ATTACH_NAME,
+			BOARD_ID AS REPORT_ID
+		FROM BANNER
+	</select>
+	
+	
 	
 	<select id="selectBestOfReportBoard" resultMap="AttachVO">
 		SELECT * 

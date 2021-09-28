@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -12,9 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.petFinder.domain.AttachVO;
+import com.petFinder.service.BannerService;
 
 
 /**
@@ -23,11 +29,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
    
+	@Autowired
+	private BannerService bannerService;
+	
    @GetMapping(value = {"/","/home"})
-   public String home() {
+   public String home(Model model) {
       // GET 요청 
       // http://localhost:8090/
       System.out.println("home() 호출됨...");
+      
+      List<AttachVO> bannerList = bannerService.selectBanner();
+      
+      model.addAttribute("bannerList",bannerList);
       
       
       return "home";// 실행할 jsp뷰 이름을 리턴함.
