@@ -96,9 +96,9 @@
 						     <input type="checkbox" class="custom-control-input" id="customCheck1" name="rememberMe" value="remember-me">
 						     <label class="custom-control-label" for="customCheck1">로그인 상태 유지</label>
 						</div>
-                        <div class="form-group">
+<!--                         <div class="form-group">
                             <a href="#" class="ForgetPwd">Forget Password?</a>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
