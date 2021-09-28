@@ -99,7 +99,7 @@
 	<br><br>
 	<!-- end of middle container -->
 
-
+ 
 	<!-- Footer -->
     <jsp:include page="/WEB-INF/views/include/footer.jsp" />
     
