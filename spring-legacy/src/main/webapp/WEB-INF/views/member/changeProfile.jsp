@@ -70,13 +70,14 @@
                                              id="preview-image">
                                        </c:if>
                                     </div>
-                                 </div>
-                                 <div class="form-group col-sm-6">
+                                 </div>   
                                     <div id="fileBox">
-                                       <input type="file" name="file" id="input-image"
-                                          accept="image/*">
+                                    	<div class="my-2" >
+                                       <input type="file" name="file" id="input-image" accept="image/*">
+									 <button type="reset" id="resetBtn" class="btn btn-secondary" onclick="resetAll('${ sessionScope.memberId}')">삭제</button>
+                                    	</div>
                                     </div>
-                                 </div>
+
                               </td>
                            </tr>
                            <tr>
@@ -96,8 +97,7 @@
                      </table>
                      <div class="btn_wrap" style="text-align: center;">
                         <button type="submit" class="btn btn-success ">적용</button>
-                        <button type="reset" id="resetBtn" class="btn btn-secondary"
-                           onclick="resetAll('${ sessionScope.memberId}')">취소</button>
+                        <button type="reset" id="backBtn" class="btn btn-secondary" onclick="location.href = '/member/memberInfo?memberId=${ sessionScope.memberId }';">취소</button>                                                  
                      </div>
                   </div>
 
@@ -126,23 +126,29 @@
    <script src="/resources/js/bootstrap.js"></script>
 
    <script>
+   
       //  프로필 리셋
       function resetAll(memberId) {
          console.log('memberId', memberId);
-         // ajax 함수 호출
-         $.ajax({
-            url : '/api/memberPropicDelete/' + memberId + '.json',
-            method : 'DELETE',
-            contentType : 'application/json; charset=UTF-8',
-            success : function(data) {
-               console.log('date', data);
-               resetData();
-            },
-            error : function(request, status, error) {
-               alert('code: ' + request.status + '\n message: '
-                     + request.responseText + '\n error: ' + error);
-            }
-         });
+         
+         if (confirm("프로필 사진을 삭제하시겠습니까?") == true){ 
+        	// ajax 함수 호출
+             $.ajax({
+                 url : '/api/memberPropicDelete/' + memberId + '.json',
+                 method : 'DELETE',
+                 contentType : 'application/json; charset=UTF-8',
+                 success : function(data) {
+                    console.log('date', data);
+                    resetData();
+                 },
+                 error : function(request, status, error) {
+                    alert('code: ' + request.status + '\n message: '
+                          + request.responseText + '\n error: ' + error);
+                 }
+              });
+         }else{ 
+             return false;
+         }
 
       }
 
