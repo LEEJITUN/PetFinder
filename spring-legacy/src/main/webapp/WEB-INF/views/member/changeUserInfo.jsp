@@ -70,9 +70,8 @@
                             <i class="material-icons align-middle">event</i>
                             <span class="align-middle">생년월일</span>
                           </label>
-                          <fmt:parseDate value='${ memberVO.memberBirthday }' var='birthday' pattern='yyyymmdd'/>
                           <input type="date" class="form-control" id="memberBirthday" name="memberBirthday" 
-                          			value="<fmt:formatDate value="${ memberBirthday }" pattern="yyyy-mm-dd"/>" required>
+                          			value="${ memberVO.memberBirthday }" required>
                     </div>
                     <div class="col-sm-6">
                         <label for="memberGender">
@@ -168,7 +167,6 @@
                    	</div>
                </div>
 			</div>
-			
 			<div class="form-group">
 				<div class = "row">
         			<div class="col-sm-6">
@@ -176,7 +174,8 @@
                             <i class="material-icons align-middle">pets</i>
                             <span class="align-middle">반려동물 생일</span>
                         </label>
-                        <input type="date" class="form-control" id="petBirthday" name="petBirthday" required>
+                        <input type="date" class="form-control" id="petBirthday" name="petBirthday"
+                        value = "${petVO.petBirthday}" required>
                     </div>
                    	<div class="col-sm-6">
                    	    <label for="petGender">

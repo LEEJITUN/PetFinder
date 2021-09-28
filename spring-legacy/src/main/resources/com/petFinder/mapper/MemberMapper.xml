@@ -11,6 +11,7 @@
 		<result column="PET_NAME" 				property="petName"/>
 		<result column="PET_KIND" 				property="petKind"/>
 		<result column="PET_DETAIL_KIND" 		property="petDetailKind"/>
+		<result column="PET_BIRTHDAY" 			property="petBirthday"/>
 		<result column="PET_GENDER" 			property="petGender"/>
 		<result column="PET_SIZE" 				property="petSize"/>
 		<result column="PET_COLOR" 				property="petColor"/>
@@ -50,6 +51,7 @@
 				TP.PET_NAME,
 			    TP.PET_KIND,
 				TP.PET_DETAIL_KIND,
+				TP.PET_BIRTHDAY,
 				TP.PET_GENDER,
 				TP.PET_SIZE,
 				TP.PET_COLOR,
