@@ -125,7 +125,7 @@
 			AND PET_COATlENGTH = #{petCoatLength}
 		</if>
 		<if test='inputDate != null and  inputDate != ""'>
-			AND PET_LOST_DATE = #{inputDate}
+			AND PET_FIND_DATE = #{inputDate}
 		</if>
 		<if test='sido != null and  sido != ""'>
 			AND SIDO = #{sido}
