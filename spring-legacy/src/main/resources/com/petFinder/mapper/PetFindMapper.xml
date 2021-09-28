@@ -211,7 +211,7 @@
 		</if>
 
 		) TM
-			ORDER BY PET_FIND_DATE,PET_LOST_DATE
+			ORDER BY PET_FIND_DATE DESC, PET_LOST_DATE DESC
 			LIMIT #{startRow}, #{amount}
 	</select>
 	
