@@ -327,7 +327,7 @@
    
 	// 화면이 시작할떼 돌아감 -> selectMemberGoodOrWarn 
 	$(document).ready(function(){
-		selectMemberGoodOrWarn('${ reportBoardVO.reportId }','${sessionScope.memberId }')
+		selectMemberGoodOrWarn('${ reportBoardVO.reportId }','${sessionScope.memberId }') 
 	});
 	
    $('form#frm').on('submit', function () {
