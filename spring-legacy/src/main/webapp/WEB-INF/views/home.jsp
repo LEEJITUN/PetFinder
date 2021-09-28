@@ -161,7 +161,7 @@
 						    
 						    <div class="carousel-item <c:if test = "${status.index eq 0}" >active </c:if> text-center">
 		           					<a href="">
-		           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 500px;" >
+		           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
 		           					</a>
 						    </div>
 						</c:forEach>
