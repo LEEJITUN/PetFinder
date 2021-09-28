@@ -130,7 +130,7 @@
 		<if test='sido != null and  sido != ""'>
 			AND SIDO = #{sido}
 		</if>
-		<if test='sigungu != null and  sigungu != ""'>
+		<if test='sigungu != null and  sigungu != "" '>
 			AND SIGUNGU = #{sigungu}
 		</if>
 		<if test='bname != null and  bname != ""'>

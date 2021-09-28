@@ -175,7 +175,8 @@
 	    
 	    
 	    function sidoShowData(data, codeM){
-	    	
+			 $('#'+codeM).append("<option value = '' disabled selected>전체</option>");
+			 
 	    	if(codeM == 'SIDO'){
 	    		
 		    	 for(let item of data){
@@ -200,7 +201,7 @@
 	    	}
 	    }
 
-	    
+
 
 </script>
 	    

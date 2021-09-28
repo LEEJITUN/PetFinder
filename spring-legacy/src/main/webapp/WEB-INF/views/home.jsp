@@ -76,27 +76,21 @@
 	              	<label for="inputLocation"  class="col-form-label mx-4" style="font-size: 25px;">지역</label>  
 	                <div class="col-md-3 mb-3">
 	                	<div>
-	                        <select class="custom-select d-block w-100 text-center" id="area" >
-	                            <option value="">:: 시/구 ::</option>
-	                            <option>United States</option>
+		                    <select class="custom-select d-block w-100" id="SIDO" name = "sido" >
 	                        </select>
 	                    </div>
 	                </div>
 	                <label class="col-form-label mx-2" >시군구</label>
 	                <div class="col-md-3 mb-3">
 	                    <div>
-	                        <select class="custom-select d-block w-100 text-center" id="village" >
-	                            <option value="">:: 시/군/구 ::</option>
-	                            <option>United States</option>
+	                        <select class="custom-select d-block w-100" id="SIGUN" name = "sigungu">
 	                        </select>
 	                    </div>
 	                </div>
 	                <label class="col-form-label mx-2" >읍면동</label> 
 	                <div class="col-md-3 mb-3">
 	                    <div>
-	                        <select class="custom-select d-block w-100 text-center" id="village" >
-	                            <option value="">:: 읍/면/동 ::</option>
-	                            <option>United States</option>
+	                        <select class="custom-select d-block w-100" id="BNAME" name = "bname">
 	                        </select>
 	                    </div>
 	                </div>    
@@ -293,12 +287,22 @@
 
   <script>
     $(document).ready(function(){
-			selectBox('KIND',null);
+    	selectLocationBox('SIDO',null,null); // 시도코드 	
+    	selectBox('KIND',null);
+	});
+    
+	$("#SIDO").on('change', function () {
+	    selectLocationBox('SIGUN',$("#SIDO").val(),null); 
+	});
+	
+	$("#SIGUN").on('change', function () {
+		selectLocationBox('BNAME',$("#SIDO").val(),$("#SIGUN").val());
 	});
     
     $('.carouselExampleIndicators2').carousel({
-    interval: 1500
+    	interval: 1500
     });
+
     
   </script>
 </body>

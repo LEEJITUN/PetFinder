@@ -23,8 +23,6 @@
                     <label for="size">지역선택 (시/구)</label>
                     <div>
                         <select class="custom-select d-block w-100" id="SIDO" name = "sido" >
-                            <option value="">:: 시/구 ::</option>
-                            <option>전체</option>
                         </select>
                     </div>
                     </div>
@@ -32,8 +30,6 @@
                     <label for="size">(시/군/구)</label>
                     <div>
                         <select class="custom-select d-block w-100" id="SIGUN" name = "sigungu">
-                            <option value="">:: 시/군/구 ::</option>
-                            <option>전체</option>
                         </select>
                     </div>
                     </div>
@@ -41,8 +37,6 @@
                     <label for="size">(읍/면/동)</label>
                     <div>
                         <select class="custom-select d-block w-100" id="BNAME" name = "bname">
-                            <option value="">:: 읍/면/동 ::</option>
-                            <option>전체</option>
                         </select>
                     </div>
                     </div>                  
