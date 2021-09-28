@@ -125,12 +125,14 @@
 	                </div>
 	                
 	              </div>
-	                           
+	              <br>
+	              <div class="text-center">
+       				<button type="submit" class="btn btn-lg text-white" style="background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">&emsp; 찾기&emsp;</button>
+                  </div>   
+                     
 	         </div>	  
                 
-             <div class="text-center">
-       		<button type="submit" class="btn btn-info">찾기</button>
-             </div>    
+          
 		</form>
  	</div>
     <!-- end of Select Box -->
@@ -217,14 +219,20 @@
               <%-- 로그인 사용자일때 --%>
               <c:when test="${ not empty sessionScope.memberId }"> 
 	              <div class="text-center">
-	                <button type="button" class="btn btn-warning btn-lg text-white" onclick="location.href='/petLostReport/lostReportPetWrite'"><h4>반려동물 분실 신고</h4></button>
-	                <button type="button" class="btn btn-success btn-lg text-white" onclick="location.href='/petFindReport/findReportPetWrite'"><h4>유기동물 발견 신고</h4></button>
+	                <button type="button" class="btn btn-lg text-white" onclick="location.href='/petLostReport/lostReportPetWrite'"
+	                	style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" 
+	                ><h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-lg text-white" onclick="location.href='/petFindReport/findReportPetWrite'"
+	                style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);"><h4>유기동물 발견 신고</h4></button>
 	              </div>   
       		  </c:when>
           		<c:otherwise>
 	              <div class="text-center" style="margin-top: 5%; margin-right: 15%;">
-	                <button type="button" class="btn btn-warning btn-lg text-white" onclick="location.href='/member/login'"><h4>반려동물 분실 신고</h4></button>
-	                <button type="button" class="btn btn-success btn-lg text-white" onclick="location.href='/member/login'"><h4>유기동물 발견 신고</h4></button>
+	                <button type="button" class="btn  btn-lg text-white" onclick="location.href='/member/login'"
+	                	style="height: 70px; margin-right: 2%; background-color: rgb(251, 215, 71); border-color: rgb(251, 215, 71);" >
+	                	<h4>반려동물 분실 신고</h4></button>
+	                <button type="button" class="btn btn-success btn-lg text-white" onclick="location.href='/member/login'"
+	                style="height: 70px;  background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);"><h4>유기동물 발견 신고</h4></button>
 	              </div>
 	              </c:otherwise>  
 			</c:choose>
