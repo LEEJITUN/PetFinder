@@ -50,7 +50,22 @@ public class RestComSelectBoxController {
 
 		List<ComCodeVO> coedStrList = restComSelectBoxService.selectCoedStrList(codeM);
 		
+		
+		System.out.println("coedStrList");
 		return new ResponseEntity<List<ComCodeVO>>(coedStrList, HttpStatus.OK);
 	} 
    
+	
+	// 시군구 코드 조회
+	// 시도 ,시군구, 법정명
+	
+	@GetMapping(value = "/sidoCoedList/{clickCode}/{codeM}/{codeD}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<ComCodeVO>> sidoCoedList(@PathVariable("clickCode") String clickCode, @PathVariable("codeM") String codeM,@PathVariable("codeD") String codeD) {
+
+		ComCodeVO vo = new ComCodeVO(codeM,codeD,clickCode);
+		
+		List<ComCodeVO> coedStrList = restComSelectBoxService.sidoCoedList(vo);
+		
+		return new ResponseEntity<List<ComCodeVO>>(coedStrList, HttpStatus.OK);
+	} 
 }

@@ -8,7 +8,13 @@
 	<resultMap type="ComCodeVO" id="ComCodeVO">
       <result column="TYPE_M"		property="codeM"/>
       <result column="TYPE_D"		property="codeD"/>
-      <result column="STR"			property="str"/>   
+      <result column="STR"			property="str"/> 
+      
+      <result column="SI_CODE"		property="sidoCode"/>
+      <result column="SIDO"			property="sido"/>
+      <result column="SIGUNGU"		property="sigungu"/>  
+      <result column="BNAME"		property="bname"/>
+      <result column="CLICKCODE"	property="clickCode"/>
    </resultMap>
 	
 	<select id="selectCoedStrList" resultMap="ComCodeVO">
@@ -18,6 +24,37 @@
 				STR
 			FROM TYPE_STR
 			WHERE TYPE_M = #{codeM}
+		]]>	
+	</select>
+	
+	<select id="sidoList" resultMap="ComCodeVO">
+		<![CDATA[
+			SELECT DISTINCT SIDO
+			FROM SIGUNGU_CODE
+		]]>	
+	</select>
+	
+	<select id="sigunguList" resultMap="ComCodeVO">
+		<![CDATA[
+			SELECT DISTINCT 
+				SIDO,
+				SIGUNGU
+			FROM SIGUNGU_CODE
+			WHERE SIDO LIKE CONCAT('%', #{codeM}, '%')
+		]]>	
+	</select>
+	
+	<select id="bnameList" resultMap="ComCodeVO">
+		<![CDATA[
+			SELECT DISTINCT 
+				SIDO,
+				SIGUNGU,
+				BNAME
+			FROM SIGUNGU_CODE
+			WHERE 
+				SIDO LIKE CONCAT('%', #{codeM}, '%')
+				AND SIGUNGU LIKE CONCAT('%', #{codeD}, '%')
+				AND BNAME NOT IN ('')
 		]]>	
 	</select>
 	

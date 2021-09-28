@@ -22,27 +22,27 @@
                 <div class="col-md-4 mb-3">
                     <label for="size">지역선택 (시/구)</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="area" >
+                        <select class="custom-select d-block w-100" id="SIDO" name = "sido" >
                             <option value="">:: 시/구 ::</option>
-                            <option>United States</option>
+                            <option>전체</option>
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
                     <label for="size">(시/군/구)</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="village" >
+                        <select class="custom-select d-block w-100" id="SIGUN" name = "sigungu">
                             <option value="">:: 시/군/구 ::</option>
-                            <option>United States</option>
+                            <option>전체</option>
                         </select>
                     </div>
                     </div>
                     <div class="col-md-4 mb-3">
                     <label for="size">(읍/면/동)</label>
                     <div>
-                        <select class="custom-select d-block w-100" id="village" >
+                        <select class="custom-select d-block w-100" id="BNAME" name = "bname">
                             <option value="">:: 읍/면/동 ::</option>
-                            <option>United States</option>
+                            <option>전체</option>
                         </select>
                     </div>
                     </div>                  
@@ -240,11 +240,20 @@
 	<script>
 	
 		$(document).ready(function(){
+			selectLocationBox('SIDO',null,null); // 시도코드 
 			selectBox('KIND',null);
 			selectBox('GENDER',null);
 			selectBox('SIZE',null);
 			selectBox('COLOR',null);
 			selectBox('COATlENGTH',null);
+		});
+		
+	
+		$("#SIDO").on('change', function () {
+		    selectLocationBox('SIGUN',$("#SIDO").val(),null); // 시군구코드
+		});
+		$("#SIGUN").on('change', function () {
+			selectLocationBox('BNAME',$("#SIDO").val(),$("#SIGUN").val()); // 동
 		});
 
 	</script>

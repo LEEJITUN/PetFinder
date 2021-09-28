@@ -105,26 +105,36 @@
 			ON TB.REPORT_ID = TA.REPORT_ID
 			WHERE TB.BOARD_REPORT_TYPE = 'F'
 		]]>	
+		
 		<if test="petKind != null">
-			AND PET_KIND LIKE  #{petKind}
+			AND PET_KIND =  #{petKind}
 		</if>
 		<if test="petDetailKind != null">
-			AND PET_DETAIL_KIND LIKE #{petDetailKind}
+			AND PET_DETAIL_KIND = #{petDetailKind}
 		</if>
 		<if test="petGender != null">
-			AND PET_GENDER LIKE  #{petGender}
+			AND PET_GENDER =  #{petGender}
 		</if>
 		<if test="petSize != null">
-			AND PET_SIZE LIKE #{petSize}
+			AND PET_SIZE = #{petSize}
 		</if>
 		<if test="petColor != null">
-			AND PET_COLOR LIKE #{petColor}
+			AND PET_COLOR = #{petColor}
 		</if>
 		<if test="petCoatLength != null">
-			AND PET_COATlENGTH LIKE #{petCoatLength}
+			AND PET_COATlENGTH = #{petCoatLength}
 		</if>
 		<if test='inputDate != null and  inputDate != ""'>
-			AND PET_FIND_DATE LIKE #{inputDate}
+			AND PET_LOST_DATE = #{inputDate}
+		</if>
+		<if test='sido != null and  sido != ""'>
+			AND SIDO = #{sido}
+		</if>
+		<if test='sigungu != null and  sigungu != ""'>
+			AND SIGUNGU = #{sigungu}
+		</if>
+		<if test='bname != null and  bname != ""'>
+			AND BNAME = #{bname}
 		</if>
 		<![CDATA[
 			UNION ALL
@@ -170,26 +180,36 @@
 		]]>	
 		
 		<if test="petKind != null">
-			AND PET_KIND LIKE  #{petKind}
+			AND PET_KIND =  #{petKind}
 		</if>
 		<if test="petDetailKind != null">
-			AND PET_DETAIL_KIND LIKE #{petDetailKind}
+			AND PET_DETAIL_KIND = #{petDetailKind}
 		</if>
 		<if test="petGender != null">
-			AND PET_GENDER LIKE  #{petGender}
+			AND PET_GENDER =  #{petGender}
 		</if>
 		<if test="petSize != null">
-			AND PET_SIZE LIKE #{petSize}
+			AND PET_SIZE = #{petSize}
 		</if>
 		<if test="petColor != null">
-			AND PET_COLOR LIKE #{petColor}
+			AND PET_COLOR = #{petColor}
 		</if>
 		<if test="petCoatLength != null">
-			AND PET_COATlENGTH LIKE #{petCoatLength}
+			AND PET_COATlENGTH = #{petCoatLength}
 		</if>
 		<if test='inputDate != null and  inputDate != ""'>
-			AND PET_LOST_DATE LIKE #{inputDate}
+			AND PET_LOST_DATE = #{inputDate}
 		</if>
+		<if test='sido != null and  sido != ""'>
+			AND SIDO = #{sido}
+		</if>
+		<if test='sigungu != null and  sigungu != ""'>
+			AND SIGUNGU = #{sigungu}
+		</if>
+		<if test='bname != null and  bname != ""'>
+			AND BNAME = #{bname}
+		</if>
+
 		) TM
 			ORDER BY PET_FIND_DATE,PET_LOST_DATE
 			LIMIT #{startRow}, #{amount}

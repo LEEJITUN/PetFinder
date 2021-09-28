@@ -32,37 +32,30 @@
 		});
 
 		
+		//
 	    function clickPetKind() {
 	        $('#petKind').change(function() {
-	
+				
 	        	var codeM = this.value;
 	        	
 	        	selectBox(codeM,null);
 	        	
       		});
-	            
 	    }
 		
 		function selectBox(codeM, codeD){
         	let changeItemArray = [];
-        	
-        	console.log(';codeM : ',codeM);
         	
         	$.ajax({
 				url: '/api/coedStrList/' + codeM + '.json',
 				method : 'GET',
 				contentType : 'application/json; charset=UTF-8',
 				success : function(data) {
-					console.log('data',data);
-					for(let item of data){
-						changeItemArray.push(item);
-					}
 					
 					if(codeM == 'D' || codeM == 'C'|| codeM == 'O'){
-						console.log('품종');
-						setDataPetKind(changeItemArray,codeM,codeD);
+						setDataPetKind(data,codeM,codeD);
 					}else{
-						setSelectBox(changeItemArray,codeM,codeD);
+						setSelectBox(data,codeM,codeD);
 					}
 				},
 				error : function(request, status, error) {
@@ -161,5 +154,53 @@
 	    }
 	   
 	    
+ 	    // 지역 selectBox
+	    function selectLocationBox(clickCode,codeM,codeD){
+        	
+        	$.ajax({
+				url: '/api/sidoCoedList/' + clickCode + '/' + codeM +'/' +codeD +  '.json',
+				method : 'GET',
+				contentType : 'application/json; charset=UTF-8',
+				success : function(data) {
+
+					sidoShowData(data,clickCode);
+			    	
+				},
+				error : function(request, status, error) {
+					alert('code: ' + request.status + '\n message: '
+							+ request.responseText + '\n error: ' + error);
+				}
+			});
+		} 
+	    
+	    
+	    function sidoShowData(data, codeM){
+	    	
+	    	if(codeM == 'SIDO'){
+	    		
+		    	 for(let item of data){
+					  var option = $("<option value = "+ item.sido + ">" + item.sido + "</option>");
+					  $('#'+codeM).append(option);
+			   	  }
+		    	 
+	    	}else if(codeM == 'SIGUN'){
+	    		
+		    	 for(let item of data){
+					  var option = $("<option value = "+ item.sigungu + ">" + item.sigungu + "</option>");
+					  $('#'+codeM).append(option);
+			   	  }
+		    	 
+	    	}else{
+	    		
+		    	 for(let item of data){
+					  var option = $("<option value = "+ item.bname + ">" + item.bname + "</option>");
+					  $('#'+codeM).append(option);
+			   	  }
+		    	 
+	    	}
+	    }
+
+	    
+
 </script>
 	    
