@@ -41,8 +41,12 @@ public interface RestAdopCommMapper {
 	/* DELETE - 해당 게시물에 신고 취소흘 했을 경우 삭제(해당 유저) */
 	int deleteWaringCheck(RestAdopCommVO restAdopCommVO);
 
+	/* DELETE - 해당 게시물 삭제 */
+	void deletecomm(RestAdopCommVO restAdopCommVO);
+
 	/* SELECT - 추천,비추천,신고 전체 조회*/
 	RestAdopCommVO getBoardWaringAndGood(RestAdopCommVO restAdopCommVO);
+	
 
 	
 }

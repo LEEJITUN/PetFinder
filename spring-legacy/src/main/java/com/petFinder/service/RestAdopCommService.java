@@ -50,6 +50,14 @@ public class RestAdopCommService {
 		return restAdopCommMapper.deleteCommBoard(restAdopCommVO);
 		
 	}
+	
+	/* DELETE - 해당 게시판 삭제 */
+	public void deletecomm(RestAdopCommVO restAdopCommVO) {
+		restAdopCommMapper.deletecomm(restAdopCommVO);
+		
+	}
+	
+	
 	 // ================ 신고 =================
 
 	/* UPDATE - 신고 */

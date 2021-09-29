@@ -665,9 +665,10 @@
 
 			function waring(reportId, memberId,waring) {
 				var restAdopCommVO = {
-					"boardId" : reportId,
-					"memberId" : memberId,
-					"waring" : waring,
+					"boardId" 	: reportId,
+					"memberId" 	: memberId,
+					"waring" 	: waring,
+					"boardType"	: 'L',
 				};
 				$.ajax({
 					url : '/api/adopTempBoardWaring.json',
@@ -676,12 +677,11 @@
 				contentType : 'application/json; charset=UTF-8',
 					success : function(data) {
 			
-						console.log('data',data);
 						if (data.waring == '1') {
-						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
-					}else{
-						$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error_outline</i>');
-					}
+							$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
+						}else{
+							$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error_outline</i>');
+						}
 					},
 
 					error : function(request, status, error) {

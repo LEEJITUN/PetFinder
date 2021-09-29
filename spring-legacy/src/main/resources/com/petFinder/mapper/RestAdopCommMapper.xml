@@ -61,7 +61,7 @@
 	<select id="selectComment" resultMap="RestAdopCommVO">
 		<![CDATA[
 			SELECT 
-			(SELECT COUNT(WARING) FROM BOARD_COM_CONFIG WHERE WARING = 'Y' AND BOARD_ID = #{boardId}) AS WARING
+			(SELECT COUNT(WARING) FROM BOARD_COM_CONFIG WHERE WARING = 'Y' AND BOARD_ID = #{boardId}) AS WARING_CNT
 			FROM DUAL 
 		]]>
 	</select>
@@ -130,6 +130,14 @@
 	]]>	
 	</insert>
 	
+	<delete id="deletecomm">
+		<![CDATA[
+			DELETE 
+			FROM BOARD_COM_CONFIG 
+			WHERE 
+			 	BOARD_ID = #{boardId} 
+		]]>
+	</delete>
 	
 	<delete id="deleteCommBoard">
 		<![CDATA[

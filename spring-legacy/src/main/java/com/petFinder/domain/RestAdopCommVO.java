@@ -35,5 +35,8 @@ public class RestAdopCommVO {
 	// 해당 유저 조회 시 COUNT
 	private int waringCount;
 	
+	// 보드 타입
+	private String boardType;
+	
 	
 }

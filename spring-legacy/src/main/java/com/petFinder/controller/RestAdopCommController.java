@@ -29,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.petFinder.domain.RestAdopCommCommentVO;
 import com.petFinder.domain.RestAdopCommVO;
+import com.petFinder.service.AdopTempService;
+import com.petFinder.service.CommunityService;
+import com.petFinder.service.PetFindService;
 import com.petFinder.service.RestAdopCommService;
 
 
@@ -39,6 +42,17 @@ public class RestAdopCommController {
 	@Autowired
 	private RestAdopCommService restAdopCommService;
 
+	@Autowired
+	private CommunityService communityService;
+	
+	@Autowired
+	private AdopTempService adopTempService;
+	
+	@Autowired
+	private PetFindService petFindService;
+
+	
+	
 	// =================== 추천 비추천 ===================
 	
 	@PutMapping(value = "/adopCommBoardCheck",
@@ -77,11 +91,31 @@ public class RestAdopCommController {
 			// 신고 업데이트
 			restAdopCommService.updateadopWaringCheck(restAdopCommVO);
 		}else{ // 신고 취소를 했을 경우
-				restAdopCommService.deleteWaringCheck(restAdopCommVO);
+			restAdopCommService.deleteWaringCheck(restAdopCommVO);
 		}
 		
 		// 신고 조회(count)
 		RestAdopCommVO restAdopWaringCount = restAdopCommService.selectComment(restAdopCommVO);
+		
+		// 신고 카운트가 10이상이면 게시물 삭제
+		if(restAdopWaringCount.getWaringCount() > 1) {
+
+			String type = restAdopCommVO.getBoardType();
+			
+			// 어떤 게시물인지 타입별로 삭제
+			if(type.equals("COMM")) {
+				communityService.deleteBoardContent(restAdopCommVO.getBoardId());
+				
+			}else if(type.equals("ADOP")) {
+				adopTempService.deleteBoard(restAdopCommVO.getBoardId());
+				
+			}else {
+				petFindService.deleteFindReport(restAdopCommVO.getBoardId(),type);
+			}
+			
+			restAdopCommService.deletecomm(restAdopCommVO);
+		}
+		
 		
 		
 		return new ResponseEntity<RestAdopCommVO>(restAdopWaringCount, HttpStatus.OK);
