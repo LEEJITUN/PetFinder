@@ -76,7 +76,8 @@
                     <div class="row">
                       <div class="col-md-6 ">
                         <div>
-                        <input class="d-block w-100" type = "text" id ="address" name = "address" disabled/>
+                        <input class="d-block w-100" type = "text" id ="Exaddress" disabled/>
+                        <input type = "hidden" name = "address" id ="address"/>
                         <input type = "hidden" name = "sido" id ="sido" />
                         <input type = "hidden" name = "sigungu" id ="sigungu"/>
                         <input type = "hidden" name = "bname" id ="bname"/>

@@ -4,7 +4,8 @@
     function daumPostcode() {
        new daum.Postcode({
             oncomplete: function (data) {
-                
+            	
+            	$('#Exaddress').val(data.address);
                 $('#address').val(data.address);
                 $('#sido').val(data.sido);
                 $('#sigungu').val(data.sigungu);
