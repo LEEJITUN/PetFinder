@@ -38,6 +38,7 @@
 										BOARD_COM_CONFIG
 									WHERE 
 										GOOD_OR_NOT = 'Y'
+										AND  LEFT(BOARD_ID, 6) = 'REPORT'
 									GROUP BY BOARD_ID 
 									ORDER BY COUNT(GOOD_OR_NOT) DESC
 									LIMIT 3

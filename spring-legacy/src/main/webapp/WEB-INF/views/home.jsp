@@ -159,15 +159,21 @@
 	              		    <c:set var="fileCallPath" value="${ attach.uploadpath }/s_${ attach.uuid }_${ attach.filename }" />
 						    
 						    <div class="carousel-item <c:if test = "${status.index eq 0}" >active </c:if> text-center">
-						    		<c:if test = "${ attach.filetype eq 'F' }">
-			           					<a href="/petFindReport/findReportPetContent?reportId=${ attach.reportId }">
-		           					</c:if>
-		           					<c:if test = "${ attach.filetype eq 'L' }">
-			           					<a href="/petLostReport/lostReportPetContent?reportId=${ attach.reportId }">
-		           					</c:if>
-			           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
-			           					</a>
+						    
+						              <c:choose>
+		              						<c:when test="${ attach.filetype eq 'F' }" >
+				           						<a href="/petFindReport/findReportPetContent?reportId=${ attach.reportId }">
+				           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
+			           							</a>
+		              						</c:when>
+		              						<c:otherwise>
+				           						<a href="/petLostReport/lostReportPetContent?reportId=${ attach.reportId }">
+				           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
+			           							</a>
+		              						</c:otherwise>
+			           						
 			           				
+	              						</c:choose>
 						    </div>
 						</c:forEach>
 					</c:when>
