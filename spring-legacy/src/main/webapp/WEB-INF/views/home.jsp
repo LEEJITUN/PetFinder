@@ -102,7 +102,7 @@
 	                <label for="inputLocation"  class="col-form-label mx-4" style="font-size: 25px;">날짜</label>    
 	                <div class="col-md-3 mb-2">
 	                    <div>
-	                        <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
+	                        <input  class="form-control" type="date" id="startDate" name = "startDate" placeholder=".input-sm">
 	                    </div>
 	                </div>    
 	                       

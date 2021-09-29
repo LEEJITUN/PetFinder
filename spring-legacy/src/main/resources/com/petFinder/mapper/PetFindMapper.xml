@@ -133,10 +133,12 @@
 		<if test='bname != null and  bname != ""'>
 			AND BNAME = #{bname}
 		</if>
-		<if test='startDate != null and  startDate != ""'>
+		<if test='startDate != null and  startDate != "" and endDate != null and  endDate != ""'>
 			AND DATE(PET_FIND_DATE) BETWEEN #{startDate} AND #{endDate}
 		</if>
-		
+		<if test='startDate != null and  startDate != "" and (endDate == null or  endDate == "")'>
+			AND DATE(PET_FIND_DATE) =  #{startDate}
+		</if>
 		<![CDATA[
 			UNION ALL
 			
@@ -207,8 +209,11 @@
 		<if test='bname != null and  bname != ""'>
 			AND BNAME = #{bname}
 		</if>
-		<if test='startDate != null and  startDate != ""'>
+		<if test='startDate != null and  startDate != "" and endDate != null and  endDate != ""'>
 			AND DATE(PET_LOST_DATE) BETWEEN #{startDate} AND #{endDate}
+		</if>
+		<if test='startDate != null and  startDate != "" and (endDate == null or  endDate == "")'>
+			AND DATE(PET_LOST_DATE) =  #{startDate}
 		</if>
 
 		) TM
