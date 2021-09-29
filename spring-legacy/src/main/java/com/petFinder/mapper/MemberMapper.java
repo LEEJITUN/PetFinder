@@ -19,6 +19,9 @@ public interface MemberMapper {
 	/* SELECT - 해당 ID의 회원 조회 */
 	MemberVO selectMemberById(String memberId);
 	
+	/* SELECT - ID 중복 조회 */
+	MemberVO selectId(String memberId);
+	
 	/* INSERT - 회원가입 */
 	void insertMember(MemberVO memberVo);
 	

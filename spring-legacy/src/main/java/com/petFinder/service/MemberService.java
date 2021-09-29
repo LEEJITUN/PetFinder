@@ -82,9 +82,6 @@ public class MemberService {
 	}
 	
 	
-	/////////////////////안한거////////////////////////
-	
-
 	
 	// SELECT - 모든 회원정보
 	public List<MemberVO> getMembers(){
@@ -95,7 +92,13 @@ public class MemberService {
 	public List<MemberVO> getCountById(String id){
 		return memberMapper.getCountById(id);
 	}
+	
+	// SELECT - ID 중복 조회
+	public MemberVO selectId(String memberId) {
+		return memberMapper.selectId(memberId);
+	}
 
+	
 
 
 

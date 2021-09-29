@@ -83,6 +83,17 @@
 				TM.MEMBER_ID = #{memberId}
 		]]>
 	</select>
+	
+	<select id = "selectId" resultMap = "MemberVO">
+		<![CDATA[
+			SELECT 
+				MEMBER_ID
+			FROM 
+				MEMBER
+			WHERE 
+				MEMBER_ID = #{memberId}
+		]]>
+	</select>
 
 	<insert id="insertMember">
 		<![CDATA[

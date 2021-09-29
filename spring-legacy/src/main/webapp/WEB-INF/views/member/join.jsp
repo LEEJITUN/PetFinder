@@ -77,6 +77,7 @@
                   <span class="align-middle">비밀번호 재확인</span>
                 </label>
                 <input type="password" class="form-control" id="password2" required>
+                <small id="pwd2Help" class="form-text text-muted">비밀번호 확인은 필수 입력 요소입니다.</small>
               </div>
 
               <div class="form-group">
@@ -105,14 +106,14 @@
                             <i class="material-icons align-middle">event</i>
                             <span class="align-middle">생년월일</span>
                           </label>
-                          <input type="date" class="form-control" id="memberBirthday" name="memberBirthday">
+                          <input type="date" class="form-control" id="memberBirthday" name="memberBirthday" required>
                     </div>
                     <div class="col-sm-6">
                         <label for="memberGender">
                             <i class="material-icons align-middle">wc</i>
                             <span class="align-middle">성별 선택</span>
                         </label>
-                        <select class="form-control" id="memberGender" name="memberGender">
+                        <select class="form-control" id="memberGender" name="memberGender" required>
                             <option value="" disabled selected>성별을 선택하세요.</option>
                             <option value="M">남자</option>
                             <option value="F">여자</option>
@@ -127,7 +128,7 @@
                   <i class="material-icons align-middle">phone</i>
                   <span class="align-middle">핸드폰 번호</span>
                 </label>
-                <input type="number" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber">
+                <input type="number" class="form-control" id="memberPhoneNumber" name="memberPhoneNumber" required>
               </div>
               
               <div class="form-group">
@@ -135,7 +136,7 @@
                   <i class="material-icons align-middle">mail</i>
                   <span class="align-middle">이메일 주소</span>
                 </label>
-                <input type="email" class="form-control" id="memberEmail" name="memberEmail">
+                <input type="email" class="form-control" id="memberEmail" name="memberEmail" required>
               </div>
 
               <div class="form-group">
@@ -290,7 +291,7 @@
                 	</c:when>
                  	<%--  회원가입 일 경우 --%>
 			        <c:otherwise>			        
-                		<button type="submit" class="btn text-white ml-3" style="background-color:rgb(46, 204, 113);">회원가입</button>
+                		<button type="submit" id="joinBtn" class="btn text-white ml-3" style="background-color:rgb(46, 204, 113);">회원가입</button>
                 		<button type="reset" class="btn text-white ml-3" style="background-color: rgb(251, 215, 71);">초기화</button>
                 	</c:otherwise>
                 </c:choose>
@@ -321,6 +322,89 @@
     <%-- JavaScript --%>
     <script src="/resources/js/jquery-3.6.0.js"></script>
     <script src="/resources/js/bootstrap.js"></script>
+
+
+<script>
+	
+	let idFlag = false;
+	let pwFlag = false;
+	
+	$('input#memberId').on('focusout', function () {
+		
+		let id = $(this).val();
+		
+		console.log('id',id);
+		if (id.length == 0) {
+			return;
+		}
+		
+		// ajax 함수 호출
+		$.ajax({
+			url: '/api/selectMemberId/' + id + '.json',
+			method: 'GET',
+			success: function (data) {
+				
+				if (data.memberId == null) {
+					$('small#idHelp').html('사용가능한 아이디 입니다.')
+						.removeClass('text-muted').removeClass('text-danger')
+						.addClass('text-success');
+					
+					idFlag = true;
+				} else { // data.count == 1
+					$('small#idHelp').html('이미 사용중인 아이디 입니다.')
+						.removeClass('text-muted').removeClass('text-success')
+						.addClass('text-danger');
+				
+					idFlag = false;
+				}
+			},
+			error: function (request, status, error) {
+				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+			}
+		});
+		
+	});
+	
+	
+	
+	$('input#password2').on('focusout', function () {
+		
+		let pw = $('input#memberPassword').val();
+		let pw2 = $(this).val();
+
+		console.log('pw',pw);  // object
+		console.log('pw2',pw2);  // {}
+		
+		
+		if (pw != pw2) {
+			$('small#pwd2Help').html('비밀번호가 일치하지 않습니다.')
+			.removeClass('text-muted').removeClass('text-success')
+			.addClass('text-danger');
+			
+			pwFlag = false;
+		}else{
+			$('small#pwd2Help').html('')
+			.removeClass('text-muted').removeClass('text-success')
+			.addClass('text-danger');
+			
+			pwFlag = true;
+		}
+		
+	});
+	
+	
+	$('button#joinBtn').on('click', function () {
+		if(!(pwFlag && idFlag)){			
+			event.preventDefault();
+			alert('다시 한번 확인해주세요.');
+		}
+		
+	}); 
+	
+	
+
+		
+</script>
 
 </body>
 </html>
