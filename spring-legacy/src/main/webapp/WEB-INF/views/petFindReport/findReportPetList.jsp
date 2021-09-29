@@ -255,6 +255,5 @@
 
 	</script>
 	
-	 <jsp:include page="/WEB-INF/views/include/socket.jsp" />
 </body>
 </html>
