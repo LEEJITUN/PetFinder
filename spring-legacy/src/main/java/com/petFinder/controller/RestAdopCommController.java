@@ -33,6 +33,7 @@ import com.petFinder.service.AdopTempService;
 import com.petFinder.service.CommunityService;
 import com.petFinder.service.PetFindService;
 import com.petFinder.service.RestAdopCommService;
+import com.petFinder.util.Script;
 
 
 @RestController
@@ -114,6 +115,10 @@ public class RestAdopCommController {
 			}
 			
 			restAdopCommService.deletecomm(restAdopCommVO);
+			
+			String str = "신고로 삭제된 글입니다";
+			restAdopWaringCount.setStr(str);
+			
 		}
 		
 		

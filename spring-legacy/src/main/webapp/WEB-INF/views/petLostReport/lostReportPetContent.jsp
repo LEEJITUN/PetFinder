@@ -677,7 +677,14 @@
 				contentType : 'application/json; charset=UTF-8',
 					success : function(data) {
 			
-						if (data.waring == '1') {
+						console.log('dta',data.str);
+						
+						if(data.str != null){
+							  alert(data.str);
+							 location.href  ='/petFindReport/findReportPetList';
+						}
+						
+						if (data.waringCount == '1') {
 							$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
 						}else{
 							$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error_outline</i>');

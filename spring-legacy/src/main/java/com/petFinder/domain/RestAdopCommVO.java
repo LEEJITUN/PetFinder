@@ -38,5 +38,5 @@ public class RestAdopCommVO {
 	// 보드 타입
 	private String boardType;
 	
-	
+	private String str;
 }

@@ -590,6 +590,7 @@
  						"boardId" : boardId,
  						"memberId" : memberId,
  						"waring":waring,
+ 						"boardType"	: 'ADOP',
  					};
  					$.ajax({
  						url : '/api/adopTempBoardWaring.json',
@@ -597,9 +598,15 @@
 						data : JSON.stringify(restAdopCommVO),
 						contentType : 'application/json; charset=UTF-8',
  						success : function(data) {
- 				
- 							console.log('data',data);
- 							if (data.waring == '1') {
+ 							
+ 							console.log('dta',data.str);
+ 							
+ 							if(data.str != null){
+ 								  alert(data.str);
+ 								 location.href  ='/adopTemp/adopTempBoardList';
+ 							}
+ 							
+ 							if (data.waringCount == '1') {
 								$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error</i>');
 							}else{
 								$('#waring').replaceWith('<i class="material-icons align-middle" id="waring">error_outline</i>');
