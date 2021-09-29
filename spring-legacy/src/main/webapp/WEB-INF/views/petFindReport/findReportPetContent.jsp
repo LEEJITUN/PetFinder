@@ -102,11 +102,7 @@
                 <tr>
                 <th scope="col" class="text-center pb-4">날짜</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
                       ${reportBoardVO.petVO.findPetDate}
-                      </div>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -313,17 +309,72 @@
    
 	// 화면이 시작할떼 돌아감 -> selectMemberGoodOrWarn 
 	$(document).ready(function(){
+		console.log('1111');
 		selectMemberGoodOrWarn('${ reportBoardVO.reportId }','${sessionScope.memberId }')
+		connectWs();
 	});
    
-	$('form#frm').on('submit', function () {
+	function connectWs(){
+ 		
+ 		sock = new SockJS("<c:url value="/echo"/>");
+ 		
+ 		
+	  	sock.onopen = function() {
+	          console.log('info: connection opened.');
+	
+	          
+	      	$('form#frm').on('submit', function () {
+		  	  	 
+		 		event.preventDefault();
+
+		  	  	let memberId = '${reportBoardVO.memberId}';
+		  	  	
+				let obj = $(this).serializeObject();
+				let strJson = JSON.stringify(obj);
+				document.getElementById("commentContent").value='';
+
+				console.log('obj',obj);
+		  	  	sock.send('reply,' + obj.memberId + ',' + memberId + ',' + memberId + ',reply');
+				// ajax 함수 호출
+				$.ajax({
+					url: '/api/findReportCommentWrite.json',
+					method: 'POST',
+					data: strJson,
+					contentType: 'application/json; charset=UTF-8',
+					success: function (data) {
+						showData(data);
+			
+					},
+					error: function (request, status, error) {
+						alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
+					}
+				});
+	      	});
+	          
+		   sock.onmessage = function(event) {
+			   	console.log("ReceivMessage : " + event.data + "\n");
+			 	var data = event.data;
+		
+		   };
+		
+		   sock.onclose = function() {
+		     	console.log('connect close');
+		     	/* setTimeout(function(){conntectWs();} , 1000); */
+		   };
+		
+		   sock.onerror = function (err) {
+			   console.log('Errors : ' , err);
+		   };
+	  	}
+	}
+	
+/*  	$('form#frm').on('submit', function () {
 		event.preventDefault();
 		
 		let obj = $(this).serializeObject();
 		let strJson = JSON.stringify(obj);
 		document.getElementById("commentContent").value='';
-		
-		
+	
 		// ajax 함수 호출
 		$.ajax({
 			url: '/api/findReportCommentWrite.json',
@@ -332,13 +383,14 @@
 			contentType: 'application/json; charset=UTF-8',
 			success: function (data) {
 				showData(data);
-
+	
 			},
 			error: function (request, status, error) {
 				alert('code: ' + request.status + '\n message: ' + request.responseText + '\n error: ' + error);
 			}
 		});
-	});
+	}); 
+ */
 	
 	
 	function allSelect(reportId) {		
@@ -723,7 +775,6 @@
 				});
 			}
 		
-
 	
   </script>
   

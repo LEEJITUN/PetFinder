@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,68 +9,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
-    
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
 
     <!-- Google Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" >
 
+   <%--  include head.jsp --%>
+   <jsp:include page="/WEB-INF/views/include/head.jsp" />
 
-    
-<style>
-    .login-container{
-        margin-top: 10%;
-        margin-bottom: 5%;
-    }
-    
-    .login-form-2{
-        padding: 8%;
-        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    }
-    .login-form-2 p{
-        font-family: 'Noto Sans KR', sans-serif;
-        font-size: 50px;
-        text-align: center;
-        color: #333;
-    }
-    .login-container form{
-        padding: 5%;
-    }
-    .btnSubmit
-    {
-        width: 40%;
-        border-radius: 1rem;
-        padding: 1.5%;
-        border: none;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-    
-    .login-form-2 .btnLogin{
-        font-weight: 600;
-        color: white;
-        background-color:rgb(46, 204, 113);
-        margin-right: 40px;
-        margin-left: 20px;
-    }
-
-    .login-form-2 .btnJoin{
-        font-weight: 600;
-        color: white;
-        background-color:rgb(251, 215, 71);
-    }
-    .login-form-2 .ForgetPwd{
-        color: rgb(46, 204, 113);
-        font-weight: 600;
-        text-decoration: none;
-    }
-    </style>
+   
 </head>
 <body>
     <div class="container login-container">
@@ -104,6 +55,27 @@
             </div>
         </div>
     </div>
+
+  <!-- JavaScript -->
+  <script src="/resources/js/jquery-3.6.0.js"></script>
+  <script src="/resources/js/bootstrap.js"></script>
+
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <jsp:include page="/WEB-INF/views/include/socket.jsp" />
+	
+	<script>
+
+ 	$(document).ready(function(){
+		  	console.log('1111111');
+		  	 sock.send('reply,cini1,cini2,zyfqn5x1,reply');
+	});
+ 	
+
+	</script>
+	
 </body>
 </html>
 

@@ -302,7 +302,7 @@
    <!-- include -->
    <jsp:include page="/WEB-INF/views/include/footer.jsp" />
    <jsp:include page="/WEB-INF/views/include/function.jsp" />
-   
+
 
   <!-- JavaScript -->
   <script src="/resources/js/jquery-3.6.0.js"></script>
@@ -311,13 +311,18 @@
   
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="/resources/js/locationAPI.js"></script>
-
+  
   <script>
+
     $(document).ready(function(){
+    	connectWs();
     	selectLocationBox('SIDO',null,null); // 시도코드 	
     	selectBox('KIND',null);
 	});
+    
+    $('.carouselExampleIndicators2').carousel({
+    	interval: 1500
+    }); 
     
 	$("#SIDO").on('change', function () {
 	    selectLocationBox('SIGUN',$("#SIDO").val(),null); 
@@ -327,11 +332,33 @@
 		selectLocationBox('BNAME',$("#SIDO").val(),$("#SIGUN").val());
 	});
     
-    $('.carouselExampleIndicators2').carousel({
-    	interval: 1500
-    });
-
-    
+ 	function connectWs(){
+ 		
+ 		sock = new SockJS("<c:url value="/echo"/>");
+ 		
+ 		
+	  	sock.onopen = function() {
+	          console.log('info: connection opened.');
+	          sock.send('reply,cini1,cini2,cini2,reply');
+	
+		   sock.onmessage = function(event) {
+			   	console.log("ReceivMessage : " + event.data + "\n");
+			 	var data = event.data;
+		
+		   };
+		
+		   sock.onclose = function() {
+		     	console.log('connect close');
+		     	/* setTimeout(function(){conntectWs();} , 1000); */
+		   };
+		
+		   sock.onerror = function (err) {
+			   console.log('Errors : ' , err);
+		   };
+	   }
+ 	}
+	
   </script>
+  
 </body>
 </html>

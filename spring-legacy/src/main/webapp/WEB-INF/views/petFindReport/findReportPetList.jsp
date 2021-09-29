@@ -240,6 +240,7 @@
 			selectBox('SIZE',null);
 			selectBox('COLOR',null);
 			selectBox('COATlENGTH',null);
+			connectWs();
 		});
 		
 	
@@ -249,7 +250,11 @@
 		$("#SIGUN").on('change', function () {
 			selectLocationBox('BNAME',$("#SIDO").val(),$("#SIGUN").val()); // 동
 		});
+		
+	 	
 
 	</script>
+	
+	 <jsp:include page="/WEB-INF/views/include/socket.jsp" />
 </body>
 </html>

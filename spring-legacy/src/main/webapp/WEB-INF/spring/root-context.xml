@@ -57,7 +57,5 @@
 	<!-- @Scheduled 애노테이션 기능 활성화 -->
 	<task:annotation-driven/>
 	
-	
-	
-	
+
 </beans>

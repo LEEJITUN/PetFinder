@@ -113,11 +113,7 @@
                 <tr>
                 <th scope="col" class="text-center pb-4">날짜</th>
                   <td>
-                    <div class="form-row form-control-sm mb-3">
-                      <div class="col">
                       ${reportBoardVO.petVO.lostPetDate}
-                      </div>
-                    </div>
                   </td>
                 </tr>
                 <tr>
