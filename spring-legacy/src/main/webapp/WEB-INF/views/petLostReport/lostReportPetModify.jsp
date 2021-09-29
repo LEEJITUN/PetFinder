@@ -28,7 +28,7 @@
         <ul class="nav flex-column nav-pills">
           <li class="nav-item">
             <a class="nav-link active btn-lg text-white text-center Board-font" href="#"
-              style="background-color: rgb(46, 204, 113); color: black;">
+              style="background-color: rgb(251, 215, 71); color: black;">
               <h3>반려동물 신고</h3>
             </a>
           </li>
@@ -48,10 +48,10 @@
       <div class="col-sm-9">
 
         <!-- Contents area -->
-        <div class="border border-success p-4 rounded">
+        <div class="border border-warning p-4 rounded">
           <div class="row">
             <div class="col-sm-6 ">
-              <h3 style="font-family: 'Noto Sans KR', sans-serif;">유기동물 발견 신고 글쓰기</h3>
+              <h3 style="font-family: 'Noto Sans KR', sans-serif;">반려동물 분실 신고 글쓰기</h3>
             </div>
           </div>
           <hr class="featurette-divider">
@@ -84,7 +84,7 @@
                       <div class="col-md-6 ">
                         <div>
                         <input class="d-block w-100" type = "text" id ="address" name = "address"  
-                        value = "${reportBoardVO.petVO.address}" required/>
+                        value = "${reportBoardVO.petVO.address}" disabled/>
                         <input type = "hidden" name = "sido" id ="sido" value = "${reportBoardVO.petVO.sido}" />
                         <input type = "hidden" name = "sigungu" id ="sigungu" value = "${reportBoardVO.petVO.sigungu}"/>
                         <input type = "hidden" name = "bname" id ="bname" value = "${reportBoardVO.petVO.bname}"/>
@@ -233,7 +233,7 @@
             </table>
 
             <div class="my-4 text-center">
-              <button type="submit" class="btn btn-success">
+              <button type="submit" class="btn btn-warning">
                 <i class="material-icons align-middle">create</i>
                 <span class="align-middle">수정</span>
               </button>

@@ -76,12 +76,13 @@
                     <div class="row">
                       <div class="col-md-6 ">
                         <div>
-                        <input class="d-block w-100" type = "text" id ="address" name = "address" required/>
+                        <input class="d-block w-100" type = "text" id ="address" name = "address" disabled/>
                         <input type = "hidden" name = "sido" id ="sido" />
                         <input type = "hidden" name = "sigungu" id ="sigungu"/>
                         <input type = "hidden" name = "bname" id ="bname"/>
                         </div>
                       </div>
+                   
                     <div class="col-md-6 ">
                         <div>
                         <button type = "button" onclick = "daumPostcode()" > 주소 찾기 </button>
@@ -111,6 +112,7 @@
                           </select>
                         </div>
                       </div>
+                    
                       <div class="col-md-6 ">
                         <div>
 	                        <select class="form-control" id="petDetailKind" name="petDetailKind" >

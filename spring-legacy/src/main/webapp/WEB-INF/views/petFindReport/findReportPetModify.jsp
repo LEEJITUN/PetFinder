@@ -76,7 +76,7 @@
                       <div class="col-md-6 ">
                         <div>
                         <input class="d-block w-100" type = "text" id ="address" name = "address"  
-                        value = "${reportBoardVO.petVO.address}" required/>
+                        value = "${reportBoardVO.petVO.address}" disabled/>
                         <input type = "hidden" name = "sido" id ="sido" value = "${reportBoardVO.petVO.sido}" />
                         <input type = "hidden" name = "sigungu" id ="sigungu" value = "${reportBoardVO.petVO.sigungu}"/>
                         <input type = "hidden" name = "bname" id ="bname" value = "${reportBoardVO.petVO.bname}"/>
