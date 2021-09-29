@@ -129,18 +129,15 @@
 	              <div class="text-center">
        				<button type="submit" class="btn btn-lg text-white" style="background-color: rgb(46, 204, 113); border-color: rgb(46, 204, 113);">&emsp; 찾기&emsp;</button>
                   </div>   
-                     
 	         </div>	  
                 
           
 		</form>
  	</div>
     <!-- end of Select Box -->
-
         
     <br><br><br>
 
-        
  <!--      접기버튼 
          <div id="wrap"  style="display:none; position:relative; width: 10%; height: 30%; ">
             <img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
@@ -162,9 +159,15 @@
 	              		    <c:set var="fileCallPath" value="${ attach.uploadpath }/s_${ attach.uuid }_${ attach.filename }" />
 						    
 						    <div class="carousel-item <c:if test = "${status.index eq 0}" >active </c:if> text-center">
-		           					<a href="">
-		           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
-		           					</a>
+						    		<c:if test = "${ attach.filetype eq 'F' }">
+			           					<a href="/petFindReport/findReportPetContent?reportId=${ attach.reportId }">
+		           					</c:if>
+		           					<c:if test = "${ attach.filetype eq 'L' }">
+			           					<a href="/petLostReport/lostReportPetContent?reportId=${ attach.reportId }">
+		           					</c:if>
+			           						<img class="d-block w-100" src="/display?fileName=${ fileCallPath }" class="img-thumbnail" style="height: 400px; width: 250PX;" >
+			           					</a>
+			           				
 						    </div>
 						</c:forEach>
 					</c:when>
@@ -183,7 +186,7 @@
                       
 					</c:otherwise>
 				</c:choose>
-                 
+       
                       
                       <!-- move button -->
                       <a class="carousel-control-prev justify-content-center" href="#carouselExampleIndicators" role="button" data-slide="prev" style="padding-top: 57%;">

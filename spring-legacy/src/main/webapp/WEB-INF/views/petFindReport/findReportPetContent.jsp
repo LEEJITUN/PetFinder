@@ -694,9 +694,11 @@
 								&& data.goodOrNot == '0') {
 								$("#goodBtn").attr("disabled", false);
 								$('#notGood').replaceWith('<i class="material-icons align-middle" id = "notGood">thumb_down_off_alt</i>');
-
 							}
-
+						
+							$('span#good').replaceWith('<span class="align-middle" id="good">추천(' + data.good + ')</span>');
+							$('span#notGood').replaceWith('<span class="align-middle" id="notGood">비추천(' + data.notGood  + ')</span>');
+							
 						},
 						error : function(request, status, error) {
 							alert('code: ' + request.status + '\n message: '

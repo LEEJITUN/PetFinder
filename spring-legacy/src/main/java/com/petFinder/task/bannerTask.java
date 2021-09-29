@@ -15,7 +15,7 @@ public class bannerTask {
 	@Autowired
 	private BannerService bannerService;
 	
-	@Scheduled(cron = "0 0 12 * * *")  // 1분마다 (cron = "0 * * * * *")
+	@Scheduled(cron = "0 * * * * *")  // 1분마다 (cron = "0 * * * * *") 0 0 12 * * *
 	public void checkbanner() throws Exception {
 		System.out.println("====================================");
 		System.out.println("checkbanner() task run.......");
@@ -35,8 +35,6 @@ public class bannerTask {
 		
 			
 		}
-		
-		
 		
 	} // checkbanner
 	
