@@ -320,9 +320,7 @@
     	selectBox('KIND',null);
 	});
     
-    $('.carouselExampleIndicators2').carousel({
-    	interval: 1500
-    }); 
+
     
 	$("#SIDO").on('change', function () {
 	    selectLocationBox('SIGUN',$("#SIDO").val(),null); 
@@ -357,6 +355,10 @@
 		   };
 	   }
  	}
+ 	
+    $('.carouselExampleIndicators2').carousel({
+    	interval: 1500
+    }); 
 	
   </script>
   
