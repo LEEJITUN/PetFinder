@@ -39,8 +39,10 @@ public class Criteria {
 	// 반려동물 분실,  법정동
 	private String  bname;
 	
-	// 잃어버린 날짜 
-	private String inputDate;
+	// 검색 시작 날짜 
+	private String startDate;
+	// 검색 끝 날짜 
+	private String endDate;
 	
 	public Criteria () {
 		this(1, 12); // 기본값은 1페이지 요천, 한페이지당 글 10개씩 가져옴

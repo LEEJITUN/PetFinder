@@ -42,17 +42,20 @@
                     </div>                  
                     
                     <div class="col-md-4 mb-3">
-                    <label for="size">날짜</label>
-                    <div>
-                        <input  class="form-control" type="date" id="inputDate" name = "inputDate" placeholder=".input-sm">
+                    	<label for="size">시작 날짜</label>
+	                    <div>
+	                        <input  class="form-control" type="date" id="startDate" name = "startDate" placeholder=".input-sm">
+	                    </div>
                     </div>
-                    </div>
+                    
                     <div class="col-md-4 mb-3">
-                    <label for="size"></label>
-                    <div>
-                       
+                    	<label for="size">끝 날짜</label>
+                    	<div>
+                        	<input  class="form-control" type="date" id="endDate" name = "endDate" placeholder=".input-sm">
+                    	</div>
                     </div>
-                    </div>
+                    
+                    
                     <div class="col-md-4 mb-3">
                     <label for="size"></label>
                     <div>
