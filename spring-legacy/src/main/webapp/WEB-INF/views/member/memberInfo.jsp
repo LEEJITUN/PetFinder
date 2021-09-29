@@ -96,10 +96,7 @@
                             <th>알림수신</th>
                             <td>${ memberVo.memberNotice }</td>
                         </tr>    
-                        <tr>
-                            <th>등록번호</th>
-                            <td>${ memberVo.petVO.petRegisterNumber }</td>
-                        </tr>                                                                    
+                          <br>                                         
                     </tbody>
                   </table>
                   <br>
