@@ -6,6 +6,10 @@
 <head>
    <%--  include head.jsp --%>
    <jsp:include page="/WEB-INF/views/include/head.jsp" />
+   
+   <style>
+     	input[type="text"]:disabled { background: white; }
+   </style>   
 </head>
 
 <body>

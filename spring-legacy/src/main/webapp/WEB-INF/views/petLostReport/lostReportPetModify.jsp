@@ -8,8 +8,10 @@
 <head>
    <%--  include head.jsp --%>
    <jsp:include page="/WEB-INF/views/include/head.jsp" />
-
-
+   
+   <style>
+     	input[type="text"]:disabled { background: white; }
+   </style>
 </head>
 
 <body>
@@ -83,8 +85,8 @@
                     <div class="row">
                       <div class="col-md-6 ">
                         <div>
-                        <input class="d-block w-100" type = "text" id ="address" name = "address"  
-                        value = "${reportBoardVO.petVO.address}" disabled/>
+                        <input class="d-block w-100" type = "text" id ="Exaddress" disabled/>
+                        <input type = "hidden" name = "address" id ="address"/>
                         <input type = "hidden" name = "sido" id ="sido" value = "${reportBoardVO.petVO.sido}" />
                         <input type = "hidden" name = "sigungu" id ="sigungu" value = "${reportBoardVO.petVO.sigungu}"/>
                         <input type = "hidden" name = "bname" id ="bname" value = "${reportBoardVO.petVO.bname}"/>
