@@ -212,6 +212,7 @@
 		</if>
 
 		) TM
+			GROUP BY REPORT_ID
 			ORDER BY PET_FIND_DATE DESC, PET_LOST_DATE DESC
 			LIMIT #{startRow}, #{amount}
 	</select>

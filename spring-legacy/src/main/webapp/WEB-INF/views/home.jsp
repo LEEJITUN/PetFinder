@@ -252,10 +252,10 @@
               <div id="carouselExampleIndicators2" class="carousel slide text-center" data-ride="carousel" style="width: 60%; margin-left: 25%; margin-top: 7%; margin-bottom: 5%; ">
                   <div class="carousel-inner" style="padding-bottom: 12%; ">
                     <div class="carousel-item active">
-                      <img src="/resources/images/main2_slide.PNG" class="d-block w-100 carousel-size" alt="...">
+                      <img src="/resources/images/KakaoTalk_20210929_210658672_01.png" class="d-block w-100 carousel-size" alt="...">
                     </div>
                     <div class="carousel-item">
-                      <img src="/resources/images/main2_slide.PNG" class="d-block w-100 carousel-size" alt="...">
+                      <img src="/resources/images/KakaoTalk_20210929_210658672_02.png" class="d-block w-100 carousel-size" alt="...">
                     </div>
                     <div class="carousel-item">
                       <img src="/resources/images/main2_slide.PNG" class="d-block w-100 carousel-size" alt="...">
