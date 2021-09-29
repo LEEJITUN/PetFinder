@@ -49,6 +49,9 @@ public interface PetFindMapper {
 
 	/* SELECT - 해당 글 카운트*/
 	int selectTotalCountBySearch(Criteria cri);
+	
+	/* SELECT - 해당 게시물 조회 (수정시 코드) */
+	ReportBoardVO selectModifyFindReport(String reportId);
 
 
 }

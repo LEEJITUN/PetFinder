@@ -77,8 +77,8 @@
                     <div class="row">
                       <div class="col-md-6 ">
                         <div>
-                        <input class="d-block w-100" type = "text" id ="Exaddress" disabled/>
-                        <input type = "hidden" name = "address" id ="address"/>
+                        <input class="d-block w-100" type = "text" id ="Exaddress" value = "${reportBoardVO.petVO.address}" disabled/>
+                        <input type = "hidden" name = "address" id ="address" value = "${reportBoardVO.petVO.address}"/>
                         <input type = "hidden" name = "sido" id ="sido" value = "${reportBoardVO.petVO.sido}" />
                         <input type = "hidden" name = "sigungu" id ="sigungu" value = "${reportBoardVO.petVO.sigungu}"/>
                         <input type = "hidden" name = "bname" id ="bname" value = "${reportBoardVO.petVO.bname}"/>
@@ -260,6 +260,13 @@
 	<script src="/resources/js/bootstrap.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+	
+		$(document).ready(function(){
+			selectBox('${ reportBoardVO.petVO.petKind }','${ reportBoardVO.petVO.petDetailKind }');
+			clickPetsYesOrNo();
+		});
+	
+	
 		const MAX_FILE_COUNT = 5;
 		let fileCount = ${ fn:length(attachList) };  // 화면에 보이는 file 입력상자 개수
 		

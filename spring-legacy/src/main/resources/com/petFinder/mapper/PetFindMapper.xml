@@ -251,6 +251,41 @@
 		]]>	
 	</select>
 	
+	<select id="selectModifyFindReport" resultMap="ReportBoardVO">
+		<![CDATA[
+			SELECT 
+				TP.REPORT_ID, 
+				TP.MEMBER_ID, 
+				TP.SIDO,
+				TP.SIGUNGU,
+				TP.BNAME,
+				TP.ADDRESS,
+                TP.PET_KIND,
+				TP.PET_DETAIL_KIND,
+				TP.PET_GENDER,
+				TP.PET_SIZE,
+				TP.PET_COLOR,
+				TP.PET_COATlENGTH,
+				TP.PET_CHARACTER, 
+				DATE_FORMAT(TP.PET_FIND_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
+				TB.BOARD_NUM, 
+				TB.BOARD_REPORT_TYPE,
+				TB.MEMBER_NICKNAME,
+				TB.BOARD_REPORT_TITLE,
+				TB.BOARD_REPORT_READ_COUNT,
+				TB.BOARD_REPORT_REPT_COUNT,
+				TB.BOARD_REPORT_GOOD,
+				TB.BOARD_REPORT_NOT_GOOD,
+				TB.BOARD_REPORT_REG_DATE
+			FROM 
+				BOARD_REPORT TB
+			LEFT OUTER JOIN 
+				PET_FIND_REPORT TP
+			ON TB.REPORT_ID = TP.REPORT_ID
+			WHERE TP.REPORT_ID = #{reportId}
+		]]>	
+	</select>
+	
 	<select id="selectTotalCountBySearch" resultType="int">
 		<![CDATA[
 		

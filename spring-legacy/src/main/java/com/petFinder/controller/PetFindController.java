@@ -132,7 +132,7 @@ public class PetFindController {
 	@GetMapping("/findReportPetModify")
 	public String findReportPetModify(String reportId,Model model) {
 		
-		ReportBoardVO  reportBoardVO = petFindService.selectFindReport(reportId,"F");
+		ReportBoardVO  reportBoardVO = petFindService.selectModifyFindReport(reportId,"F");
 		
 		model.addAttribute("reportBoardVO", reportBoardVO);
 		model.addAttribute("attachList", reportBoardVO.getPetVO().getAttachList());

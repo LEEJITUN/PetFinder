@@ -119,6 +119,21 @@ public class PetFindService {
 		return reportBoardVO;
 	}
 
+	// 해당 신고 게시물 조회 (수정 시)
+	public ReportBoardVO selectModifyFindReport(String reportId, String boardReportType) {
+		
+		ReportBoardVO reportBoardVO = new ReportBoardVO();
+		
+		if(boardReportType.equals("F")) {			
+			 reportBoardVO = petFindMapper.selectModifyFindReport(reportId);
+		}else {
+			 reportBoardVO = petLostMapper.selectModifyLostReport(reportId);
+		}
+		
+		return reportBoardVO;
+	}
+	
+	
 	// 해당 신고 게시물 삭제
 	public void deleteFindReport(String reportId,String boardReportType) {
 	
@@ -186,6 +201,8 @@ public class PetFindService {
 	public int selectTotalCountBySearch(Criteria cri) {
 		return petFindMapper.selectTotalCountBySearch(cri);
 	}
+
+
 
 	
 }

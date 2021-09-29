@@ -30,4 +30,7 @@ public interface PetLostMapper {
 	/* SELECT - 해당 분실 신고 전체 조회 */
 	ReportBoardVO selectLostReport(String reportId);
 
+	/* SELECT - 분실 신고 조회 (수정시) */
+	ReportBoardVO selectModifyLostReport(String reportId);
+
 }
