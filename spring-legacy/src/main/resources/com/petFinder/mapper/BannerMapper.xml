@@ -70,6 +70,7 @@
 		</foreach>
 	</insert>
 	
+	
  	<!-- 게시글 삭제하기 -->
 	<delete id="deleteBanner">
 		<![CDATA[
