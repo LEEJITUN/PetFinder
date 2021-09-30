@@ -121,7 +121,7 @@ public class PetFindService {
 
 	// 해당 신고 게시물 조회 (수정 시)
 	public ReportBoardVO selectModifyFindReport(String reportId, String boardReportType) {
-		
+		List<AttachVO> attachList =  reportAttachMapper.selectByIdReportAttach(reportId);
 		ReportBoardVO reportBoardVO = new ReportBoardVO();
 		
 		if(boardReportType.equals("F")) {			
@@ -130,6 +130,8 @@ public class PetFindService {
 			 reportBoardVO = petLostMapper.selectModifyLostReport(reportId);
 		}
 		
+		// 파일 데이터 셋팅
+		reportBoardVO.getPetVO().setAttachList(attachList);
 		return reportBoardVO;
 	}
 	
@@ -178,7 +180,7 @@ public class PetFindService {
 			attachFile.deleteAttachFiles(delAttachList); // 첨부파일(썸네일도 삭제) 삭제하기
 			
 			// 파일 삭제
-			reportAttachMapper.deleteFindReport(delAttachList.get(0).getReportId());
+			reportAttachMapper.deleteModifyFindReport(delUuidList);
 		}
 	
 		/************************** 해당 파일들 수정(insert) ****************************/	

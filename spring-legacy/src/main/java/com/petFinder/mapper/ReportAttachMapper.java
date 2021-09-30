@@ -23,6 +23,9 @@ public interface ReportAttachMapper {
 	
 	/* DELETE - 해당 신고 파일 삭제 */
 	void deleteFindReport(String reportId);
+	
+	/* DELETE - 해당 신고 파일 수정 삭제  */
+	void deleteModifyFindReport(List<String> attachVO);
 
 	/* UPDATE - 해당 신고 파일 수정 */
 	void updateFindReport(List<AttachVO> attachList);

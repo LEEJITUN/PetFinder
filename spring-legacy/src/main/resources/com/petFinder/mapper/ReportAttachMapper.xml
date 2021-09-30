@@ -84,4 +84,16 @@
 		]]>
 	</delete>
 	
+	<delete id="deleteModifyFindReport">
+		<![CDATA[
+			DELETE 
+			FROM ATTACH_REPORT 
+			WHERE ATTACH_UUID IN 
+		]]>
+		<foreach collection="list" item="uuid" open="(" separator="," close=")">
+			#{uuid}
+		</foreach>
+	</delete>
+
+	
 </mapper>

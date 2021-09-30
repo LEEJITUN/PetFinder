@@ -213,9 +213,6 @@
 				  <div><span>첨부 파일</span></div>
 					  <!-- 기존 첨부파일 영역. 삭제할 파일정보 표현 용도 -->
 					  <div id="oldFileBox">
-					  
-					  <!-- .delete-oldfile 삭제버튼 클릭 시 hidden input 요소의 name 속성을 oldfile → delfile 로 수정함 -->
-					  <!-- 서버에서는 oldfile은 찾지않고 delfile만 찾아서 파일 삭제처리 -->
 					  <c:forEach var="attach" items="${ attachList }">
 					  	<input type="hidden" name="oldfile" value="${ attach.uuid }">
 					  	<div>
