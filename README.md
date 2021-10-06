@@ -11,9 +11,6 @@
 
 ![image](https://user-images.githubusercontent.com/29085414/136134771-27487a9d-6e08-4abe-a6ca-b154201e5c01.png)
 
-
-
-
 ### 2. 회원가입
 > 회원정보 입력 후 가입 가능. ( 반려동물이 없는 경우 없음 표시함)
 
@@ -27,3 +24,8 @@
 > My 프로필, 내정보 수정, 비밀번호 변경, 탈퇴하기의 기능 
 
 ![image](https://user-images.githubusercontent.com/29085414/136134440-449d7823-f8dd-4316-9e73-78c3852e5032.png)
+
+### 5. 반려동물 찾기
+> 상세 검색 (장소,날짜,동물 종류,품종, 성별,사이즈,색,털길이)로 조회
+
+![image](https://user-images.githubusercontent.com/29085414/136135515-e27c1c41-849f-4e9d-b79a-239e3ee04f2e.png)
