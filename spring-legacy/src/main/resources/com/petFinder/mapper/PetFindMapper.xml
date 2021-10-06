@@ -215,8 +215,11 @@
 		<if test='startDate != null and  startDate != "" and (endDate == null or  endDate == "")'>
 			AND DATE(PET_LOST_DATE) =  #{startDate}
 		</if>
-
 		) TM
+			WHERE 1=1
+			<if test='inlineRadioOptions != null and  inlineRadioOptions != "" '>
+				AND TM.BOARD_REPORT_TYPE = #{inlineRadioOptions}
+			</if>
 			GROUP BY REPORT_ID
 			ORDER BY PET_FIND_DATE DESC, PET_LOST_DATE DESC
 			LIMIT #{startRow}, #{amount}
@@ -371,6 +374,9 @@
 		</if>
 		<if test='startDate != null and  startDate != "" and (endDate == null or  endDate == "")'>
 			AND DATE(PET_LOST_DATE) =  #{startDate}
+		</if>
+		<if test='inlineRadioOptions != null and  inlineRadioOptions != "" '>
+			AND BOARD_REPORT_TYPE = #{inlineRadioOptions}
 		</if>
 	</where>
 			 

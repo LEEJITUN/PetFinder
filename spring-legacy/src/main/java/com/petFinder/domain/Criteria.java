@@ -44,6 +44,9 @@ public class Criteria {
 	// 검색 끝 날짜 
 	private String endDate;
 	
+	// 체크박스 
+	private String inlineRadioOptions;
+	
 	public Criteria () {
 		this(1, 12); // 기본값은 1페이지 요천, 한페이지당 글 10개씩 가져옴
 	}
