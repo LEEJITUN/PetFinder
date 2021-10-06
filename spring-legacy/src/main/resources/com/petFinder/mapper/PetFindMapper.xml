@@ -334,6 +334,8 @@
 					DATE_FORMAT(PET_LOST_DATE, '%Y-%m-%d') AS PET_FIND_DATE,
 					DATE_FORMAT(PET_LOST_DATE, '%Y-%m-%d') AS PET_LOST_DATE
 			FROM PET_LOST_REPORT) TM
+			LEFT OUTER JOIN BOARD_REPORT TR
+            ON TM.REPORT_ID = TR.REPORT_ID
 		]]>
 	<where>		
 		<if test="petKind != null">
