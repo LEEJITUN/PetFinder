@@ -301,6 +301,7 @@
 		SELECT COUNT(*)
         FROM
 	        (SELECT 
+	        		REPORT_ID,
 					SIDO,
 					SIGUNGU,
 					BNAME,
@@ -319,7 +320,7 @@
 	        UNION ALL 
 	        
 	        SELECT
-	
+					REPORT_ID,
 					SIDO,
 					SIGUNGU,
 					BNAME,

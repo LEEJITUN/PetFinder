@@ -19,13 +19,13 @@
 			<div class="container"
 				style="background-color: rgb(255, 239, 107); padding-top: 30px; padding-bottom: 30px;">
 				<div class="text-center">
-					<div class="custom-control custom-radio custom-control-inline">
-					  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="L" style="width:20px;height:20px;border:1px;">
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="L" style="width:20px;height:20px;border:1px;">
 					  <label class="form-check-label" for="inlineRadio1">분실</label>
 					</div>
-					<div class="custom-control custom-radio custom-control-inline">
-					  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="F" style="width:20px;height:20px;border:1px;">
-					  <label class="form-check-label" for="inlineRadio2">신고</label>
+					<div class="form-check form-check-inline">
+					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="F" style="width:20px;height:20px;border:1px;">
+					  <label class="form-check-label" for="inlineRadio2">발견</label>
 					</div>
 				</div>
 				<div class="row">
