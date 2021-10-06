@@ -29,3 +29,16 @@
 > 상세 검색 (장소,날짜,동물 종류,품종, 성별,사이즈,색,털길이)로 조회
 
 ![image](https://user-images.githubusercontent.com/29085414/136135515-e27c1c41-849f-4e9d-b79a-239e3ee04f2e.png)
+
+### 6. 반려동물 분실 or 유기동물 발견 신고 자세히 보기
+
+
+
+
+### 7. 반려동물 분실 or 유기동물 발견 신고
+> 여기 뭐적지?
+
+![image](https://user-images.githubusercontent.com/29085414/136135732-a498d7a5-b5f8-400c-84fe-4d17bab3c104.png)
+
+
+
