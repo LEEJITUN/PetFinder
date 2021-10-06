@@ -31,9 +31,9 @@
 ![image](https://user-images.githubusercontent.com/29085414/136135515-e27c1c41-849f-4e9d-b79a-239e3ee04f2e.png)
 
 ### 6. 반려동물 분실 or 유기동물 발견 신고 자세히 보기
+> 여기 뭐적지..?
 
-
-
+![image](https://user-images.githubusercontent.com/29085414/136136267-47a13c8a-3fb2-40f5-b906-e2bb5d8b4319.png)
 
 ### 7. 반려동물 분실 or 유기동물 발견 신고
 > 여기 뭐적지?
