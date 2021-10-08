@@ -103,8 +103,7 @@ public class MemberController {
    public String login() {
 	   return "member/login";
    }
-   
-   
+    
    /* POST - ·Î±×ÀÎ */
    @PostMapping("/login")
    public ResponseEntity<String> login(String memberId, String memberPassword, String rememberMe, HttpSession session, HttpServletResponse response) {
