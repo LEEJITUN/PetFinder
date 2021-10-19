@@ -2,7 +2,7 @@ package com.petFinder.controller;
 /**
  * @title   : 커뮤니티 게시판 Controller
  * @author  : HYEPIN
- * @date    : 2021.09.19
+ * @date    : 2021.10.19
  * @version : 1.4
  **/
 
